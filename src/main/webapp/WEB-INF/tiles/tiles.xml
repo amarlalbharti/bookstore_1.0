@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+
+    <definition name="indexTemplate" template="/WEB-INF/tilestemplate/jsp/indexTemplate.jsp">
+        <put-attribute name="body" value="" />
+    </definition> 
+    
+    <!-- <definition name="homeTemplate" template="/WEB-INF/tilestemplate/jsp/homeTemplate.jsp">
+    	<put-attribute name="header" value="/WEB-INF/view/jsp/headerHome.jsp" />
+    	<put-attribute name="leftmenu" value="/WEB-INF/view/jsp/leftmenu.jsp" />
+        <put-attribute name="body" value="" />
+    </definition> 
+     -->
+    
+    <definition name="index" extends="indexTemplate">
+        <put-attribute name="title" value="EMS -  Home" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/index.jsp" />
+    </definition>
+    <definition name="login" extends="indexTemplate">
+        <put-attribute name="title" value="EMS -  Login" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/login.jsp" />
+    </definition>
+    <definition name="error" extends="indexTemplate">
+        <put-attribute name="title" value="EMS - Error Page" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/error.jsp" />
+    </definition>
+    <definition name="forgotPassword" extends="indexTemplate">
+        <put-attribute name="title" value="EMS - Forgot Password" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/forgotPassword.jsp" />
+    </definition>
+    <definition name="resetPassword" extends="indexTemplate">
+        <put-attribute name="title" value="EMS - Reset Password" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/resetPassword.jsp" />
+    </definition>
+    
+    
+    
+</tiles-definitions>
