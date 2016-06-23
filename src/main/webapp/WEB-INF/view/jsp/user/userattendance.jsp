@@ -252,7 +252,7 @@
 											{
 												%>
 													<tr>
-													  <td colspan="3" align="center">No data in the data source.</td>
+													  <td colspan="5">No data in the data source.</td>
 													</tr>
 												<%
 											}

@@ -37,9 +37,16 @@ public class BankDetailDaoImpl implements BankDetailDao{
 	}
 
 	public boolean editBankDetails(BankDetail bankDetail) {
-		this.sessionFactory.getCurrentSession().update(bankDetail);
-		this.sessionFactory.getCurrentSession().flush();
-		return true;
+		try 
+		{
+			this.sessionFactory.getCurrentSession().update(bankDetail);
+			this.sessionFactory.getCurrentSession().flush();
+			return true;
+		} catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }

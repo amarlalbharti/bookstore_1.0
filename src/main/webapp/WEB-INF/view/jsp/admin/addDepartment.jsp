@@ -163,7 +163,7 @@
 			                <div class="form-group col-xs-12 col-md-9">
 			                  <label >Department Name</label><span class="text-danger">*</span>
 			                  
-			                  <form:input path="department" class="form-control"  placeholder="Enter department name" tabindex="1" maxlength="35"/>
+			                  <form:input path="department" class="form-control titleCase character_only"  placeholder="Enter department name" tabindex="1" maxlength="35"/>
 			                  <form:hidden path="departmentId"/>
 			                  <span class="text-danger"><form:errors path="department" /></span>
 			                  <div class="error-messages text-danger" style="display:none;"></div>
@@ -235,7 +235,7 @@ $(document.body).on("click", ".delete", function(){
 		var valid = true;
 		$('.has-error').removeClass("has-error");
 		$(".error-messages").text("").fadeIn();
-		if (department == "" || !isName(department)) {
+		if (department == "") {
 			$("#department").parent().addClass("has-error")
 			$(".error-messages").text("Please enter alphabets only").fadeIn();
 			valid = false;

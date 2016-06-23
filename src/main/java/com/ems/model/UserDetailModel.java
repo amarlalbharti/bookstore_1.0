@@ -36,8 +36,6 @@ public class UserDetailModel {
 	
 	private String emergencyNo;
 	
-	@NotEmpty(message="{NotEmpty.odForm.altEmailId}")
-	@Email(message="{Email.odForm.altEmailId}")
 	private String altEmailId;
 	
 	private String passportNo;

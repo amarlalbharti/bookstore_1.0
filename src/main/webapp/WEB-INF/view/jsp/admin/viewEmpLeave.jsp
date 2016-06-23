@@ -60,11 +60,29 @@
 			       					</h3>
 			       					<div class="box-tools pull-right">
 							         <ul class="pagination pagination-sm inline">
+							          <%    
+								            Calendar joinDate = Calendar.getInstance();
+											joinDate.setTime(empReg.getJoiningDate());
+											
+											Calendar sd = Calendar.getInstance();
+											sd.setTime(sdate);
+										  	
+									 	if(joinDate.get(Calendar.MONTH) >= sd.get(Calendar.MONTH) && joinDate.get(Calendar.YEAR) >= sd.get(Calendar.YEAR))
+									          {
+										%>
+									           <li class="disabled"><a href="#" ><i class="fa fa-fw fa-backward"></i></a></li>
+											<%
+										}
+							           	else
+							           	{
+											%>
 							         
-							         
-								      <li><a href="adminViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(pdate)%>"><i class="fa fa-fw fa-backward"></i></a></li>
-							      
-							           <li><a href="adminViewLeave"><i class="fa fa-fw fa-home"></i></a></li>
+								      <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(pdate)%>"><i class="fa fa-fw fa-backward"></i></a></li>
+							           <%
+							           	}
+							           %>
+							           
+							           <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>"><i class="fa fa-fw fa-home"></i></a></li>
 							           <%
 							           	if(ndate.after(new Date()))
 										{
@@ -75,7 +93,7 @@
 							           	else
 							           	{
 											%>
-									           <li><a href="adminViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(ndate)%>" ><i class="fa fa-fw fa-forward"></i></a></li>
+									           <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(ndate)%>" ><i class="fa fa-fw fa-forward"></i></a></li>
 											<%
 							           	}
 							           %>
@@ -87,13 +105,14 @@
 									<table class="table">
 										<thead>
 											<tr>
-											    <th>S.No.</th>
-												<th>Applied Date</th>
-												<th>Leave Type</th>
-												<th>From</th>
-												<th>To</th>
-												<th>Subject</th>
-												<th>Status</th>
+											    <th style="width: 10px;">S.No.</th>
+												<th style="width: 10px;">Applied Date</th>
+												<th style="width: 15px;">Leave Type</th>
+												<th style="width: 10px;">From</th>
+												<th style="width: 10px;">To</th>
+												<th style="width: 10px;">Status</th>
+												<th style="width: 35px;">Subject</th>
+												
 												
 											</tr>
 										</thead>
@@ -112,8 +131,9 @@
 															<td><%= ld.getLeaveType() %></td>
 															<td><%= DateFormats.ddMMMyyyy().format(ld.getFromDate()) %></td>
 															<td><%= DateFormats.ddMMMyyyy().format(ld.getToDate()) %></td>
-															<td><%= ld.getSubject() %></td>
 															<td><%= ld.getStatus() %></td>
+															<td><%= ld.getSubject() %></td>
+															
 											
 														</tr>
 													<%
@@ -123,7 +143,7 @@
 											{
 												%>
 													<tr>
-													<td></td><td colspan="3" align="center">No data in the data source.</td>
+													<td colspan="7">No data in the data source.</td>
 													</tr>
 												<%
 											}

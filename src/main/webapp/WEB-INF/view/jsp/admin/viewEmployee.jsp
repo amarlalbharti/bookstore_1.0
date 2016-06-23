@@ -177,18 +177,14 @@
 						              <li><a href="#tab_3"  data-toggle="tab">Account Details</a></li>
 						              <li><a href="#tab_4"  data-toggle="tab">Reset Password</a></li>
 						              <li class="pull-right">
-							              	
-						              </li>
-						              <li class="pull-right">
-						              	<div class="box-tools pull-right">
-							              	<a href="managerPrint?empid=<%= empReg.getUserid()%>" target="_blank" class="no-padding"><button class="btn btn-primary"><i class="fa fa-fw fa-print"></i> Print</button></a>
-							              	&nbsp;
-							              	<a href="managerFullReport?empid=<%= empReg.getUserid()%>"><button class="btn btn-primary btn-sm"><i class="fa fa-fw fa-print"></i> Full Report</button></a>
-						              	
-						              	</div>
-						              	</li>
-						              
-						              
+						              <div class="box-tools pull-right">
+			       						<div class="pull-right " style="padding-left: 20px;">
+							         		<a href="managerPrint?empid=<%= empReg.getUserid()%>" target="_blank"><button class="btn btn-primary btn-sm"><i class="fa fa-fw fa-print"></i>Print</button></a>
+							         		&nbsp;
+							         		<a href="managerFullReport?empid=<%= empReg.getUserid()%>"><button class="btn btn-primary btn-sm"><i class="fa fa-fw fa-print"></i> Full Report</button></a>
+							         	</div>
+							      	  </div>
+							     	  </li>
 						            </ul>
 						            <div class="tab-content">
 						              <div class="tab-pane active" id="tab_1">
@@ -217,6 +213,12 @@
 								                	 
 								                </div>
 								                <div class="form-group col-md-6 no-padding no-margin">
+								                	<div class="form-group col-md-12">
+									                  <label class="col-sm-4 control-label" style="text-align: left;">Employee Id</label>
+									                  <div class="col-sm-8">
+									                    <label class="form-control label-text"><%= empReg.geteId() %></label>
+									                  </div>
+									                </div>
 									                <div class="form-group col-md-12">
 									                  <label class="col-sm-4 control-label" style="text-align: left;">Name</label>
 									                  <div class="col-sm-8">
@@ -229,15 +231,15 @@
 									                    <label class="form-control label-text"><%= empReg.getUserid() %></label>
 									                  </div>
 									                </div>
-									                <div class="form-group col-md-12">
+								                </div>
+								                
+								                <div class="clearfix"></div>
+								                <div class="form-group col-md-6">
 									                  <label class="col-sm-4 control-label"  style="text-align: left;">Gender</label>
 									                  <div class="col-sm-8">
 									                    <label class="form-control label-text"><%= empReg.getGender()%></label>
 									                  </div>
 									                </div>
-								                </div>
-								                
-								                <div class="clearfix"></div>
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">DOB</label>
 								                  <div class="col-sm-8">
@@ -335,7 +337,7 @@
 							                			<div class="form-horizontal">
 											              <div class="box-body">
 											                <div class="form-group col-md-6">
-											                  <label class="col-sm-4 control-label" style="text-align: left;">Permanent Addr</label>
+											                  <label class="col-sm-4 control-label" style="text-align: left;">Permanent Addr.</label>
 											
 											                  <div class="col-sm-8">
 											                    <label class="form-control label-text"><%= ud.getParmanentAddress() %></label>

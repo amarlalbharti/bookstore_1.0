@@ -51,24 +51,42 @@
 						              <div class="tab-pane active" id="tab_1">
 						                	<form:form role="form" method="POST" action="managerEditEmployee" enctype="multipart/form-data" commandName="empForm" onsubmit="return validateForm()" autocomplete="off">
 								              <div class="box-body">
+								               <div class="form-group col-xs-12 col-md-6">
+								                  <label >Employee Id</label>
+								                  <label class="form-control" ><%= empReg.geteId() %></label>
+								                </div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Employee Name<span class="text-danger">*</span></label>
-								                  <form:input path="name" class="form-control" maxlength="50" placeholder="Enter employee name"/>
+								                  <form:input path="name" class="form-control titleCase" maxlength="50" placeholder="Enter employee name"/>
 								                  <form:hidden path="userid" />
 								                  <form:hidden path="userrole"/>
 								                  <span class="text-danger"><form:errors path="name" /></span>
 								                </div>
+								                <div class="clearfix"></div>
+								                <div class="form-group col-xs-12 col-md-6">
+								                  <label >Email Id</label>
+								                  <label class="form-control" ><%= empReg.getUserid() %></label>
+								                </div>
+								                <div class="form-group col-xs-12 col-md-6">
+								                  <label >User Role</label>
+								                  <form:select path="userrole" class="form-control" tabindex="5">
+								                  	<form:option value=''>Select User role</form:option>
+								                  	<form:option value='<%= Roles.ROLE_USER %>'><%= Roles.ROLE_USER %></form:option>
+								                  </form:select>
+								                  <span class="text-danger"><form:errors path="userrole" /></span>
+								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6 date" data-provide="datepicker">
 								                  <label >Date of Birth<span class="text-danger">*</span></label>
 								                  <form:input path="dob" class="form-control dob" placeholder="dd-MM-yyyy" />
 								                  <span class="text-danger"><form:errors path="dob" /></span>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Joining Date<span class="text-danger">*</span></label>
 								                  <form:input path="joiningDate" class="form-control" placeholder="dd-MM-yyyy" />
 								                  <span class="text-danger"><form:errors path="joiningDate" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <div class="col-lg-6  no-padding">
 									                  <label >Gender<span class="text-danger">*</span></label>
@@ -91,7 +109,6 @@
 									                  <!-- /input-group -->
 									                </div>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Department<span class="text-danger">*</span></label>
 								                  <form:select path="department.departmentId" id="department" class="form-control">
@@ -102,6 +119,7 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="department" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Designation<span class="text-danger">*</span></label>
 								                  
@@ -113,7 +131,6 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="designation" /></span>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Branch Country<span class="text-danger">*</span></label>
 								                  <form:select path="country.countryId" id="countryId" class="form-control">
@@ -124,6 +141,7 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="country.countryId" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Branch<span class="text-danger">*</span></label>
 								                  <form:select path="branch.branchId" id="branch" class="form-control">
@@ -131,6 +149,21 @@
 								                  		<c:forEach var="itam" items="${bList}">
 															<form:option value='${itam.branchId }'>${itam.branchName }</form:option>
 														</c:forEach>
+								                  </form:select>
+								                  <span class="text-danger"><form:errors path="branch" /></span>
+								                </div>
+								                <div class="form-group col-xs-12 col-md-6">
+								                  <label >Week Off<span class="text-danger">*</span></label>
+								                  <form:select path="weekOff" class="form-control">
+								                  		<form:option value='0'>---SELECT---</form:option>
+								                  		<form:option value='1'>SUNDAY</form:option>
+								                  		<form:option value='2'>MONDAY</form:option>
+								                  		<form:option value='3'>TUESDAY</form:option>
+								                  		<form:option value='4'>WEDNESDAY</form:option>
+								                  		<form:option value='5'>THURSDAY</form:option>
+								                  		<form:option value='6'>FRIDAY</form:option>
+								                  		<form:option value='7'>SATURDAY</form:option>
+								                  		
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="branch" /></span>
 								                </div>

@@ -6,6 +6,7 @@ import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -27,112 +28,67 @@ public class MailServiceImpl implements MailService
 	@Autowired private JavaMailSender mailSender;
 	
 	
-	public boolean sendMail(String to,String cc,String bcc, String subject, String content)
+	public boolean sendMail(String to,String cc,String bcc, String subject, String contant)
 	{
-		/*
-		try
-		{
-			
-			MimeMessage mimeMessage = mailSender.createMimeMessage();
-		    MimeMessageHelper message=new MimeMessageHelper(mimeMessage, true);
-		    message.setTo(InternetAddress.parse(to));
-		    if(cc != null && cc.trim().length() > 0)
-		    {
-		    	message.setCc(InternetAddress.parse(cc));
-		    }
-		    if(bcc != null && bcc.trim().length() > 0)
-		    {
-		    	message.setBcc(InternetAddress.parse(bcc));
-		    }
 
-		    	
-		    message.setSubject(subject);
-		    mimeMessage.setContent(content, "text/html");
-		    mailSender.send(mimeMessage);
-		}
-		catch(MessagingException me)
-		{
-			me.printStackTrace();
-		}
-		return false;
-		*/
-		return send_Mail(to, cc, bcc, subject, content);
-	}
-	
-	
-	public static boolean send_Mail(String to, String cc,String bcc,  String subject, String contant)
-	{
-		
 		System.out.println("=============================================================================");
 		
 		System.out.println("to : " + to + " , cc : " + cc +" bcc : " + bcc + " subject : " + subject + " , content : " + contant);
 		System.out.println("=============================================================================");
 		
-		
-		Properties props = System.getProperties();
-	    props.put("mail.smtp.starttls.enable", true); // added this line
-	    props.put("mail.smtp.host", "smtp.gmail.com");
-	    props.put("mail.smtp.user", "autoreply@vasonomics.com");
-	    props.put("mail.smtp.password", "A@v@sonom!cs");
-	    props.put("mail.smtp.port", "587");
-	    props.put("mail.smtp.auth", true);
+		final String user = "autoreply@vasonomics.com";
+        final String pass = "A@v@sonom!cs";
+        
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+//        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "25");
 
-	    
-	    Session session = Session.getInstance(props,null);
-	    MimeMessage message = new MimeMessage(session);
-//	    Date date = Data.dateFormat1.parse("09-06-2016");
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user, pass);
+                    }
+                });
 
-	    // Create the email addresses involved
-	    try 
-	    {
-	        InternetAddress from = new InternetAddress("autoreply@vasonomics.com");
-	        message.setSubject(subject);
-	        message.setFrom(from);
-	        message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-	        if(cc != null && cc.trim().length() > 0)
-		    {
-	        	message.addRecipients(Message.RecipientType.CC, InternetAddress.parse(cc)); 
-		    }
-		    if(bcc != null && bcc.trim().length() > 0)
-		    {
-		    	message.addRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc)); 
-		    }
-	        // Create a multi-part to combine the parts
-	        Multipart multipart = new MimeMultipart("alternative");
+        try 
+        {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(user));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("amarlalbharti@gmail.com"));
+           /* if(cc != null && cc.trim().length() > 0)
+            {
+            	message.addRecipient(Message.RecipientType.CC, new InternetAddress(cc));
+            }
+            if(bcc != null && bcc.trim().length() > 0)
+            {
+            	message.addRecipient(Message.RecipientType.BCC, new InternetAddress(bcc));
+            }*/
+//            message.setSubject(subject);
 
-	        // Create your text message part
-	        BodyPart messageBodyPart = new MimeBodyPart();
-	        
-	        
-	        messageBodyPart.setContent(contant, "text/html");
-	        multipart.addBodyPart(messageBodyPart);
+            message.setSubject("test subject ");
+            
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent("This is text context", "text/html");
 
-	        
-	        
-	        // Associate multi-part with message
-	        message.setContent(multipart);
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
 
-	        System.out.println("mail sending..............");
-	        Transport transport = session.getTransport("smtp");
-	        transport.connect("smtp.gmail.com", "autoreply@vasonomics.com", "A@v@sonom!cs");
-	        transport.sendMessage(message, message.getAllRecipients());
-	        System.out.println("mail send");
-	        return true;
 
-	    } catch (AddressException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-	    } catch (MessagingException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-	    }catch (Exception e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-	    }
-	    
-	    
-	    return false;
+            message.setContent(multipart);
+
+            Transport.send(message);
+            return true;
+        }
+        catch (MessagingException e) {
+             e.printStackTrace();
+            //throw new RuntimeException(e);  
+        }
+        return false;
+
 	}
+	
 	
 	
 }

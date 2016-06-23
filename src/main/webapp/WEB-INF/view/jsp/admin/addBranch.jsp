@@ -61,19 +61,19 @@
 			              <div class="box-body">
 			                <div class="form-group col-xs-12 col-md-6">
 			                  <label >Branch Name</label>
-			                  <form:input path="branchName" class="form-control"  placeholder="Enter branch name" tabindex="1" maxlength="50"/>
+			                  <form:input path="branchName" class="form-control titleCase character_only"  placeholder="Enter branch name" tabindex="1" maxlength="50"/>
 			                  <form:hidden path="branchId"/>
 			                  <span class="text-danger"><form:errors path="branchName" /></span>
 			                </div>
 			                <div class="form-group col-xs-12 col-md-6">
 			                  <label >Phone No.</label>
-			                  <form:input autocomplete="off" path="phoneNo" type="text" class="form-control " placeholder="Enter Phone No" tabindex="5"  maxlength="15" />
+			                  <form:input autocomplete="off" path="phoneNo" type="text" class="form-control number_only" placeholder="Enter Phone No" tabindex="5"  maxlength="10" />
 			                   <span class="text-danger"><form:errors path="phoneNo" /></span>
 			                </div>
 			                <div class="clearfix"></div>
 			                <div class="form-group col-xs-12 col-md-6">
 			                  <label >Address</label>
-			                  <form:input autocomplete="off" path="address" type="text" class="form-control" placeholder="Enter Address" tabindex="10"  maxlength="50" />
+			                  <form:input autocomplete="off" path="address" type="text" class="form-control titleCase" placeholder="Enter Address" tabindex="10"  maxlength="50" />
 			                   <span class="text-danger"><form:errors path="address" /></span>
 			                </div>
 			                <div class="form-group col-xs-12 col-md-6">

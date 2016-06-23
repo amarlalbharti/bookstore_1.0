@@ -16,9 +16,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.css">
   <!-- iCheck -->
@@ -47,8 +47,8 @@
           		%>
 			<div>
 			<center>
-			<img alt="" src="images/logo.gif">
-			<h1>Vasonomics</h1>
+			<img alt="Vasonomics" src="images/logo.gif">
+			<!-- <h1>Vasonomics</h1> -->
 			<p style="margin: 0px; padding: 0px;">India Pvt. Ltd.</p>
 			<p style="margin: 0px; padding: 0px;">Ph : +91 522 4028568</p>
 			<p style="margin-top: 0px; padding-top: 0px;">Email : info@vasonomics.com</p>
@@ -58,15 +58,15 @@
 			<b>Employee Name : </b><%=empReg.getName() %>
 			</div>
 			<hr/>
-			<table class="table table-hover" style="background-color: #FFF; width: 100%; height: auto;">
+			<table class="table" style="background-color: #FFF; width: 100%; height: auto;">
 				<thead>
 					
 				</thead>
 				<tbody>
 					<tr>
-						<td class="wd">Employee Name</td>
-						<td>:</td>
-						<td><%=empReg.getName() %></td>
+						<td class="wd"></td>
+						<td></td>
+						<td></td>
 						<td rowspan="5" align="center">
 							<%	
 								if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
@@ -101,17 +101,64 @@
 						<td>:</td>
 						<td colspan="2"><%= empReg.getGender() %></td>
 					</tr>
+					<%	
+						if( empReg.getDepartment().getDepartment() != null && ! empReg.getDepartment().getDepartment().isEmpty())
+	 					{
+			 						
+					%>
 					<tr>
 						<td class="wd">Department</td>
 						<td>:</td>
 						<td colspan="2"><%= empReg.getDepartment().getDepartment() %></td>
 					</tr>
-					<tr>
-						<td class="wd">Designation</td>
-						<td>:</td>
-						<td colspan="2"><%= empReg.getDesignation().getDesignation() %></td>
-					</tr>
+					<%
+	 					}
+					%>
+					<%	
+	 					
+						if( empReg.getDesignation().getDesignation() != null && ! empReg.getDesignation().getDesignation().isEmpty())
+	 					{
+			 						
+					%>
+						<tr>
+							<td class="wd">Designation</td>
+							<td>:</td>
+							<td colspan="2"><%= empReg.getDesignation().getDesignation() %></td>
+						</tr>
+					<%
 					
+			 			}
+					%>
+					<%	
+	 					
+						if( empReg.getBranch().getBranchName() != null && ! empReg.getBranch().getBranchName().isEmpty())
+	 					{
+			 						
+					%>
+						<tr>
+							<td class="wd">Branch</td>
+							<td>:</td>
+							<td colspan="2"><%= empReg.getBranch().getBranchName() %></td>
+						</tr>
+					<%
+					
+			 			}
+					%>
+					<%	
+	 					
+						if( empReg.getBranch().getCountry().getCountryName() != null && ! empReg.getBranch().getCountry().getCountryName().isEmpty())
+	 					{
+			 						
+					%>
+						<tr>
+							<td class="wd">Country</td>
+							<td>:</td>
+							<td colspan="2"><%= empReg.getBranch().getCountry().getCountryName() %></td>
+						</tr>
+					<%
+					
+			 			}
+					%>
 					<tr>
 						<td class="wd">Mobile Number</td>
 						<td>:</td>

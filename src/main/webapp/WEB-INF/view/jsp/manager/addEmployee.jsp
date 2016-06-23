@@ -51,55 +51,59 @@
 				              <div class="tab-pane active" id="tab_1">
 				                	<form:form role="form" method="POST" action="managerAddEmployee" commandName="regForm" enctype="multipart/form-data" onsubmit="return validateForm()" autocomplete="off">
 						              <div class="box-body">
+						              <div class="form-group col-xs-12 col-md-6">
+						                  <label >Employee Id<span class="text-danger">*</span></label>
+						                  <form:input path="eId" id="eId" class="form-control" maxlength="20" tabindex="1" title="EID Format : YYYY-IN-0000"  placeholder="Enter employee Id"/>
+						                  <span class="text-danger"><form:errors path="eId" /></span>
+						                </div>
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >Employee Name<span class="text-danger">*</span></label>
-						                  <form:input path="name" class="form-control" maxlength="50" tabindex="1"  placeholder="Enter employee name"/>
+						                  <form:input path="name" class="form-control titleCase" maxlength="50" tabindex="5"  placeholder="Enter employee name"/>
 						                  <span class="text-danger"><form:errors path="name" /></span>
 						                </div>
+						                <div class="clearfix"></div>
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >Email Id<span class="text-danger">*</span></label>
-						                  <form:input autocomplete="off" path="userid" maxlength="60" type="email" class="form-control" placeholder="Enter employee user id" />
+						                  <form:input autocomplete="off" path="userid" maxlength="60" type="email" tabindex="10" class="form-control" placeholder="Enter employee user id" />
 						                   <span class="text-danger">${uidex}<form:errors path="userid" /></span>
-						                  
 						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Password<span class="text-danger">*</span></label>
-						                  <form:password path="password" class="form-control" maxlength="30" placeholder="Enter password" />
-						                  <span class="text-danger"><form:errors path="password" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Re-Enter Password<span class="text-danger">*</span></label>
-						                  <form:password path="repassword" class="form-control" maxlength="30" placeholder="Confirm password" />
-						                  <span class="text-danger"><form:errors path="repassword" /></span>
-						                </div>
-						                <div class="clearfix"></div>
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >User Role<span class="text-danger">*</span></label>
-						                  <form:select path="userrole" class="form-control">
+						                  <form:select path="userrole" class="form-control" tabindex="15">
 						                  <form:option value=''>---SELECT---</form:option>
 						                  	<form:option value='<%= Roles.ROLE_USER %>'><%= Roles.ROLE_USER %></form:option>
 						                  </form:select>
 						                  <span class="text-danger"><form:errors path="userrole" /></span>
 						                </div>
-						                
-						                <div class="form-group col-xs-12 col-md-6 date" data-provide="datepicker">
-						                  <label >Date of Birth<span class="text-danger">*</span></label>
-						                  <form:input path="dob" class="form-control dob" placeholder="dd-MM-yyyy" />
-						                  <span class="text-danger"><form:errors path="dob" /></span>
-						                </div>
 						                <div class="clearfix"></div>
 						                <div class="form-group col-xs-12 col-md-6">
+						                  <label >Password<span class="text-danger">*</span></label>
+						                  <form:password path="password" class="form-control" maxlength="30" tabindex="20" placeholder="Enter password" />
+						                  <span class="text-danger"><form:errors path="password" /></span>
+						                </div>
+						                <div class="form-group col-xs-12 col-md-6">
+						                  <label >Re-Enter Password<span class="text-danger">*</span></label>
+						                  <form:password path="repassword" class="form-control" maxlength="30" tabindex="25" placeholder="Confirm password" />
+						                  <span class="text-danger"><form:errors path="repassword" /></span>
+						                </div>
+						                <div class="clearfix"></div>
+						                <div class="form-group col-xs-12 col-md-6 date" data-provide="datepicker">
+						                  <label >Date of Birth<span class="text-danger">*</span></label>
+						                  <form:input path="dob" class="form-control dob" placeholder="dd-MM-yyyy" tabindex="30" />
+						                  <span class="text-danger"><form:errors path="dob" /></span>
+						                </div>
+						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >Joining Date<span class="text-danger">*</span></label>
-						                  <form:input path="joiningDate" class="form-control" placeholder="dd-MM-yyyy" />
+						                  <form:input path="joiningDate" class="form-control" placeholder="dd-MM-yyyy" tabindex="35" />
 						                  <span class="text-danger"><form:errors path="joiningDate" /></span>
 						                </div>
+						                <div class="clearfix"></div>
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <div class="col-lg-6  no-padding">
 							                  <label >Gender<span class="text-danger">*</span></label>
 							                  <div class="input-group">
 							                        <span class="input-group-addon">
-							                          <form:radiobutton path="gender" value="male" />
+							                          <form:radiobutton path="gender" value="male" tabindex="40" />
 							                        </span>
 							                    <label class="form-control">Male</label>
 							                  </div>
@@ -109,18 +113,16 @@
 							                  <label >&nbsp;</label>
 							                  <div class="input-group">
 							                        <span class="input-group-addon">
-							                          <form:radiobutton path="gender" value="female"/>
+							                          <form:radiobutton path="gender" value="female" tabindex="45"/>
 							                        </span>
 							                    <label class="form-control">Female</label>
 							                  </div>
 							                  <!-- /input-group -->
 							                </div>
 						                </div>
-						                <div class="clearfix"></div>
-						                
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >Department<span class="text-danger">*</span></label>
-						                  <form:select path="department.departmentId" id="department" class="form-control">
+						                  <form:select path="department.departmentId" id="department" tabindex="50" class="form-control">
 						                  <form:option value='0'>---SELECT---</form:option>
 						                  		<c:forEach var="itam" items="${dpList}">
 													<form:option value='${itam.departmentId }'>${itam.department }</form:option>
@@ -128,9 +130,10 @@
 						                  </form:select>
 						                  <span class="text-danger"><form:errors path="department" /></span>
 						                </div>
+						                <div class="clearfix"></div>
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >Designation<span class="text-danger">*</span></label>
-						                  <form:select path="designation.designationId" id="designation" class="form-control">
+						                  <form:select path="designation.designationId" id="designation" tabindex="55" class="form-control">
 						                  		<form:option value='0'>---SELECT---</form:option>
 						                  		<c:forEach var="ds" items="${dsList}">
 													<form:option value='${ds.designationId }'>${ds.designation }</form:option>
@@ -138,10 +141,25 @@
 						                  </form:select>
 						                  <span class="text-danger"><form:errors path="designation" /></span>
 						                </div>
+						                <div class="form-group col-xs-12 col-md-6">
+						                  <label >Week Off<span class="text-danger">*</span></label>
+						                  <form:select path="weekOff" class="form-control" tabindex="60">
+						                  		<form:option value='0'>---SELECT---</form:option>
+						                  		<form:option value='1'>SUNDAY</form:option>
+						                  		<form:option value='2'>MONDAY</form:option>
+						                  		<form:option value='3'>TUESDAY</form:option>
+						                  		<form:option value='4'>WEDNESDAY</form:option>
+						                  		<form:option value='5'>THURSDAY</form:option>
+						                  		<form:option value='6'>FRIDAY</form:option>
+						                  		<form:option value='7'>SATURDAY</form:option>
+						                  		
+						                  </form:select>
+						                  <span class="text-danger"><form:errors path="branch" /></span>
+						                </div>
 						                <div class="clearfix"></div>
 						                 <div class="form-group col-xs-12 col-md-6">
 						                  <label >Branch Country<span class="text-danger">*</span></label>
-						                  <form:select path="country.countryId" id="countryId" class="form-control">
+						                  <form:select path="country.countryId" id="countryId" class="form-control" tabindex="65">
 						                  <form:option value='0'>---SELECT---</form:option>
 						                  		<c:forEach var="itam" items="${cList}">
 													<form:option value='${itam.countryId }'>${itam.countryName }</form:option>
@@ -151,7 +169,7 @@
 						                </div>
 						                <div class="form-group col-xs-12 col-md-6">
 						                  <label >Branch<span class="text-danger">*</span></label>
-						                  <form:select path="branch.branchId" id="branch" class="form-control">
+						                  <form:select path="branch.branchId" id="branch" class="form-control" tabindex="70">
 						                  		<form:option value='0'>---SELECT---</form:option>
 						                  </form:select>
 						                  <span class="text-danger"><form:errors path="branch" /></span>
@@ -166,24 +184,30 @@
 						                
 						                <div class="clearfix"></div>
 						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Employee Image</label>
-											<label class="custom-file-upload btn btn-block">
-												<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload()" />
+<!-- 						                  <label >Employee Image</label> -->
+											<label class="btn btn-primary btn-flat btn-xs">
+												<input name="userImage" id="u1" type="file" tabindex="75" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload()" />
+												<i class="fa fa-fw fa-cloud-upload"></i>
+												Browse Image 
 											</label>
-						                  <span class="text-danger"><form:label path="" id="ui" /></span>
-						                </div>
+											<div class="clearfix"></div>
+											<span class="text-danger"><form:label path="" id="ui" class="image_error" /></span>
+										</div>
 						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Pan Upload</label>
-											<label class="custom-file-upload btn btn-block">
-												<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload1()" />
+<!-- 						                  <label >Pan Upload</label> -->
+											<label class=" btn btn-primary btn-flat btn-xs">
+												<input name="userPan" id="u2" type="file" tabindex="80" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload1()" />
+												<i class="fa fa-fw fa-cloud-upload"></i>
+												Browse Pan Card 
 											</label>
-						                  <span class="text-danger"><form:label path="" id="dl" /></span>
-						                </div>
+											<div class="clearfix"></div>
+											<span class="text-danger"><form:label path="" id="dl" /></span>
+										</div>
 						              </div>
 						              <!-- /.box-body -->
 						
 						              <div class="box-footer col-xs-12 col-md-6">
-						                <button type="submit" class="btn btn-primary">Submit</button>
+						                <button type="submit" class="btn btn-primary" tabindex="85">Submit</button>
 						              </div>
 						            </form:form>
 				              </div>
@@ -223,6 +247,18 @@ $('#joiningDate').datetimepicker({
 	format:'d-m-Y'
 });
 </script>	
+<script>
+$(document).ready(function(){
+    $("#eId").keypress(function(){
+    	var eId = $("#eId").val();
+    	if(eId.length == 4 || eId.length == 7)
+    	{
+    		eId += "-";
+    		$("#eId").val(eId);
+    	}
+    });
+});
+</script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
     $(function () {
@@ -265,6 +301,7 @@ $(document).ready(function()
 <script type="text/javascript">
 	function validateForm()
 	{
+		var eId = $("#eId").val();
 		var name = $("#name").val();
 		var userid = $("#userid").val();
 		var password = $("#password").val();
@@ -281,6 +318,11 @@ $(document).ready(function()
 		var valid = true;
 		$('.has-error').removeClass("has-error");
 		
+		if(eId == "" || !$("#eId").val().match(/^(\d{4})(-)([A-Z]{2})(-)(\d{4})$/))
+		{
+			$("#eId").parent().addClass("has-error")
+			valid = false;
+		}
 		
 		if(name == "")
 		{

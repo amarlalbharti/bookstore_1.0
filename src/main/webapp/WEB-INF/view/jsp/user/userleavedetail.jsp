@@ -155,8 +155,8 @@
 												<th style="width: 12%;">Leave Type</th>
 												<th style="width: 10%;">From</th>
 												<th style="width: 10%;">To</th>
-												<th style="width: 5%;">Status</th>
-												<th style="width: 33%;">Subject</th>
+												<th style="width: 8%;">Status</th>
+												<th style="width: 30%;">Subject</th>
 												<th style="width: 15%;" class="text-center">Action</th>
 												
 											</tr>

@@ -218,25 +218,69 @@
 								                    <label class="form-control"><%= DateFormats.ddMMMyyyy().format(registration.getRegdate()) %></label>
 								                  </div>
 								                </div>
+								                <%	
+													if( registration.getDepartment().getDepartment() != null && ! registration.getDepartment().getDepartment().isEmpty())
+								 					{
+										 						
+												%>
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Department</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getDepartment().getDepartment() %></label>
 								                  </div>
 								                </div>
+								                <%
+								 					}
+								                %>
+								                <%	
+													if( registration.getDesignation().getDesignation() != null && ! registration.getDesignation().getDesignation().isEmpty())
+								 					{
+										 						
+												%>
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Designation</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getDesignation().getDesignation() %></label>
 								                  </div>
 								                </div>
-								             
+								             <%
+								 					}
+								             %>
+								             <%	
+													if( registration.getBranch().getBranchName() != null && ! registration.getBranch().getBranchName().isEmpty())
+								 					{
+										 						
+												%>
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Branch</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getBranch().getBranchName() %></label>
 								                  </div>
 								                </div>
+								                
+								                <%
+								 					}
+								                %>
+								                
+								                
+								                <%	
+													if( registration.getBranch().getCountry().getCountryName() != null && ! registration.getBranch().getCountry().getCountryName().isEmpty())
+								 					{
+										 						
+												%>
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">Country</label>
+								                  <div class="col-sm-8">
+								                    <label class="form-control"><%= registration.getBranch().getCountry().getCountryName() %></label>
+								                  </div>
+								                </div>
+								                
+								                <%
+								 					}
+								                %>
+								                
+								                
+								                
 								                <%
 								                	
 								                	if(roles != null && !roles.isEmpty())
@@ -252,6 +296,13 @@
 								                	}
 								                
 								                %>
+								                
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">Week Off</label>
+								                  <div class="col-sm-8">
+								                    <label class="form-control label-text"><%= DateFormats.getDayName(registration.getWeekOff()) %></label>
+								                  </div>
+								                </div>
 						                
 						              </div>
 						            </div>
@@ -340,7 +391,7 @@
 								                
 								                <div class="clearfix"></div>
 								                <sec:authorize access="hasRole('ROLE_USER')">
-									                <a href="userEditDetail?id=<%= userDetail.getUserId() %>" class="btn btn-primary">Edit Info</a>
+									                <a href="userEditDetail?id=<%= userDetail.getUserId() %>" class="btn btn-primary btn-flat">Edit Info</a>
 								                </sec:authorize>
 												
 								                <%

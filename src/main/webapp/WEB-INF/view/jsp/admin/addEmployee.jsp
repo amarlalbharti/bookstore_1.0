@@ -38,188 +38,172 @@
 <!-- 						<h3 class="box-title">Line Chart</h3> -->
 <!-- 					</div> -->
 					<div class="box-body no-padding">
-						<div class="nav-tabs-custom">
-				            <ul class="nav nav-tabs">
-				              <li class="active"><a href="#tab_1" data-toggle="tab">Basic Info</a></li>
-				              <li><a href="#tab_2" data-toggle="tab">Other Info</a></li>
-				            </ul>
-				            <div class="tab-content">
-				              <div class="tab-pane active" id="tab_1">
-				                	<form:form role="form" method="POST" action="adminAddEmployee" commandName="regForm" name="regForm" autocomplete="off" enctype="multipart/form-data" id="form" onsubmit="return validateForm()">
-						              <div class="box-body">
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Employee Name</label>
-						                  <form:input path="name" class="form-control"  placeholder="Enter employee name" tabindex="1" maxlength="50"/>
-						                  <span class="text-danger"><form:errors path="name" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Email Id</label>
-						                  <form:input autocomplete="off" path="userid" type="email" class="form-control" placeholder="Enter employee user id" tabindex="5"  maxlength="50" />
-						                   <span class="text-danger"><form:errors path="userid" /></span>
-						                  
-						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Password</label>
-						                  <form:password path="password" class="form-control" placeholder="Enter password" tabindex="10"  maxlength="50"/>
-						                  <span class="text-danger"><form:errors path="password" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Re-Enter Password</label>
-						                  <form:password path="repassword" class="form-control" placeholder="Confirm password" tabindex="15"  maxlength="50" />
-						                  <span class="text-danger"><form:errors path="repassword" /></span>
-						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >User Role</label>
-						                  <form:select path="userrole" class="form-control" tabindex="20" >
-						                  	<form:option value=''>Select User role</form:option>
-						                  	<form:option value='<%= Roles.ROLE_USER %>'><%= Roles.ROLE_USER %></form:option>
-						                  	<form:option value='<%= Roles.ROLE_MANAGER %>'><%= Roles.ROLE_MANAGER %></form:option>
-						                  	<form:option value='<%= Roles.ROLE_ADMIN %>'><%= Roles.ROLE_ADMIN %></form:option>
-						                  </form:select>
-						                  <span class="text-danger"><form:errors path="userrole" /></span>
-						                </div>
-						                
-						                <div class="form-group col-xs-12 col-md-6 date" data-provide="datepicker">
-						                  <label >Date of Birth</label>
-						                  <form:input path="dob" class="form-control dob" placeholder="dd-MM-yyyy" tabindex="25"  maxlength="15"/>
-						                  <span class="text-danger"><form:errors path="dob" /></span>
-						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Joining Date</label>
-						                  <form:input path="joiningDate" class="form-control" placeholder="dd-MM-yyyy" tabindex="30"  maxlength="15"/>
-						                  <span class="text-danger"><form:errors path="joiningDate" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <div class="col-lg-6  no-padding">
-							                  <label >Gender</label>
-							                  <div class="input-group">
-							                        <span class="input-group-addon">
-							                          <form:radiobutton path="gender" value="male" tabindex="35" />
-							                        </span>
-							                    <label class="form-control">Male</label>
-							                  </div>
-							                  <!-- /input-group -->
-							                </div>
-							                <div class="col-lg-6">
-							                  <label >&nbsp;</label>
-							                  <div class="input-group">
-							                        <span class="input-group-addon">
-							                          <form:radiobutton path="gender" value="female" tabindex="40"/>
-							                        </span>
-							                    <label class="form-control">Female</label>
-							                  </div>
-							                  <!-- /input-group -->
-							                </div>
-							                 <span class="text-danger"><form:errors path="gender" /></span>
-						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Department</label>
-						                  <form:select path="department.departmentId" class="form-control" id="department" tabindex="45">
-						                  		<form:option value='0'>Select Department</form:option>
-						                  		<c:forEach var="itam" items="${dpList}">
-													<form:option value='${itam.departmentId }'>${itam.department }</form:option>
-												</c:forEach>
-						                  </form:select>
-						                  <span class="text-danger"><form:errors path="department" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Designation</label>
-						                  <form:select path="designation.designationId" class="form-control" id="designation"   tabindex="50">
-						                  		<form:option value='0'>Select Designation</form:option>
-						                  		<c:forEach var="ds" items="${dsList}">
-													<form:option value='${ds.designationId }'>${ds.designation }</form:option>
-												</c:forEach>
-						                  </form:select>
-						                  <span class="text-danger"><form:errors path="designation" /></span>
-						                </div>
-						                <div class="clearfix"></div>
-						                 <div class="form-group col-xs-12 col-md-6">
-						                  <label >Branch Country<span class="text-danger">*</span></label>
-						                  <form:select path="country.countryId" id="countryId" class="form-control">
-						                  <form:option value='0'>---SELECT---</form:option>
-						                  		<c:forEach var="itam" items="${cList}">
-													<form:option value='${itam.countryId }'>${itam.countryName }</form:option>
-												</c:forEach>
-						                  </form:select>
-						                  <span class="text-danger"><form:errors path="country.countryId" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Branch<span class="text-danger">*</span></label>
-						                  <form:select path="branch.branchId" id="branch" class="form-control">
-						                  		<form:option value='0'>---SELECT---</form:option>
-						                  </form:select>
-						                  <span class="text-danger"><form:errors path="branch" /></span>
-						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Week Off<span class="text-danger">*</span></label>
-						                  <form:select path="weekOff" class="form-control">
-						                  		<form:option value='0'>---SELECT---</form:option>
-						                  		<form:option value='1'>SUNDAY</form:option>
-						                  		<form:option value='2'>MONDAY</form:option>
-						                  		<form:option value='3'>TUESDAY</form:option>
-						                  		<form:option value='4'>WEDNESDAY</form:option>
-						                  		<form:option value='5'>THURSDAY</form:option>
-						                  		<form:option value='6'>FRIDAY</form:option>
-						                  		<form:option value='7'>SATURDAY</form:option>
-						                  		
-						                  </form:select>
-						                  <span class="text-danger"><form:errors path="branch" /></span>
-						                </div>
-						                <div class="clearfix"></div>
-						                
-						                <div class="form-group col-xs-12 col-md-6">
-											<img alt="User" id="output" src="images/User_Avatar.png" style="max-height: 150px; max-width: 100px" />
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-											<img alt="Document" id="output1" src="images/document.png" style="max-height: 150px; max-width: 100px"/>
-						                </div>
-						                
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-<!-- 						                  <label >Employee Image</label> -->
-											<label class="btn btn-primary btn-flat btn-xs">
-												<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload()" />
-												<i class="fa fa-fw fa-cloud-upload"></i>
-												Browse Image 
-											</label>
-											<div class="clearfix"></div>
-											<span class="text-danger"><form:label path="" id="ui" class="image_error" /></span>
-										</div>
-						                <div class="form-group col-xs-12 col-md-6">
-<!-- 						                  <label >Pan Upload</label> -->
-											<label class=" btn btn-primary btn-flat btn-xs">
-												<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload1()" />
-												<i class="fa fa-fw fa-cloud-upload"></i>
-												Browse Pan Card 
-											</label>
-											<div class="clearfix"></div>
-											<span class="text-danger"><form:label path="" id="dl" /></span>
-										</div>
-						              </div>
-						              <!-- /.box-body -->
-						              <div class="box-footer col-xs-12 col-md-6">
-						              	<div class="form-group col-xs-12 col-md-6">
-						                	<button type="submit" class="btn btn-primary submit_btn" tabindex="55">Submit</button>
-						                </div>
-						              </div>
-						            </form:form>
-				              </div>
-				              <!-- /.tab-pane -->
-				              <div class="tab-pane" id="tab_2">
-				                <div class="col-xs-12 col-md-12">
-				                	<h3>Please add basic info first !</h3>
+	                	<form:form role="form" method="POST" action="adminAddEmployee" commandName="regForm" name="regForm" autocomplete="off" enctype="multipart/form-data" id="form" onsubmit="return validateForm()">
+			              <div class="box-body">
+			              <div class="form-group col-xs-12 col-md-6">
+			                  <label >Employee Id<span class="text-danger">*</span></label>
+			                  <form:input path="eId" id="eId" class="form-control" maxlength="20" tabindex="1" title="EID Format : YYYY-IN-0000"  placeholder="Enter employee Id"/>
+			                  <span class="text-danger"><form:errors path="eId" /></span>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Employee Name<span class="text-danger">*</span></label>
+			                  <form:input path="name" class="form-control titleCase" maxlength="50" tabindex="5"  placeholder="Enter employee name"/>
+			                  <span class="text-danger"><form:errors path="name" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Email Id<span class="text-danger">*</span></label>
+			                  <form:input autocomplete="off" path="userid" maxlength="60" type="email" tabindex="10" class="form-control" placeholder="Enter employee user id" />
+			                   <span class="text-danger">${uidex}<form:errors path="userid" /></span>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >User Role</label>
+			                  <form:select path="userrole" class="form-control" tabindex="20" >
+			                  	<form:option value=''>Select User role</form:option>
+			                  	<form:option value='<%= Roles.ROLE_USER %>'><%= Roles.ROLE_USER %></form:option>
+			                  	<form:option value='<%= Roles.ROLE_MANAGER %>'><%= Roles.ROLE_MANAGER %></form:option>
+			                  	<form:option value='<%= Roles.ROLE_ADMIN %>'><%= Roles.ROLE_ADMIN %></form:option>
+			                  </form:select>
+			                  <span class="text-danger"><form:errors path="userrole" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Password<span class="text-danger">*</span></label>
+			                  <form:password path="password" class="form-control" maxlength="30" tabindex="20" placeholder="Enter password" />
+			                  <span class="text-danger"><form:errors path="password" /></span>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Re-Enter Password<span class="text-danger">*</span></label>
+			                  <form:password path="repassword" class="form-control" maxlength="30" tabindex="25" placeholder="Confirm password" />
+			                  <span class="text-danger"><form:errors path="repassword" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                <div class="form-group col-xs-12 col-md-6 date" data-provide="datepicker">
+			                  <label >Date of Birth<span class="text-danger">*</span></label>
+			                  <form:input path="dob" class="form-control dob" placeholder="dd-MM-yyyy" tabindex="30" />
+			                  <span class="text-danger"><form:errors path="dob" /></span>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Joining Date<span class="text-danger">*</span></label>
+			                  <form:input path="joiningDate" class="form-control" placeholder="dd-MM-yyyy" tabindex="35" />
+			                  <span class="text-danger"><form:errors path="joiningDate" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <div class="col-lg-6  no-padding">
+				                  <label >Gender<span class="text-danger">*</span></label>
+				                  <div class="input-group">
+				                        <span class="input-group-addon">
+				                          <form:radiobutton path="gender" value="male" tabindex="40" />
+				                        </span>
+				                    <label class="form-control">Male</label>
+				                  </div>
+				                  <!-- /input-group -->
 				                </div>
-				              </div>
-				              <!-- /.tab-pane -->
+				                <div class="col-lg-6">
+				                  <label >&nbsp;</label>
+				                  <div class="input-group">
+				                        <span class="input-group-addon">
+				                          <form:radiobutton path="gender" value="female" tabindex="45"/>
+				                        </span>
+				                    <label class="form-control">Female</label>
+				                  </div>
+				                  <!-- /input-group -->
+				                </div>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Department<span class="text-danger">*</span></label>
+			                  <form:select path="department.departmentId" id="department" tabindex="50" class="form-control">
+			                  <form:option value='0'>---SELECT---</form:option>
+			                  		<c:forEach var="itam" items="${dpList}">
+										<form:option value='${itam.departmentId }'>${itam.department }</form:option>
+									</c:forEach>
+			                  </form:select>
+			                  <span class="text-danger"><form:errors path="department" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Designation<span class="text-danger">*</span></label>
+			                  <form:select path="designation.designationId" id="designation" tabindex="55" class="form-control">
+			                  		<form:option value='0'>---SELECT---</form:option>
+			                  		<c:forEach var="ds" items="${dsList}">
+										<form:option value='${ds.designationId }'>${ds.designation }</form:option>
+									</c:forEach>
+			                  </form:select>
+			                  <span class="text-danger"><form:errors path="designation" /></span>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Week Off<span class="text-danger">*</span></label>
+			                  <form:select path="weekOff" class="form-control" tabindex="60">
+			                  		<form:option value='0'>---SELECT---</form:option>
+			                  		<form:option value='1'>SUNDAY</form:option>
+			                  		<form:option value='2'>MONDAY</form:option>
+			                  		<form:option value='3'>TUESDAY</form:option>
+			                  		<form:option value='4'>WEDNESDAY</form:option>
+			                  		<form:option value='5'>THURSDAY</form:option>
+			                  		<form:option value='6'>FRIDAY</form:option>
+			                  		<form:option value='7'>SATURDAY</form:option>
+			                  		
+			                  </form:select>
+			                  <span class="text-danger"><form:errors path="branch" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                 <div class="form-group col-xs-12 col-md-6">
+			                  <label >Branch Country<span class="text-danger">*</span></label>
+			                  <form:select path="country.countryId" id="countryId" class="form-control" tabindex="65">
+			                  <form:option value='0'>---SELECT---</form:option>
+			                  		<c:forEach var="itam" items="${cList}">
+										<form:option value='${itam.countryId }'>${itam.countryName }</form:option>
+									</c:forEach>
+			                  </form:select>
+			                  <span class="text-danger"><form:errors path="country.countryId" /></span>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+			                  <label >Branch<span class="text-danger">*</span></label>
+			                  <form:select path="branch.branchId" id="branch" class="form-control" tabindex="70">
+			                  		<form:option value='0'>---SELECT---</form:option>
+			                  </form:select>
+			                  <span class="text-danger"><form:errors path="branch" /></span>
+			                </div>
+			                <div class="clearfix"></div>
+			                
+			                <div class="form-group col-xs-12 col-md-6">
+				                <div class="form-group col-xs-12 no-padding">
+									<img alt="User" id="output" src="images/User_Avatar.png" style="max-height: 150px; max-width: 100px" />
+								</div>
+								<div class="form-group col-xs-12 no-padding">
+									<label class="btn btn-primary btn-flat btn-xs">
+										<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="return ValidateFileUpload()" />
+										<i class="fa fa-fw fa-cloud-upload"></i>
+										Browse Image 
+									</label>
+									<span class="text-danger"><form:label path="" id="userImgErr" class="image_error" /></span>
+								</div>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-6">
+				                <div class="form-group col-xs-12 no-padding">
+									<img alt="Document" id="output1" src="images/document.png" style="max-height: 150px; max-width: 100px"/>
+				                </div>
+				                <div class="form-group col-xs-12 no-padding">
+									<label class=" btn btn-primary btn-flat btn-xs">
+										<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="80" onchange="return ValidateFileUpload1()" />
+										<i class="fa fa-fw fa-cloud-upload"></i>
+										Browse Pan Card 
+									</label>
+									<span class="text-danger"><form:label path="" id="userPanImg" /></span>
+								</div>
+			                </div>
+			                
+			                <div class="clearfix"></div>
+			              </div>
+			              <!-- /.box-body -->
+			              <div class="box-footer col-xs-12 col-md-6">
+			              	<div class="form-group col-xs-12 col-md-6">
+			                	<button type="submit" class="btn btn-primary submit_btn" tabindex="85">Submit</button>
+			                </div>
+			              </div>
+			            </form:form>
 				              
-				            </div>
-				            <!-- /.tab-content -->
-				          </div>
 					</div>
 				</div>
 				
@@ -285,24 +269,30 @@ $(document).ready(function()
 <script type="text/javascript">
 	function validateForm()
 	{
-		var name = $("#name").val();
-		var userid = $("#userid").val();
-		var password = $("#password").val();
-		var repassword = $("#repassword").val();
-		var userrole = $("#userrole").val();
-		var dob = $("#dob").val();
-		var joiningDate = $("#joiningDate").val();
-		var department = $("#department").val();
-		var designation = $("#designation").val();
+		var eId = $("#form #eId").val();
+		var name = $("#form #name").val();
+		var userid = $("#form #userid").val();
+		var password = $("#form #password").val();
+		var repassword = $("#form #repassword").val();
+		var userrole = $("#form #userrole").val();
+		var dob = $("#form #dob").val();
+		var joiningDate = $("#form #joiningDate").val();
+		var department = $("#form #department").val();
+		var designation = $("#form #designation").val();
         var radioValue = $("input[name='gender']:checked").val();
-        var countryId = $("#countryId").val();
-        var branch = $("#branch").val();
-        var weekOff = $("#weekOff").val();
+        var countryId = $("#form #countryId").val();
+        var branch = $("#form #branch").val();
+        var weekOff = $("#form #weekOff").val();
         
         
 		var valid = true;
 		$('.has-error').removeClass("has-error");
 		
+		if(eId == "" || !$("#eId").val().match(/^(\d{4})(-)([A-Z]{2})(-)(\d{4})$/))
+		{
+			$("#eId").parent().addClass("has-error")
+			valid = false;
+		}
 		
 		if(name == "")
 		{
@@ -311,7 +301,7 @@ $(document).ready(function()
 		}
 		if(userid == "" || !isEmail(userid))
 		{
-			$("#userid").parent().addClass("has-error")
+			$("#form #userid").parent().addClass("has-error")
 			valid = false;
 		}
 		if(password == "" || !checkComplexity(password))
@@ -378,7 +368,7 @@ $(document).ready(function()
 			return false;		
 		}
 		$(".submit_btn").attr("disabled","disabled");
-		$(".submit_btn").text("Sending...");
+		$(".submit_btn").text("Submiting...");
 	}
 
 </script>
@@ -390,16 +380,14 @@ function ValidateFileUpload() {
 
 	var fuData = document.getElementById('u1');
 	var FileUploadPath = fuData.value;
-
+	document.getElementById('userImgErr').innerHTML = '';
 
 	if (FileUploadPath == '') {
-	    document.getElementById('ui').innerHTML = 'Please upload an image.';
+	    document.getElementById('userImgErr').innerHTML = 'Please upload an image.';
 	} 
 	else 
 	{
 	    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
-
-
 
 	    if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
 
@@ -409,7 +397,8 @@ function ValidateFileUpload() {
 	                var size = fuData.files[0].size;
 
 	                if(size > 512000){
-	                    document.getElementById('ui').innerHTML = 'Maximum file size exceed.';
+	                    document.getElementById('userImgErr').innerHTML = 'Maximum file size exceed.';
+// 	                    $('.image_error').attr('value', 'Maximum file size exceed.');
 	                    $('#output').attr('src', 'images/User_Avatar.png');
 	                    fuData.value = "";
 	                    return;
@@ -439,10 +428,10 @@ function ValidateFileUpload1() {
 
 	var fuData = document.getElementById('u2');
 	var FileUploadPath = fuData.value;
-
+	document.getElementById('userPanImg').innerHTML = '';
 
 	if (FileUploadPath == '') {
-		document.getElementById('dl').innerHTML = 'Please upload an image.';
+		document.getElementById('userPanImg').innerHTML = 'Please upload an image.';
 	} else {
 	    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
 
@@ -455,7 +444,7 @@ function ValidateFileUpload1() {
 	                var size = fuData.files[0].size;
 
 	                if(size > 512000){
-	                	document.getElementById('dl').innerHTML = 'Maximum file size exceed.';
+	                	document.getElementById('userPanImg').innerHTML = 'Maximum file size exceed.';
 	                    $('#output1').attr('src', 'images/document.png');
 	                    fuData.value = "";
 	                    return;
@@ -470,7 +459,7 @@ function ValidateFileUpload1() {
 	            }
 	    } 
 	else {
-		document.getElementById('dl').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
+		document.getElementById('userPanImg').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
 	        fuData.value = "";
 	        $('#output1').attr('src', 'images/document.png');
 	    }

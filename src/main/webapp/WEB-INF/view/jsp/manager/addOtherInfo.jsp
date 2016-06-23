@@ -22,6 +22,8 @@
     <%
     String pg = (String) request.getParameter("pg");
     String userid = (String) request.getParameter("empid");
+    String eStatus = (String) request.getParameter("eStatus");
+    
     if(pg != null && userid != null)
     {
     	if(pg.equalsIgnoreCase("edit"))
@@ -48,6 +50,23 @@
 		      	<!-- Your Page Content Here -->
 				<div class="row">
 					<div class="col-xs-12 col-md-12">
+					<%
+					if(eStatus != null && !eStatus.isEmpty())
+					{
+					if(eStatus.equalsIgnoreCase("failed"))
+					{
+						%>
+							<div class="alert alert-danger alert-dismissible">
+								<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+								<h4>
+									<i class="icon fa  fa-remove"></i> Failed !
+								</h4>
+								Oops, Something wrong ! Update failed
+							</div>
+						<%
+					}
+					}
+					%>
 						<div class="box box-info">
 							<div class="box-body no-padding">
                 				<form:form method="POST" role="form" action="managerAddOtherInfo" onsubmit="return validateForm()" commandName="odForm">
@@ -55,44 +74,50 @@
 										<div class="box-body">
 									      <div class="form-group col-xs-12 col-md-6">
 											<label>Permanent Address<span class="text-danger">*</span></label>
-											<form:input path="parmanentAddress" maxlength="250" cssClass="form-control" placeholder="Enter Permanent Address" />
+											<form:input path="parmanentAddress" maxlength="250" cssClass="form-control titleCase" placeholder="Enter Permanent Address" />
 											<form:hidden path="userid"/>
 											 <span class="text-danger"><form:errors path="parmanentAddress" /></span>
 										  </div>
 										 <div class="form-group col-xs-12 col-md-6">
 											<label>Present Address<span class="text-danger">*</span></label>
-											<form:input path="presentAddress" maxlength="250" cssClass="form-control" placeholder="Enter Present Address" />
+											<form:input path="presentAddress" maxlength="250" cssClass="form-control titleCase" placeholder="Enter Present Address" />
 											<span class="text-danger"><form:errors path="presentAddress" /></span>
 										  </div>
 										  <div class="form-group col-xs-12 col-md-6">
 											<label>City<span class="text-danger">*</span></label>
-											<form:input path="city" cssClass="form-control" maxlength="50" placeholder="Enter city" />
+											<form:input path="city" cssClass="form-control titleCase" maxlength="50" placeholder="Enter city" />
 											<span class="text-danger"><form:errors path="city" /></span>
 										  </div>
 										  <div class="form-group col-xs-12 col-md-6">
 											<label>State<span class="text-danger">*</span></label>
-											<form:input path="state" cssClass="form-control" maxlength="50" placeholder="Enter state" />
+											<form:input path="state" cssClass="form-control titleCase" maxlength="50" placeholder="Enter state" />
 											<span class="text-danger"><form:errors path="state" /></span>
 										  </div>
 										  <div class="form-group col-xs-12 col-md-6">
 											<label>Country<span class="text-danger">*</span></label>
-											<form:input path="country" cssClass="form-control" maxlength="50" placeholder="Enter state" />
+											<form:input path="country" cssClass="form-control titleCase" maxlength="50" placeholder="Enter state" />
 											<span class="text-danger"><form:errors path="country" /></span>
 										  </div>
 										  
 										  <div class="form-group col-xs-12 col-md-6">
+											<label>Alt. Email Address<span class="text-danger">*</span></label>
+											<form:input path="altEmailId" cssClass="form-control" maxlength="50" placeholder="Enter Alternate Email" />
+											<span class="text-danger"><form:errors path="altEmailId" /></span>
+										  </div>
+										  
+										  <div class="form-group col-xs-12 col-md-6">
 								            <label >Mobile Number</label>
-								            <form:input path="mobileNo" class="form-control" maxlength="15" placeholder="Enter Mobile Number" />
+								            <form:input path="mobileNo" class="form-control number_only" maxlength="15" placeholder="Enter Mobile Number" />
 								             <span class="text-danger"><form:errors path="mobileNo" /></span>
 								           </div>
 								            <div class="form-group col-xs-12 col-md-6">
 											<label>Emergency Contact Number</label>
-											<form:input path="emergencyNo" cssClass="form-control" maxlength="15" placeholder="Enter Mobile Number"/>
+											<form:input path="emergencyNo" cssClass="form-control number_only" maxlength="15" placeholder="Enter Mobile Number"/>
 											 <span class="text-danger"><form:errors path="emergencyNo" /></span>
 										  </div>
 										   <div class="form-group col-xs-12 col-md-6">
 											<label>Qualification<span class="text-danger">*</span></label>
-											<form:input path="qualification" cssClass="form-control" maxlength="50" placeholder="Enter Qualification" />
+											<form:input path="qualification" cssClass="form-control titleCase" maxlength="50" placeholder="Enter Qualification" />
 											<span class="text-danger"><form:errors path="qualification" /></span>
 										  </div>
 										  
@@ -123,7 +148,11 @@
 								                  </form:select>
 								             <span class="text-danger"><form:errors path="maritalStatus" /></span>
 								           </div>
-								          
+								          <div class="form-group col-xs-12 col-md-6">
+											<label>Passport Number<span class="text-danger">*</span></label>
+											<form:input path="passportNo" cssClass="form-control" maxlength="50" placeholder="Enter Passport No" />
+											<span class="text-danger"><form:errors path="passportNo" /></span>
+										  </div>
 								           
 								           <div class="box-footer col-xs-12 col-md-12">
 								                <button type="submit" class="btn btn-primary">Update</button>
@@ -164,22 +193,22 @@ $('#joiningDate').datetimepicker({
 		var qualification = $("#qualification").val();
 		var bloodGroup = $("#bloodGroup").val();
 		var maritalStatus = $("#maritalStatus").val();
+		var altEmailId = $("#altEmailId").val();
 		
 		var valid = true;
 		$('.has-error').removeClass("has-error");
-		
 		
 		if(parmanentAddress == "")
 		{
 			$("#parmanentAddress").parent().addClass("has-error")
 			valid = false;
 		}
-		if(presentAddress == "" || !isEmail(userid))
+		if(presentAddress == "")
 		{
 			$("#presentAddress").parent().addClass("has-error")
 			valid = false;
 		}
-		if(city == "" || !checkComplexity(password))
+		if(city == "")
 		{
 			$("#city").parent().addClass("has-error")
 			valid = false;
@@ -204,12 +233,6 @@ $('#joiningDate').datetimepicker({
 			$("#qualification").parent().addClass("has-error")
 			valid = false;
 		}
-// 		if(radioValue == undefined)
-// 		{
-// 			$("input[name='gender']").parent().parent().addClass("has-error");
-// 			valid = false;
-// 		}
-		
 		if(bloodGroup == "0")
 		{
 			$("#bloodGroup").parent().addClass("has-error")
@@ -219,6 +242,14 @@ $('#joiningDate').datetimepicker({
 		{
 			$("#maritalStatus").parent().addClass("has-error")
 			valid = false;
+		}
+		if(altEmailId != "")
+		{
+			if(!isEmail(altEmailId))
+			{
+				$("#altEmailId").parent().addClass("has-error")
+				valid = false;
+			}
 		}
 		
 		if(!valid)

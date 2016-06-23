@@ -50,9 +50,9 @@
         <li class="${currentpage == 'dashboard' ? 'active' : ''}"><a href="userDashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
         <li class="${currentpage == 'attendance' ? 'active' : ''}"><a href="userAttendance"><i class="fa fa-clock-o"></i> <span>My Attendance</span></a></li>
         <li class="${currentpage == 'userprofile' ? 'active' : ''}"><a href="userprofile"><i class="fa fa-user"></i><span>View Profile</span></a></li>
-        <li class="${currentpage == 'leave' ? 'active' : ''}"><a href="userleavedetail"><i class="fa fa-fw fa-bell-slash"></i><span>Leave Details</span></a></li>
-        <li class="${currentpage == 'documents' ? 'active' : ''}"><a href="userDocuments"><i class="fa fa-files-o"></i><span>My Documents</span></a></li>
-        <li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="userPayroll"><i class="fa fa-hand-o-right"></i><span>My Payroll</span></a></li>
+        <li class="${currentpage == 'leave' ? 'active' : ''}"><a href="userleavedetail"><i class="fa fa-fw fa-calendar-times-o"></i><span>Leave Details</span></a></li>
+        <li class="${currentpage == 'documents' ? 'active' : ''}"><a href="userDocuments"><i class="fa fa-book"></i><span>My Documents</span></a></li>
+        <li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="userPayroll"><i class="fa fa-wa fa-inr"></i><span>My Payroll</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -79,11 +79,9 @@
         }, 500);
     }
     startTime();
-})
+})();
 
-
-</script>	
-
+</script>
 
 
 	

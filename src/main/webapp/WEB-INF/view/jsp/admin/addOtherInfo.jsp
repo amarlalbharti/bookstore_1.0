@@ -60,30 +60,30 @@
 												<div class="box-body">
 											      <div class="form-group col-xs-12 col-md-6">
 													<label>Permanent Address</label>
-													<form:input path="parmanentAddress" cssClass="form-control" placeholder="Enter Permanent Address" tabindex="1" maxlength="100"/>
+													<form:input path="parmanentAddress" cssClass="form-control titleCase" placeholder="Enter Permanent Address" tabindex="1" maxlength="100"/>
 													<form:hidden path="userid"/>
 													 <span class="text-danger"><form:errors path="parmanentAddress" /></span>
 												  </div>
 												 <div class="form-group col-xs-12 col-md-6">
 													<label>Present Address</label>
-													<form:input path="presentAddress" cssClass="form-control" placeholder="Enter Present Address" tabindex="5"  maxlength="100"/>
+													<form:input path="presentAddress" cssClass="form-control titleCase" placeholder="Enter Present Address" tabindex="5"  maxlength="100"/>
 													<span class="text-danger"><form:errors path="presentAddress" /></span>
 												  </div>
 												  <div class="clearfix"></div>
 												  <div class="form-group col-xs-12 col-md-6">
 													<label>City</label>
-													<form:input path="city" cssClass="form-control" placeholder="Enter city"  tabindex="10"  maxlength="20"/>
+													<form:input path="city" cssClass="form-control titleCase" placeholder="Enter city"  tabindex="10"  maxlength="20"/>
 													<span class="text-danger"><form:errors path="city" /></span>
 												  </div>
 												  <div class="form-group col-xs-12 col-md-6">
 													<label>State</label>
-													<form:input path="state" cssClass="form-control" placeholder="Enter state"  tabindex="15"  maxlength="20"/>
+													<form:input path="state" cssClass="form-control titleCase" placeholder="Enter state"  tabindex="15"  maxlength="20"/>
 													<span class="text-danger"><form:errors path="state" /></span>
 												  </div>
 												  <div class="clearfix"></div>
 												  <div class="form-group col-xs-12 col-md-6">
 													<label>country</label>
-													<form:input path="country" cssClass="form-control" placeholder="Enter country"  tabindex="20"  maxlength="20"/>
+													<form:input path="country" cssClass="form-control titleCase" placeholder="Enter country"  tabindex="20"  maxlength="20"/>
 													<span class="text-danger"><form:errors path="country" /></span>
 												  </div>
 												  
@@ -100,7 +100,7 @@
 												  </div>
 												   <div class="form-group col-xs-12 col-md-6">
 													<label>Qualification</label>
-													<form:input path="qualification" cssClass="form-control" placeholder="Enter Qualification"  tabindex="35"  maxlength="50"/>
+													<form:input path="qualification" cssClass="form-control titleCase" placeholder="Enter Qualification"  tabindex="35"  maxlength="50"/>
 													<span class="text-danger"><form:errors path="qualification" /></span>
 												  </div>
 												  <div class="clearfix"></div>
@@ -140,7 +140,7 @@
 												  
 												  <div class="form-group col-xs-12 col-md-6">
 										            <label>Passport Number</label>
-										            <form:input path="passportNo" class="form-control" placeholder="Enter Passport Number" tabindex="55"  maxlength="25"/>
+										            <form:input path="passportNo" class="form-control upperCase" placeholder="Enter Passport Number" tabindex="55"  maxlength="25"/>
 										             <span class="text-danger"><form:errors path="passportNo" /></span>
 										           </div>
 										           
@@ -266,10 +266,6 @@ $('#joiningDate').datetimepicker({
 			valid = false;
 		}
 		
-		if(altEmailId==''||!isEmail(altEmailId)){
-			$("#altEmailId").parent().addClass("has-error")
-			valid=false;
-			}
 		
 		if(!valid)
 		{

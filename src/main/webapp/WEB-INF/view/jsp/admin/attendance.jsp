@@ -44,10 +44,13 @@
 			<div class="col-xs-12 col-md-12">
 				<div class="box box-info">
 					<div class="box-header with-border">
+						<div class="col-xs-12 col-md-6 col-sm-6">
 						<h3 class="box-title">Check In/Out 
         					<small>for  <%= DateFormats.ddMMMyyyy(timeZone).format(qdate) %></small>
        					</h3>
-       					<div class="box-tools pull-right">
+       					</div>
+       					<div class="col-xs-12 col-md-6 col-sm-6">
+       					<div class="box-tools text-right">
 				         <ul class="pagination pagination-sm inline">
 				           <li><a href="adminCheckInOut?qdate=<%= DateFormats.ddMMyyyy(timeZone).format(pdate)  %>"><i class="fa fa-fw fa-backward"></i></a></li>
 				           <li><a href="adminCheckInOut"><i class="fa fa-fw fa-home"></i></a></li>
@@ -72,6 +75,7 @@
 					           <button>Go</button> 
 				           </form>
 				         </div>
+				       </div>
 				       </div>
 					</div>
 					<div class="box-body  table-responsive">

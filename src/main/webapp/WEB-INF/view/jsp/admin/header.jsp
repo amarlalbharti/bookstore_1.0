@@ -21,11 +21,9 @@
 <link rel="stylesheet" href="css/select2.min.css">
 <link rel="stylesheet" href="css/bootstrap.css">
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/font-awesome.min.css">
 <!-- Ionicons -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="css/ionicons.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="css/AdminLTE.css">
 <link rel="stylesheet" href="css/skin-blue.css">
@@ -152,7 +150,7 @@ input[type="file"] {
 						<li class="header">You have notifications</li>
 						<li>
 							<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
-								<ul class="menu noti_msg" style="overflow: scroll; width: 100%; height: 200px;">
+								<ul class="menu noti_msg" style="overflow-y: auto; width: 100%; height: 200px;">
 									<!-- <li>
 										<a href="#"> 
 											<i class="fa fa-users text-aqua"></i>
@@ -331,10 +329,7 @@ input[type="file"] {
 						}
 					});
 					$("#count").text("0");
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-		        alert(xhr.status);
-		      }
+			}
 		});
     }); 
  
@@ -355,10 +350,8 @@ input[type="file"] {
 				var obj = jQuery.parseJSON(data);
 				var count = obj.count;
 				document.getElementById('count').innerHTML=count;		        
-		},
-		error: function (xhr, ajaxOptions, thrownError) {
-	        alert(xhr.status);
-	      }
+		}
+		
 	});
 }); 
 

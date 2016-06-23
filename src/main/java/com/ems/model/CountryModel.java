@@ -12,6 +12,7 @@ public class CountryModel {
 	@Pattern(regexp="^[-a-zA-Z ]*$",message="{Pattern.countryForm.countryName}")
 	private String countryName;
 	
+	private String countryCode;
 	
 	public int getCountryId() {
 		return countryId;
@@ -20,8 +21,14 @@ public class CountryModel {
 		this.countryId = countryId;
 	}
 	
-	
-	
+	@NotEmpty(message="{NotEmpty.countryForm.countryCode}")
+	@Pattern(regexp="^[-a-zA-Z]*$",message="{Pattern.countryForm.countryCode}")
+	public String getCountryCode() {
+		return countryCode;
+	}
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 	public String getCountryName() {
 		return countryName;
 	}

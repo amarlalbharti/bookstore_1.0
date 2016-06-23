@@ -148,7 +148,7 @@
 													{
 														String img_path = "/ems_uploads/"+reg.getUserid()+"/Profile_Photo/"+reg.getProfileImage();
 														%>
-															<td><a href="<%=img_path %>" target="_blank"><img class="direct-chat-img bg-info" alt="" src="<%= img_path%>" style="width: 25px;height: 25px;"></a></td>
+															<td title="click to view profile image"><a href="<%=img_path %>" target="_blank"><img class="direct-chat-img bg-info" alt="" src="<%= img_path%>" style="width: 25px;height: 25px;"></a></td>
 														<%
 													}
 													else
@@ -158,7 +158,7 @@
 														<%
 													}
 												%>
-												<td><a href="managerViewEmployee?empid=<%= reg.getUserid()%>" ><%= reg.getName() %></a> </td>
+												<td title="click to view user detail"><a href="managerViewEmployee?empid=<%= reg.getUserid()%>" ><%= reg.getName() %></a> </td>
 												<td><%= reg.getUserid() %> </td>
 												<td><%= role %> </td>
 												<td><%= DateFormats.ddMMMyyyy().format(reg.getJoiningDate()) %> </td>
@@ -167,24 +167,23 @@
 													if(reg.getLog() != null && reg.getLog().getIsactive().equals("true"))
 													{
 														%>
-															<td>Active</td>
+															<td title="User enabled" class="text-aqua">Active</td>
 														<%
 													}else
 														
 													{
 														%>
-															<td>Inactive</td>
+															<td  title="User disabled " class="text-red">Inactive</td>
 														<%
 
 													}
 												%>
 												<td class="text-center">
-													<a class="btn btn-primary btn-xs" href="managerEditEmployee?empid=<%= reg.getUserid()%>" >
-													<i class="fa fa-fw fa-edit" style="margin-bottom: 2px;"></i>
-													Edit</a>
-													<a class="btn btn-primary btn-xs" href="managerViewEmpAttendence?empid=<%= reg.getUserid()%>" >
-													<i class="fa fa-fw fa-clock-o" style="margin-bottom: 2px;"></i>
-													Attendance</a>
+													<a class="btn btn-primary btn-xs" href="managerEditEmployee?empid=<%= reg.getUserid()%>" title="Click to edit basic detail" >
+													<i class="fa fa-fw fa-edit"></i> Edit</a>
+													<a class="btn btn-primary btn-xs" href="managerViewEmpAttendence?empid=<%= reg.getUserid()%>" title="Click to view attendance">
+													<i class="fa fa-fw fa-clock-o" ></i> Attendance</a>
+													<a href="empDocuments?empid=<%= reg.getUserid() %>" class="btn btn-info btn-xs" title="Click to view user documents"><i class="fa fa-book"></i> Docs</a>
 												</td>
 											</tr>
 										<%

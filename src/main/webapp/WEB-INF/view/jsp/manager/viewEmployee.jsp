@@ -1,3 +1,4 @@
+<%@page import="com.ems.domain.UserRole"%>
 <%@page import="com.ems.domain.BankDetail"%>
 <%@page import="com.ems.domain.UserDetail"%>
 <%@page import="com.ems.config.Roles"%>
@@ -43,8 +44,35 @@
 					<%
 			String eStatus = (String) request.getParameter("eStatus");
 			String pwdstatus = (String) request.getParameter("pwdstatus");
+			String status = (String) request.getParameter("status");
+			if (status != null) {
+				if(status.equalsIgnoreCase("success"))
+				{
+				%>
+    			<div class="alert alert-success alert-dismissible">
+						<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+						<h4>
+							<i class="icon fa fa-check"></i> Success !
+						</h4>
+						Bank detail update successfully !
+					</div>		
+				<%
+			}
+			if(status.equalsIgnoreCase("error"))
+			{
+				%>
+					<div class="alert alert-danger alert-dismissible">
+						<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+						<h4>
+							<i class="icon fa  fa-remove"></i> Failed !
+						</h4>
+						Oops, Something wrong ! Update failed
+					</div>
+				<%
+			}
+			}
 			if (eStatus != null) {
-				if(eStatus.equalsIgnoreCase("success"))
+				if(eStatus.equalsIgnoreCase("updatesuccess"))
 				{
 				%>
     			<div class="alert alert-success alert-dismissible">
@@ -54,6 +82,18 @@
 						</h4>
 						Record update successfully !
 					</div>		
+				<%
+			}
+			if(eStatus.equalsIgnoreCase("failed"))
+			{
+				%>
+					<div class="alert alert-danger alert-dismissible">
+						<button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+						<h4>
+							<i class="icon fa  fa-remove"></i> Failed !
+						</h4>
+						Oops, Something wrong ! Update failed
+					</div>
 				<%
 			}
 			}
@@ -130,68 +170,122 @@
 						              <div class="tab-pane active" id="tab_1">
 						                	<div class="form-horizontal">
 								              <div class="box-body">
-								              <div class="form-group col-md-6" align="center">
-								                  <%	
-			 						                if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
-			 						                {
-			 						                	String path = "/ems_uploads/"+empReg.getUserid()+"/Profile_Photo/" + empReg.getProfileImage();
-									            %>
-														<img alt="Error" src="<%=path %>" style="max-height: 150px; max-width: 100px" />
-												<% } else { %>
-														<img alt="Image" src="images/User_Avatar.png" style="max-height: 150px; max-width: 100px" />
-												<% } %>
-								                </div>
-								                <div class="form-group col-md-6">
-								                  <label class="col-sm-4 control-label" style="text-align: left;">Name</label>
-								
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getName() %></label>
-								                  </div>
-								                
-								                  <label class="col-sm-4 control-label"  style="text-align: left;">User ID</label>
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getUserid() %></label>
-								                  </div>
-								                
-								                  <label class="col-sm-4 control-label"  style="text-align: left;">Gender</label>
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getGender()%></label>
-								                  </div>
-								                  
+								              
+								              <div class="form-group col-md-6 ">
+								                	 <div class="form-group col-md-12" >
+									                	<%
+									                		if(empReg.getProfileImage() != null)
+									                		{
+									                			String path = "/ems_uploads/"+empReg.getUserid()+"/Profile_Photo/" + empReg.getProfileImage();
+												                %>
+												                	<a class="col-md-12" href="<%= path %>"><img alt="<%= empReg.getName() %>" src="<%=path %>" style="max-height: 150px; max-width: 100px" /></a>
+												                <%
+									                		}
+									                		else
+									                		{
+									                			%>
+									                				<img alt="<%= empReg.getName() %>" src="images/Camera_Icon.png" style="max-height: 150px; max-width: 100px" />
+									                			<%
+									                		}
+									                	
+									                	%>
+								                	 </div>
+								                	 
 								                </div>
 								                
-								                <div class="clearfix"></div>
+								                <div class="form-group col-md-6 no-padding no-margin">
+								                	<div class="form-group col-md-12">
+									                  <label class="col-sm-4 control-label" style="text-align: left;">Employee Id</label>
+									                  <div class="col-sm-8">
+									                    <label class="form-control label-text"><%= empReg.geteId() %></label>
+									                  </div>
+									                </div>
+									                <div class="form-group col-md-12">
+									                  <label class="col-sm-4 control-label" style="text-align: left;">Name</label>
+									                  <div class="col-sm-8">
+									                    <label class="form-control label-text"><%= empReg.getName() %></label>
+									                  </div>
+									                </div>
+									                <div class="form-group col-md-12">
+									                  <label class="col-sm-4 control-label"  style="text-align: left;">User ID</label>
+									                  <div class="col-sm-8">
+									                    <label class="form-control label-text"><%= empReg.getUserid() %></label>
+									                  </div>
+									                </div>
+								                </div>
+								                 <div class="clearfix"></div>
 								                <div class="form-group col-md-6">
-								                <label class="col-sm-4 control-label"  style="text-align: left;">DOB</label>
+									                  <label class="col-sm-4 control-label"  style="text-align: left;">Gender</label>
+									                  <div class="col-sm-8">
+									                    <label class="form-control label-text"><%= empReg.getGender()%></label>
+									                  </div>
+									                </div>
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">DOB</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getDob() %></label>
+								                    <label class="form-control label-text"><%= empReg.getDob() %></label>
 								                  </div>
+								                </div>
+								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Join Date</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= DateFormats.ddMMMyyyy().format(empReg.getJoiningDate()) %></label>
-								                  </div>
-								                
-								                  <label class="col-sm-4 control-label"  style="text-align: left;">Registration</label>
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= DateFormats.ddMMMyyyy().format(empReg.getRegdate()) %></label>
-								                  </div>
-								               </div>
-								               <div class="form-group col-md-6">
-								                  <label class="col-sm-4 control-label"  style="text-align: left;">Department</label>
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getDepartment().getDepartment() %></label>
-								                  </div>
-								                
-								                  <label class="col-sm-4 control-label"  style="text-align: left;">Designation</label>
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getDesignation().getDesignation() %></label>
-								                  </div>
-								                  
-								                  <label class="col-sm-4 control-label"  style="text-align: left;">Branch</label>
-								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= empReg.getBranch().getBranchName() %></label>
+								                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(empReg.getJoiningDate()) %></label>
 								                  </div>
 								                </div>
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">Registration</label>
+								                  <div class="col-sm-8">
+								                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(empReg.getRegdate()) %></label>
+								                  </div>
+								                </div>
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">Department</label>
+								                  <div class="col-sm-8">
+								                    <label class="form-control label-text"><%= empReg.getDepartment().getDepartment() %></label>
+								                  </div>
+								                </div>
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">Designation</label>
+								                  <div class="col-sm-8">
+								                    <label class="form-control label-text"><%= empReg.getDesignation().getDesignation() %></label>
+								                  </div>
+								                </div>
+								                <%
+								                	if(empReg.getBranch() != null)
+								                	{
+								                		%>
+											                <div class="form-group col-md-6">
+											                  <label class="col-sm-4 control-label"  style="text-align: left;">Branch</label>
+											                  <div class="col-sm-8">
+											                    <label class="form-control label-text"><%= empReg.getBranch().getBranchName() %></label>
+											                  </div>
+											                </div>
+								                		<%
+								                	}
+								                %>
+								                <%
+								                	List<UserRole> roles = (List)request.getAttribute("roles");
+								                	if(roles != null && !roles.isEmpty())
+								                	{
+								                		%>
+								                			<div class="form-group col-md-6">
+											                  <label class="col-sm-4 control-label"  style="text-align: left;">User Role</label>
+											                  <div class="col-sm-8">
+											                    <label class="form-control label-text"><%= roles.get(0).getUserrole() %></label>
+											                  </div>
+											                </div>
+								                		<%
+								                	}
+								                
+								                %>
+								                <div class="form-group col-md-6">
+								                  <label class="col-sm-4 control-label"  style="text-align: left;">Week Off</label>
+								                  <div class="col-sm-8">
+								                    <label class="form-control label-text"><%= DateFormats.getDayName(empReg.getWeekOff()) %></label>
+								                  </div>
+								                </div>
+								                <div class="clearfix"></div>
+								                
 								              </div>
 								              <a href="managerEditEmployee?empid=<%= empReg.getUserid()%>"><button class="btn btn-primary"><i class="fa fa-fw fa-edit"></i>Edit Info</button></a> 
 								            </div>
@@ -210,13 +304,13 @@
 											                  <label class="col-sm-4 control-label" style="text-align: left;">Permanent Addr</label>
 											
 											                  <div class="col-sm-8">
-											                    <label class="form-control"><%= ud.getParmanentAddress() %></label>
+											                    <label class="form-control label-text"><%= ud.getParmanentAddress() %></label>
 											                  </div>
 											                </div>
 											                <div class="form-group col-md-6">
 											                  <label class="col-sm-4 control-label"  style="text-align: left;">Present Address</label>
 											                  <div class="col-sm-8">
-											                    <label class="form-control"><%= ud.getPresentAddress() %></label>
+											                    <label class="form-control label-text"><%= ud.getPresentAddress() %></label>
 											                  </div>
 											                </div>
 											                <div class="form-group col-md-6">
@@ -237,6 +331,14 @@
 											                    <label class="form-control"><%= ud.getCountry() %></label>
 											                  </div>
 											                </div>
+											                
+											                <div class="form-group col-md-6">
+											                  <label class="col-sm-4 control-label"  style="text-align: left;">Alt. Email Address</label>
+											                  <div class="col-sm-8">
+											                    <label class="form-control"><%= ud.getAltEmailId() %></label>
+											                  </div>
+											                </div>
+											                
 											                <div class="form-group col-md-6">
 											                  <label class="col-sm-4 control-label"  style="text-align: left;">Mobile No</label>
 											                  <div class="col-sm-8">
@@ -267,9 +369,16 @@
 											                    <label class="form-control"><%= ud.getMaritalStatus() %></label>
 											                  </div>
 											                </div>
+											                <div class="form-group col-md-6">
+											                  <label class="col-sm-4 control-label"  style="text-align: left;">Passport Number</label>
+											                  <div class="col-sm-8">
+											                    <label class="form-control"><%= ud.getPassportNo() %></label>
+											                  </div>
+											                </div>
 											               
-											                
-											                <a href="managerAddOtherInfo?empid=<%= empReg.getUserid() %>&pg=edit"><button class="btn btn-primary "><i class="fa fa-fw fa-edit"></i>Edit Other Info</button></a>
+											                <div class="form-group col-md-12">
+											                	<a href="managerAddOtherInfo?empid=<%= empReg.getUserid() %>&pg=edit"><button class="btn btn-primary "><i class="fa fa-fw fa-edit"></i>Edit Other Info</button></a>
+											                </div>
 						                			<%
 						                		}
 									    		else

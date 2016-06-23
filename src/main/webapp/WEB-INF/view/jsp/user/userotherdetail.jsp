@@ -14,9 +14,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -44,32 +44,32 @@
 			<div class="col-xs-12 col-md-12">
 				<form:form method="POST" role="form" action="userOtherDetail" commandName="odForm" onsubmit="return validate()">
 				<div class="box box-info">
-					<div class="box-body">
+					<div class="box-body other-Form">
 				       <div class="form-group col-xs-12 col-md-6">
 						<label>Permanent Address</label><span class="text-danger">*</span>
-						<form:input path="parmanentAddress" cssClass="form-control" placeholder="Enter Permanent Address" autofocus="autofocus" tabindex="1" maxlength="150"/>
+						<form:input path="parmanentAddress" cssClass="form-control titleCase" placeholder="Enter Permanent Address" autofocus="autofocus" tabindex="1" maxlength="150"/>
 						 <span class="text-danger"><form:errors path="parmanentAddress" /></span>
 					   </div>
 					   <div class="form-group col-xs-12 col-md-6">
 						<label>Present Address</label><span class="text-danger">*</span>
-						<form:input path="presentAddress" cssClass="form-control" placeholder="Enter Present Address" tabindex="5" maxlength="150"/>
+						<form:input path="presentAddress" cssClass="form-control titleCase" placeholder="Enter Present Address" tabindex="5" maxlength="150"/>
 						<span class="text-danger"><form:errors path="presentAddress" /></span>
 					   </div>
 					   <div class="clearfix"></div>
 					   <div class="form-group col-xs-12 col-md-6">
 					    <label>City</label><span class="text-danger">*</span>
-						<form:input path="city" cssClass="form-control" placeholder="Enter city" tabindex="10" maxlength="50"/>
+						<form:input path="city" cssClass="form-control titleCase character_only" placeholder="Enter city" tabindex="10" maxlength="50"/>
 						<span class="text-danger"><form:errors path="city" /></span>
 					   </div>
 					   <div class="form-group col-xs-12 col-md-6">
 						<label>State</label><span class="text-danger">*</span>
-						<form:input path="state" cssClass="form-control" placeholder="Enter state" tabindex="15" maxlength="50"/>
+						<form:input path="state" cssClass="form-control titleCase character_only" placeholder="Enter state" tabindex="15" maxlength="50"/>
 						<span class="text-danger"><form:errors path="state" /></span>
 					   </div>
 					   <div class="clearfix"></div>
 					   <div class="form-group col-xs-12 col-md-6">
 						<label>country</label><span class="text-danger">*</span>
-						<form:input path="country" cssClass="form-control" placeholder="Enter country" tabindex="20" maxlength="50"/>
+						<form:input path="country" cssClass="form-control titleCase character_only" placeholder="Enter country" tabindex="20" maxlength="50"/>
 						<span class="text-danger"><form:errors path="country" /></span>
 					   </div>
 					   <div class="form-group col-xs-12 col-md-6">
@@ -85,7 +85,7 @@
 					   </div>
 					   <div class="form-group col-xs-12 col-md-6">
 						<label>Qualification</label><span class="text-danger">*</span>
-						<form:input path="qualification" cssClass="form-control" placeholder="Enter Qualification" tabindex="35" maxlength="50"/>
+						<form:input path="qualification" cssClass="form-control titleCase" placeholder="Enter Qualification" tabindex="35" maxlength="50"/>
 						<span class="text-danger"><form:errors path="qualification" /></span>
 					   </div>
 					  <div class="clearfix"></div>
@@ -126,7 +126,7 @@
 					  
 					   <div class="form-group col-xs-12 col-md-6">
 			            <label>Passport Number</label>
-			            <form:input path="passportNo" class="form-control" placeholder="Enter Passport Number" tabindex="55" maxlength="25"/>
+			            <form:input path="passportNo" class="form-control upperCase" placeholder="Enter Passport Number" tabindex="55" maxlength="25"/>
 			            <span class="text-danger"><form:errors path="passportNo" /></span>
 			           </div>
 			           			           
@@ -153,16 +153,16 @@
   function validate()
 {
 	
-	var parmanentAddress=$("#parmanentAddress").val();
-	var presentAddress=$("#presentAddress").val();
-	var city=$("#city").val();
-	var state=$("#state").val();
-	var country=$("#country").val();
-	var bloodGroup=$("#bloodGroup").val();
-	var maritalStatus=$("#maritalStatus").val();
-	var qualification=$("#qualification").val();
-	var mobileNo=$("#mobileNo").val();
-	var altEmailId=$("#altEmailId").val();
+	var parmanentAddress=$(".other-Form #parmanentAddress").val();
+	var presentAddress=$(".other-Form #presentAddress").val();
+	var city=$(".other-Form #city").val();
+	var state=$(".other-Form #state").val();
+	var country=$(".other-Form #country").val();
+	var bloodGroup=$(".other-Form #bloodGroup").val();
+	var maritalStatus=$(".other-Form #maritalStatus").val();
+	var qualification=$(".other-Form #qualification").val();
+	var mobileNo=$(".other-Form #mobileNo").val();
+	var altEmailId=$(".other-Form #altEmailId").val();
 	
 	var valid = true;
     $('.has-error').removeClass("has-error");
@@ -170,54 +170,54 @@
 	
 	
 	if(parmanentAddress==''){
-		$("#parmanentAddress").parent().addClass("has-error")
+		$(".other-Form #parmanentAddress").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(presentAddress==''){
-		$("#presentAddress").parent().addClass("has-error")
+		$(".other-Form #presentAddress").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(city==''){
-		$("#city").parent().addClass("has-error")
+		$(".other-Form #city").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(state==''){
-		$("#state").parent().addClass("has-error")
+		$(".other-Form #state").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(country==''){
-		$("#country").parent().addClass("has-error")
+		$(".other-Form #country").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(mobileNo==''||!ContactNo(mobileNo)){
-		$("#mobileNo").parent().addClass("has-error")
+		$(".other-Form #mobileNo").parent().addClass("has-error")
 		valid=false;
 		}
 	
 		
 	if(qualification==''){
-		$("#qualification").parent().addClass("has-error")
+		$(".other-Form #qualification").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(bloodGroup==''||bloodGroup=='Select Blood Group'){
-		$("#bloodGroup").parent().addClass("has-error")
+		$(".other-Form #bloodGroup").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(maritalStatus==''||maritalStatus=='Select Marital Status'){
-		$("#maritalStatus").parent().addClass("has-error")
+		$(".other-Form #maritalStatus").parent().addClass("has-error")
 		valid=false;
 		}
 		
 		
 	if(altEmailId==''||!isEmail(altEmailId)){
-		$("#altEmailId").parent().addClass("has-error")
+		$(".other-Form #altEmailId").parent().addClass("has-error")
 		valid=false;
 		}
 	
@@ -226,8 +226,8 @@
         return false;        
     }
 	
-    $("#submit_btn").attr("disabled","disabled");
-    $("#submit_btn").text("Saving...");
+    $(".other-Form #submit_btn").attr("disabled","disabled");
+    $(".other-Form #submit_btn").text("Saving...");
   
 }
   </script>

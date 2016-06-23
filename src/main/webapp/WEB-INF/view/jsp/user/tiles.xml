@@ -90,9 +90,9 @@
         <put-attribute name="currentpage" value="payroll" cascade="true"/>
     </definition>
     
-    <definition name="notifications" extends="userTemplate">
+    <definition name="userNotifications" extends="userTemplate">
         <put-attribute name="title" value="EMS - Employee Notifications" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/user/notifications.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/notifications.jsp" />
         <put-attribute name="currentpage" value="notifications" cascade="true"/>
     </definition>
     

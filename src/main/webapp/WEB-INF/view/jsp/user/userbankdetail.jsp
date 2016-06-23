@@ -14,9 +14,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.css">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
@@ -51,28 +51,28 @@
 					<div class="box-body">
 				       <div class="form-group col-xs-12 col-md-6">
 						<label>Bank Name</label><span class="text-danger">*</span>
-						<form:input path="bankName" cssClass="form-control" placeholder="Enter Bank Name" autofocus="autofocus" tabindex="1" maxlength="50"/>
+						<form:input path="bankName" cssClass="form-control titleCase" placeholder="Enter Bank Name" autofocus="autofocus" tabindex="1" maxlength="50"/>
 						<input type="hidden" name="empid" value="<%=  empReg.getUserid() %>">
 						 <span class="text-danger"><form:errors path="bankName" /></span>
 					   </div>
 					   
 					    <div class="form-group col-xs-12 col-md-6">
 			            <label>Account Number</label>
-			            <form:input path="accountNo" class="form-control" placeholder="Enter Account Number" tabindex="5" maxlength="25"/>
+			            <form:input path="accountNo" class="form-control upperCase" placeholder="Enter Account Number" tabindex="5" maxlength="25"/>
 			            <span class="text-danger"><form:errors path="accountNo" /></span>
 			           </div>
 			           
 			            <div class="clearfix"></div>
 					   <div class="form-group col-xs-12 col-md-6">
 						<label>IFSC Code</label><span class="text-danger">*</span>
-						<form:input path="ifscCode" cssClass="form-control" placeholder="Enter IFSC Code" tabindex="10" maxlength="11"/>
+						<form:input path="ifscCode" cssClass="form-control upperCase" placeholder="Enter IFSC Code" tabindex="10" maxlength="11"/>
 						<span class="text-danger"><form:errors path="ifscCode" /></span>
 					   </div>
 					 
 					 				 
 					   <div class="form-group col-xs-12 col-md-6">
 					    <label>Name As Per Bank Record</label><span class="text-danger">*</span>
-						<form:input path="nameAsBankRecord" cssClass="form-control" placeholder="Enter Name As Per Bank Record" tabindex="15" maxlength="50"/>
+						<form:input path="nameAsBankRecord" cssClass="form-control titleCase" placeholder="Enter Name As Per Bank Record" tabindex="15" maxlength="50"/>
 						<span class="text-danger"><form:errors path="nameAsBankRecord" /></span>
 					   </div>
 					   
@@ -91,7 +91,7 @@
 					 	<div class="clearfix"></div>
 					  	<div class="form-group col-xs-12 col-md-6">
 					    <label>PAN Number</label><span class="text-danger">*</span>
-						<form:input path="panNo" cssClass="form-control" placeholder="Enter PAN Number" tabindex="15" maxlength="50"/>
+						<form:input path="panNo" cssClass="form-control upperCase" placeholder="Enter PAN Number" tabindex="15" maxlength="50"/>
 						<span class="text-danger"><form:errors path="panNo" /></span>
 					   </div>				  
 			           <div class="clearfix"></div>
@@ -128,27 +128,27 @@
 					
 				       <div class="form-group col-xs-12 col-md-6">
 						<label>Bank Name</label><span class="text-danger">*</span>
-						<form:input path="bankName" cssClass="form-control" placeholder="Enter Bank Name" autofocus="autofocus" tabindex="1" maxlength="50"/>
+						<form:input path="bankName" cssClass="form-control titleCase" placeholder="Enter Bank Name" autofocus="autofocus" tabindex="1" maxlength="50"/>
 						<input type="hidden" name="empid" value="<%=  empReg.getUserid() %>">
 						 <span class="text-danger"><form:errors path="bankName" /></span>
 					   </div>
 					   
 					    <div class="form-group col-xs-12 col-md-6">
 			            <label>Account Number</label>
-			            <form:input path="accountNo" class="form-control" placeholder="Enter Account Number" tabindex="5" maxlength="25"/>
+			            <form:input path="accountNo" class="form-control upperCase" placeholder="Enter Account Number" tabindex="5" maxlength="25"/>
 			            <span class="text-danger"><form:errors path="accountNo" /></span>
 			           </div>
 			           
 			            <div class="clearfix"></div>
 					   <div class="form-group col-xs-12 col-md-6">
 						<label>IFSC Code</label><span class="text-danger">*</span>
-						<form:input path="ifscCode" cssClass="form-control" placeholder="Enter IFSC Code" tabindex="10" maxlength="11"/>
+						<form:input path="ifscCode" cssClass="form-control upperCase" placeholder="Enter IFSC Code" tabindex="10" maxlength="11"/>
 						<span class="text-danger"><form:errors path="ifscCode" /></span>
 					   </div>
 					 
 					   <div class="form-group col-xs-12 col-md-6">
 					    <label>Name As Per Bank Record</label><span class="text-danger">*</span>
-						<form:input path="nameAsBankRecord" cssClass="form-control" placeholder="Enter Name As Per Bank Record" tabindex="15" maxlength="50"/>
+						<form:input path="nameAsBankRecord" cssClass="form-control titleCase" placeholder="Enter Name As Per Bank Record" tabindex="15" maxlength="50"/>
 						<span class="text-danger"><form:errors path="nameAsBankRecord" /></span>
 					   </div>
 					 <div class="clearfix"></div>
@@ -165,7 +165,7 @@
 					  <div class="clearfix"></div>
 					  <div class="form-group col-xs-12 col-md-6">
 					    <label>PAN Number</label><span class="text-danger">*</span>
-						<form:input path="panNo" cssClass="form-control" placeholder="Enter PAN Number" tabindex="30" maxlength="50"/>
+						<form:input path="panNo" cssClass="form-control upperCase" placeholder="Enter PAN Number" tabindex="30" maxlength="50"/>
 						<span class="text-danger"><form:errors path="panNo" /></span>
 					   </div>
 			           <div class="clearfix"></div>

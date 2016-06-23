@@ -30,12 +30,14 @@ import com.ems.config.ProjectConfig;
 import com.ems.config.Roles;
 import com.ems.config.Validation;
 import com.ems.domain.Attendance;
+import com.ems.domain.BankDetail;
 import com.ems.domain.Documents;
 import com.ems.domain.LoginInfo;
 import com.ems.domain.Notification;
 import com.ems.domain.Registration;
 import com.ems.domain.UserRole;
 import com.ems.service.AttendanceService;
+import com.ems.service.BankDetailService;
 import com.ems.service.DocumentsService;
 import com.ems.service.LoginInfoService;
 import com.ems.service.MailService;
@@ -52,6 +54,7 @@ public class ManagerController {
 	@Autowired private MailService mailservice;
 	@Autowired private DocumentsService documentService;
 	@Autowired private NotificationService notificationService;
+	@Autowired private BankDetailService bankDetailService;
 	
 	
 	@RequestMapping(value = "/managerDashboard", method = RequestMethod.GET)
@@ -98,7 +101,7 @@ public class ManagerController {
 					notification.setType("password");
 					notification.setNotiMsg("Password has been Changed by "+registration.getName());
 					notification.setNotiId(info.getLid());
-					notification.setNotiTo(reg);
+					notification.setNotiTo(reg.getUserid());
 					notificationService.addNotification(notification);
 					
 					
@@ -338,14 +341,11 @@ public class ManagerController {
 	@RequestMapping(value = "/managerFullReport", method = RequestMethod.GET)
 	public String managerFullReport(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		System.out.println("Show all Detail from Get method");
 		return "managerFullReport";
 	}
 	@RequestMapping(value = "/managerFullReport", method = RequestMethod.POST)
 	public String managerFullReportSubmit(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		System.out.println("Show all Detail from post method");
-		
 		Calendar calendar = Calendar.getInstance();
 		
 		String empid=(String) request.getParameter("empid");

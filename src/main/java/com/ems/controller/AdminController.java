@@ -202,7 +202,7 @@ public class AdminController
 					notification.setType("password");
 					notification.setNotiMsg("Password has been Changed by "+registration.getName());
 					notification.setNotiId(info.getLid());
-					notification.setNotiTo(reg);
+					notification.setNotiTo(reg.getUserid());
 					notificationService.addNotification(notification);
 					
 					return "redirect:adminViewEmployee?empid="+empid;
@@ -217,17 +217,24 @@ public class AdminController
 		return "redirect:adminViewEmployee?empid="+empid;
 	}
 	
+	
+	@RequestMapping(value = "/myCalendar", method = RequestMethod.GET)
+	public String myCalendar(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		
+		return "myCalendar";
+	}
+	
 	@RequestMapping(value = "/searchEmployees", method = RequestMethod.GET)
 	@ResponseBody
 	public String searchEmployees(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		JSONObject obj = new JSONObject();
-		String search_text = request.getParameter("search_text");
+		String search_text = request.getParameter("q");
+		JSONArray array = new JSONArray();
 		System.out.println("search_text : " + search_text);
 		if(search_text != null && search_text.trim().length() > 2)
 		{
 			List<Registration> list = registrationService.searchEmp(search_text);
-			JSONArray array = new JSONArray();
 			if(list != null && !list.isEmpty())
 			{
 				for(Registration reg : list)
@@ -239,11 +246,8 @@ public class AdminController
 				}
 				
 			}
-			obj.put("regList", array);
-			obj.put("success", true);
-			return obj.toJSONString();
 		}
-		obj.put("success", false);
-		return obj.toJSONString();
+		System.out.println("JSON : " + array.toJSONString());
+		return array.toJSONString();
 	}
 }

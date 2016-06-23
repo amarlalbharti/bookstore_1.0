@@ -140,7 +140,7 @@ public class AdminEmpController
 			e.printStackTrace();
 		}
 		
-		if (result.hasErrors() || st || model.getDepartment().getDepartmentId() <= 0 || model.getDesignation().getDesignationId() <= 0 || model.getBranch().getBranchId()<=0)
+		if (result.hasErrors() || st || model.getDepartment().getDepartmentId() <= 0 || model.getDesignation().getDesignationId() <= 0 || model.getCountry().getCountryId() <=0 || model.getBranch().getBranchId()<=0)
 		{
 			if(model.getDepartment().getDepartmentId() <= 0)
 			{
@@ -150,6 +150,10 @@ public class AdminEmpController
 			{
 				result.addError(new FieldError("postForm", "designation", model.getDesignation() , false, new String[1],new String[1], "Please select designation"));
 			}
+			if(model.getCountry().getCountryId() <= 0)
+			{
+				result.addError(new FieldError("postForm", "country", model.getCountry() , false, new String[1],new String[1], "Please select country"));
+			}
 			if(model.getBranch().getBranchId() <= 0)
 			{
 				result.addError(new FieldError("postForm", "branch", model.getBranch() , false, new String[1],new String[1], "Please select branch"));
@@ -157,6 +161,10 @@ public class AdminEmpController
 			map.addAttribute("dpList", departmentService.getDepartmentList());
 			map.addAttribute("dsList", designationService.getDesignationList());
 			map.addAttribute("cList", countryService.getCountryList());
+			if(model.getCountry().getCountryId() > 0)
+			{
+				map.addAttribute("bList",branchService.getBranchByCountryId(model.getBranch().getCountry().getCountryId()));
+			}
 			System.out.println("in validation");
 			return "adminAddEmployee";
 		} 
@@ -530,7 +538,7 @@ public class AdminEmpController
 			Date dt = new Date(date.getTime());
 			
 			Registration reg = registrationService.getRegistrationByUserid(model.getUserid());
-			Registration registration = registrationService.getRegistrationByUserid(model.getUserid());	
+			Registration registration = registrationService.getRegistrationByUserid(principal.getName());	
 			if(reg != null)
 			{
 				user.setModifiedDate(dt);
@@ -560,13 +568,13 @@ public class AdminEmpController
 					notification.setType("other_detail");
 					notification.setNotiMsg("Other Detail has been updated by "+registration.getName());
 					notification.setNotiId(ud.getUserId());
-					notification.setNotiTo(reg);
+					notification.setNotiTo(reg.getUserid());
 					notificationService.addNotification(notification);
-					map.addAttribute("oif_success", "added");
+					map.addAttribute("oif_success", "updated");
 				}
 				else
 				{
-					map.addAttribute("oif_success", "updated");
+					map.addAttribute("oif_success", "added");
 					user.setRegistration(reg);
 					userDetailService.addOtherDetails(user);
 				}

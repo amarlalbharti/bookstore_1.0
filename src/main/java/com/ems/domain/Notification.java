@@ -44,9 +44,7 @@ public class Notification implements Serializable {
 	
 	private Date deleteDate;
 	
-	private Registration notiBy;
-	
-	private Registration notiTo;
+	private String notiTo;
 	
 	@Id
 	@Column(nullable=false)
@@ -108,27 +106,12 @@ public class Notification implements Serializable {
 	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
 	}
-	
-	
-	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="noti_by", referencedColumnName="lid")
-	public Registration getNotiBy() {
-		return notiBy;
-	}
-	public void setNotiBy(Registration notiBy) {
-		this.notiBy = notiBy;
-	}
-	
-	
-	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="noti_to", referencedColumnName="lid")
-	public Registration getNotiTo() {
+	public String getNotiTo() {
 		return notiTo;
 	}
-	public void setNotiTo(Registration notiTo) {
+	public void setNotiTo(String notiTo) {
 		this.notiTo = notiTo;
 	}
-	
 	
 	
 

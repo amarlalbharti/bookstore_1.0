@@ -179,13 +179,13 @@
 								                <div class="form-group col-md-6">
 								                   <label class="col-sm-4 control-label" style="text-align: left;">Permanent Address</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= userDetail.getParmanentAddress() %></label>
+								                    <label class="form-control label-text"><%= userDetail.getParmanentAddress() %></label>
 								                  </div>
 								                </div>
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Present Address</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= userDetail.getPresentAddress() %></label>
+								                    <label class="form-control label-text"><%= userDetail.getPresentAddress() %></label>
 								                  </div>
 								                </div>
 								                <div class="form-group col-md-6">
@@ -238,14 +238,16 @@
 								                  </div>
 								                </div>
 								                
+								                <div class="form-group col-md-6">
 								                <a href="managerAddOtherInfo?empid=<%= empReg.getUserid() %>&pg=edit"><button class="btn btn-primary "><i class="fa fa-fw fa-edit"></i>Edit Other Info</button></a>
+								                </div>
 								                <%
 											}else{
 												%>
 												<div class="col-xs-6 col-md-6">
 												<div class="box-body">
 												<div class="box-footer col-xs-12 col-md-12">
-											    <a href="userOtherDetail" class="btn btn-primary">Add Other Details</a>
+											    <a href="managerAddOtherInfo" class="btn btn-primary">Add Other Details</a>
 											    </div></div></div>
 												<%
 													}

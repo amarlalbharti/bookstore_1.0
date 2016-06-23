@@ -207,7 +207,7 @@ public class AttendanceController
 					notification.setNotiId(Integer.parseInt(aid));
 					notification.setNotiMsg("Attendance has been Updated by "+registration.getName());
 					
-					notification.setNotiTo(reg);
+					notification.setNotiTo(reg.getUserid());
 					
 					notificationService.addNotification(notification);
 					

@@ -203,6 +203,7 @@ public class AdminDataAddController {
 				
 				model.setCountryId(Integer.parseInt(countryId));
 				model.setCountryName(country.getCountryName());
+				model.setCountryCode(country.getCountryCode());
 				map.addAttribute("countryForm", model);
 				map.addAttribute("cList", countryService.getCountryList());
 				map.addAttribute("mode", "edit");
@@ -237,7 +238,7 @@ public class AdminDataAddController {
 			if(cr != null)
 			{
 				cr.setCountryName(model.getCountryName());
-				
+				cr.setCountryCode(model.getCountryCode());
 				flag = countryService.updateCountry(cr);
 				if(flag==true)
 				{

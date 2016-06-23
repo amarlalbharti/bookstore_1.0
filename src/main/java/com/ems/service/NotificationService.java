@@ -11,14 +11,14 @@ public interface NotificationService {
 
 	public boolean updateNotification(Notification notification);
 
-	public List<Notification> getUnviewedNotificationByUserId(int userid);
+	public List<Notification> getUnviewedNotificationByUserId(String userid);
 	
-	public long countNotification(int userid);
+	public long countNotification(String userid);
 	
-	public boolean updateNotificationByUserId(int userid);
+	public boolean updateNotificationByUserId(String userid);
 	
 	public Notification getNotificationById(long nid);
 	
-	public List<Notification> getNotificationBetweenTwoDates(int userid, Date startDate, Date endDate);
+	public List<Notification> getNotificationBetweenTwoDates(String userid, Date startDate, Date endDate);
 
 }

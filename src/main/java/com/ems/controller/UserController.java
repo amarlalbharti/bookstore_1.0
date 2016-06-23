@@ -42,6 +42,7 @@ import com.ems.service.LoginInfoService;
 import com.ems.service.NotificationService;
 import com.ems.service.RegistrationService;
 import com.ems.service.UserDetailService;
+import com.ems.service.UserRoleService;
 
 
 @Controller
@@ -53,6 +54,7 @@ public class UserController {
 	@Autowired private UserDetailService userDetailService;
 	@Autowired private BankDetailService bankDetailService;
 	@Autowired private NotificationService notificationService;
+	@Autowired private UserRoleService userRoleService;
 	
 	
 	@RequestMapping(value = "/userDashboard", method = RequestMethod.GET)
@@ -173,6 +175,7 @@ public class UserController {
 	{
 		map.addAttribute("pwdstatus", request.getParameter("pwdstatus"));
 		map.addAttribute("registration", registrationService.getRegistrationByUserid(principal.getName()));
+		map.addAttribute("roles", userRoleService.getUserRolesByUserid(principal.getName()));
 		return "userprofile";
 	}
 	
@@ -291,7 +294,7 @@ public class UserController {
 	}
 	
 	
-	@RequestMapping(value = "/userBankDetail", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/userBankDetail", method = RequestMethod.GET)
 	public String bankdetail(@RequestParam String Mode, ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		Mode=request.getParameter("Mode");
@@ -338,7 +341,7 @@ public class UserController {
 		}
 		
 	}
-	
+*/	
 	
 	/*@RequestMapping(value = "/userEditBankDetail", method = RequestMethod.GET)
 	public String editbankdetail(@RequestParam String Mode,ModelMap map, HttpServletRequest request, Principal principal)

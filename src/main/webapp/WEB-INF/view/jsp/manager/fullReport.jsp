@@ -66,6 +66,12 @@
 					</div>
 					<div class="input-group col-lg-3  no-padding">
 						<span class="input-group-addon">
+						<input type="checkbox" id="bank" name="bank" class="sel_one" value="bank" />
+						</span>
+						<label class="form-control">Bank Info</label>
+					</div>
+					<div class="input-group col-lg-3  no-padding">
+						<span class="input-group-addon">
 						<input type="checkbox" id="doc" name="doc" class="sel_one" value="doc" />
 						</span>
 						<label class="form-control">Document</label>
@@ -96,8 +102,6 @@
 					 <button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 					</div>
-<!-- 					<a href="managerFullReportPrint" style="margin-left: 10px; margin-bottom: 10px;" ><button class="btn btn-primary btn-sm"><i class="fa fa-fw fa-print"></i>Print</button> </a> -->
-<!-- 					<a class="btn btn-primary" href="managerFullReport" onclick="send();" style="margin-left: 2px;"><i class="fa fa-envelope" style="margin-right: 2px;"></i>Show</a> -->
             </div>
 				</div>
 			</div>
@@ -148,20 +152,21 @@ $(document.body).on('change', '#attdnA' ,function(){
   <script type="text/javascript">
   function validateForm()
 	{
-		var basic = $("input[name='basic']:checked").val(); //$("#basic").val(); 
-		var other = $("input[name='other']:checked").val(); // $("#other").val();	
-		var doc = $("input[name='doc']:checked").val(); //$("#doc").val();	
-		var attdn = $("input[name='attdn']:checked").val(); //$("#attdn").val();	
-		var attdnA = $("input[name='attdns']:checked").val(); // $("#attdnA").val();
-		var attdnF = 	$("input[name='attdnF']:checked").val(); //$("#attdnF").val();
-		var sdate = $("#sdate").val();//	$("input[name='gender']:checked").val();
-		var edate = $("#edate").val();//	$("input[name='gender']:checked").val();
+		var basic = $("input[name='basic']:checked").val();
+		var other = $("input[name='other']:checked").val();
+		var bank = $("input[name='bank']:checked").val();
+		var doc = $("input[name='doc']:checked").val();
+		var attdn = $("input[name='attdn']:checked").val();
+		var attdnA = $("input[name='attdns']:checked").val();
+		var attdnF = 	$("input[name='attdnF']:checked").val();
+		var sdate = $("#sdate").val();
+		var edate = $("#edate").val();
 		
 		
 		var valid = true;
 		$('.has-error').removeClass("has-error");
 		
-		if(basic == undefined && other == undefined && doc == undefined && attdn == undefined)
+		if(basic == undefined && other == undefined && bank == undefined && doc == undefined && attdn == undefined)
 		{
 			valid = false;
 		}
@@ -183,21 +188,6 @@ $(document.body).on('change', '#attdnA' ,function(){
 		$(".submit_btn").text("Sending...");
 	}
   
-//   function send()
-//   {
-// 	  var val = [];
-// 	  $('.sel_one:checkbox:checked').each(function(i){
-// 	  val[i] = $(this).val();
-// 	  });
-// 	  //val[0] != null && val[0] != ''
-// 	  if(val.length > 0){
-// 	  window.location = 'managerSendMessage?var='+val;
-// 	  }
-// 	  else{
-// 		  alert('Please select any employee to send message.');
-// 	  }
-//   }
-
 </script>
  </body>
  </html>

@@ -119,7 +119,7 @@ public class UserDetail implements Serializable
 	}
 	
 		
-	@Column(nullable=false)
+	@Column
 	public Date getModifiedDate() {
 		return modifiedDate;
 	}

@@ -140,4 +140,17 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/showPayrollReport.jsp" />
     </definition>
     
+    <definition name="adminNotifications" extends="adminTemplate">
+        <put-attribute name="title" value="EMS - Employee Notifications" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/notifications.jsp" />
+        <put-attribute name="currentpage" value="notifications" cascade="true"/>
+    </definition>
+    <definition name="myCalendar" extends="adminTemplate">
+        <put-attribute name="title" value="EMS - Employee Notifications" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/myCalendar.jsp" />
+        <put-attribute name="currentpage" value="calendar" cascade="true"/>
+    </definition>
+    
+    
+    
 </tiles-definitions>

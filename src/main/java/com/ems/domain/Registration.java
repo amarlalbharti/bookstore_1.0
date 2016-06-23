@@ -32,6 +32,8 @@ public class Registration implements Serializable
 	
 	private int lid;
 	
+	private String eId;
+	
 	private String name;
 	
 	private String userid;
@@ -71,6 +73,15 @@ public class Registration implements Serializable
 		this.lid = lid;
 	}
 
+	@Column(nullable=false)
+	public String geteId() {
+		return eId;
+	}
+
+	public void seteId(String eId) {
+		this.eId = eId;
+	}
+	
 	@Column(nullable=false)
 	public String getUserid() {
 		return userid;

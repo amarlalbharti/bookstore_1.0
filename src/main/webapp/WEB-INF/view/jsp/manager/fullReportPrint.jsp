@@ -1,3 +1,4 @@
+<%@page import="com.ems.domain.BankDetail"%>
 <%@page import="com.ems.domain.Attendance"%>
 <%@page import="com.ems.domain.Documents"%>
 <%@page import="java.util.List"%>
@@ -18,9 +19,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.css">
   <!-- iCheck -->
@@ -45,11 +46,12 @@
 			String other = (String) request.getParameter("other");
 			String doc = (String) request.getParameter("doc");
 			String attdn = (String) request.getParameter("attdn");
+			String bank = (String) request.getParameter("bank");
 			
           	Registration empReg = (Registration)request.getAttribute("empReg");
           	if(empReg != null)
           	{
-          		%>
+          	%>
 			<div>
 			<center>
 			<h1>Vasonomics</h1>
@@ -67,9 +69,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="wd">Email Id</td>
+						<td class="wd">Employee Id</td>
 						<td>:</td>
-						<td><%= empReg.getUserid() %></td>
+						<td><%= empReg.geteId() %></td>
 						<td rowspan="5" align="center">
 							<%	
 								if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
@@ -82,6 +84,11 @@
 							<% } %>
 						
 						</td>
+					</tr>
+					<tr>
+						<td class="wd">Email Id</td>
+						<td>:</td>
+						<td><%= empReg.getUserid() %></td>
 					</tr>
 					<tr>
 						<td class="wd">Date of Birth</td>
@@ -108,17 +115,29 @@
 						<td>:</td>
 						<td colspan="2"><%= empReg.getDesignation().getDesignation() %></td>
 					</tr>
+					<tr>
+						<td class="wd">Week off</td>
+						<td>:</td>
+						<td colspan="2"><%= DateFormats.getDayName(empReg.getWeekOff()) %></td>
+					</tr>
+					<tr>
+						<td class="wd">Branch</td>
+						<td>:</td>
+						<td colspan="2"><%= empReg.getBranch().getBranchName() %></td>
+					</tr>
 					<%
 					if(other != null && !other.isEmpty())
 					{
-						if(empReg.getUserDetail() != null)
-						{
-						     UserDetail ud = empReg.getUserDetail();
-           			%>
+					%>
 					<tr><td colspan="4">
 					<u><b>Other Info : </b></u>
 					</td>
 					</tr>
+					<%
+						if(empReg.getUserDetail() != null)
+						{
+						     UserDetail ud = empReg.getUserDetail();
+           			%>
 					<tr>
 						<td class="wd">Permanent Address</td>
 						<td>:</td>
@@ -176,7 +195,69 @@
 					</tr>
 					<% }
 					}  // Other info section end
-				
+						//Bank info section Start
+					
+					
+					
+					if(bank != null && !bank.isEmpty())
+					{
+					%>
+					<tr><td colspan="4">
+					<u><b>Bank Info : </b></u>
+					</td>
+					</tr>
+					<%
+						if(empReg.getBankDetail() != null)
+						{
+						     BankDetail bd = empReg.getBankDetail();
+           			%>
+					<tr>
+						<td class="wd">Bank Name</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getBankName() %></td>
+					</tr>
+					<tr>
+						<td class="wd">Account Number</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getAccountNo() %></td>
+					</tr>
+					<tr>
+						<td class="wd">IFSC Code</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getIfscCode() %></td>
+					</tr>
+					<tr>
+						<td class="wd">Name As Per Bank Record</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getNameAsBankRecord() %></td>
+					</tr>
+					<tr>
+						<td class="wd">Basic Salary</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getBasicSalary() %></td>
+					</tr>
+					<tr>
+						<td class="wd">PLI</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getPli() %></td>
+					</tr>
+					<tr>
+						<td class="wd">PAN Number</td>
+						<td>:</td>
+						<td colspan="2"><%= bd.getPanNo() %></td>
+					</tr>
+					<% } else { %>
+					<tr>
+						<td class="wd">Not Available</td>
+					</tr>
+					<% }
+					}	
+						
+					
+					
+					
+					// bank info section end
+					
 				if(doc != null && !doc.isEmpty())
 				{
 					%>

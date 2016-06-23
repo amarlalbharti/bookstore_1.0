@@ -160,7 +160,7 @@ $(document.body).on("click", ".submit_btn" ,function () {
  			names = encodeURIComponent(selectedName);
  			$.ajax({
         		type : "GET",
-        		url : "getPayrollReport",
+        		url : "securePayrollReport",
         		data : {'E_Names':names,'month':selectedMonth},
         		contentType : "application/json",
         		success : function(data) {

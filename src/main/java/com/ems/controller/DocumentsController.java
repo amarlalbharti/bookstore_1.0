@@ -115,7 +115,7 @@ public class DocumentsController
 		    				notification.setType("document");
 		    				notification.setNotiMsg(doc_name+" has been uploaded by "+registration.getName());
 		    				notification.setNotiId(doc.getDid());
-		    				notification.setNotiTo(reg);
+		    				notification.setNotiTo(reg.getUserid());
 		    				notificationService.addNotification(notification);
 		                    
 		                    
@@ -166,7 +166,7 @@ public class DocumentsController
 				notification.setType("document");
 				notification.setNotiMsg(doc.getDocumentName()+" has been deleted by "+registration.getName());
 				notification.setNotiId(Long.parseLong(did));
-				notification.setNotiTo(doc.getReg());
+				notification.setNotiTo(doc.getReg().getUserid());
 				notificationService.addNotification(notification);
 			
 			if(st)

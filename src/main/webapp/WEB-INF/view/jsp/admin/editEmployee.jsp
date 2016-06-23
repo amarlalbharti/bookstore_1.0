@@ -51,16 +51,20 @@
 						                	<form:form role="form" method="POST" action="adminEditEmployee"   enctype="multipart/form-data" commandName="empForm" autocomplete="off" onsubmit="return validateForm()">
 								              <div class="box-body">
 								                <div class="form-group col-xs-12 col-md-6">
+								                  <label >Employee Id</label>
+								                  <label class="form-control" ><%= empReg.geteId() %></label>
+								                </div>
+								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Employee Name</label>
-								                  <form:input path="name" class="form-control"  placeholder="Enter employee name" tabindex="1"/>
+								                  <form:input path="name" class="form-control titleCase"  placeholder="Enter employee name" tabindex="1"/>
 								                  <form:hidden path="userid" />
 								                  <span class="text-danger"><form:errors path="name" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Email Id</label>
 								                  <label class="form-control" ><%= empReg.getUserid() %></label>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >User Role</label>
 								                  <form:select path="userrole" class="form-control" tabindex="5">
@@ -71,17 +75,18 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="userrole" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6 date" data-provide="datepicker">
 								                  <label >Date of Birth</label>
 								                  <form:input path="dob" class="form-control dob" placeholder="dd-MM-yyyy" tabindex="10"/>
 								                  <span class="text-danger"><form:errors path="dob" /></span>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Joining Date</label>
 								                  <form:input path="joiningDate" class="form-control" placeholder="dd-MM-yyyy" tabindex="15"/>
 								                  <span class="text-danger"><form:errors path="joiningDate" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <div class="col-lg-6  no-padding">
 									                  <label >Gender</label>
@@ -105,7 +110,6 @@
 									                </div>
 									                <span class="text-danger"><form:errors path="gender" /></span>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Department</label>
 								                  <form:select path="department.departmentId" class="form-control" id="department" tabindex="30">
@@ -116,6 +120,7 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="department" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Designation</label>
 								                  <form:select path="designation.designationId" class="form-control" id="designation" tabindex="35">
@@ -126,7 +131,6 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="designation" /></span>
 								                </div>
-								                <div class="clearfix"></div>
 								                 <div class="form-group col-xs-12 col-md-6">
 								                  <label >Branch Country<span class="text-danger">*</span></label>
 								                  <form:select path="country.countryId" id="countryId" class="form-control">
@@ -137,6 +141,7 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="country.countryId" /></span>
 								                </div>
+								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Branch<span class="text-danger">*</span></label>
 								                  <form:select path="branch.branchId" id="branch" class="form-control">
@@ -147,7 +152,6 @@
 								                  </form:select>
 								                  <span class="text-danger"><form:errors path="branch" /></span>
 								                </div>
-								                <div class="clearfix"></div>
 								                <div class="form-group col-xs-12 col-md-6">
 								                  <label >Week Off<span class="text-danger">*</span></label>
 								                  <form:select path="weekOff" class="form-control">
@@ -164,66 +168,56 @@
 								                  <span class="text-danger"><form:errors path="branch" /></span>
 								                </div>
 								                <div class="clearfix"></div>
-								                <div class="form-group col-xs-12 col-md-6">
-								                <%
-									                String path = "/ems_uploads/"+empReg.getUserid()+"/Profile_Photo/" + empReg.getProfileImage();
-									                if(empReg.getProfileImage() != null )
-									                {
-										                %>
-															<img alt="Image not available" id="output" src="<%=path %>" style="max-height: 150px; max-width: 100px" />
-														<% 
-													}
-									                else 
-									                {
-									                	%>
-														<img alt="Image not available" id="output" src="images/User_Avatar.png" style="max-height: 150px; max-width: 100px" />
-														<% 
-													}
-								                %>
-								                </div>
-								                <div class="form-group col-xs-12 col-md-6">
-								                <%
-									                if(empReg.getPanImage() != null)
-									                {
-										                String panPath = "/ems_uploads/"+empReg.getUserid()+"/Pan_Scan/"+empReg.getPanImage();
-										                %>
-															<img alt="Scan not Available" id="output1" src="<%=panPath %>" style="max-height: 150px; max-width: 100px"/>
-										                <% 
-									                }
-									                else
-								                	{ 
-								                		%>
-										                	<img alt="Scan not Available" id="output1" src="images/document.png" style="max-height: 150px; max-width: 100px"/>
-										                <% 
-									                } 
-								                %>
-								                </div>
-						                		<div class="clearfix"></div>
-								                <div class="form-group col-xs-12 col-md-6">
-<!-- 								                  <label >Employee Image</label> -->
-								                  <div class="clearfix"></div>
-													<label class=" btn btn-primary btn-flat btn-xs">
-														<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload()" />
-														<i class="fa fa-fw fa-cloud-upload"></i> Browse Image
-													</label>
-												<div class="clearfix"></div>
-								                  <span class="text-danger"><form:label path="" id="ui"  class='image_error'/></span>
-								                </div>
-								                <div class="form-group col-xs-12 col-md-6">
-<!-- 								                  <label >Pan Upload</label> -->
-													<label class="btn btn-primary btn-flat btn-xs">
-														<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload1()" />
-														<i class="fa fa-fw fa-cloud-upload"></i> Browse Pan Card
-													</label>
-													<div class="clearfix"></div>
-								                  <span class="text-danger"><form:label path="" id="dl" class='' /></span>
-								                </div>
+								                
+						                <div class="form-group col-xs-12 col-md-6">
+							                <div class="form-group col-xs-12 no-padding">
+							                <%	
+				 						        if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
+				 						        {
+				 						           	String path = "/ems_uploads/"+empReg.getUserid()+"/Profile_Photo/" + empReg.getProfileImage();
+										     %>
+												<img alt="Image not available" id="output" src="<%=path %>" style="max-height: 150px; max-width: 100px" />
+											<% } else { %>
+												<img alt="Image" id="output" src="images/Camera_Icon.png" style="max-height: 150px; max-width: 100px" />
+											<% } %>
+											</div>
+											<div class="form-group col-xs-12 no-padding">
+												<label class="btn btn-primary btn-flat btn-xs">
+													<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="return ValidateFileUpload()" />
+													<i class="fa fa-fw fa-cloud-upload"></i>
+													Browse Image 
+												</label>
+												<span class="text-danger"><form:label path="" id="userImgErr" class="image_error" /></span>
+											</div>
+						                </div>
+						                
+						                <div class="form-group col-xs-12 col-md-6">
+							                <div class="form-group col-xs-12 no-padding">
+							                <%
+							                if(empReg.getPanImage() != null && (!empReg.getPanImage().isEmpty()))
+							                {
+							                	String panPath = "/ems_uploads/"+empReg.getUserid()+"/Pan_Scan/"+ empReg.getPanImage();
+							                %>
+												<img alt="Scan not Available" id="output1" src="<%=panPath %>" style="max-height: 100px; max-width: 300px"/>
+							                <% } else { %>
+							                	<img alt="Scan not Available" id="output1" src="images/document.png" style="max-height: 100px; max-width: 300px"/>
+							                <% } %>
+							                </div>
+							                <div class="form-group col-xs-12 no-padding">
+											<label class=" btn btn-primary btn-flat btn-xs">
+												<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="80" onchange="return ValidateFileUpload1()" />
+												<i class="fa fa-fw fa-cloud-upload"></i>
+												Browse Pan Card 
+											</label>
+											<span class="text-danger"><form:label path="" id="userPanImg" /></span>
+											</div>
+						                </div>
 								                
 								              </div>
 								              <!-- /.box-body -->
 								
 								              <div class="box-footer col-xs-12 col-md-6">
-								                <button type="submit" class="btn btn-primary" tabindex="40">Update</button>
+								                <button type="submit" class="btn btn-primary submit_btn" tabindex="40">Update</button>
 								              </div>
 								            </form:form>
 						              </div>
@@ -356,7 +350,8 @@ $('#joiningDate').datetimepicker({
 		{
 			return false;		
 		}
-		
+		$(".submit_btn").attr("disabled","disabled");
+		$(".submit_btn").text("Updating...");
 	}
 
 </script>
@@ -365,10 +360,10 @@ function ValidateFileUpload() {
 
 	var fuData = document.getElementById('u1');
 	var FileUploadPath = fuData.value;
-	document.getElementById('ui').innerHTML = '';
+	document.getElementById('userImgErr').innerHTML = '';
 
 	if (FileUploadPath == '') {
-		document.getElementById('ui').innerHTML = 'Please upload an image.';
+		document.getElementById('userImgErr').innerHTML = 'Please upload an image.';
 
 	} else {
 	    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
@@ -383,7 +378,7 @@ function ValidateFileUpload() {
 	                var size = fuData.files[0].size;
 
 	                if(size > 512000){
-	                	document.getElementById('ui').innerHTML = 'Maximum file size exceed.';
+	                	document.getElementById('userImgErr').innerHTML = 'Maximum file size exceed.';
 	                    $('#output').attr('src', 'images/User_Avatar.png');
 	                    fuData.value = "";
 	                    return;
@@ -399,7 +394,6 @@ function ValidateFileUpload() {
 	            }
 	    } 
 	else {
-		alert("Hello");
 		$(".image_error").text("Photo only allows file types of GIF, PNG, JPG and JPEG.");
 	        fuData.value = "";
 	        $('#output').attr('src', 'images/User_Avatar.png');
@@ -411,10 +405,10 @@ function ValidateFileUpload1() {
 
 	var fuData = document.getElementById('u2');
 	var FileUploadPath = fuData.value;
-	document.getElementById('dl').innerHTML = '';
+	document.getElementById('userPanImg').innerHTML = '';
 
 	if (FileUploadPath == '') {
-		document.getElementById('dl').innerHTML = 'Please upload an image.';
+		document.getElementById('userPanImg').innerHTML = 'Please upload an image.';
 
 	} else {
 	    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
@@ -428,7 +422,7 @@ function ValidateFileUpload1() {
 	                var size = fuData.files[0].size;
 
 	                if(size > 512000){
-	                	document.getElementById('dl').innerHTML = 'Maximum file size exceed.';
+	                	document.getElementById('userPanImg').innerHTML = 'Maximum file size exceed.';
 	                    $('#output1').attr('src', 'images/document.png');
 	                    fuData.value = "";
 	                    return;
@@ -443,7 +437,7 @@ function ValidateFileUpload1() {
 	            }
 	    } 
 	else {
-		document.getElementById('dl').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
+		document.getElementById('userPanImg').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
 	        fuData.value = "";
 	        $('#output1').attr('src', 'images/document.png');
 	    }

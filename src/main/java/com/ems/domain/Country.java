@@ -21,6 +21,7 @@ public class Country implements Serializable {
 
 	private int countryId;
 	private String countryName;
+	private String countryCode;
 	private Date createDate;
 	private Date deleteDate;
 	
@@ -62,4 +63,12 @@ public class Country implements Serializable {
 		this.deleteDate = deleteDate;
 	}
 	
+	@Column(nullable=false)
+	public String getCountryCode() {
+		return countryCode;
+	}
+
+	public void setCountryCode(String countryCode) {
+		this.countryCode = countryCode;
+	}
 }

@@ -40,7 +40,7 @@
 						
                 				<form:form method="POST" role="form" action="useraddleave" commandName="leave" onsubmit="return validate()">
                 				<div class="box box-info">
-										<div class="box-body">
+										<div class="box-body leave-form">
 																	
 									    <div class="form-group col-xs-12 col-md-6">
 											<label>To</label>
@@ -86,14 +86,14 @@
 										   <div class="form-group col-xs-12 col-md-6">
 											<label>Subject</label>
 											<span class="text-danger">*</span>
-											<form:input path="subject" cssClass="form-control" placeholder="Enter Subject" tabindex="15" maxlength="250"/>
+											<form:input path="subject" cssClass="form-control titleCase" placeholder="Enter Subject" tabindex="15" maxlength="250"/>
 											<span class="text-danger"><form:errors path="subject" /></span>
 										 
 										  </div>
 										   <div class="form-group col-xs-12 col-md-6">
 											<label>Reason</label>
 											<span class="text-danger">*</span>
-											<form:textarea path="reason" rows="5" cols="50" cssClass="form-control" style="resize:none;" placeholder="Enter Reason" tabindex="20"/>
+											<form:textarea path="reason" rows="5" cols="50" cssClass="form-control titleCase" style="resize:none;" placeholder="Enter Reason" tabindex="20"/>
 											<span class="text-danger"><form:errors path="reason" /></span>
 										  
 										  </div>
@@ -121,7 +121,7 @@
 							            
 								<div class="box box-info">
 								        
-									<div class="box-body">
+									<div class="box-body leave-form">
 										<div class="form-group">
 											<form:hidden path="leaveId" cssClass="form-control" />
 						  				</div>
@@ -171,14 +171,14 @@
 										  <div class="form-group col-xs-12 col-md-6">
 											<label>Subject</label>
 										    <span class="text-danger">*</span>
-											<form:input path="subject" cssClass="form-control" placeholder="Enter Subject" tabindex="15" maxlength="250" style="resize:resize;"/>
+											<form:input path="subject" cssClass="form-control titleCase" placeholder="Enter Subject" tabindex="15" maxlength="250" style="resize:resize;"/>
 											<span class="text-danger"><form:errors path="subject" /></span>
 										 
 										  </div>
 										  <div class="form-group col-xs-12 col-md-6">
 											<label>Reason</label>
 											<span class="text-danger">*</span>
-											<form:textarea path="reason" rows="5" cols="50" cssClass="form-control" style="resize:none;"  placeholder="Enter Reason" tabindex="20"/>
+											<form:textarea path="reason" rows="5" cols="50" cssClass="form-control titleCase" style="resize:none;"  placeholder="Enter Reason" tabindex="20"/>
 											<span class="text-danger"><form:errors path="reason" /></span>
 										 
 										  </div>
@@ -374,57 +374,57 @@ $('#toDate').datetimepicker({
 
 function validate()
 {
-	var sendTo=$("#sendTo").val();
-	var cc=$("#cc").val();
-	var fromDate=$("#fromDate").val();
-	var toDate=$("#toDate").val();
-	var leaveType=$("#leaveType").val();
-	var subject=$("#subject").val();
-	var reason=$("#reason").val();
+	var sendTo=$(".leave-form #sendTo").val();
+	var cc=$(".leave-form #cc").val();
+	var fromDate=$(".leave-form #fromDate").val();
+	var toDate=$(".leave-form #toDate").val();
+	var leaveType=$(".leave-form #leaveType").val();
+	var subject=$(".leave-form #subject").val();
+	var reason=$(".leave-form #reason").val();
 	
 	var valid = true;
     $('.has-error').removeClass("has-error");
     
 	
 	if(sendTo==''||!isEmail(sendTo)){
-		$("#sendTo").parent().addClass("has-error")
+		$(".leave-form #sendTo").parent().addClass("has-error")
 		valid=false;
 		}	
 	
 	if(cc==''){
-		$("#cc").parent().addClass("has-error")
+		$(".leave-form #cc").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(fromDate==''){
-		$("#fromDate").parent().addClass("has-error")
+		$(".leave-form #fromDate").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(toDate==''){
-		$("#toDate").parent().addClass("has-error")
+		$(".leave-form #toDate").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(leaveType==''||leaveType=='Select'){
-		$("#leaveType").parent().addClass("has-error")
+		$(".leave-form #leaveType").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(subject==''){
-		$("#subject").parent().addClass("has-error")
+		$(".leave-form #subject").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	if(reason==''){
-		$("#reason").parent().addClass("has-error")
+		$(".leave-form #reason").parent().addClass("has-error")
 		valid=false;
 		}
 	
 	$(".error-messages").text("").fadeIn();
 
 	if(toDate<fromDate){
-		$("#toDate").parent().addClass("has-error")
+		$(".leave-form #toDate").parent().addClass("has-error")
 		$(".error-messages").text("To Date cannot be less than from date").fadeIn();
 		valid=false;
 	}
@@ -434,13 +434,13 @@ function validate()
         return false;        
     }
 	
-    $("#submit_btn").attr("disabled","disabled");
+    $(".leave-form #submit_btn").attr("disabled","disabled");
     if(($("#Mode").val())=='add'){
-    $("#submit_btn").text("Saving...");
+    $(".leave-form #submit_btn").text("Saving...");
     }
     
     if(($("#Mode").val())=='edit'){
-        $("#submit_btn").text("Updating...");
+        $(".leave-form #submit_btn").text("Updating...");
         }
 }
 	

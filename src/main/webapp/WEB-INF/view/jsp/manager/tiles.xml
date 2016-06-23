@@ -93,5 +93,16 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/manager/fullReport.jsp" />
         <put-attribute name="currentpage" value="employees" cascade="true"/>
     </definition>
+    <definition name="managerBankDetail" extends="managerTemplate">
+        <put-attribute name="title" value="EMS - View Employee Bank Detail" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/user/userbankdetail.jsp" />
+        <put-attribute name="currentpage" value="employees" cascade="true"/>
+    </definition>
+
+     <definition name="managerNotifications" extends="managerTemplate">
+        <put-attribute name="title" value="EMS - Employee Notifications" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/notifications.jsp" />
+        <put-attribute name="currentpage" value="notifications" cascade="true"/>
+    </definition>
     
 </tiles-definitions>

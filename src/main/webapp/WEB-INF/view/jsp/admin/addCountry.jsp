@@ -88,6 +88,7 @@
 							<thead>
 								<tr>
 									<th width="2%">S.n.</th>
+									<th width="5%">Country Code</th>
 									<th width="10%">Country Name</th>
 									
 									<th width="10%" class="text-center">Action</th>
@@ -104,6 +105,7 @@
 										%>
 											<tr>
 												<td><%= i++ %></td>
+												<td><%= cr.getCountryCode() %></td>
 												<td><%= cr.getCountryName() %> </td>
 												
 												<td class="text-center"> 
@@ -163,10 +165,16 @@
 			                <div class="form-group col-xs-12 col-md-9">
 			                  <label >Country Name</label><span class="text-danger">*</span>
 			                  
-			                  <form:input path="countryName" class="form-control character_only"  placeholder="Enter country name" tabindex="1" maxlength="35"/>
+			                  <form:input path="countryName" class="form-control titleCase character_only"  placeholder="Enter country name" tabindex="1" maxlength="35"/>
 			                  <form:hidden path="countryId"/>
 			                  <span class="text-danger"><form:errors path="countryName" /></span>
 			                  <div class="error-messages text-danger" style="display:none;"></div>
+			                </div>
+			                <div class="form-group col-xs-12 col-md-9">
+			                  <label >Country Code</label><span class="text-danger">*</span>
+			                  <form:input path="countryCode" class="form-control" placeholder="Enter country code : India - IN" tabindex="5" maxlength="2"/>
+			                  <span class="text-danger"><form:errors path="countryCode" /></span>
+			                 <div class="text-danger codeError" style="display:none;"></div>
 			                </div>
 		                  </div>
 			              <!-- /.box-body -->
@@ -230,16 +238,25 @@ $(document.body).on("click", ".delete", function(){
 	function validateForm()
 	{
 	    var countryName = $("#countryName").val();
+		var countryCode = $("#countryCode").val();
        
 		var valid = true;
  		$('.has-error').removeClass("has-error");
  		$(".error-messages").text("").fadeIn();
-		if(countryName == ""||!isName(countryName))
+ 		
+		if(countryName == "")
  		{
  			$("#countryName").parent().addClass("has-error")
  			$(".error-messages").text("Please enter alphabets only").fadeIn();
  			valid = false;
  		}
+		
+		if(countryCode == "" || !$("#countryCode").val().match(/^([A-Z]{2})$/))
+		{
+			$("#countryCode").parent().addClass("has-error")
+			$(".codeError").text("Country Code contain only 2 Characters in Block Later").fadeIn();
+			valid = false;
+		}
 
 	if(!valid)
 		{

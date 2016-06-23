@@ -49,12 +49,13 @@ public class NotificationDaoImpl implements NotificationDao{
 	
 	
 	@SuppressWarnings("unchecked")
-	public List<Notification> getUnviewedNotificationByUserId(int userid) {
+	public List<Notification> getUnviewedNotificationByUserId(String userid) {
 		
 	List<Notification> list= this.sessionFactory.getCurrentSession().createCriteria(Notification.class)
-			                  .add(Restrictions.eq("notiTo.lid", userid))
+			                  .add(Restrictions.eq("notiTo", userid))
 			                  //.add(Restrictions.eq("isViewed", "false"))
 			                  .add(Restrictions.isNull("deleteDate"))
+			                  .setMaxResults(10)
 			                  .addOrder(Order.desc("createDate"))
 			                  .list();
 		return list;
@@ -62,7 +63,7 @@ public class NotificationDaoImpl implements NotificationDao{
 
 	
 	
-	public long countNotification(int userid )
+	public long countNotification(String userid )
 	{
 		try
 		{
@@ -70,7 +71,7 @@ public class NotificationDaoImpl implements NotificationDao{
 					.createCriteria(Notification.class)
 					.setProjection(Projections.distinct(Projections.property("notiTo")))
 					.add(Restrictions.eq("isViewed", "false"))
-					.add(Restrictions.eq("notiTo.lid", userid))
+					.add(Restrictions.eq("notiTo", userid))
 					.setProjection(Projections.rowCount())
 					.uniqueResult();
 		} 
@@ -83,11 +84,11 @@ public class NotificationDaoImpl implements NotificationDao{
 
 
 	@SuppressWarnings("unchecked")
-	public boolean updateNotificationByUserId(int userid) {
+	public boolean updateNotificationByUserId(String userid) {
 		try 
 		{
-			Query query = this.sessionFactory.getCurrentSession().createSQLQuery("update notification set isViewed='true' where noti_to=:noti_to");
-			query.setInteger("noti_to", userid);
+			Query query = this.sessionFactory.getCurrentSession().createSQLQuery("update notification set isViewed='true' where notiTo=:noti_to");
+			query.setString("noti_to", userid);
 			query.executeUpdate();
 			return true;
 		}
@@ -106,10 +107,10 @@ public class NotificationDaoImpl implements NotificationDao{
 
 
 	@SuppressWarnings("unchecked")
-	public List<Notification> getNotificationBetweenTwoDates(int userid, Date startDate, Date endDate) {
+	public List<Notification> getNotificationBetweenTwoDates(String userid, Date startDate, Date endDate) {
 		try{
 			List<Notification> list= this.sessionFactory.getCurrentSession().createCriteria(Notification.class)
-	                  .add(Restrictions.eq("notiTo.lid", userid))
+	                  .add(Restrictions.eq("notiTo", userid))
 	                  .add(Restrictions.between("createDate", startDate, endDate))
 	                  .add(Restrictions.isNull("deleteDate"))
 	                  .addOrder(Order.desc("createDate"))

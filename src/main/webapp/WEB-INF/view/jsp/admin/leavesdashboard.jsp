@@ -10,6 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -111,14 +112,15 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>S.n.</th>
-									<th>Image</th>
-									<th>Employee Name</th>
-									<th>From</th>
-									<th>To</th>
-									<th>Subject</th>
-									<th>Status</th>
-									<th class="text-center">Action</th>
+									<th style="width: 5%;">S.n.</th>
+									<th style="width: 5%;">Image</th>
+									<th style="width: 15%;">Employee Name</th>
+									<th style="width: 10%;">From</th>
+									<th style="width: 10%;">To</th>
+									<th style="width: 12%;">Status</th>
+									<th style="width: 25%;">Subject</th>
+									
+									<th style="width: 18%;" class="text-center">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -148,16 +150,24 @@
 														<%
 													}
 												%>
-												<td><a href="secureViewEmployee?empid=<%= leave.getRegistration().getUserid()%>"><%= leave.getRegistration().getName() %> </a></td>
+												<td>
+												<sec:authorize access="hasRole('ROLE_ADMIN')">
+												<a href="adminViewEmployee?empid=<%= leave.getRegistration().getUserid()%>"><%= leave.getRegistration().getName() %> </a>
+												</sec:authorize>
+												<sec:authorize access="hasRole('ROLE_MANAGER')">
+												<a href="managerViewEmployee?empid=<%= leave.getRegistration().getUserid()%>"><%= leave.getRegistration().getName() %> </a>
+												</sec:authorize>
+												</td>
 												
 												<td><%= DateFormats.ddMMMyyyy(timeZone).format(leave.getFromDate()) %> </td>
 												<td><%= DateFormats.ddMMMyyyy(timeZone).format(leave.getToDate()) %> </td>
-												<td><%= leave.getSubject() %> </td>
 												<td><%= leave.getStatus() %> </td>
+												<td><%= leave.getSubject() %> </td>
+												
 												
 												
 												<td class="text-center">
-													<a class="btn btn-primary btn-xs" href="viewleave?leaveId=<%= leave.getLeaveId()%>" ><i class="fa fa-fw fa-clock-o"></i>View</a>
+													<a class="btn btn-primary btn-xs" href="secureViewLv?leaveId=<%= leave.getLeaveId()%>" ><i class="fa fa-fw fa-clock-o"></i>View</a>
 													<%
 														if(leave.getStatus() != null)
 														{

@@ -76,7 +76,7 @@
 		           <div class="icon">
 		             <i class="fa fa-wa fa-inr"></i>
 		           </div>
-		           <a href="getPayrollList" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+		           <a href="securePayrollList" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 		         </div>
 	        </div>
 			
@@ -91,23 +91,26 @@
 			  		{
 			  			Attendance att = attsList.get(0);
 			  			%>
-			  				Login Time : 
+			  				Check In : 
 			  				<%= DateFormats.fullformat(timeZone).format(att.getInTime()) %>
-							<br><br>
+							<br>
 			  			<%
 			  			
 			  			
-			  			Attendance attendance = attsList.get(0);
-			  			if(attendance != null && attendance.getOutTime() == null)
+			  			if(att != null && att.getOutTime() != null)
 		  				{
 		  					%>
-								<a href="empCheckOut"><button class="btn btn-primary ">Check Out</button></a> 
+								Check Out : <%= DateFormats.fullformat(timeZone).format(att.getOutTime()) %>
+								<br>
+								Working Hours : <%= DateFormats.getWorkingHours(att.getInTime(), att.getOutTime()) %>
+								
+								<br><br>
 		  					<%
 		  				}
 			  			else
 			  			{
 		  					%>
-								<a href="empCheckIn"><button class="btn btn-primary ">Check In</button></a>
+								<a href="empCheckOut"><button class="btn btn-primary ">Check Out</button></a> 
 		  					<%
 			  			}
 			  		}
@@ -121,11 +124,11 @@
 			</div>
 		</div>
 		
-		 <!-- <div class="col-md-6">
+		 <div class="col-md-6">
 			<div class="col-md-12">
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label>Multiple</label>
-                <select class="form-control select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                <select class="form-control select2" name  multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
                   <option>Alabama</option>
                   <option>Alaska</option>
                   <option>California</option>
@@ -134,30 +137,50 @@
                   <option>Texas</option>
                   <option>Washington</option>
                 </select>
-              </div>
-              <div class="form-group">
+              </div> -->
+              <!-- <div class="form-group">
                 <label>Minimal</label>
-                <select id ="search_emp" class="form-control select2" style="width: 100%;">
-                  <option selected="selected">Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
+                <select id ="search_emp" class="form-control select2 search_emp" name='term' style="width: 100%;">
+                  
                 </select>
-              </div>
+              </div> -->
 			</div>
-		</div> -->
+		</div>
     </section>
     <!-- /.content -->
   </div><!-- Select2 -->
 <script src="js/select2.full.min.js"></script>
 <script type="text/javascript">
-/* $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-});
- */
+ /* $(function () {
+    $("#search_emp").select2({
+        multiple: true,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: 'searchEmployees',
+            dataType: 'json',
+            type: "GET",
+            quietMillis: 50,
+            data: function (term) {
+//             	alert("::::: " + term.term)
+                return {
+                    q: term.term
+                };
+            },
+            processResults: function (data) {
+//             	alert("::::: " + data);
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+//                             slug: item.slug,
+                            id: item.userid
+                        }
+                    })
+                };
+            }
+        }
+    });
+}); */
+ 
 </script>
  </body>

@@ -47,7 +47,14 @@ public class BankDetailController
 				map.addAttribute("Mode", "add");
 				map.addAttribute("empReg", empReg);
 				
-				return "adminBankDetail";
+				if(request.isUserInRole(Roles.ROLE_ADMIN))
+				{
+					return "adminBankDetail";
+				}
+				else
+				{
+					return "managerBankDetail";
+				}
 			}
 			else if(empReg != null && empReg.getBankDetail() != null)
 			{
@@ -55,7 +62,14 @@ public class BankDetailController
 				return "redirect:empEditBankDetail";
 			}
 		}
-		return "redirect:adminEmployees";
+		if(request.isUserInRole(Roles.ROLE_ADMIN))
+		{
+			return "redirect:adminEmployees";
+		}
+		else
+		{
+			return "redirect:manageremployees";
+		}
 	}
 	
 	@RequestMapping(value = "/empBankDetail", method = RequestMethod.POST)
@@ -66,7 +80,14 @@ public class BankDetailController
 		String empid = request.getParameter("empid");
 		if(empid == null || empid.trim().length() == 0)
 		{
-			return "redirect:adminEmployees";
+			if(request.isUserInRole(Roles.ROLE_ADMIN))
+			{
+				return "redirect:adminEmployees";
+			}
+			else
+			{
+				return "redirect:manageremployees";
+			}
 		}
 		if (result.hasErrors())
 		{
@@ -74,7 +95,14 @@ public class BankDetailController
 			Registration reg = registrationService.getRegistrationByUserid(empid);
 			map.addAttribute("empReg", reg);
 			map.addAttribute("Mode", "add");
-			return "adminBankDetail";
+			if(request.isUserInRole(Roles.ROLE_ADMIN))
+			{
+				return "adminBankDetail";
+			}
+			else
+			{
+				return "managerBankDetail";
+			}
 		} else
 		{
 			Registration reg = registrationService.getRegistrationByUserid(empid);
@@ -97,7 +125,7 @@ public class BankDetailController
 					notification.setType("bank_detail");
 					notification.setNotiId(status);
 					notification.setNotiMsg("Bank Detail has been Added by "+registration.getName());
-					notification.setNotiTo(reg);
+					notification.setNotiTo(reg.getUserid());
 					notificationService.addNotification(notification);
 					
 					
@@ -124,9 +152,23 @@ public class BankDetailController
 					e.printStackTrace();
 				}
 				map.addAttribute("status", "error");
-				return "adminBankDetail";
+				if(request.isUserInRole(Roles.ROLE_ADMIN))
+				{
+					return "adminBankDetail";
+				}
+				else
+				{
+					return "managerBankDetail";
+				}
 			}
-			return "redirect:adminEmployees";
+			if(request.isUserInRole(Roles.ROLE_ADMIN))
+			{
+				return "redirect:adminEmployees";
+			}
+			else
+			{
+				return "redirect:manageremployees";
+			}
 		}
 		
 	}
@@ -156,13 +198,27 @@ public class BankDetailController
 					map.addAttribute("bdForm", model);
 					map.addAttribute("Mode", "edit");
 					map.addAttribute("empReg", empReg);
-					return "adminBankDetail";
+					if(request.isUserInRole(Roles.ROLE_ADMIN))
+					{
+						return "adminBankDetail";
+					}
+					else
+					{
+						return "managerBankDetail";
+					}
 				}
 				
 			}
 		}
 		map.addAttribute("empid", empid);
-		return "redirect:adminViewEmployee";
+		if(request.isUserInRole(Roles.ROLE_ADMIN))
+		{
+			return "redirect:adminViewEmployee";
+		}
+		else
+		{
+			return "redirect:managerViewEmployee";
+		}
 	}
 	
 	@RequestMapping(value = "/empEditBankDetail", method = RequestMethod.POST)
@@ -172,7 +228,14 @@ public class BankDetailController
 		String empid = request.getParameter("empid");
 		if(empid == null || empid.trim().length() == 0)
 		{
-			return "redirect:adminEmployees";
+			if(request.isUserInRole(Roles.ROLE_ADMIN))
+			{
+				return "redirect:adminEmployees";
+			}
+			else
+			{
+				return "redirect:manageremployees";
+			}
 		}
 		if (result.hasErrors())
 		{
@@ -182,18 +245,32 @@ public class BankDetailController
 			{
 				map.addAttribute("empReg", reg);
 				map.addAttribute("Mode", "edit");
-				return "adminBankDetail";
-				
+				if(request.isUserInRole(Roles.ROLE_ADMIN))
+				{
+					return "adminBankDetail";
+				}
+				else
+				{
+					map.addAttribute("empid", reg.getUserid());
+					return "managerBankDetail";
+				}
 			}
-			return "redirect:adminEmployees";
+			if(request.isUserInRole(Roles.ROLE_ADMIN))
+			{
+				return "redirect:adminEmployees";
+			}
+			else
+			{
+				return "redirect:manageremployees";
+			}
 		} 
 		else
 		{
 	       boolean flag=false;
-	       Registration reg = registrationService.getRegistrationByUserid(empid);
+	       Registration reg = registrationService.getRegistrationByUserid(model.getUserid());
 	       Registration registration = registrationService.getRegistrationByUserid(principal.getName());
 			
-	       BankDetail bankDetail = bankDetailService.getUserId(model.getUserid());
+	       BankDetail bankDetail = bankDetailService.getUserId(empid);
 			if(reg != null && bankDetail!=null)
 			{
 				Date date = new Date();
@@ -214,7 +291,7 @@ public class BankDetailController
 				notification.setType("bank_detail");
 				notification.setNotiId(bankDetail.getBankId());
 				notification.setNotiMsg("Bank Detail has been Updated by "+registration.getName());
-				notification.setNotiTo(reg);
+				notification.setNotiTo(reg.getUserid());
 				notificationService.addNotification(notification);
 				
 				
@@ -226,9 +303,24 @@ public class BankDetailController
 					map.addAttribute("status", "error");
 				}
 				map.addAttribute("empid", empid);
-				return "redirect:adminViewEmployee";
+				
+				if(request.isUserInRole(Roles.ROLE_ADMIN))
+				{
+					return "redirect:adminViewEmployee";
+				}
+				else
+				{
+					return "redirect:managerViewEmployee";
+				}
 			}
-			return "redirect:adminEmployees";
+			if(request.isUserInRole(Roles.ROLE_ADMIN))
+			{
+				return "redirect:adminEmployees";
+			}
+			else
+			{
+				return "redirect:manageremployees";
+			}
 		}
 	}
 	

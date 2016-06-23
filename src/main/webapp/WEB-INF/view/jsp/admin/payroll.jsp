@@ -286,7 +286,7 @@
 			$(".submit_btn").text("Sending...");
 			$.ajax({
 				type : "GET",
-				url : "addPayrollSubmit",
+				url : "secureAddPayrollSubmit",
 				data : {'pId':pId,'eId':eId,'bSal':bSal,'hrAlwnc':hrAlwnc,'trnspAlwnc':trnspAlwnc,'lveTrvlAlwnc':lveTrvlAlwnc,'splAlwnc':splAlwnc,'salAdv':salAdv,'pf':pf,'tds':tds,'otDed':otDed,'tlEr':tlEr,'tlDd':tlDd,'ntPay':ntPay,'payMonth':payMonth,'food':food,'rent':rent},
 				contentType : "application/json",
 				success : function(data) {
@@ -296,26 +296,26 @@
 					{
 						if(obj.msg == "edit")
 						{
-							window.location ='getPayrollList?status=edit';
+							window.location ='securePayrollList?status=edit';
 						}
 						else
 						{
-							window.location ='getPayrollList?status=success';
+							window.location ='securePayrollList?status=success';
 						}
 					}
 					else if(obj.error)
 					{
 						if(obj.msg == "val_exists")
 						{
-							window.location ='getPayrollList?status=exists';
+							window.location ='securePayrollList?status=exists';
 						}
 						else if(obj.msg == "val_error")
 						{
-							window.location ='getPayrollList?status=failed';
+							window.location ='securePayrollList?status=failed';
 						}
 						else
 						{
-							window.location ='getPayrollList?status=reg_error';
+							window.location ='securePayrollList?status=reg_error';
 						}
 					}
 					
@@ -337,7 +337,7 @@ $(document.body).on("click", ".edit", function(){
 	{
 		$.ajax({
 			type : "GET",
-			url : "addPayroll",
+			url : "secureAddPayroll",
 			data : {'pid': pid },
 			contentType : "application/json",
 			success : function(data) {
@@ -354,7 +354,7 @@ $(document.body).on("click", ".adPay", function() {
 // alert('Add Button Clicked');
 $.ajax({
 	type : "GET",
-	url : "addPayroll",
+	url : "secureAddPayroll",
 	data : {'id':''},
 	contentType : "application/json",
 	success : function(data) {

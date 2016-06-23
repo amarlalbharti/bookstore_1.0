@@ -59,7 +59,7 @@
         <li class="${currentpage == 'employees' ? 'active' : ''}"><a href="adminEmployees"><i class="fa fa-user"></i> <span>Employees List</span></a></li>
         <li class="${currentpage == 'leaves' ? 'active' : ''}"><a href="secureleavesdash"><i class="fa fa-fw fa-calendar-times-o"></i> <span>Employees Leaves</span></a></li>
         <li class="${currentpage == 'report' ? 'active' : ''}"><a href="secureReport"><i class="fa fa-book"></i> <span>Report</span></a></li>
-		<li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="getPayrollList"><i class="fa fa-wa fa-inr"></i> <span>Payroll</span></a></li>
+		<li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="securePayrollList"><i class="fa fa-wa fa-inr"></i> <span>Payroll</span></a></li>
         <li class="treeview  ${currentpage == 'branch' ? 'active' : ''} ${currentpage == 'country' ? 'active' : ''} ${currentpage == 'department' ? 'active' : ''} ${currentpage == 'designation' ? 'active' : ''}">
           <a href="#">
            <i class="fa fa-folder"></i> <span>Dynamic data</span>
@@ -72,10 +72,6 @@
 	        <li class="${currentpage == 'designation' ? 'active' : ''}"><a href="adminViewDesignation"><i class="fa fa-circle-o text-maroon"></i> <span>Designation</span></a></li>
           </ul>
         </li>
-        
-        
-
-      
         </sec:authorize>
         <sec:authorize access="hasRole('ROLE_MANAGER')">
         <li class="${currentpage == 'dashboard' ? 'active' : ''}"><a href="managerDashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
@@ -83,7 +79,7 @@
         <li class="${currentpage == 'employees' ? 'active' : ''}"><a href="manageremployees"><i class="fa fa-user"></i> <span>Employees List</span></a></li>
         <li class="${currentpage == 'leaves' ? 'active' : ''}"><a href="secureleavesdash"><i class="fa fa-fw fa-calendar-times-o"></i> <span>Employees Leaves</span></a></li>
       	<li class="${currentpage == 'report' ? 'active' : ''}"><a href="secureReport"><i class="fa fa-book"></i> <span>Report</span></a></li>
-        <li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="getPayrollList"><i class="fa fa-wa fa-inr"></i> <span>Payroll</span></a></li>
+        <li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="securePayrollList"><i class="fa fa-wa fa-inr"></i> <span>Payroll</span></a></li>
 
         </sec:authorize>
       </ul>

@@ -236,7 +236,7 @@ public class ManagerEmpController {
 				return "managerAddEmployee";
 			}
 			map.addAttribute("status", "success");
-			return "redirect:manageremployees";
+			return "redirect:managerViewEmployee?empid="+userid;
 		}
 	}
 	
@@ -265,6 +265,7 @@ public class ManagerEmpController {
 					model.setParmanentAddress(ud.getParmanentAddress());
 					model.setPresentAddress(ud.getPresentAddress());
 					model.setQualification(ud.getQualification());
+					model.setAltEmailId(ud.getAltEmailId());
 					map.addAttribute("odForm", model);
 				}
 				else
@@ -285,24 +286,22 @@ public class ManagerEmpController {
 		if (result.hasErrors())
 		{
 			System.out.println("in validation");
-			return "managerAddOtherInfo";
+			map.addAttribute("eStatus", "failed");
+			return "redirect:managerAddOtherInfo?empid="+model.getUserid();
 		}
 		else
 		{
 			Date date = new Date();
 			Date dt = new Date(date.getTime());
-			
+			Registration registration = registrationService.getRegistrationByUserid(principal.getName());
 			Registration reg = registrationService.getRegistrationByUserid(model.getUserid());	
-			Registration registration = registrationService.getRegistrationByUserid(model.getUserid());	
 			if(reg != null)
 			{
-				user.setModifiedDate(dt);
-				
 				if(reg.getUserDetail() != null)
 				{
 					UserDetail ud = reg.getUserDetail();
 					
-					
+					ud.setModifiedDate(dt);
 					ud.setBloodGroup(model.getBloodGroup());
 					ud.setCity(model.getCity());
 					ud.setState(model.getState());
@@ -310,26 +309,31 @@ public class ManagerEmpController {
 					ud.setEmergencyNo(model.getEmergencyNo());
 					ud.setMaritalStatus(model.getMaritalStatus());
 					ud.setMobileNo(model.getMobileNo());
-				
 					ud.setParmanentAddress(model.getParmanentAddress());
 					ud.setPresentAddress(model.getPresentAddress());
 					ud.setQualification(model.getQualification());
+					ud.setAltEmailId(model.getAltEmailId());
+					ud.setPassportNo(model.getPassportNo());
+					
 					userDetailService.editOtherDetails(ud);
 					
 					Notification notification=new Notification();
 					notification.setType("other_detail");
 					notification.setNotiMsg("Other Detail has been updated by "+registration.getName());
 					notification.setNotiId(ud.getUserId());
-					notification.setNotiTo(reg);
+					notification.setNotiTo(reg.getUserid());
 					notificationService.addNotification(notification);
 				}
 				else
 				{
 					user.setRegistration(reg);
 					userDetailService.addOtherDetails(user);
+					map.addAttribute("eStatus", "addsuccess");
 				}
+				map.addAttribute("eStatus", "updatesuccess");
+				return "redirect:managerViewEmployee?empid="+model.getUserid();
 			}
-			map.addAttribute("eStatus", "success");
+			map.addAttribute("eStatus", "failed");
 			return "redirect:managerViewEmployee?empid="+model.getUserid();
 			//return "redirect:manageremployees";
 		}	
@@ -359,6 +363,7 @@ public class ManagerEmpController {
 				
 				model.setCountry(reg.getBranch().getCountry());
 				model.setBranch(reg.getBranch());
+				model.setWeekOff(reg.getWeekOff());
 				
 				map.addAttribute("empForm", model);
 				map.addAttribute("dpList", departmentService.getDepartmentList());
@@ -477,7 +482,6 @@ public class ManagerEmpController {
 			            }
 					  }  
 					}
-//					Image code End
 					
 					registrationService.updateRegistration(reg);
 					map.addAttribute("eStatus", "success");

@@ -77,7 +77,7 @@ public class LeaveController {
 				notification.setType("leave");
 				notification.setNotiId(status);
 				notification.setNotiMsg("Leave has been applied by "+reg.getName());
-				notification.setNotiTo(registrationService.getRegistrationByUserid(sendTo));
+				notification.setNotiTo(sendTo);
 				notificationService.addNotification(notification);
 				
 				if(status>0){
@@ -165,7 +165,7 @@ public class LeaveController {
 			notification.setType("leave");
 			notification.setNotiMsg("Leave has been updated by "+reg.getName());
 			notification.setNotiId(Integer.parseInt(leaveId));
-			notification.setNotiTo(registrationService.getRegistrationByUserid(sendTo));
+			notification.setNotiTo(sendTo);
 			notificationService.addNotification(notification);
 			if(flag==true){
 				map.addAttribute("status", "success");

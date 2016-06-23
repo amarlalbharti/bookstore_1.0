@@ -27,17 +27,17 @@ public class NotificationServiceImpl implements NotificationService{
 		return this.notificationDao.updateNotification(notification);
 	}
 
-	public List<Notification> getUnviewedNotificationByUserId(int userid) {
+	public List<Notification> getUnviewedNotificationByUserId(String userid) {
 		
 		return this.notificationDao.getUnviewedNotificationByUserId(userid);
 	}
 
-	public long countNotification(int userid) {
+	public long countNotification(String userid) {
 		
 		return this.notificationDao.countNotification(userid);
 	}
 
-	public boolean updateNotificationByUserId(int userid) {
+	public boolean updateNotificationByUserId(String userid) {
 		
 		return this.notificationDao.updateNotificationByUserId(userid);
 	}
@@ -47,7 +47,7 @@ public class NotificationServiceImpl implements NotificationService{
 		return this.notificationDao.getNotificationById(nid);
 	}
 
-	public List<Notification> getNotificationBetweenTwoDates(int userid, Date startDate, Date endDate) {
+	public List<Notification> getNotificationBetweenTwoDates(String userid, Date startDate, Date endDate) {
 		
 		return this.notificationDao.getNotificationBetweenTwoDates(userid, startDate, endDate);
 	}

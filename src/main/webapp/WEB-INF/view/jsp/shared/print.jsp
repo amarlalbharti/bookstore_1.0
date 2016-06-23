@@ -15,9 +15,9 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.css">
   <!-- iCheck -->
@@ -58,9 +58,9 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td class="wd">Email Id</td>
+						<td class="wd">Employee Id</td>
 						<td>:</td>
-						<td><%= empReg.getUserid() %></td>
+						<td><%= empReg.geteId() %></td>
 						<td rowspan="5" align="center">
 							<%	
 								if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
@@ -73,6 +73,11 @@
 							<% } %>
 						
 						</td>
+					</tr>
+					<tr>
+						<td class="wd">Email Id</td>
+						<td>:</td>
+						<td><%= empReg.getUserid() %></td>
 					</tr>
 					<tr>
 						<td class="wd">Date of Birth</td>
@@ -98,6 +103,16 @@
 						<td class="wd">Designation</td>
 						<td>:</td>
 						<td colspan="2"><%= empReg.getDesignation().getDesignation() %></td>
+					</tr>
+					<tr>
+						<td class="wd">Week off</td>
+						<td>:</td>
+						<td colspan="2"><%= DateFormats.getDayName(empReg.getWeekOff()) %></td>
+					</tr>
+					<tr>
+						<td class="wd">Branch</td>
+						<td>:</td>
+						<td colspan="2"><%= empReg.getBranch().getBranchName() %></td>
 					</tr>
 					<tr><td colspan="3">
 					<u><b>Other Info</b></u>

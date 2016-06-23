@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ems.config.DateFormats;
+import com.ems.config.Roles;
 import com.ems.domain.Designation;
 import com.ems.domain.Notification;
 import com.ems.domain.Registration;
@@ -32,15 +34,15 @@ public class NotificationController {
 	@Autowired private RegistrationService registrationService;
 	
 	
+	DateFormats df = new DateFormats();
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/getNotificationCount", method = RequestMethod.GET)
 	@ResponseBody
 	public String getNotificationCount(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		Registration reg = registrationService.getRegistrationByUserid(principal.getName());
-		
 		JSONObject obj = new JSONObject();
-		obj.put("count", notificationService.countNotification(reg.getLid()));
+		obj.put("count", notificationService.countNotification(principal.getName()));
 		return obj.toJSONString();
 	}
 	
@@ -52,9 +54,7 @@ public class NotificationController {
 	public String getNotificationList(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		JSONObject obj = new JSONObject();
-		Registration reg = registrationService.getRegistrationByUserid(principal.getName());
-		
-		List<Notification> list = notificationService.getUnviewedNotificationByUserId(reg.getLid()); 
+		List<Notification> list = notificationService.getUnviewedNotificationByUserId(principal.getName()); 
 		JSONArray array = new JSONArray();
 		
 		for(Notification noti : list)
@@ -68,7 +68,7 @@ public class NotificationController {
 		}
 		obj.put("notiList", array);
 		
-		notificationService.updateNotificationByUserId(reg.getLid());
+		notificationService.updateNotificationByUserId(principal.getName());
        
 		return obj.toJSONString();
 	}
@@ -143,15 +143,30 @@ public class NotificationController {
 	    System.out.println("Start And End : " + sdate + " && " + edate);
 
 		Registration reg=registrationService.getRegistrationByUserid(principal.getName());
-		List<Notification> list = notificationService.getNotificationBetweenTwoDates(reg.getLid(), sdate, edate); 
+		List<Notification> list = notificationService.getNotificationBetweenTwoDates(reg.getUserid(), sdate, edate); 
 		map.addAttribute("nt_list", list);
 		map.addAttribute("sdate", sdate);
-		return "notifications";
-	}
-	
+		if(request.isUserInRole(Roles.ROLE_ADMIN))
+		{
+			return "adminNotifications";
+		}
+		else if(request.isUserInRole(Roles.ROLE_MANAGER))
+		{
+			return "managerNotifications";
+		}
+		else if(request.isUserInRole(Roles.ROLE_USER))
+		{
+			return "userNotifications";
+		}
+		else
+		{
+			return "redirect:error";
+		}
+		
+	}	
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/userDeleteNotification", method = RequestMethod.GET)
+	@RequestMapping(value = "/deleteNotification", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteDesignation(ModelMap map, HttpServletRequest request, Principal principal)
 	{

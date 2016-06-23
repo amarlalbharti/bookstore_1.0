@@ -146,7 +146,7 @@ public class AdminLeaveController {
 			notification.setNotiId(Integer.parseInt(leaveId));
 			notification.setNotiMsg("Leave has been Approved by "+reg.getName());
 			String user=leaveDetail.getRegistration().getUserid();
-			notification.setNotiTo(registrationService.getRegistrationByUserid(user));
+			notification.setNotiTo(user);
 			notificationService.addNotification(notification);
 		
 			if(flag==true){
@@ -184,7 +184,7 @@ public class AdminLeaveController {
 			notification.setNotiMsg("Leave has been Rejected by "+reg.getName());
 			
 			String user=leaveDetail.getRegistration().getUserid();
-			notification.setNotiTo(registrationService.getRegistrationByUserid(user));
+			notification.setNotiTo(user);
 			
 			notificationService.addNotification(notification);
 			
@@ -199,7 +199,7 @@ public class AdminLeaveController {
 		return "redirect:secureleavesdash";
 	}
 	
-	@RequestMapping(value = "/viewleave", method = RequestMethod.GET)
+	@RequestMapping(value = "/secureViewLv", method = RequestMethod.GET)
 	public String userviewleave(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		String leaveId = request.getParameter("leaveId");

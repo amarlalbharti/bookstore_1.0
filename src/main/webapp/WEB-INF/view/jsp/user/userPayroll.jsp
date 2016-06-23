@@ -91,7 +91,7 @@
 								{
 									%>
 										<tr>
-										<td></td><td colspan="3" align="center">No data in the data source.</td>
+										<td colspan="8" >No data in the data source.</td>
 										</tr>
 									<%
 								}
@@ -199,6 +199,20 @@
 			                  <label class="col-sm-4 control-label" style="text-align: left;">TDS Deductions</label>
 			                   <div class="col-sm-8">
 			                    <label class="form-control label-text"><%= payroll.getTdsDeduction() %></label>
+			                   </div>
+			                 </div>
+			                 
+			                  <div class="form-group col-md-6">
+			                  <label class="col-sm-4 control-label" style="text-align: left;">Food Deductions</label>
+			                   <div class="col-sm-8">
+			                    <label class="form-control label-text"><%= payroll.getFoodDeduction() %></label>
+			                   </div>
+			                  </div>
+			                
+			                  <div class="form-group col-md-6">
+			                  <label class="col-sm-4 control-label" style="text-align: left;">Rent Deductions</label>
+			                   <div class="col-sm-8">
+			                    <label class="form-control label-text"><%= payroll.getRentDeduction() %></label>
 			                   </div>
 			                 </div>
 			                

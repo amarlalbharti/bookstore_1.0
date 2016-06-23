@@ -55,6 +55,17 @@ public class RegModel implements Serializable
 	
 	private Country country;
 	
+	@NotEmpty(message="{NotEmpty.regForm.eId}")
+	private String eId;
+	
+	public String geteId() {
+		return eId;
+	}
+
+	public void seteId(String eId) {
+		this.eId = eId;
+	}
+
 	public Country getCountry() {
 		return country;
 	}

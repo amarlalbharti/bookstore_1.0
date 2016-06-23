@@ -118,13 +118,13 @@
 				              <div class="box-body">
 				                <div class="form-group">
 				                  <label>Document Name<span class="text-danger">*</span></label>
-				                  <input type="text" id="doc_name" name="doc_name" placeholder="Enter document name" class="form-control" maxlength="100">
+				                  <input type="text" id="doc_name" name="doc_name" placeholder="Enter document name" class="form-control titleCase" maxlength="100">
 				                  <input type="hidden" name="empid" value="<%= empReg.getUserid() %>">
 				                </div>
 				                <div class="clearfix"></div>
 				                <div class="form-group">
 				                  <label>Document detail</label>
-				                  <textarea placeholder="Enter document detail" name="doc_detail" id="doc_detail" class="form-control" ma></textarea>
+				                  <textarea placeholder="Enter document detail" name="doc_detail" id="doc_detail" class="form-control titleCase" ma></textarea>
 				                </div>
 				                <div class="clearfix"></div>
 				                <div class="form-group">
@@ -146,12 +146,12 @@
 				              <div class="box-body">
 				                <div class="form-group">
 				                  <label>Document Name<span class="text-danger">*</span></label>
-				                  <input type="text" id="doc_name" name="doc_name" placeholder="Enter document name" class="form-control" maxlength="100">
+				                  <input type="text" id="doc_name" name="doc_name" placeholder="Enter document name" class="form-control titleCase" maxlength="100">
 				                </div>
 				                <div class="clearfix"></div>
 				                <div class="form-group">
 				                  <label>Document detail</label>
-				                  <textarea placeholder="Enter document detail" name="doc_detail" id="doc_detail" class="form-control" ma></textarea>
+				                  <textarea placeholder="Enter document detail" name="doc_detail" id="doc_detail" class="form-control titleCase" ma></textarea>
 				                </div>
 				                <div class="clearfix"></div>
 				                <div class="form-group" >

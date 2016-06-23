@@ -25,5 +25,4 @@ public class BankDetailServiceImpl implements BankDetailService{
 	
 		return this.bankDetailDao.editBankDetails(bankDetail);
 	}
-
 }
