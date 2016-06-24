@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="com.ems.config.Roles"%>
 <%@page import="com.ems.domain.Registration"%>
@@ -23,6 +24,7 @@
 <body>
 	<div class="content-wrapper">
 	<%
+	TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
    	Registration empReg = (Registration)request.getAttribute("empReg");
    	if(empReg != null)
    	{
@@ -56,7 +58,7 @@
 						<div class="col-xs-12 col-md-12">
 							<div class="box box-info">
 								<div class="box-header with-border">
-									<h3 class="box-title">Employee Leaves <small>for <%= DateFormats.MMMformat().format(sdate) %></small>
+									<h3 class="box-title">Employee Leaves <small>for <%= DateFormats.MMMformat(timeZone).format(sdate) %></small>
 			       					</h3>
 			       					<div class="box-tools pull-right">
 							         <ul class="pagination pagination-sm inline">
@@ -77,7 +79,7 @@
 							           	{
 											%>
 							         
-								      <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(pdate)%>"><i class="fa fa-fw fa-backward"></i></a></li>
+								      <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat(timeZone).format(pdate)%>"><i class="fa fa-fw fa-backward"></i></a></li>
 							           <%
 							           	}
 							           %>
@@ -93,7 +95,7 @@
 							           	else
 							           	{
 											%>
-									           <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(ndate)%>" ><i class="fa fa-fw fa-forward"></i></a></li>
+									           <li><a href="secureViewLeave?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat(timeZone).format(ndate)%>" ><i class="fa fa-fw fa-forward"></i></a></li>
 											<%
 							           	}
 							           %>
@@ -127,10 +129,10 @@
 													%>
 														<tr>
 														    <td><%= i++ %></td>
-															<td><%= DateFormats.ddMMMyyyy().format(ld.getRequestDate()) %></td>
+															<td><%= DateFormats.ddMMMyyyy(timeZone).format(ld.getRequestDate()) %></td>
 															<td><%= ld.getLeaveType() %></td>
-															<td><%= DateFormats.ddMMMyyyy().format(ld.getFromDate()) %></td>
-															<td><%= DateFormats.ddMMMyyyy().format(ld.getToDate()) %></td>
+															<td><%= DateFormats.ddMMMyyyy(timeZone).format(ld.getFromDate()) %></td>
+															<td><%= DateFormats.ddMMMyyyy(timeZone).format(ld.getToDate()) %></td>
 															<td><%= ld.getStatus() %></td>
 															<td><%= ld.getSubject() %></td>
 															

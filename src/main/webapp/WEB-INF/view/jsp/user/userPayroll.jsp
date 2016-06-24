@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="com.ems.config.Roles"%>
 <%@page import="com.ems.domain.Registration"%>
@@ -25,6 +26,8 @@
 	
     <!-- Content Header (Page header) -->
  <%
+		TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+	
 		Registration registration = (Registration)request.getSession().getAttribute("registration");
 	    System.out.println("Regi : " + registration);
 	    String mode=(String)request.getAttribute("mode");
@@ -73,7 +76,7 @@
 									{
 										%>
 									<tr>
-									    <td><%= DateFormats.MMMformat().format(pr.getCreateDate()) %></td>
+									    <td><%= DateFormats.MMMformat(timeZone).format(pr.getCreateDate()) %></td>
 										<td><%= pr.getBasicSal() %></td>
 										<td><%= pr.getSalaryAdvance() %></td>
 										<td><%= pr.getPfDeduction() %></td>
@@ -132,7 +135,7 @@
 						      <div class="form-group col-md-6">
 						        <label class="col-sm-4 control-label"  style="text-align: left;">Joining Date</label>
 						         <div class="col-sm-8">
-						          <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(registration.getJoiningDate()) %></label>
+						          <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(registration.getJoiningDate()) %></label>
 						         </div>
 						      </div>
 			                   <div class="form-group col-md-6">

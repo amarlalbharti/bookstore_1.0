@@ -114,10 +114,7 @@ $(document.body).on("change", "#month" ,function () {
 // 						    $("#msg").css("display","none");
 // 						}, 5000);
 					}
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-		        alert(xhr.status);
-		      }
+			}
 		});
 	}
   });
@@ -157,6 +154,7 @@ $(document.body).on("click", ".submit_btn" ,function () {
 //  		alert(selectedName);
  		if(valid)
 		{
+ 			$(".submit_btn").attr("disabled","disabled");
  			names = encodeURIComponent(selectedName);
  			$.ajax({
         		type : "GET",
@@ -165,17 +163,12 @@ $(document.body).on("click", ".submit_btn" ,function () {
         		contentType : "application/json",
         		success : function(data) {
         			$(".reportData").html(data);
-        		},
-        		error: function (xhr, ajaxOptions, thrownError) {
-        	        alert(xhr.status);
-        	      }
+        			$(".submit_btn").removeAttr("disabled");
+        		}
+        		
         	  });
 		}
- 		else
-		{
-			alert('Please provide valid data.');
-		}
-
+ 		
        });
 </script>
 <script type="text/javascript">

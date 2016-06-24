@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.Documents"%>
 <%@page import="com.ems.config.ProjectConfig"%>
 <%@page import="com.ems.domain.UserRole"%>
@@ -22,6 +23,8 @@
 	<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <%
+    TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+   	
     	Registration reg = (Registration)request.getSession().getAttribute("registration");
     
     %>
@@ -202,7 +205,7 @@
 												
 												<td><a href="<%= file_path %>" target="_blank"><%= doc.getDocumentName()%> </a></td>
 												<td><%= doc.getDocumentDetail() %> </td>
-												<td><%= DateFormats.ddMMMyyyy().format(doc.getCreateDate()) %> </td>
+												<td><%= DateFormats.ddMMMyyyy(timeZone).format(doc.getCreateDate()) %> </td>
 												
 												<td class="text-center">
 													<sec:authorize access="hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')">

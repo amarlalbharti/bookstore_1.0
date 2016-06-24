@@ -337,7 +337,7 @@
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
-			<version>1.4</version>
+			<version>1.4.5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.activation/activation -->
 		<dependency>

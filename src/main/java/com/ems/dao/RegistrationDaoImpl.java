@@ -158,4 +158,21 @@ public class RegistrationDaoImpl implements RegistrationDao
 				.setFetchMode("log", FetchMode.JOIN).list();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public Registration getRegistrationByEid(String eid)
+	{
+		List<Registration> list = this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+				.add(Restrictions.eq("eId", eid))
+				.setMaxResults(1)
+				.list();
+		
+		if(list != null && !list.isEmpty())
+		{
+			return list.get(0);
+		}
+		return null;
+		
+	}
+
+	
 }

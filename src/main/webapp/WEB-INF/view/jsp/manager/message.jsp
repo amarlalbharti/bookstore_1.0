@@ -54,7 +54,7 @@
 						    <label class="text-danger" id="err"></label>
 				 		</div>
 				 		<div class="form-group col-xs-12 col-md-12">
-							<button class="btn btn-primary">Send Message</button>
+							<button class="btn btn-primary btn-flat send_msg">Send Message</button>
 						</div>
 				 		</form>
 					</div>
@@ -107,8 +107,8 @@
 		{
 			return false;		
 		}
-		$(".btn-primary").attr("disabled","disabled");
-		$(".btn-primary").text("Sending...");
+		$(".send_msg").attr("disabled","disabled");
+		$(".send_msg").text("Sending...");
 	}
 </script>
  </body>

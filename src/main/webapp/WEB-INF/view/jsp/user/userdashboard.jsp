@@ -47,31 +47,35 @@
 					  			Attendance att = attsList.get(0);
 					  			%>
 					  				Login Time : <%= DateFormats.fullformat(timeZone).format(att.getInTime()) %>
-									<br><br>
+									<br>
 					  			<%
 					  			
 					  			
 					  			Attendance attendance = attsList.get(0);
-					  			if(attendance != null && attendance.getOutTime() == null)
+					  			if(attendance != null && attendance.getOutTime() != null)
 				  				{
 				  					%>
-				  					<form action="empCheckOut" method="post" onsubmit="return validate()">
-				  					<div class="form-group col-xs-12 col-md-12">
-				  					 <label>Enter Task</label><span class="text-danger">*</span>
-						                  <textarea rows="3" cols="50" name="task" id="task" class="form-control textarea" style="resize:none;" placeholder="Enter Task Here"></textarea>
-						                <div class="error-messages text-danger" style="display:none;"></div>
-						                </div>
-						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-12">
-						           			 <button type="submit" class="btn btn-primary" id="submit_btn">Check Out</button>
-						           		</div>
-									</form>
+				  						Check Out : <%= DateFormats.fullformat(timeZone).format(att.getOutTime()) %>
+										<br>
+										Working Hours : <%= DateFormats.getWorkingHours(att.getInTime(), att.getOutTime()) %>
+										
+										<br><br>
 				  					<%
 				  				}
 					  			else
 					  			{
 				  					%>
-										<a href="empCheckIn"><button class="btn btn-primary ">Check In</button></a>
+					  					<form action="empCheckOut" method="post" onsubmit="return validate()">
+					  					<div class="form-group col-xs-12 col-md-12">
+					  					 <label>Enter Task</label><span class="text-danger">*</span>
+							                  <textarea rows="3" cols="50" name="task" id="task" class="form-control textarea" style="resize:none;" placeholder="Enter Task Here"></textarea>
+							                <div class="error-messages text-danger" style="display:none;"></div>
+							                </div>
+							                <div class="clearfix"></div>
+							                <div class="form-group col-xs-12 col-md-12">
+							           			 <button type="submit" class="btn btn-primary" id="submit_btn">Check Out</button>
+							           		</div>
+										</form>
 				  					<%
 					  			}
 					  		}
@@ -117,7 +121,7 @@
 											    <td style="font-weight: bold;"><%= i++ %></td>
 												<td><%= DateFormats.ddMMMyyyy(timeZone).format(at.getInTime()) %> </td>
 												<td><%= DateFormats.timeformat(timeZone).format(at.getInTime()) %> </td>
-												<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat(timeZone).format(at.getOutTime()));} %></td>
+												<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat(timeZone).format(at.getOutTime()));} else{out.println("NA");} %></td>
 											    <td><% if(at.getOutTime() != null){out.println(DateFormats.getWorkingHours(at.getInTime(),at.getOutTime()));} else{out.println("NA");} %> </td>
 											<%
 																if(at.getTask() != null)

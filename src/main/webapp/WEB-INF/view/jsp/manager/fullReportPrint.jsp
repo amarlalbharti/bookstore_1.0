@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.BankDetail"%>
 <%@page import="com.ems.domain.Attendance"%>
 <%@page import="com.ems.domain.Documents"%>
@@ -41,6 +42,9 @@
 	<a class="pull-right" style="margin-right: 100px;" href="#" onclick="PrintElem('#prnt');"><button class="btn btn-primary btn-sm"><i class="fa fa-fw fa-cloud-upload"></i> Print</button> </a>
 	<div id="prnt" style="width: 750px; height: auto; border: 1px #ccc solid; margin-left: 300px; ">
 			<%
+			
+			TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+		   	
 			String empid = (String) request.getParameter("empid");
 			String basic = (String) request.getParameter("basic");
 			String other = (String) request.getParameter("other");
@@ -98,7 +102,7 @@
 					<tr>
 						<td class="wd">Joining Date</td>
 						<td>:</td>
-						<td colspan="2"><%= DateFormats.ddMMMyyyy().format(empReg.getJoiningDate()) %></td>
+						<td colspan="2"><%= DateFormats.ddMMMyyyy(timeZone).format(empReg.getJoiningDate()) %></td>
 					</tr>
 					<tr>
 						<td class="wd">Gender</td>
@@ -277,7 +281,7 @@
 							<td><%= i++ %></td>
 							<td><a href="<%= file_path %>" target="_blank"><%= doc1.getDocumentName()%> </a></td>
 							<td><%= doc1.getDocumentDetail() %> </td>
-							<td><%= DateFormats.ddMMMyyyy().format(doc1.getCreateDate()) %> </td>
+							<td><%= DateFormats.ddMMMyyyy(timeZone).format(doc1.getCreateDate()) %> </td>
 							</tr>
 							<%
 						}
@@ -316,9 +320,9 @@
 						{
 							%>
 								<tr>
-									<td><%= DateFormats.ddMMMyyyy().format(at.getInTime()) %> </td>
-									<td><%= DateFormats.timeformat().format(at.getInTime()) %> </td>
-									<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat().format(at.getOutTime()));} else{out.println("NA");} %></td>
+									<td><%= DateFormats.ddMMMyyyy(timeZone).format(at.getInTime()) %> </td>
+									<td><%= DateFormats.timeformat(timeZone).format(at.getInTime()) %> </td>
+									<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat(timeZone).format(at.getOutTime()));} else{out.println("NA");} %></td>
 									<td class="text-center"><%= DateFormats.getWorkingHours(at.getInTime(), at.getOutTime()) %></td>
 								</tr>
 							<%

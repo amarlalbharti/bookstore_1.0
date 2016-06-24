@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.ems.config.DateFormats"%>
@@ -17,6 +18,8 @@
 <body>
 	<div class="content-wrapper">
     <%
+    TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+   	
     	Date qdate = (Date)request.getAttribute("qdate");
 		if(qdate == null)
 		{
@@ -40,11 +43,11 @@
 				<div class="box box-info">
 					<div class="box-header with-border">
 						<h3 class="box-title">Check In/Out
-        					<small>for  <%= DateFormats.ddMMMyyyy().format(qdate) %></small>
+        					<small>for  <%= DateFormats.ddMMMyyyy(timeZone).format(qdate) %></small>
        					</h3>
        					<div class="box-tools pull-right">
 							<ul class="pagination pagination-sm inline">
-				           <li><a href="managerCheckInOut?qdate=<%= DateFormats.ddMMyyyy().format(pdate)  %>"><i class="fa fa-fw fa-backward"></i></a></li>
+				           <li><a href="managerCheckInOut?qdate=<%= DateFormats.ddMMyyyy(timeZone).format(pdate)  %>"><i class="fa fa-fw fa-backward"></i></a></li>
 				           <li><a href="managerCheckInOut"><i class="fa fa-fw fa-home"></i></a></li>
 				           <%
 				            if(ndate.after(new Date()))
@@ -56,7 +59,7 @@
 				            else
 				            {
 				            	%>
-						           <li><a href="managerCheckInOut?qdate=<%= DateFormats.ddMMyyyy().format(ndate)  %>" ><i class="fa fa-fw fa-forward"></i></a></li>
+						           <li><a href="managerCheckInOut?qdate=<%= DateFormats.ddMMyyyy(timeZone).format(ndate)  %>" ><i class="fa fa-fw fa-forward"></i></a></li>
 								<%
 				            }
 				           %>
@@ -64,7 +67,7 @@
 				         
 				         <div class="pull-right " style="padding-left: 20px;">
 				         	<form>
-					           <input type="text" name="qdate" id="qdate" class="from-control" placeholder="dd-mm-yyyy" value="<%= DateFormats.ddMMyyyy().format(qdate)%>">
+					           <input type="text" name="qdate" id="qdate" class="from-control" placeholder="dd-mm-yyyy" value="<%= DateFormats.ddMMyyyy(timeZone).format(qdate)%>">
 					           <button>Go</button> 
 				           </form>
 				         </div>
@@ -112,9 +115,9 @@
 													}
 												%>
 												<td><%= at.getRegistration().getName() %> </td>
-												<td><%= DateFormats.ddMMMyyyy().format(at.getInTime()) %> </td>
-												<td><%= DateFormats.timeformat().format(at.getInTime()) %> </td>
-												<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat().format(at.getOutTime()));}else{out.println("NA");} %></td>
+												<td><%= DateFormats.ddMMMyyyy(timeZone).format(at.getInTime()) %> </td>
+												<td><%= DateFormats.timeformat(timeZone).format(at.getInTime()) %> </td>
+												<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat(timeZone).format(at.getOutTime()));}else{out.println("NA");} %></td>
 												<td class="text-center"><%= DateFormats.getWorkingHours(at.getInTime(), at.getOutTime()) %></td>
 												<td class="text-left"><% if(at.getTask() != null && !at.getTask().isEmpty()){out.println(at.getTask());} else{out.println("NA");}%></td>
 												<td class="text-center"><a class="btn btn-primary btn-xs" href="managerViewEmpAttendence?empid=<%= at.getRegistration().getUserid() %>">

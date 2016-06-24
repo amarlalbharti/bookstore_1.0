@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.UserRole"%>
 <%@page import="com.ems.domain.BankDetail"%>
 <%@page import="com.ems.domain.UserDetail"%>
@@ -33,6 +34,8 @@
     <!-- Main content -->
     <section class="content">
 		<%
+		TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+	   	
           	Registration empReg = (Registration)request.getAttribute("empReg");
           	if(empReg != null)
           	{
@@ -229,13 +232,13 @@
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Join Date</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(empReg.getJoiningDate()) %></label>
+								                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(empReg.getJoiningDate()) %></label>
 								                  </div>
 								                </div>
 								                <div class="form-group col-md-6">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Registration</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(empReg.getRegdate()) %></label>
+								                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(empReg.getRegdate()) %></label>
 								                  </div>
 								                </div>
 								                <div class="form-group col-md-6">

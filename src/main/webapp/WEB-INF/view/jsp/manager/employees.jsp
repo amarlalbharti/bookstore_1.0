@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Set"%>
@@ -28,6 +29,8 @@
 			<div class="col-xs-12 col-md-12">
 			<div id="msg">
     <%
+    TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+   	
 			String status = (String) request.getParameter("status");
     		String mail = (String) request.getParameter("mail");
 			if (status != null) {
@@ -161,7 +164,7 @@
 												<td title="click to view user detail"><a href="managerViewEmployee?empid=<%= reg.getUserid()%>" ><%= reg.getName() %></a> </td>
 												<td><%= reg.getUserid() %> </td>
 												<td><%= role %> </td>
-												<td><%= DateFormats.ddMMMyyyy().format(reg.getJoiningDate()) %> </td>
+												<td><%= DateFormats.ddMMMyyyy(timeZone).format(reg.getJoiningDate()) %> </td>
 												<td><%= reg.getDob() %> </td>
 												<%
 													if(reg.getLog() != null && reg.getLog().getIsactive().equals("true"))
@@ -238,6 +241,7 @@ jQuery(document).ready(function() {
   <script type="text/javascript">
   function send()
   {
+	  $(this).attr("disabled","disabled");
 	  var val = [];
 	  $('.sel_one:checkbox:checked').each(function(i){
 	  val[i] = $(this).val();
@@ -247,6 +251,7 @@ jQuery(document).ready(function() {
 	  window.location = 'managerSendMessage?var='+val;
 	  }
 	  else{
+		  $(this).removeAttr("disabled");
 		  alert('Please select any employee to send message.');
 	  }
   }

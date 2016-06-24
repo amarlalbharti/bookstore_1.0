@@ -60,7 +60,7 @@
     
     <definition name="managerProfile" extends="managerTemplate">
         <put-attribute name="title" value="EMS -  View Employee Attendence" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/manager/managerviewprofile.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/userprofile.jsp" />
         <put-attribute name="currentpage" value="profile" cascade="true"/>
     </definition>
     

@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.UserDetail"%>
 <%@page import="com.ems.config.DateFormats"%>
 <%@page import="com.ems.domain.Registration"%>
@@ -39,10 +40,12 @@
 	<div id="prnt" style="width: 750px; height: auto; border: 1px #ccc solid; margin-left: 300px; ">
 
 			<%
-			Registration empReg = (Registration)request.getSession().getAttribute("registration");
-		     UserDetail userDetail = empReg.getUserDetail();
+			TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+		   	
 			LeaveDetail leaveDetail = (LeaveDetail)request.getAttribute("leaveDetail");
-          	if(empReg != null)
+			Registration empReg = leaveDetail.getRegistration();
+		    UserDetail userDetail = empReg.getUserDetail();
+          	if(empReg != null && leaveDetail != null && userDetail != null)
           	{
           		%>
 			<div>
@@ -94,7 +97,7 @@
 					<tr>
 						<td class="wd">Joining Date</td>
 						<td>:</td>
-						<td colspan="2"><%= DateFormats.ddMMMyyyy().format(empReg.getJoiningDate()) %></td>
+						<td colspan="2"><%= DateFormats.ddMMMyyyy(timeZone).format(empReg.getJoiningDate()) %></td>
 					</tr>
 					<tr>
 						<td class="wd">Gender</td>
@@ -181,12 +184,12 @@
 					<tr>
 						<td class="wd">From Date </td>
 						<td>:</td>
-						<td colspan="2"><%= DateFormats.ddMMMyyyy().format(leaveDetail.getFromDate()) %></td>
+						<td colspan="2"><%= DateFormats.ddMMMyyyy(timeZone).format(leaveDetail.getFromDate()) %></td>
 					</tr>
 					<tr>
 						<td class="wd">To Date</td>
 						<td>:</td>
-						<td colspan="2"><%= DateFormats.ddMMMyyyy().format(leaveDetail.getToDate()) %></td>
+						<td colspan="2"><%= DateFormats.ddMMMyyyy(timeZone).format(leaveDetail.getToDate()) %></td>
 					</tr>
 					<tr>
 						<td class="wd">Leave Type</td>

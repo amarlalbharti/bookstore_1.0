@@ -261,7 +261,6 @@
 							</table>
 								</div>
 							</div>
-							<img alt="" src="/ems_uploads/Koala.jpg"width="50px">
 						</div>
 						
 					</div>

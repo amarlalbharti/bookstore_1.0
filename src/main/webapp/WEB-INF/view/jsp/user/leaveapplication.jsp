@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.UserDetail"%>
 <%@page import="com.ems.domain.Registration"%>
 <%@page import="java.util.Date"%>
@@ -24,6 +25,8 @@
     <section class="content">
    
    <%
+   TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+  	
 	Registration registration = (Registration)request.getSession().getAttribute("registration");
      UserDetail userDetail = registration.getUserDetail();
 	%>
@@ -230,7 +233,7 @@
 									       <div class="form-group col-md-6">
 									        <label class="col-sm-4 control-label"  style="text-align: left;">Joining Date</label>
 									         <div class="col-sm-8">
-									          <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(registration.getJoiningDate()) %></label>
+									          <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(registration.getJoiningDate()) %></label>
 									         </div>
 									      </div>
 									      <%
@@ -286,14 +289,14 @@
 						                  <div class="form-group col-md-6">
 						                  <label class="col-sm-4 control-label" style="text-align: left;">From Date</label>
 						                   <div class="col-sm-8">
-						                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(leaveDetail.getFromDate()) %></label>
+						                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(leaveDetail.getFromDate()) %></label>
 						                   </div>
 						                 </div>
 						                
 						                 <div class="form-group col-md-6">
 						                  <label class="col-sm-4 control-label" style="text-align: left;">To Date</label>
 						                   <div class="col-sm-8">
-						                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy().format(leaveDetail.getToDate()) %></label>
+						                    <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(leaveDetail.getToDate()) %></label>
 						                   </div>
 						                 </div>
 						                

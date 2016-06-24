@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.config.DateFormats"%>
 <%@page import="com.ems.domain.Registration"%>
 <%@page import="com.ems.domain.UserDetail"%>
@@ -32,6 +33,9 @@
 <body>
 
 <%
+
+		TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+	
 		Registration registration = (Registration)request.getAttribute("registration");
         UserDetail userDetail = (UserDetail)request.getAttribute("userDetail");
 	    System.out.println("Regi : " + registration);
@@ -69,11 +73,11 @@
 												</tr>
 											    <tr>
 												<td>Joining Date</td>
-												<td><%= DateFormats.ddMMMyyyy().format(registration.getJoiningDate()) %></td>
+												<td><%= DateFormats.ddMMMyyyy(timeZone).format(registration.getJoiningDate()) %></td>
 												</tr>
 												<tr>
 												<td>Registration Date</td>
-												<td><%= DateFormats.ddMMMyyyy().format(registration.getRegdate()) %></td>
+												<td><%= DateFormats.ddMMMyyyy(timeZone).format(registration.getRegdate()) %></td>
 												</tr>
 												<tr>
 												<td>Country</td>

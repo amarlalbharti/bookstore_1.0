@@ -201,7 +201,7 @@ input[type="file"] {
 										out.println(registration.getDesignation().getDesignation());
 									}
 								%>
-								<small>Member since <%=DateFormats.ddMMMyyyy().format(registration.getRegdate())%></small>
+								<small>Member since <%=DateFormats.ddMMMyyyy(ctz).format(registration.getRegdate())%></small>
 							</p>
 						</li>
 

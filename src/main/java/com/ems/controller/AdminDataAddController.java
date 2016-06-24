@@ -11,6 +11,7 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -497,4 +498,37 @@ public class AdminDataAddController {
 		return object.toJSONString();
 	}
 
+	
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/getBranchNames", method = RequestMethod.GET)
+	@ResponseBody
+	public String getBranchNames(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		JSONObject object = new JSONObject();
+
+		String cid = (String)request.getParameter("cid");
+		System.out.println("cid : " + cid);
+		if(cid != null && cid.length() > 0)
+		{
+			List<Branch> branch = (List<Branch>)branchService.getBranchByCountryId(Integer.parseInt(cid));
+			JSONArray array = new  JSONArray();
+			if(branch != null && !branch.isEmpty())
+			{
+				for(Branch br : branch)
+				{
+					JSONObject at = new JSONObject();
+					at.put("id", br.getBranchId());
+					at.put("name", br.getBranchName());
+					array.add(at);
+				}
+			}
+			object.put("bList", array);
+			object.put("error", false);
+			return object.toJSONString();
+		}
+		object.put("error", true);
+		return object.toJSONString();
+	}
+	
 }

@@ -28,4 +28,7 @@ public interface RegistrationService
 	
 	public List<Registration> searchEmp(String text);
 	
+	public Registration getRegistrationByEid(String eid);
+	
+	
 }

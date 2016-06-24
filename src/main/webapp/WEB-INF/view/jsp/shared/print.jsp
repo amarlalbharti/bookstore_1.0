@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.UserDetail"%>
 <%@page import="com.ems.config.DateFormats"%>
 <%@page import="com.ems.domain.Registration"%>
@@ -37,6 +38,8 @@
 	<a class="pull-right" style="margin-right: 100px;" href="#" onclick="PrintElem('#prnt');"><button class="btn btn-primary btn-sm"><i class="fa fa-fw fa-cloud-upload"></i> Print</button> </a>
 	<div id="prnt" style="width: 750px; height: auto; border: 1px #ccc solid; margin-left: 300px; ">
 			<%
+			TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+		   	
           	Registration empReg = (Registration)request.getAttribute("empReg");
           	if(empReg != null)
           	{
@@ -87,7 +90,7 @@
 					<tr>
 						<td class="wd">Joining Date</td>
 						<td>:</td>
-						<td colspan="2"><%= DateFormats.ddMMMyyyy().format(empReg.getJoiningDate()) %></td>
+						<td colspan="2"><%= DateFormats.ddMMMyyyy(timeZone).format(empReg.getJoiningDate()) %></td>
 					</tr>
 					<tr>
 						<td class="wd">Gender</td>

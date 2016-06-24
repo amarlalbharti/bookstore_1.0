@@ -49,8 +49,8 @@ public class AttendanceController
 			attendance.setRegistration(reg);
 			attendanceService.addAddtendance(attendance);
 			String subject= reg.getName()+" : Login Alert "+DateFormats.ddMMyyyy(timezone).format(date);
-			String content= "I Login at "+DateFormats.timeformat(timezone).format(date);
-			mailservice.sendMail("saumya.srivastava@vasonomics.com", "", "", subject, content);
+			String content= "Dear Sir/Ma'am, <br><br> I Login at "+DateFormats.timeformat(timezone).format(date);
+			mailservice.sendMail("saumya.srivastava@vasonomics.com", null, null, subject, content);
 		}
 		return "redirect:userHome";
 	}
@@ -74,7 +74,7 @@ public class AttendanceController
 				attendance.setTask(task);
 				attendanceService.updateAddtendance(attendance);
 				String subject=reg.getName()+" :Logout Alert "+DateFormats.ddMMyyyy(timezone).format(dt);
-				String content="I Logout at "+DateFormats.timeformat(timezone).format(outTime)+"<br><br> "+task;
+				String content="Dear Sir/Ma'am, <br><br> I Logout at "+DateFormats.timeformat(timezone).format(outTime)+"<br><br> "+task;
 				mailservice.sendMail("saumya.srivastava@vasonomics.com","", "", subject, content);
 			}
 		}
@@ -102,7 +102,7 @@ public class AttendanceController
 				
 				String subject=reg.getName()+" :Logout Alert "+DateFormats.ddMMyyyy(timezone).format(dt);
 				
-				String content="I Logout at "+DateFormats.timeformat(timezone).format(outTime)+"<br><br> "+task;
+				String content="Dear Sir/Ma'am, <br><br> I Logout at "+DateFormats.timeformat(timezone).format(outTime)+"<br><br> "+task;
 				
 				mailservice.sendMail("saumya.srivastava@vasonomics.com", "", "", subject, content);
 		

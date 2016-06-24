@@ -38,4 +38,7 @@ public interface RegistrationDao
 	
 	public List<Registration> searchEmp(String text);
 	
+	public Registration getRegistrationByEid(String eid);
+	
+	
 }

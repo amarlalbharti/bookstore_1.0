@@ -63,5 +63,9 @@ public class RegistrationServiceImpl implements RegistrationService
 	{
 		return this.registrationDao.searchEmp(text);
 	}
+	public Registration getRegistrationByEid(String eid)
+	{
+		return this.registrationDao.getRegistrationByEid(eid);
+	}
 	
 }

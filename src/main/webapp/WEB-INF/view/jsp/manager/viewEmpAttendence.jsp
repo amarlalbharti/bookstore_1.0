@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.Calendar"%>
@@ -27,8 +28,10 @@
 	<div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <%
+    	TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+   	
     	Registration empReg = (Registration)request.getAttribute("empReg");
-    List<Attendance> lm_atts = (List)request.getAttribute("attList");
+    	List<Attendance> lm_atts = (List)request.getAttribute("attList");
     	if(empReg != null)
     	{
     		%>
@@ -146,7 +149,7 @@
 			             			%>
 			             					</div>
 			             					<div>
-			       						 <a class="btn btn-primary btn-flat"  href="adminEmpAttendanceExport?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(sdate)%>" title="Click to export excel sheet" target="_blank"><i class="fa fa-fw fa-file-excel-o"></i> Export</a> 
+			       						 <a class="btn btn-primary btn-flat"  href="adminEmpAttendanceExport?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat(timeZone).format(sdate)%>" title="Click to export excel sheet" target="_blank"><i class="fa fa-fw fa-file-excel-o"></i> Export</a> 
 			       					</div>
 								</div>
 							</div>
@@ -161,12 +164,12 @@
 						<div class="col-xs-12 col-md-12">
 							<div class="box box-info">
 								<div class="box-header with-border">
-									<h3 class="box-title">Check In/Out <small>for <%= DateFormats.MMMformat().format(sdate) %></small>
+									<h3 class="box-title">Check In/Out <small>for <%= DateFormats.MMMformat(timeZone).format(sdate) %></small>
 			       					</h3>
 			       					<div class="box-tools pull-right">
 			       					
 										<ul class="pagination pagination-sm inline">
-							           <li><a href="managerViewEmpAttendence?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(pdate)%>"><i class="fa fa-fw fa-backward"></i></a></li>
+							           <li><a href="managerViewEmpAttendence?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat(timeZone).format(pdate)%>"><i class="fa fa-fw fa-backward"></i></a></li>
 							           <li><a href="managerViewEmpAttendence?empid=<%= empReg.getUserid() %>"><i class="fa fa-fw fa-home"></i></a></li>
 							           <%
 							           	if(ndate.after(new Date()))
@@ -178,7 +181,7 @@
 							           	else
 							           	{
 											%>
-									           <li><a href="managerViewEmpAttendence?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat().format(ndate)%>" ><i class="fa fa-fw fa-forward"></i></a></li>
+									           <li><a href="managerViewEmpAttendence?empid=<%= empReg.getUserid() %>&qm=<%= DateFormats.monthformat(timeZone).format(ndate)%>" ><i class="fa fa-fw fa-forward"></i></a></li>
 											<%
 							           	}
 							           %>
@@ -213,9 +216,9 @@
 												{
 													%>
 														<tr>
-															<td><%= DateFormats.ddMMMyyyy().format(at.getInTime()) %> </td>
-															<td><%= DateFormats.timeformat().format(at.getInTime()) %> </td>
-															<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat().format(at.getOutTime()));} else{out.println("NA");} %></td>
+															<td><%= DateFormats.ddMMMyyyy(timeZone).format(at.getInTime()) %> </td>
+															<td><%= DateFormats.timeformat(timeZone).format(at.getInTime()) %> </td>
+															<td><% if(at.getOutTime() != null){out.println( DateFormats.timeformat(timeZone).format(at.getOutTime()));} else{out.println("NA");} %></td>
 															<td class="text-center"><%= DateFormats.getWorkingHours(at.getInTime(), at.getOutTime()) %></td>
 															<td class="text-left"><% if(at.getTask() != null){out.println(at.getTask());} else{out.println("NA");}%></td>
 														</tr>
@@ -227,7 +230,6 @@
 							</table>
 								</div>
 							</div>
-							<img alt="" src="/ems_uploads/Koala.jpg"width="50px">
 						</div>
 						
 					</div>

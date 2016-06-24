@@ -42,8 +42,8 @@
 			              <div class="box-body">
 			              <div class="form-group col-xs-12 col-md-6">
 			                  <label >Employee Id<span class="text-danger">*</span></label>
-			                  <form:input path="eId" id="eId" class="form-control" maxlength="20" tabindex="1" title="EID Format : YYYY-IN-0000"  placeholder="Enter employee Id"/>
-			                  <span class="text-danger"><form:errors path="eId" /></span>
+			                  <form:input path="eId" class="form-control" maxlength="12" tabindex="1" title="EID Format : YYYY-IN-0000"  placeholder="Enter employee Id"/>
+			                  <span class="text-danger eid_error"><form:errors path="eId" /></span>
 			                </div>
 			                <div class="form-group col-xs-12 col-md-6">
 			                  <label >Employee Name<span class="text-danger">*</span></label>
@@ -227,11 +227,54 @@ $('#joiningDate').datetimepicker({
 	format:'d-m-Y'
 });
 </script>	
+<script>
+$(document).ready(function(){
+    $("#eId").keypress(function(e){
+    	var eId = $("#eId").val();
+    	if((eId.length == 4 || eId.length == 7) && e.keyCode != 8)
+    	{
+    		eId += "-";
+    		$("#eId").val(eId);
+    	}
+    });
+});
+</script>
 <script type="text/javascript">
 $(document).ready(function()
 {
 	$("#form").trigger('reset');
 });
+
+</script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	  $(document.body).on("change", "#eId", function() {
+		 alert($(this).val());
+		 $(".eid_error").html("");
+		 var eid = $(this).val();
+		 $.ajax({
+ 			type : "GET",
+ 			url : "validateEId",
+ 			data : {'eid':eid},
+ 			contentType : "application/json",
+ 			success : function(data) {
+ 				var obj = jQuery.parseJSON(data);
+ 				alert(data)
+ 				if(obj.eid_exist)
+				{
+					$(".eid_error").html("Employee Id already exist !");
+					$("#eId").focus();
+				}
+ 			},
+ 			error: function (xhr, ajaxOptions, thrownError) {
+ 		        alert(xhr.status);
+ 		      }
+ 		});
+		 
+	 });
+});
+
 
 </script>
 <script type="text/javascript">

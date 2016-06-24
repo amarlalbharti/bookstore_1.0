@@ -135,6 +135,20 @@ public class AdminEmpController
 				result.addError(new FieldError("regForm", "userid", model.getUserid() , false, new String[1],new String[1], "Email id already registered "));
 				st = true;
 			}
+			if(model.geteId() != null && model.geteId().trim().length() == 12)
+			{
+				Registration reg1 = registrationService.getRegistrationByEid(model.geteId());
+				if(reg1 != null)
+				{
+					result.addError(new FieldError("regForm", "eId", model.geteId() , false, new String[1],new String[1], "Employee Id already exist !"));
+					st = true;
+				}
+			}
+			else
+			{
+				result.addError(new FieldError("regForm", "eId", model.geteId() , false, new String[1],new String[1], "Employee Id Invalid, Use 2016-IN-XXXX format !"));
+				st = true;
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();

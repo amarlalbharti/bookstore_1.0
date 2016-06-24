@@ -2,7 +2,7 @@ package com.ems.config;
 
 public class ProjectConfig 
 {
-	public static final String url = "192.178.1.16:8080/ems";
+	public static final String url = "122.176.71.107:8181/ems";
 	
 //	public static final String upload_path = "D://EMS/ems_uploads/";
 	

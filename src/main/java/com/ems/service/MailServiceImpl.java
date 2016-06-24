@@ -35,42 +35,37 @@ public class MailServiceImpl implements MailService
 		
 		System.out.println("to : " + to + " , cc : " + cc +" bcc : " + bcc + " subject : " + subject + " , content : " + contant);
 		System.out.println("=============================================================================");
-		
-		final String user = "autoreply@vasonomics.com";
-        final String pass = "A@v@sonom!cs";
-        
-        Properties props = new Properties();
+		Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
-//        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "25");
-
-        Session session = Session.getDefaultInstance(props,
-                new javax.mail.Authenticator() {
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(user, pass);
-                    }
-                });
+        props.put("mail.smtp.port", "587");
 
         try 
         {
+        	Session session = Session.getDefaultInstance(props,
+	                new javax.mail.Authenticator() {
+	                    protected PasswordAuthentication getPasswordAuthentication() {
+	                        return new PasswordAuthentication("autoreply@vasonomics.com", "A@v@sonom!cs");
+	                    }
+	                });
+
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("amarlalbharti@gmail.com"));
-           /* if(cc != null && cc.trim().length() > 0)
+            message.setFrom(new InternetAddress("autoreply@vasonomics.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            if(cc != null && cc.trim().length() > 0)
             {
             	message.addRecipient(Message.RecipientType.CC, new InternetAddress(cc));
             }
             if(bcc != null && bcc.trim().length() > 0)
             {
             	message.addRecipient(Message.RecipientType.BCC, new InternetAddress(bcc));
-            }*/
-//            message.setSubject(subject);
-
-            message.setSubject("test subject ");
+            }
             
+            message.setSubject(subject);
+
             BodyPart messageBodyPart = new MimeBodyPart();
-            messageBodyPart.setContent("This is text context", "text/html");
+            messageBodyPart.setContent(contant, "text/html");
 
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(messageBodyPart);
@@ -82,10 +77,12 @@ public class MailServiceImpl implements MailService
             return true;
         }
         catch (MessagingException e) {
-             e.printStackTrace();
-            //throw new RuntimeException(e);  
+            e.printStackTrace();
         }
-        return false;
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+		return false;
 
 	}
 	

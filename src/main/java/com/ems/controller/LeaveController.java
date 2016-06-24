@@ -86,7 +86,7 @@ public class LeaveController {
 				else{
 					map.addAttribute("status", "error");
 				}
-				mailservice.sendMail(sendTo, recepients, "", subject, content);
+				mailservice.sendMail(sendTo, recepients, null, subject, content);
 				
 			}
 			catch (Exception e) 

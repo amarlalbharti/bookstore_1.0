@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.domain.UserRole"%>
 <%@page import="com.ems.config.DateFormats"%>
 <%@page import="com.ems.domain.Registration"%>
@@ -19,6 +20,8 @@
 <body>
 
 <%
+	TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+	
 	Registration registration = (Registration)request.getAttribute("registration");
 	List<UserRole> roles = (List)request.getAttribute("roles");
 	UserDetail userDetail = registration.getUserDetail();
@@ -157,8 +160,8 @@
 								<div class="box-body">
 									<div class="form-horizontal">
 						              <div class="box-body">
-		                                     <div class="form-group col-md-6 ">
-								                	 <div class="form-group col-md-12" >
+		                                     <div class="form-group col-md-6 no-margin">
+								                	 <div class="form-group col-md-12 no-margin" >
 									                	<%
 									                		if(registration.getProfileImage() != null)
 									                		{
@@ -179,13 +182,19 @@
 								                	 
 								                </div>
 								                <div class="form-group col-md-6 no-padding no-margin">
-									                <div class="form-group col-md-12">
+									                <div class="form-group col-md-12 no-margin">
+									                  <label class="col-sm-4 control-label" style="text-align: left;">Employee Id</label>
+									                  <div class="col-sm-8">
+									                    <label class="form-control label-text"><%= registration.geteId() %></label>
+									                  </div>
+									                </div>
+									                <div class="form-group col-md-12 no-margin">
 									                  <label class="col-sm-4 control-label" style="text-align: left;">Name</label>
 									                  <div class="col-sm-8">
 									                    <label class="form-control label-text"><%= registration.getName() %></label>
 									                  </div>
 									                </div>
-									                <div class="form-group col-md-12">
+									                <div class="form-group col-md-12 no-margin">
 									                  <label class="col-sm-4 control-label"  style="text-align: left;">User ID</label>
 									                  <div class="col-sm-8">
 									                    <label class="form-control label-text"><%= registration.getUserid() %></label>
@@ -194,28 +203,28 @@
 									                
 								                </div>
 								                
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 									                  <label class="col-sm-4 control-label"  style="text-align: left;">Gender</label>
 									                  <div class="col-sm-8">
 									                    <label class="form-control"><%= registration.getGender()%></label>
 									                  </div>
 									                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">DOB</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getDob() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Join Date</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= DateFormats.ddMMMyyyy().format(registration.getJoiningDate()) %></label>
+								                    <label class="form-control"><%= DateFormats.ddMMMyyyy(timeZone).format(registration.getJoiningDate()) %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Registration</label>
 								                  <div class="col-sm-8">
-								                    <label class="form-control"><%= DateFormats.ddMMMyyyy().format(registration.getRegdate()) %></label>
+								                    <label class="form-control"><%= DateFormats.ddMMMyyyy(timeZone).format(registration.getRegdate()) %></label>
 								                  </div>
 								                </div>
 								                <%	
@@ -223,7 +232,7 @@
 								 					{
 										 						
 												%>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Department</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getDepartment().getDepartment() %></label>
@@ -237,7 +246,7 @@
 								 					{
 										 						
 												%>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Designation</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getDesignation().getDesignation() %></label>
@@ -251,7 +260,7 @@
 								 					{
 										 						
 												%>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Branch</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getBranch().getBranchName() %></label>
@@ -268,7 +277,7 @@
 								 					{
 										 						
 												%>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Country</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control"><%= registration.getBranch().getCountry().getCountryName() %></label>
@@ -286,7 +295,7 @@
 								                	if(roles != null && !roles.isEmpty())
 								                	{
 								                		%>
-								                			<div class="form-group col-md-6">
+								                			<div class="form-group col-md-6 no-margin">
 											                  <label class="col-sm-4 control-label"  style="text-align: left;">User Role</label>
 											                  <div class="col-sm-8">
 											                    <label class="form-control"><%= roles.get(0).getUserrole() %></label>
@@ -297,7 +306,7 @@
 								                
 								                %>
 								                
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Week Off</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= DateFormats.getDayName(registration.getWeekOff()) %></label>
@@ -316,73 +325,73 @@
 									     if(userDetail != null)
 											{
 												%>	
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                   <label class="col-sm-4 control-label" style="text-align: left;">Permanent Addr</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getParmanentAddress() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Present Addr</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getPresentAddress() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">City</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getCity() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">State</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getState() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Country</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getCountry() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Mobile Number</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getMobileNo()%></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Alter. Mobile</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getEmergencyNo() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Qualification</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getQualification() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Blood Group</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text "><%= userDetail.getBloodGroup() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Marital Status</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getMaritalStatus() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Alter. MailId</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getAltEmailId() %></label>
 								                  </div>
 								                </div>
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Passport Number</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= userDetail.getPassportNo() %></label>
@@ -397,11 +406,13 @@
 								                <%
 											}else{
 												%>
-												<div class="col-xs-6 col-md-6">
-												<div class="box-body">
-												<div class="box-footer col-xs-12 col-md-12">
-											    <a href="userOtherDetail" class="btn btn-primary btn-flat">Add Other Details</a>
-											    </div></div></div>
+												<div class="col-xs-6 col-md-6 no-margin">
+													<div class="box-body">
+														<div class="box-footer col-xs-12 col-md-12">
+													    <a href="userOtherDetail" class="btn btn-primary btn-flat">Add Other Details</a>
+												    	</div>
+												    </div>
+											    </div>
 												<%
 													}
 												%>
@@ -462,47 +473,47 @@
 									     if(bankDetail != null)
 											{
 												%>	
-								                <div class="form-group col-md-6">
+								                <div class="form-group col-md-6 no-margin">
 								                   <label class="col-sm-4 control-label" style="text-align: left;">Bank Name</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getBankName()%></label>
 								                  </div>
 								                 </div>
 								               
-									             <div class="form-group col-md-6">
+									             <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">PAN Number</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getPanNo() %></label>
 								                  </div>
 								                 </div>
 								                
-								                 <div class="form-group col-md-6">
+								                 <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">IFSC Code</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getIfscCode() %></label>
 								                  </div>
 								                 </div>
 								                
-								                 <div class="form-group col-md-6">
+								                 <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Basic Salary</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getBasicSalary() %></label>
 								                  </div>
 								                 </div>
 								                 
-								                 <div class="form-group col-md-6">
+								                 <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Account Number</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getAccountNo() %></label>
 								                  </div>
 								                 </div>
-								                 <div class="form-group col-md-6">
+								                 <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">PLI</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getPli() %></label>
 								                  </div>
 								                 </div>
-								                 <div class="form-group col-md-6">
+								                 <div class="form-group col-md-6 no-margin">
 								                  <label class="col-sm-4 control-label"  style="text-align: left;">Name As Per Bank Record</label>
 								                  <div class="col-sm-8">
 								                    <label class="form-control label-text"><%= bankDetail.getNameAsBankRecord() %></label>
@@ -517,15 +528,16 @@
 								                <%
 											}else{
 												%>
-												<div class="col-xs-6 col-md-6">
-												<div class="box-body">
-												<div class="box-footer col-xs-12 col-md-12">
-												<%
-												out.println("Bank Details not available yet");
-												
-												%>
-											   <!--  <a href="userBankDetail?Mode=add" class="btn btn-primary">Add Bank Details</a> -->
-											    </div></div></div>
+												<div class="col-xs-6 col-md-6 no-margin">
+													<div class="box-body">
+														<div class="box-footer col-xs-12 col-md-12">
+														<%
+														out.println("Bank Details not available yet");
+														%>
+													   <!--  <a href="userBankDetail?Mode=add" class="btn btn-primary">Add Bank Details</a> -->
+													    </div>
+												    </div>
+											    </div>
 												<%
 													}
 												%>

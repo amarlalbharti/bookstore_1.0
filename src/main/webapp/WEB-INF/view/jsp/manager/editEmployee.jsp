@@ -168,48 +168,56 @@
 								                  <span class="text-danger"><form:errors path="branch" /></span>
 								                </div>
 								                <div class="clearfix"></div>
+								                
 						                <div class="form-group col-xs-12 col-md-6">
-						                <%	
-			 						        if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
-			 						        {
-			 						           	String path = "/ems_uploads/"+empReg.getUserid()+"/Profile_Photo/" + empReg.getProfileImage();
-									     %>
-											<img alt="NA" id="output" src="<%=path %>" style="max-height: 150px; max-width: 100px" />
-										<% } else { %>
-											<img alt="Image" id="output" src="images/Camera_Icon.png" style="max-height: 150px; max-width: 100px" />
-										<% } %>
+							                <div class="form-group col-xs-12 no-padding">
+							                <%	
+				 						        if(empReg.getProfileImage() != null && !empReg.getProfileImage().isEmpty())
+				 						        {
+				 						           	String path = "/ems_uploads/"+empReg.getUserid()+"/Profile_Photo/" + empReg.getProfileImage();
+										     %>
+												<img alt="Image not available" id="output" src="<%=path %>" style="max-height: 150px; max-width: 100px" />
+											<% } else { %>
+												<img alt="Image" id="output" src="images/Camera_Icon.png" style="max-height: 150px; max-width: 100px" />
+											<% } %>
+											</div>
+											<div class="form-group col-xs-12 no-padding">
+												<label class="btn btn-primary btn-flat btn-xs">
+													<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="return ValidateFileUpload()" />
+													<i class="fa fa-fw fa-cloud-upload"></i>
+													Browse Image 
+												</label>
+												<span class="text-danger"><form:label path="" id="userImgErr" class="image_error" /></span>
+											</div>
 						                </div>
+						                
 						                <div class="form-group col-xs-12 col-md-6">
-						                <%
-						                if(empReg.getPanImage() != null && (!empReg.getPanImage().isEmpty()))
-						                {
-						                	String panPath = "/ems_uploads/"+empReg.getUserid()+"/Pan_Scan/"+ empReg.getPanImage();
-						                %>
-											<img alt="Scan not Available" id="output1" src="<%=panPath %>" style="max-height: 100px; max-width: 300px"/>
-						                <% } else { %>
-						                	<img alt="Scan not Available" id="output1" src="images/document.png" style="max-height: 100px; max-width: 300px"/>
-						                <% } %>
+							                <div class="form-group col-xs-12 no-padding">
+							                <%
+							                if(empReg.getPanImage() != null && (!empReg.getPanImage().isEmpty()))
+							                {
+							                	String panPath = "/ems_uploads/"+empReg.getUserid()+"/Pan_Scan/"+ empReg.getPanImage();
+							                %>
+												<img alt="Scan not Available" id="output1" src="<%=panPath %>" style="max-height: 100px; max-width: 300px"/>
+							                <% } else { %>
+							                	<img alt="Scan not Available" id="output1" src="images/document.png" style="max-height: 100px; max-width: 300px"/>
+							                <% } %>
+							                </div>
+							                <div class="form-group col-xs-12 no-padding">
+											<label class=" btn btn-primary btn-flat btn-xs">
+												<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="80" onchange="return ValidateFileUpload1()" />
+												<i class="fa fa-fw fa-cloud-upload"></i>
+												Browse Pan Card 
+											</label>
+											<span class="text-danger"><form:label path="" id="userPanImg" /></span>
+											</div>
 						                </div>
 						                <div class="clearfix"></div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Employee Image</label>
-											<label class="custom-file-upload btn btn-block">
-												<input name="userImage" id="u1" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload()" />
-											</label>
-						                  <span class="text-danger"><form:label path="" id="ui" /></span>
-						                </div>
-						                <div class="form-group col-xs-12 col-md-6">
-						                  <label >Pan Upload</label>
-											<label class="custom-file-upload btn btn-block">
-												<input name="userPan" id="u2" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" onchange="return ValidateFileUpload1()" />
-											</label>
-						                  <span class="text-danger"><form:label path="" id="dl" /></span>
-						                </div>
 								              </div>
 								              <!-- /.box-body -->
 								
 								              <div class="box-footer col-xs-12 col-md-6">
-								                <button type="submit" class="btn btn-primary">Submit</button>
+								                <button type="submit" class="btn btn-primary submit_btn">Update</button>
 								              </div>
 								            </form:form>
 						              </div>
@@ -337,7 +345,7 @@ $('#joiningDate').datetimepicker({
 			return false;		
 		}
 		$(".submit_btn").attr("disabled","disabled");
-		$(".submit_btn").text("Sending...");
+		$(".submit_btn").text("Updating...");
 	}
 
 </script>
@@ -346,10 +354,10 @@ function ValidateFileUpload() {
 
 	var fuData = document.getElementById('u1');
 	var FileUploadPath = fuData.value;
-	document.getElementById('ui').innerHTML = '';
+	document.getElementById('userImgErr').innerHTML = '';
 
 	if (FileUploadPath == '') {
-		document.getElementById('ui').innerHTML = 'Please upload an image.';
+		document.getElementById('userImgErr').innerHTML = 'Please upload an image.';
 
 	} else {
 	    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
@@ -362,7 +370,7 @@ function ValidateFileUpload() {
 	                var size = fuData.files[0].size;
 
 	                if(size > 512000){
-	                	document.getElementById('ui').innerHTML = 'Maximum file size exceed.';
+	                	document.getElementById('userImgErr').innerHTML = 'Maximum file size exceed.';
 	                    $('#output').attr('src', 'images/User_Avatar.png');
 	                    fuData.value = "";
 	                    return;
@@ -378,7 +386,7 @@ function ValidateFileUpload() {
 	            }
 	    } 
 	else {
-		document.getElementById('ui').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
+		document.getElementById('userImgErr').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
 	        fuData.value = "";
 	        $('#output').attr('src', 'images/User_Avatar.png');
 	    }
@@ -389,10 +397,10 @@ function ValidateFileUpload1() {
 
 	var fuData = document.getElementById('u2');
 	var FileUploadPath = fuData.value;
-	document.getElementById('dl').innerHTML = '';
+	document.getElementById('userPanImg').innerHTML = '';
 
 	if (FileUploadPath == '') {
-		document.getElementById('dl').innerHTML = 'Please upload an image.';
+		document.getElementById('userPanImg').innerHTML = 'Please upload an image.';
 
 	} else {
 	    var Extension = FileUploadPath.substring(FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
@@ -405,7 +413,7 @@ function ValidateFileUpload1() {
 	                var size = fuData.files[0].size;
 
 	                if(size > 512000){
-	                	document.getElementById('dl').innerHTML = 'Maximum file size exceed.';
+	                	document.getElementById('userPanImg').innerHTML = 'Maximum file size exceed.';
 	                    $('#output1').attr('src', 'images/document.png');
 	                    fuData.value = "";
 	                    return;
@@ -420,7 +428,7 @@ function ValidateFileUpload1() {
 	            }
 	    } 
 	else {
-		document.getElementById('dl').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
+		document.getElementById('userPanImg').innerHTML = 'Photo only allows file types of GIF, PNG, JPG and JPEG.';
 	        fuData.value = "";
 	        $('#output1').attr('src', 'images/document.png');
 	    }

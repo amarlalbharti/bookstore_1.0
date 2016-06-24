@@ -1,3 +1,4 @@
+<%@page import="java.util.TimeZone"%>
 <%@page import="com.ems.config.DateFormats"%>
 <%@page import="com.ems.domain.Attendance"%>
 <%@page import="java.util.List"%>
@@ -56,35 +57,64 @@
 		           <a href="managerCheckInOut" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 		         </div>
 	        </div>
-			
+			<div class="col-lg-3 col-xs-6">
+		    	 <div class="small-box bg-yellow">
+		           <div class="inner">
+		             <h3>${leaveList}</h3>
+		
+		             <p>Employees Leaves</p>
+		           </div>
+		           <div class="icon">
+		             <i class="fa fa-fw fa-calendar-times-o"></i>
+		           </div>
+		           <a href="secureleavesdash" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+		         </div>
+	        </div>
+			<div class="col-lg-3 col-xs-6">
+		    	 <div class="small-box bg-red">
+		           <div class="inner">
+		             <h3>${payList}</h3>
+		
+		             <p>Payroll</p>
+		           </div>
+		           <div class="icon">
+		             <i class="fa fa-wa fa-inr"></i>
+		           </div>
+		           <a href="getPayrollList" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+		         </div>
+	        </div>
 	      </div>
 		<div class=" row bottom-padding">
 			<div class="col-xs-12">
 				<%
+				TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
+			   	
 					List<Attendance> attsList = (List)request.getAttribute("attsList");
 			  		if(!attsList.isEmpty())
 			  		{
 			  			Attendance att = attsList.get(0);
 			  			%>
-			  				Login Time : <%= DateFormats.fullformat().format(att.getInTime()) %><%
+			  				Login Time : <%= DateFormats.fullformat(timeZone).format(att.getInTime()) %><%
 			  			%>
 							<br><br>
 			  			<%
-			  			
-			  			
-			  			Attendance attendance = attsList.get(0);
-			  			if(attendance != null && attendance.getOutTime() == null)
-		  				{
-		  					%>
-								<a href="empCheckOut"><button class="btn btn-primary ">Check Out</button></a> 
-		  					<%
-		  				}
-			  			else
-			  			{
-		  					%>
-								<a href="empCheckIn"><button class="btn btn-primary ">Check In</button></a>
-		  					<%
-			  			}
+				  			Attendance attendance = attsList.get(0);
+				  			if(attendance != null && attendance.getOutTime() != null)
+			  				{
+			  					%>
+			  						Check Out : <%= DateFormats.fullformat(timeZone).format(att.getOutTime()) %>
+									<br>
+									Working Hours : <%= DateFormats.getWorkingHours(att.getInTime(), att.getOutTime()) %>
+									
+									<br><br>
+			  					<%
+			  				}
+				  			else
+				  			{
+			  					%>
+									<a href="empCheckOut"><button class="btn btn-primary ">Check Out</button></a> 
+			  					<%
+				  			}
 			  		}
 			  		else
 			  		{

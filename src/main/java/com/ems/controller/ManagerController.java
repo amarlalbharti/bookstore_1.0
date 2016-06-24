@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,16 +33,20 @@ import com.ems.config.Validation;
 import com.ems.domain.Attendance;
 import com.ems.domain.BankDetail;
 import com.ems.domain.Documents;
+import com.ems.domain.LeaveDetail;
 import com.ems.domain.LoginInfo;
 import com.ems.domain.Notification;
+import com.ems.domain.Payroll;
 import com.ems.domain.Registration;
 import com.ems.domain.UserRole;
 import com.ems.service.AttendanceService;
 import com.ems.service.BankDetailService;
 import com.ems.service.DocumentsService;
+import com.ems.service.LeaveService;
 import com.ems.service.LoginInfoService;
 import com.ems.service.MailService;
 import com.ems.service.NotificationService;
+import com.ems.service.PayrollService;
 import com.ems.service.RegistrationService;
 import com.ems.service.UserRoleService;
 
@@ -55,11 +60,16 @@ public class ManagerController {
 	@Autowired private DocumentsService documentService;
 	@Autowired private NotificationService notificationService;
 	@Autowired private BankDetailService bankDetailService;
+	@Autowired private PayrollService payrollService;
+	@Autowired private LeaveService leaveService;
 	
+	DateFormats df = new DateFormats();
 	
 	@RequestMapping(value = "/managerDashboard", method = RequestMethod.GET)
 	public String managerdashboard(ModelMap map, HttpServletRequest request, Principal principal)
 	{
+		TimeZone timeZone = (TimeZone)request.getSession(true).getAttribute("timezone");
+
 		List<Attendance> atts = attendanceService.getTodaysAttendance(principal.getName());
 		map.addAttribute("attsList", atts);
 		Calendar calendar = Calendar.getInstance();
@@ -68,13 +78,17 @@ public class ManagerController {
 	    calendar.set(Calendar.SECOND, 0);
 	    calendar.set(Calendar.MILLISECOND, 0);
 	    calendar.set(Calendar.DATE, 1);
-		System.out.println("start date of month : " + calendar.getTime());
-		List<Attendance> lm_atts = attendanceService.getAttendanceBetweenTwoDates(principal.getName(), calendar.getTime(), new Date());
-		map.addAttribute("lm_atts", lm_atts);
-		System.out.println("principal : " + lm_atts.size());
+		List<LeaveDetail> leave = leaveService.getLeaveList(calendar.getTime(), new Date());
+		calendar.add(Calendar.MONTH, -1);
+		Date sDate = calendar.getTime();
+		calendar.add(Calendar.MONTH, 1);
+		calendar.add(Calendar.SECOND, -1);
+		Date eDate = calendar.getTime();
+		List<Payroll> payroll = payrollService.getOneMonthPayroll(sDate, eDate);
 		map.addAttribute("emp_count", registrationService.countOnlyEmployees());
 		map.addAttribute("emp_in_count", attendanceService.countTodaysUserAttendance());
-		System.out.println("from index page of managerdashboard");
+		map.addAttribute("payList", payroll.size());
+		map.addAttribute("leaveList", leave.size());
 		return "managerDashboard";
 	}
 	
@@ -121,21 +135,23 @@ public class ManagerController {
 	@RequestMapping(value = "/managerCheckInOut", method = RequestMethod.GET)
 	public String attendance(ModelMap map, HttpServletRequest request, Principal principal)
 	{
+		TimeZone timeZone = (TimeZone)request.getSession(true).getAttribute("timezone");
+		
 		String qdate = request.getParameter("qdate");
-		Date dt = new Date();
+		Date dt = df.getDate(timeZone);
 		if(qdate != null)
 		{
 			try 
 			{
 				dt = DateFormats.ddMMyyyy().parse(qdate);
-				if(dt.after(new Date()))
+				if(dt.after(df.getDate(timeZone)))
 				{
-					dt = new Date();
+					dt = df.getDate(timeZone);
 				}
 			}
 			catch (Exception e) 
 			{
-				dt = new Date();
+				dt = df.getDate(timeZone);
 				e.printStackTrace();
 			}
 		}
@@ -163,21 +179,24 @@ public class ManagerController {
 	@RequestMapping(value = "/managerViewEmpAttendence", method = RequestMethod.GET)
 	public String managerviewEmpAttendence(@RequestParam(value="empid")String empid, ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		Date dt = new Date();
+		TimeZone timeZone = (TimeZone)request.getSession(true).getAttribute("timezone");
+		
+		
+		Date dt = df.getDate(timeZone);
 		String qm = request.getParameter("qm");
 		if(qm != null)
 		{
 			try 
 			{
 				dt = DateFormats.monthformat().parse(qm);
-				if(dt.after(new Date()))
+				if(dt.after(df.getDate(timeZone)))
 				{
-					dt = new Date();
+					dt = df.getDate(timeZone);
 				}
 			}
 			catch (Exception e) 
 			{
-				dt = new Date();
+				dt = df.getDate(timeZone);
 				e.printStackTrace();
 			}
 		}
@@ -193,9 +212,9 @@ public class ManagerController {
 	    
 	    calendar.add(Calendar.MONTH, 1);
 	    Date edate = calendar.getTime();
-	    if(edate.after(new Date()))
+	    if(edate.after(df.getDate(timeZone)))
 		{
-	    	edate = new Date();
+	    	edate = df.getDate(timeZone);
 		}
 	    
 	    map.addAttribute("empReg", registrationService.getRegistrationByUserid(empid));
@@ -346,6 +365,9 @@ public class ManagerController {
 	@RequestMapping(value = "/managerFullReport", method = RequestMethod.POST)
 	public String managerFullReportSubmit(ModelMap map, HttpServletRequest request, Principal principal)
 	{
+		TimeZone timeZone = (TimeZone)request.getSession(true).getAttribute("timezone");
+		
+		
 		Calendar calendar = Calendar.getInstance();
 		
 		String empid=(String) request.getParameter("empid");
@@ -377,8 +399,8 @@ public class ManagerController {
 					String edat = (String) request.getParameter("edate");
 					try
 					{
-					Date sdate = DateFormats.ddMMyyyy().parse(sdat);
-					Date edate = DateFormats.ddMMyyyy().parse(edat);
+					Date sdate = DateFormats.ddMMyyyy(timeZone).parse(sdat);
+					Date edate = DateFormats.ddMMyyyy(timeZone).parse(edat);
 						if(sdate != null && edate != null)
 						{
 							List<Attendance> attList = attendanceService.getAttendanceBetweenTwoDates(empid, sdate, edate);
