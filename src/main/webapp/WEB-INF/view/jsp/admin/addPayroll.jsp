@@ -19,7 +19,7 @@
 				<div class="box-body">
 				<div class="form-group col-xs-12 col-md-12">
 		          <div class="form-group col-xs-12 col-md-6">
-		            <label >Employee Id</label>
+		           <label >Employee Id</label>
 		            <input class="form-control" type="text" name="eId" id="eId" value="<%= payroll.getRegistration().getUserid()%>" placeholder="Enter Employee Id" tabindex="1" readonly="readonly" maxlength="50"/>
 		            <input type="hidden" name="pId" id="pId" value="<%= payroll.getPid()%>"/>
 		          </div>
@@ -102,7 +102,8 @@
 				<p id="msg" style="color: red; display :none"></p>
 		          <div class="form-group col-xs-12 col-md-6">
 		            <label >Employee Id</label>
-		            <input class="form-control" type="text" name="eId" id="eId" placeholder="Enter Employee Id" tabindex="1" maxlength="50"/>
+		            <select id="eId" class="from-control col-xs-12 select2">
+					</select>
 		          </div>
 		          <div class="form-group col-xs-12 col-md-6">
 		            <label >Employee Name</label>
@@ -187,7 +188,40 @@
         </div>
         
 	</div>
-	<script type="text/javascript">
+<!-- <script src="js/jQuery-2.2.0.min.js"></script>		 -->
+<script src="js/select2.full.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $("#eId").select2({
+    	minimumInputLength: 3,
+    	multiple: false,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: 'searchEmployees',
+            dataType: 'json',
+            type: "GET",
+            quietMillis: 50,
+            data: function (term) {
+                return {
+                    q: term.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name+" <"+item.userid+">",
+                            id: item.userid
+                        }
+                    })
+                };
+            }
+        }
+    });
+});
+ 
+</script>
+<script type="text/javascript">
 	$(document.body).on("change", ".number_only" ,function () {
 
 		var bSal, hrAlwnc, trnspAlwnc, lveTrvlAlwnc, splAlwnc, salAdv, pf, tds, otDed,food,rent;
@@ -253,4 +287,51 @@
 		$("#ntPay").val(ntPay);
 // 		alert(tlEr -tlDd);
 	 });
+	
+	$(document).ready(function(){
+		$(document.body).on("change", "#eId" ,function () {
+		        var eId = $(this).val();
+// 		        alert("eid "+ eId);
+				$("#msg").css("display","none");
+		   		$.ajax({
+		   			type : "GET",
+		   			url : "getEmpData",
+		   			data : {'eId':eId},
+		   			contentType : "application/json",
+		   			success : function(data) {
+		   				var obj = jQuery.parseJSON(data);
+		   				if(!obj.error)
+		  					{
+		  						var list = obj.reg;
+		  						$("#name").val(list.name);
+		  						$("#designation").val(list.desg);
+		  						$("#bSal").val(list.bSal);
+		  						clearAll();
+		  					}
+		   					if(obj.msg == "NA")
+							{
+								$("#msg").html('*Bank detail not available, Please add bank detail first.');
+		   						$('#msg').css({'display':'block'});
+		   						$("#name").val('');
+		   						$("#designation").val('');
+		   						$("#bSal").val('');
+		   						clearAll();
+							}
+		   					if(obj.msg == "regNull")
+							{
+		   						
+		   						$("#msg").html('*Invalid Registraion Id, Please try with valid Id.');
+		   						$('#msg').css({'display':'block'});
+		   						$("#name").val('');
+		   						$("#designation").val('');
+		   						$("#bSal").val('');
+		   						clearAll();
+							}
+		   			}
+		   		});
+		       });
+		
+	});
+	     
+	
 	</script>

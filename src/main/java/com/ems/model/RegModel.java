@@ -25,8 +25,10 @@ public class RegModel implements Serializable
 	private String name;
 	
 	@NotEmpty(message="{NotEmpty.regForm.userid}")
-	@Email(message="{Email.regForm.email}")
+	@Pattern(regexp="^[a-zA-Z0-9]+$",message="{Pattern.regForm.email}")
 	private String userid;
+	
+	//Email(message="{Email.regForm.email}")
 	
 	@NotEmpty(message="{NotEmpty.regForm.password}")
 	@Pattern(regexp="(?=.*\\d)(?=.*[a-z]).{4,20}",message="{Pattern.regForm.password}")

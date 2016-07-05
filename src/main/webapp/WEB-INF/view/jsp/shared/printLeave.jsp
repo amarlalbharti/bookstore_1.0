@@ -213,6 +213,34 @@
 						<td>:</td>
 						<td colspan="2"><%= leaveDetail.getStatus() %></td>
 					</tr>
+					<%
+						if(leaveDetail.getStatus() != null )
+						{
+							if(leaveDetail.getStatus().equalsIgnoreCase("Approved"))
+							{
+								%>
+									<tr>
+										<td class="wd">Approved By</td>
+										<td>:</td>
+										<td colspan="2"><%= leaveDetail.getApprovedBy() %></td>
+									</tr>
+								<%							
+							}
+							else if(leaveDetail.getStatus().equalsIgnoreCase("Reject"))
+							{
+								%>
+									<tr>
+										<td class="wd">Rejected By</td>
+										<td>:</td>
+										<td colspan="2"><%= leaveDetail.getApprovedBy() %></td>
+									</tr>
+								<%							
+							}
+						}
+						
+					
+					
+					%>
 				</tbody>
 			</table>
 			<% } %>

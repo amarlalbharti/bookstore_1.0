@@ -72,7 +72,7 @@ public class IndexController
 		{
 //			return "redirect:userHome";
 		}
-		System.out.println("from index page of index controller");
+		System.out.println("from index page of index controller test");
 		return "login";
 	}
 	

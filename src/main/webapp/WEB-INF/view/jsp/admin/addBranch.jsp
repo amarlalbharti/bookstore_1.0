@@ -67,7 +67,7 @@
 			                </div>
 			                <div class="form-group col-xs-12 col-md-6">
 			                  <label >Phone No.</label>
-			                  <form:input autocomplete="off" path="phoneNo" type="text" class="form-control number_only" placeholder="Enter Phone No" tabindex="5"  maxlength="10" />
+			                  <form:input autocomplete="off" path="phoneNo" type="text" class="form-control number_only" placeholder="Enter Phone No" tabindex="5"  maxlength="15" />
 			                   <span class="text-danger"><form:errors path="phoneNo" /></span>
 			                </div>
 			                <div class="clearfix"></div>

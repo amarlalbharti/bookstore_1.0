@@ -138,7 +138,7 @@ public class AdminLeaveController {
 			Date date = new Date();
 			Date dt = new Date(date.getTime());
 			leaveDetail.setApprovedDate(dt);
-			leaveDetail.setApprovedBy(principal.getName());
+			leaveDetail.setApprovedBy(reg.getName());
 			leaveDetail.setStatus("Approved");
 			flag = leaveService.updateLeaveDetail(leaveDetail);
 			Notification notification=new Notification();
@@ -173,7 +173,7 @@ public class AdminLeaveController {
 			Date date = new Date();
 			Date dt = new Date(date.getTime());
 			leaveDetail.setApprovedDate(dt);
-			leaveDetail.setApprovedBy(principal.getName());
+			leaveDetail.setApprovedBy(reg.getName());
 			leaveDetail.setStatus("Reject");
 			
 			flag = leaveService.updateLeaveDetail(leaveDetail);

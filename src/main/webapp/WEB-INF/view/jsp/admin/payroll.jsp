@@ -93,7 +93,7 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-md-12">
-				<div class="box box-info">
+				<div class="box box-info add_pr_form">
 					<div class="box-header with-border">
 						<h3 class="box-title">Payroll List</small>
        					</h3>
@@ -167,6 +167,21 @@
     </section>
     <!-- /.content -->
   </div>
+ 
+  <script type="text/javascript">
+  $(document.body).on("click", ".adPay", function() {
+	$.ajax({
+		type : "GET",
+		url : "secureAddPayroll",
+		data : {'id':''},
+		contentType : "application/json",
+		success : function(data) {
+			$(".add_pr_form").html(data);
+		}
+	  });
+	  
+	});
+</script>
   <script type="text/javascript">
 	function validateForm()
 	{
@@ -342,75 +357,11 @@ $(document.body).on("click", ".edit", function(){
 			contentType : "application/json",
 			success : function(data) {
 				$(".box-info").html(data);
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-		        alert(xhr.status);
-		      }
+			}
 		  });
 	}
 });
-
-$(document.body).on("click", ".adPay", function() {
-// alert('Add Button Clicked');
-$.ajax({
-	type : "GET",
-	url : "secureAddPayroll",
-	data : {'id':''},
-	contentType : "application/json",
-	success : function(data) {
-		$(".box-info").html(data);
-	},
-	error: function (xhr, ajaxOptions, thrownError) {
-        alert(xhr.status);
-      }
-  });
   
-});
-
-$(document.body).on("change", "#eId" ,function () {
-		$("#msg").css("display","none");
-        var eId = $("#eId").val();
-   		$.ajax({
-   			type : "GET",
-   			url : "getEmpData",
-   			data : {'eId':eId},
-   			contentType : "application/json",
-   			success : function(data) {
-   				var obj = jQuery.parseJSON(data);
-   				if(!obj.error)
-  					{
-  						var list = obj.reg;
-  						$("#name").val(list.name);
-  						$("#designation").val(list.desg);
-  						$("#bSal").val(list.bSal);
-  						clearAll();
-  					}
-   					if(obj.msg == "NA")
-					{
-						$("#msg").html('*Bank detail not available, Please add bank detail first.');
-   						$('#msg').css({'display':'block'});
-   						$("#name").val('');
-   						$("#designation").val('');
-   						$("#bSal").val('');
-   						clearAll();
-					}
-   					if(obj.msg == "regNull")
-					{
-   						
-   						$("#msg").html('*Invalid Registraion Id, Please try with valid Id.');
-   						$('#msg').css({'display':'block'});
-   						$("#name").val('');
-   						$("#designation").val('');
-   						$("#bSal").val('');
-   						clearAll();
-					}
-   			},
-   			error: function (xhr, ajaxOptions, thrownError) {
-   		        alert(xhr.status);
-   		      }
-   		});
-       });
-       
 function clearAll()
 {
   	$("#hrAlwnc").val('');
@@ -438,7 +389,7 @@ $(document.body).on("click", ".dlt", function(){
 	{
 		$.ajax({
 			type : "GET",
-			url : "adminDeletePayroll",
+			url : "secureDeletePayroll",
 			data : {'pid':pid},
 			contentType : "application/json",
 			success : function(data) {
@@ -451,10 +402,7 @@ $(document.body).on("click", ".dlt", function(){
 					      $("#dlt").css("display","none");
 					}, 5000);
 				}
-			},
-			error: function (xhr, ajaxOptions, thrownError) {
-		        alert(xhr.status);
-		      }
+			}
 		});
 	}
 });

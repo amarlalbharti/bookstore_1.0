@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ems.config.DateFormats;
 import com.ems.config.ProjectConfig;
 import com.ems.domain.Branch;
+import com.ems.domain.Country;
 import com.ems.domain.Department;
 import com.ems.domain.Designation;
 import com.ems.domain.LoginInfo;
@@ -84,6 +85,7 @@ public class ManagerEmpController {
 			@ModelAttribute(value = "urole") UserRole urole, BindingResult userroleResult,
 			@RequestParam("userid") String userid, ModelMap map, HttpServletRequest request, Principal principal)
 	{
+		userid += "@vasonomics.com";
 		
 		System.out.println("userid in controller" + userid);
 		boolean st = false;
@@ -129,7 +131,15 @@ public class ManagerEmpController {
 			{
 				result.addError(new FieldError("regForm", "branch", model.getBranch() , false, new String[1],new String[1], "Please select branch"));
 			}
-			
+			if(model.getCountry().getCountryId() <= 0)
+			{
+				result.addError(new FieldError("postForm", "country", model.getCountry() , false, new String[1],new String[1], "Please select country"));
+			}
+			if(model.getCountry().getCountryId() > 0)
+			{
+				Country c = countryService.getCountryById(model.getCountry().getCountryId());
+				map.addAttribute("bList",branchService.getBranchByCountryId(c.getCountryId()));
+			}
 			map.addAttribute("dpList", departmentService.getDepartmentList());
 			map.addAttribute("dsList", designationService.getDesignationList());
 			map.addAttribute("cList", countryService.getCountryList());
@@ -146,6 +156,9 @@ public class ManagerEmpController {
 			
 			try 
 			{
+				reg.setUserid(model.getUserid()+"@vasonomics.com");
+				login.setUserid(model.getUserid()+"@vasonomics.com");
+				
 				reg.setJoiningDate(DateFormats.ddMMyyyy().parse(model.getJoiningDate()));
 				
 				login.setIsactive("true");
@@ -529,6 +542,7 @@ public class ManagerEmpController {
 		}
 		return "redirect:managerViewEmployee";
 	}
+	
 	@RequestMapping(value = "/validateEId", method = RequestMethod.GET)
 	@ResponseBody
 	public String validateEId(ModelMap map, HttpServletRequest request, Principal principal)
@@ -547,7 +561,26 @@ public class ManagerEmpController {
 		}
 		obj.put("eid_exist", false);
 		return obj.toJSONString();
-		
 	}
 	
+	@RequestMapping(value = "/validateUserId", method = RequestMethod.GET)
+	@ResponseBody
+	public String validateUserId(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		JSONObject obj = new JSONObject();
+		
+		String eid = request.getParameter("userid");
+		if(eid != null && !eid.trim().isEmpty())
+		{
+			eid += "@vasonomics.com";
+			Registration reg = registrationService.getRegistrationByEid(eid);
+			if(reg!= null)
+			{
+				obj.put("UserId_exist", true);
+				return obj.toJSONString();
+			}
+		}
+		obj.put("UserId_exist", false);
+		return obj.toJSONString();
+	}
 }

@@ -52,9 +52,7 @@
         <li class="${currentpage == 'userprofile' ? 'active' : ''}"><a href="userprofile"><i class="fa fa-user"></i><span>View Profile</span></a></li>
         <li class="${currentpage == 'leave' ? 'active' : ''}"><a href="userleavedetail"><i class="fa fa-fw fa-calendar-times-o"></i><span>Leave Details</span></a></li>
         <li class="${currentpage == 'documents' ? 'active' : ''}"><a href="userDocuments"><i class="fa fa-book"></i><span>My Documents</span></a></li>
-		<li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="userPayroll"><i class="fa fa-wa fa-inr"></i><span>My Payroll</span></a></li>        
-		<li class="${currentpage == 'calendar' ? 'active' : ''}"><a href="myCalendar"><i class="fa fa-dashboard"></i> <span>My Calendar</span></a></li>
-        
+        <li class="${currentpage == 'payroll' ? 'active' : ''}"><a href="userPayroll"><i class="fa fa-wa fa-inr"></i><span>My Payroll</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

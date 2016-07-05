@@ -50,6 +50,7 @@ import com.ems.config.DateFormats;
 import com.ems.config.ProjectConfig;
 import com.ems.domain.Attendance;
 import com.ems.domain.Branch;
+import com.ems.domain.Country;
 import com.ems.domain.Department;
 import com.ems.domain.Designation;
 import com.ems.domain.LoginInfo;
@@ -125,6 +126,7 @@ public class AdminEmpController
 			@ModelAttribute(value = "urole") UserRole urole, BindingResult userroleResult,
 			@RequestParam("userid") String userid, ModelMap map, HttpServletRequest request)
 	{
+		userid += "@vasonomics.com";
 		System.out.println("userid in controller" + userid);
 		boolean st = false;
 		try
@@ -177,7 +179,8 @@ public class AdminEmpController
 			map.addAttribute("cList", countryService.getCountryList());
 			if(model.getCountry().getCountryId() > 0)
 			{
-				map.addAttribute("bList",branchService.getBranchByCountryId(model.getBranch().getCountry().getCountryId()));
+				Country c = countryService.getCountryById(model.getCountry().getCountryId());
+				map.addAttribute("bList",branchService.getBranchByCountryId(c.getCountryId()));
 			}
 			System.out.println("in validation");
 			return "adminAddEmployee";
@@ -187,9 +190,11 @@ public class AdminEmpController
 			Date date = new Date();
 			Date dt = new Date(date.getTime());
 			reg.setRegdate(dt);
-			
 			try 
 			{
+				reg.setUserid(model.getUserid()+"@vasonomics.com");
+				login.setUserid(model.getUserid()+"@vasonomics.com");
+				
 				reg.setJoiningDate(DateFormats.ddMMyyyy().parse(model.getJoiningDate()));
 				
 				login.setIsactive("true");

@@ -80,7 +80,9 @@
 	    <property name="hibernateProperties">
 	        <props>
 	            <prop key="hibernate.dialect">${jdbc.dialect}</prop>
-	            <prop key="hibernate.show_sql">true</prop>
+	            <prop key="hibernate.show_sql">false</prop>
+	            <prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.connection.autoReconnect">true</prop>
 	        </props>
 	    </property>
 	</bean>
@@ -99,9 +101,18 @@
 	<mvc:interceptors>
 	     <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 	         <property name="cacheSeconds" value="0"/>
-	         <property name="useExpiresHeader" value="false"/>
+	         <property name="useExpiresHeader" value="true"/>
 	         <property name="useCacheControlHeader" value="true"/>
 	         <property name="useCacheControlNoStore" value="true"/>
+	         <property name="cacheMappings">
+				<props>
+					<prop key="/css/**">2592000</prop>
+					<prop key="/js/**">2592000</prop>
+					<prop key="/images/**">2592000</prop>
+					<prop key="/fonts/**">2592000</prop>
+					
+				</props>
+			 </property>
 	     </bean>     
 	</mvc:interceptors>
 	

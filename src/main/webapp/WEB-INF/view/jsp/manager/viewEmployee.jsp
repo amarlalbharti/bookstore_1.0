@@ -57,7 +57,7 @@
 						<h4>
 							<i class="icon fa fa-check"></i> Success !
 						</h4>
-						Bank detail update successfully !
+						Record added successfully !
 					</div>		
 				<%
 			}

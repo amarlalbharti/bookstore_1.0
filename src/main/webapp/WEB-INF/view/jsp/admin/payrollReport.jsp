@@ -110,9 +110,6 @@ $(document.body).on("change", "#month" ,function () {
 					$("#msg").html('*No data found.');
 						$('#msg').css({'display':'block'});
 						$("#eName").html('');
-// 						setTimeout(function() {
-// 						    $("#msg").css("display","none");
-// 						}, 5000);
 					}
 			}
 		});

@@ -23,11 +23,9 @@ public class LeaveDetailModel {
 	
 	
 	@NotEmpty(message="{NotEmpty.leave.sendTo}")
-	@Email(message="{Email.leave.email}")
+	
 	private String sendTo;
 	
-	@NotEmpty(message="{NotEmpty.leave.cc}")
-
 	private String cc;
 	
 	

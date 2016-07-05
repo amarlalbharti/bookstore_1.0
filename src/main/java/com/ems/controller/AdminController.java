@@ -1,6 +1,7 @@
 package com.ems.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 
+import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -221,10 +223,10 @@ public class AdminController
 	@RequestMapping(value = "/myCalendar", method = RequestMethod.GET)
 	public String myCalendar(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		
 		return "myCalendar";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchEmployees", method = RequestMethod.GET)
 	@ResponseBody
 	public String searchEmployees(ModelMap map, HttpServletRequest request, Principal principal)
@@ -249,5 +251,133 @@ public class AdminController
 		}
 		System.out.println("JSON : " + array.toJSONString());
 		return array.toJSONString();
+	}
+	
+	@SuppressWarnings({ "unchecked", "null" })
+	@RequestMapping(value = "/searchEmployeeEvent", method = RequestMethod.GET)
+	@ResponseBody
+	public String searchEmployeeEvent(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		TimeZone timeZone = (TimeZone)request.getSession(true).getAttribute("timezone");
+		Registration registration = (Registration)request.getSession().getAttribute("registration");
+		List<Registration> regList = registrationService.getEmpRegistrationList();
+		JSONObject obj = new JSONObject();
+		if(registration != null)
+		{
+			String empid = registration.getUserid();
+			Date dt = df.getDate(timeZone);
+			dt = registration.getJoiningDate();
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dt);
+			calendar.set(Calendar.HOUR_OF_DAY, 0);
+		    calendar.set(Calendar.MINUTE, 0);
+		    calendar.set(Calendar.SECOND, 0);
+		    calendar.set(Calendar.MILLISECOND, 0);
+		    Date sdate = calendar.getTime();
+		    
+		    Date edate = df.getDate(timeZone);
+		    
+			List<Attendance> attList = attendanceService.getAttendanceBetweenTwoDates(empid,sdate, edate);
+			
+			List<LeaveDetail> lveList = leaveService.getLeaveBetweenTwoDates(empid, sdate, edate);
+			List<String> absentList = new ArrayList<String>();
+			JSONArray array = new JSONArray();
+			try{
+//    Attendence Notification
+				if(attList != null && !attList.isEmpty())
+				{
+					for(Attendance at : attList)
+					{
+						absentList.add(DateFormats.ddMMyyyy(timeZone).format(at.getInTime()));
+						
+						String inTime = DateFormats.timeformat(timeZone).format(at.getInTime());
+						String outTime;
+						if(at.getOutTime() != null)
+						{
+							outTime = DateFormats.timeformat(timeZone).format(at.getOutTime());
+						}
+						else
+						{
+							outTime = "NA";
+						}
+						JSONObject r = new JSONObject();
+						r.put("title", inTime + " - " + outTime);
+						r.put("start", DateFormats.yyyyMMdd(timeZone).format(at.getInTime()));
+						array.add(r);
+					}
+				}
+				
+// Leave Notification
+				if(lveList != null && !lveList.isEmpty())
+				{
+					for(LeaveDetail lv : lveList)
+					{
+						absentList.add(DateFormats.ddMMyyyy(timeZone).format(lv.getFromDate()));
+						
+						JSONObject r = new JSONObject();
+						r.put("title", "On Leave");
+						r.put("start", DateFormats.yyyyMMdd(timeZone).format(lv.getFromDate()));
+						r.put("end", DateFormats.yyyyMMdd(timeZone).format(lv.getToDate()));
+						array.add(r);
+					}
+				}
+				
+// Absent Notification
+				Calendar start = Calendar.getInstance();
+				start.setTime(sdate);
+				Calendar end = Calendar.getInstance();
+				end.setTime(edate);
+				for (Date date = start.getTime(); start.before(end); start.add(Calendar.DATE, 1), date = start.getTime()) 
+				{
+					Calendar cal = Calendar.getInstance();
+					cal.setTime(date);
+				    // Do your job here with `date`.
+					String newDate = DateFormats.ddMMyyyy(timeZone).format(date);
+				    if(absentList.contains(newDate))
+				    	continue;
+				    else if(cal.getTime().getDay() == registration.getWeekOff()-1)
+				    	continue;
+				    else
+				    {
+				    	JSONObject r = new JSONObject();
+						r.put("title", "Absent");
+						r.put("start", DateFormats.yyyyMMdd(timeZone).format(date));
+						array.add(r);
+				    }
+				}
+				
+//		DOB Events
+				
+				if(regList != null && !regList.isEmpty())
+				{
+					for(Registration reg : regList)
+					{
+						int bday = DateFormats.ddMMyyyy().parse(reg.getDob()).getDate();
+						int bmonth = DateFormats.ddMMyyyy().parse(reg.getDob()).getMonth() + 1;
+						int byear = edate.getYear() + 1900;
+						
+						String DOB = byear + "-" + bmonth + "-" + bday;
+						
+						JSONObject r = new JSONObject();
+						r.put("title", "BirthDay : "+reg.getName());
+						r.put("start", DOB);
+						array.add(r);
+					}
+				}
+				
+			}
+			catch(Exception ee) 
+			{
+				ee.printStackTrace();
+				obj.put("error", true);
+				return obj.toJSONString();
+			}
+			obj.put("att", array);
+			obj.put("weekOff", registration.getWeekOff());
+			obj.put("error", false);
+			return obj.toJSONString();
+		}
+		obj.put("error", true);
+		return obj.toJSONString();
 	}
 }

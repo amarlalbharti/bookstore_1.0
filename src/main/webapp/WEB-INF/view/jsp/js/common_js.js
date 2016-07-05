@@ -30,10 +30,12 @@ jQuery(document).ready(function() {
 //		alert("hello" );
 	});
 	
-	$(document.body).on('keyup', '.titleCase' ,function(){
+	$(document.body).on('keypress', '.titleCase' ,function(){
 		var string = $(this).val();
-		string = string.charAt(0).toUpperCase() + string.slice(1);
-		$(this).val(string);
+		if(string.length <= 1){
+			string = string.charAt(0).toUpperCase() + string.slice(1);
+			$(this).val(string);
+		}
 	});
 	
 	$(document.body).on('keyup', '.upperCase' ,function(){
@@ -42,22 +44,22 @@ jQuery(document).ready(function() {
 		$(this).val(string);
 	});
 	
-	$(".character_only").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190, 32]) !== -1 ||
-             // Allow: Ctrl+A, Command+A
-            (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
-             // Allow: home, end, left, right, down, up
-            (e.keyCode >= 35 && e.keyCode <= 40)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-       
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 64 || e.keyCode > 97)) && (e.keyCode < 96 || e.keyCode > 123)) {
-            e.preventDefault();
-        }
-    });
+//	$(".character_only").keydown(function (e) {
+//        // Allow: backspace, delete, tab, escape, enter and .
+//        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190, 32]) !== -1 ||
+//             // Allow: Ctrl+A, Command+A
+//            (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
+//             // Allow: home, end, left, right, down, up
+//            (e.keyCode >= 35 && e.keyCode <= 40)) {
+//                 // let it happen, don't do anything
+//                 return;
+//        }
+//       
+//        // Ensure that it is a number and stop the keypress
+//        if ((e.shiftKey || (e.keyCode < 64 || e.keyCode > 97)) && (e.keyCode < 96 || e.keyCode > 123)) {
+//            e.preventDefault();
+//        }
+//    });
 });
 
 
@@ -68,10 +70,10 @@ function checkComplexity(password)
 }
 
 function isEmail(email) {
-  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  var regex = /^([a-zA-Z0-9_.+-])+$/;
   return regex.test(email);
 }
-
+//    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 function ContactNo(number) {
   var regex = new RegExp("^((\\+|00)(\\d{1,3})[\\s-]?)?(\\d{10})$");
   return regex.test(number);

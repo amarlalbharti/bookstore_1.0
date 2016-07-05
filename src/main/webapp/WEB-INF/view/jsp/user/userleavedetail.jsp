@@ -158,9 +158,10 @@
 												<th style="width: 12%;">Leave Type</th>
 												<th style="width: 10%;">From</th>
 												<th style="width: 10%;">To</th>
+												<th style="width: 10%;">Approved By</th>
 												<th style="width: 8%;">Status</th>
-												<th style="width: 30%;">Subject</th>
-												<th style="width: 15%;" class="text-center">Action</th>
+												<th style="width: 23%;">Subject</th>
+												<th style="width: 12%;" class="text-center">Action</th>
 												
 											</tr>
 										</thead>
@@ -179,6 +180,7 @@
 															<td><%= ld.getLeaveType() %></td>
 															<td><%= DateFormats.ddMMMyyyy(timeZone).format(ld.getFromDate()) %></td>
 															<td><%= DateFormats.ddMMMyyyy(timeZone).format(ld.getToDate()) %></td>
+															<td><%if(ld.getApprovedBy() != null){out.println(ld.getApprovedBy());} else{out.println("NA");} %>
 															<td><%= ld.getStatus() %></td>
 															<td><%= ld.getSubject() %></td>
 															
@@ -206,7 +208,7 @@
 											{
 												%>
 													<tr>
-													<td colspan="8" align="center">No data in the data source.</td>
+													<td colspan="8">No data in the data source.</td>
 													</tr>
 												<%
 											}

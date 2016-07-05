@@ -13,9 +13,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<link rel="stylesheet" href="css/select2.min.css">
 
-  <!-- Select2 -->
 </head>
 <body>
 	<div class="content-wrapper">
@@ -140,20 +138,20 @@
               </div> -->
               <!-- <div class="form-group">
                 <label>Minimal</label>
-                <select id ="search_emp" class="form-control select2 search_emp" name='term' style="width: 100%;">
-                  
+                <select id ="search_emp" class="form-control search_emp">
                 </select>
               </div> -->
 			</div>
 		</div>
     </section>
     <!-- /.content -->
-  </div><!-- Select2 -->
-<script src="js/select2.full.min.js"></script>
-<script type="text/javascript">
- /* $(function () {
+  </div>
+<!-- <script src="js/select2.full.min.js"></script> -->
+<!-- <script type="text/javascript">
+$(function () {
     $("#search_emp").select2({
-        multiple: true,
+    	minimumInputLength: 3,
+    	multiple: false,
         minimumResultsForSearch: 10,
         ajax: {
             url: 'searchEmployees',
@@ -161,18 +159,15 @@
             type: "GET",
             quietMillis: 50,
             data: function (term) {
-//             	alert("::::: " + term.term)
                 return {
                     q: term.term
                 };
             },
             processResults: function (data) {
-//             	alert("::::: " + data);
                 return {
                     results: $.map(data, function (item) {
                         return {
-                            text: item.name,
-//                             slug: item.slug,
+                            text: item.name+" <"+item.userid+">",
                             id: item.userid
                         }
                     })
@@ -180,7 +175,7 @@
             }
         }
     });
-}); */
- 
-</script>
+});
+
+</script> -->
  </body>

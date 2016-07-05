@@ -69,6 +69,19 @@ input[type="file"] {
     opacity: 0.8;
     background: #ececec;
 }
+.atgmail
+{
+   position: absolute;
+   top: 27px;
+   right: 10px;
+   color: #999;
+   padding-top:5px;
+   padding-right:8px;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   user-select: none;
+   direction: ltr;
+}
 </style>
 
 </head>
@@ -117,7 +130,7 @@ input[type="file"] {
 			<ul class="nav navbar-nav">
 				<!-- Messages: style can be found in dropdown.less-->
 				<li class="dropdown messages-menu">
-		            <a style="color: black;"><select class="sel_timezone" >
+		            <a style="color: black;padding: 10px;"><select class="sel_timezone zone_select2" >
 					<%
 						TimeZone ctz = (TimeZone)request.getSession().getAttribute("timezone");
 						TimeZone timeZone = Calendar.getInstance().getTimeZone();
@@ -388,4 +401,11 @@ input[type="file"] {
 		$('.bodyCoverWait').hide();
 	});
 	
+</script>
+<script src="js/select2.full.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $(".zone_select2").select2();
+});
+    
 </script>

@@ -48,6 +48,3 @@ NotEmpty.desgForm.designation=Designation is required
 Pattern.depForm.department=Only alphabets required
 NotEmpty.depForm.department=Department is required
 
-NotNull.leave.reason=Reason is required
-NotNull.leave.subject=Subject is required
-NotEmpty.leave.sendTo=SendTo is required

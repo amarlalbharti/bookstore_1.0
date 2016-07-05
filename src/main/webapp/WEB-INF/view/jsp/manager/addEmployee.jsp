@@ -40,7 +40,7 @@
 				              <div class="form-group col-xs-12 col-md-6">
 				                  <label >Employee Id<span class="text-danger">*</span></label>
 				                  <form:input path="eId" id="eId" class="form-control" maxlength="12" tabindex="1" title="EID Format : YYYY-IN-0000"  placeholder="Enter employee Id"/>
-				                  <span class="text-danger"><form:errors path="eId" /></span>
+				                  <span class="text-danger eid_error"><form:errors path="eId" /></span>
 				                </div>
 				                <div class="form-group col-xs-12 col-md-6">
 				                  <label >Employee Name<span class="text-danger">*</span></label>
@@ -50,8 +50,9 @@
 				                <div class="clearfix"></div>
 				                <div class="form-group col-xs-12 col-md-6">
 				                  <label >Email Id<span class="text-danger">*</span></label>
-				                  <form:input autocomplete="off" path="userid" maxlength="60" type="email" tabindex="10" class="form-control" placeholder="Enter employee user id" />
-				                   <span class="text-danger">${uidex}<form:errors path="userid" /></span>
+				                  <form:input autocomplete="off" path="userid" maxlength="35" type="text" tabindex="10" class="form-control" placeholder="Enter employee user id" />
+				                   <span class="atgmail">@vasonomics.com</span>
+				                   <span class="text-danger emailid_error">${uidex}<form:errors path="userid" /></span>
 				                </div>
 				                <div class="form-group col-xs-12 col-md-6">
 				                  <label >User Role<span class="text-danger">*</span></label>
@@ -222,8 +223,8 @@ $('#joiningDate').datetimepicker({
 </script>	
 <script>
 $(document).ready(function(){
-    $("#eId").keypress(function(e){
-    	var eId = $("#eId").val();
+    $("#form #eId").keypress(function(e){
+    	var eId = $(this).val();
     	if((eId.length == 4 || eId.length == 7) && e.keyCode != 8)
     	{
     		eId += "-";
@@ -273,7 +274,6 @@ $(document).ready(function()
 $(document).ready(function()
 {
 	  $(document.body).on("change", "#eId", function() {
-		 alert($(this).val());
 		 $(".eid_error").html("");
 		 var eid = $(this).val();
 		 $.ajax({
@@ -283,21 +283,38 @@ $(document).ready(function()
  			contentType : "application/json",
  			success : function(data) {
  				var obj = jQuery.parseJSON(data);
- 				alert(data)
  				if(obj.eid_exist)
 				{
 					$(".eid_error").html("Employee Id already exist !");
 					$("#eId").focus();
 				}
- 			},
- 			error: function (xhr, ajaxOptions, thrownError) {
- 		        alert(xhr.status);
- 		      }
+ 			}
  		});
 		 
 	 });
 });
-
+$(document).ready(function()
+{
+	  $(document.body).on("change", "#userid", function() {
+		 $(".emailid_error").html("");
+		 var userid = $(this).val();
+		 $.ajax({
+ 			type : "GET",
+ 			url : "validateUserId",
+ 			data : {'userid':userid},
+ 			contentType : "application/json",
+ 			success : function(data) {
+ 				var obj = jQuery.parseJSON(data);
+ 				if(obj.UserId_exist)
+				{
+					$(".emailid_error").html("User Id already exist !");
+					$("#userid").focus();
+				}
+ 			}
+ 		});
+		 
+	 });
+});
 </script>
 
 <script type="text/javascript">

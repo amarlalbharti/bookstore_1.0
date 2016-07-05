@@ -399,8 +399,8 @@ public class ManagerController {
 					String edat = (String) request.getParameter("edate");
 					try
 					{
-					Date sdate = DateFormats.ddMMyyyy(timeZone).parse(sdat);
-					Date edate = DateFormats.ddMMyyyy(timeZone).parse(edat);
+						Date sdate = DateFormats.ddMMyyyy(timeZone).parse(sdat);
+						Date edate = DateFormats.ddMMyyyy(timeZone).parse(edat);
 						if(sdate != null && edate != null)
 						{
 							List<Attendance> attList = attendanceService.getAttendanceBetweenTwoDates(empid, sdate, edate);

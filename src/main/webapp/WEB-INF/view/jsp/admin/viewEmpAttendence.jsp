@@ -88,12 +88,16 @@
 					  		
 					  		<div class="box box-info">
 					            <div class="box-body" style="min-height: 210px;">
-					            	<!-- <div class="emp_search input-group input-group-sm margin-bottom">
-						                <input type="text" class="form-control emp_text" placeholder="Search employees">
-						                    <span class="input-group-btn">
-						                      <button class="btn btn-info btn-flat" type="button">Go!</button>
-						                </span>
-						            </div> -->
+					            	<div class=" col-xs-12 emp_search input-group input-group-sm margin-bottom">
+						               <div class=" col-xs-4 text-bold">
+						               		Search Employee
+						               </div>
+						               <div class=" col-xs-8 no-padding">
+											<select id ="search_emp" class="form-control search_emp" style="width: 100%">
+	                						</select>
+						               </div>
+						               
+						            </div>
 						            <div class="emp_detail" >
 								  		<p><label class="form-control">Name : <%= empReg.getName() %></label></p>
 								  		<p><label class="form-control">User Id : <%= empReg.getUserid() %></label></p>
@@ -380,13 +384,7 @@
 <script src="js/jQuery-2.2.0.min.js"></script>
 <script src="js/jquery.datetimepicker.full.js"></script>
 <script src="js/select2.full.min.js"></script>
-<script type="text/javascript">
- $(function () {
-    $(".select2").select2();
-});
 
-</script>
- 
  <script type="text/javascript">
  jQuery(document).ready(function() {
 
@@ -589,6 +587,44 @@ $(document.body).on("keyup", ".emp_search .emp_text", function() {
 	});
 });
 </script>
+<script src="js/select2.full.min.js"></script>
+<script type="text/javascript">
+$(function () {
+    $("#search_emp").select2({
+    	minimumInputLength: 3,
+    	multiple: false,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: 'searchEmployees',
+            dataType: 'json',
+            type: "GET",
+            quietMillis: 50,
+            data: function (term) {
+                return {
+                    q: term.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name+" <"+item.userid+">",
+                            id: item.userid
+                        }
+                    })
+                };
+            }
+        }
+    });
+});
 
+$(document).ready(function(){
+	
+	$(document.body).on("change", "#search_emp", function() {
+		window.location.href = "adminViewEmpAttendence?empid="+$(this).val();
+	});
+});
+
+</script>
 
  </body>

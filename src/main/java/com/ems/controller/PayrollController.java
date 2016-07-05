@@ -107,7 +107,7 @@ public class PayrollController {
 			{
 				try 
 				{
-					dt = DateFormats.monthformat(timeZone).parse(payMonth);
+					dt = DateFormats.monthformat().parse(payMonth);
 				}
 				catch (Exception e) 
 				{
@@ -289,9 +289,9 @@ public class PayrollController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/adminDeletePayroll", method = RequestMethod.GET)
+	@RequestMapping(value = "/secureDeletePayroll", method = RequestMethod.GET)
 	@ResponseBody
-	public String deleteBranch(ModelMap map, HttpServletRequest request, Principal principal)
+	public String secureDeletePayroll(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		String pid = request.getParameter("pid");
 		JSONObject object = new JSONObject();

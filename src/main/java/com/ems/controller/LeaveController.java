@@ -2,10 +2,17 @@ package com.ems.controller;
 
 import java.security.Principal;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -99,6 +106,7 @@ public class LeaveController {
 		
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/usereditleave", method = RequestMethod.GET)
 	public String editleavedetail(ModelMap map, HttpServletRequest request, Principal principal)
 	{
@@ -117,6 +125,22 @@ public class LeaveController {
 	        model.setReason(leaveDetail.getReason());
 			map.addAttribute("Mode", "edit");
 			map.addAttribute("leave", model);
+			map.addAttribute("sendTo", registrationService.getRegistrationByUserid(leaveDetail.getSendTo()));
+			String recepients=leaveDetail.getCc();
+			if(recepients!=null){
+			if(recepients.split(",").length>0){
+			List<Registration> list=new ArrayList<Registration>();
+			ArrayList<String> aList= new ArrayList(Arrays.asList(recepients.split(",")));
+			
+			for(int i=0;i<aList.size();i++)
+			{
+			    System.out.println(" --> "+aList.get(i));
+			    list.add(registrationService.getRegistrationByUserid(aList.get(i)));
+			}
+			map.addAttribute("cc", list);
+			}
+			}
+						
 		}
 		return "userleaveapplication";
 	}
@@ -128,7 +152,7 @@ public class LeaveController {
 	{
 		if (result.hasErrors())
 		{
-	
+			map.addAttribute("sendTo", registrationService.getRegistrationByUserid(model.getSendTo()));
 			System.out.println("in validation");
 			return "userleaveapplication";
 		} else

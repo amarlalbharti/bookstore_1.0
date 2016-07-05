@@ -20,22 +20,37 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="css/blue.css">
 <style type="text/css">
-	.error {
-		color: red;
-	}
-</style>
-<%
-	/*
-	if((!request.getSession().isNew()))
-	{
-		System.out.println("old session deleting");
-		request.getSession().invalidate();
-	}
-	*/
 
-%>
+.error {
+	color: red;
+}
+	
+html 
+{ 
+  background: url(images/ems-bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.bodyCoverWait {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0.9;
+    background: #ececec;
+}
+</style>
+
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background: transparent;">
+<div class="bodyCoverWait" style="text-align: center; ">
+	<img style="position: relative;top: 250px;" alt="Please wait..." src="images/loading_spinner.gif">
+</div>
+
 <div class="login-box">
   <div class="login-logo" style="margin-bottom: 0px; padding-bottom: 0px;">
     <a href="index"><img alt="Vasonomics" src="images/vaso.png" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
@@ -76,7 +91,7 @@
         <div class="col-xs-8">
           <div class="checkbox">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox" name="_spring_security_remember_me"> Remember Me
             </label>
           </div>
         </div>
@@ -98,5 +113,21 @@
 <script src="js/jQuery-2.2.0.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="js/bootstrap.js"></script>
+<script>
+$(document).ready(function(){
+ $(document.body).on("change", "#j_username", function(e) {
+    var eId = $("#j_username").val();
+    if(eId.length > 3 && !eId.includes('@'))
+    {
+    eId += "@vasonomics.com";
+    $("#j_username").val(eId);
+    }
+   });
+});
+
+$(document).ready(function(){
+	$('.bodyCoverWait').hide();
+});
+</script>
 </body>
 </html>

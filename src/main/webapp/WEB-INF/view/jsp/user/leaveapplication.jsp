@@ -1,4 +1,5 @@
 <%@page import="java.util.TimeZone"%>
+<%@page import="com.ems.model.LeaveDetailModel"%>
 <%@page import="com.ems.domain.UserDetail"%>
 <%@page import="com.ems.domain.Registration"%>
 <%@page import="java.util.Date"%>
@@ -18,21 +19,17 @@
 </head>
 <body>
 <input type="hidden" id=Mode name="Mode" value="${Mode}">
-<%-- <input type="hidden" id=status name="status" value="${status}"> --%>
 	<div class="content-wrapper">
     <!-- Content Header (Page header) -->
        <!-- Main content -->
     <section class="content">
    
    <%
-   TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
-  	
-	Registration registration = (Registration)request.getSession().getAttribute("registration");
-     UserDetail userDetail = registration.getUserDetail();
+   		TimeZone timeZone = (TimeZone) request.getSession().getAttribute("timezone");
 	%>
      
     <%
-          	String Mode = (String)request.getAttribute("Mode");
+   	String Mode = (String)request.getAttribute("Mode");
     if(Mode.equals("add")){
     %>
 		      	<!-- Your Page Content Here -->
@@ -44,23 +41,20 @@
                 				<form:form method="POST" role="form" action="useraddleave" commandName="leave" onsubmit="return validate()">
                 				<div class="box box-info">
 										<div class="box-body leave-form">
-																	
-									    <div class="form-group col-xs-12 col-md-6">
-											<label>To</label>
-											<span class="text-danger">*</span>
-											<form:input path="sendTo" cssClass="form-control" tabindex="1" autofocus="autofocus" maxlength="70"/>
-											 <span class="text-danger"><form:errors path="sendTo" /></span>
-											 
-										  </div>
+										
 										  <div class="form-group col-xs-12 col-md-6">
-											<label >Cc</label>
-											<span class="text-danger">*</span>
-											<form:input path="cc" cssClass="form-control" tabindex="5" maxlength="200"/>
-											 <span class="text-danger"><form:errors path="cc" /></span>
-											 
-										  </div>
-										  
-										    <div class="form-group col-xs-12 col-md-6" data-provide="datepicker" >
+							                <label>Send To</label><span class="text-danger">*</span>
+							                <form:select path ="sendTo" class="form-control select2 search_emp" name='term' style="width: 100%;" autofocus="autofocus" tabindex="1">
+							                </form:select>
+							                <span class="text-danger"><form:errors path="sendTo" /></span>
+							              </div>
+							              <div class="form-group col-xs-12 col-md-6">
+							                <label>Cc</label><span class="text-danger">*</span>
+							                <form:select path ="cc" class="form-control search_empCc" name='term' style="width: 100%;" tabindex="5">
+							              </form:select>
+							              <span class="text-danger"><form:errors path="cc" /></span>
+							              </div>
+										  <div class="form-group col-xs-12 col-md-6" data-provide="datepicker" >
 						                  <label>From Date</label>
 						                  <span class="text-danger">*</span>
 						                  <form:input path="fromDate" class="form-control dob" placeholder="dd-MM-yyyy" readonly="readonly"/>
@@ -130,22 +124,48 @@
 						  				</div>
 						  				
 						  				
-									     <div class="form-group col-xs-12 col-md-6">
-											<label>To</label>
-											<span class="text-danger">*</span>
-											<form:input path="sendTo" cssClass="form-control"  tabindex="1" autofocus="autofocus" maxlength="70"/>
-											 <span class="text-danger"><form:errors path="sendTo" /></span>
-										
-										  </div>
-										 <div class="form-group col-xs-12 col-md-6">
-											<label>Cc</label>
-										      <span class="text-danger">*</span>
-											<form:input path="cc" cssClass="form-control" tabindex="5" maxlength="200"/>
-											 <span class="text-danger"><form:errors path="cc" /></span>
-											
-										  </div>
 										  
-										   <div class="form-group col-xs-12 col-md-6" data-provide="datepicker">
+										  <div class="form-group col-xs-12 col-md-6">
+							                <label>Send To</label><span class="text-danger">*</span>
+							                <form:select path ="sendTo" class="form-control select2 search_emp" name='term' style="width: 100%;" autofocus="autofocus" tabindex="1">
+							                <%
+							                	Registration sendTo = (Registration)request.getAttribute("sendTo");
+							                	if(sendTo != null)
+							                	{
+							                		%>
+										                <form:option value='<%= sendTo.getUserid() %>'><%= sendTo.getName()+" &lt;"+sendTo.getUserid()+"&gt;" %></form:option>
+							                		<%
+							                	}
+							                %>
+							                </form:select>
+							                <span class="text-danger"><form:errors path="sendTo" /></span>
+							              </div>
+							              <div class="form-group col-xs-12 col-md-6">
+							                <label>Cc</label><span class="text-danger">*</span>
+							                <form:select path ="cc" class="form-control search_empCc" name='term'  multiple="multiple" style="width: 100%;" tabindex="5">
+							                 <%
+							                 List<Registration> ccList = (List)request.getAttribute("cc");
+							                 if(ccList != null && !ccList.isEmpty())
+												{
+													
+													for(Registration cc : ccList)
+													{
+							                	
+							                		%>
+										                <form:option value='<%= cc.getUserid() %>' selected="selected"><%= cc.getName()+" &lt;"+cc.getUserid()+"&gt;" %></form:option>
+							                		<%
+							                	}
+											}
+							                
+							                	%> 
+							                	 
+							                	
+							                </form:select>
+							                <span class="text-danger"><form:errors path="cc" /></span>
+							              </div>
+										  
+										  
+										  <div class="form-group col-xs-12 col-md-6" data-provide="datepicker">
 						                  <label>From Date</label>
 						                  <span class="text-danger">*</span>
 						                  <form:input path="fromDate" class="form-control dob" placeholder="dd-MM-yyyy"/>
@@ -201,9 +221,10 @@
     else if(Mode.equals("view"))
     {
     	LeaveDetail leaveDetail = (LeaveDetail)request.getAttribute("leaveDetail");
-    	if(leaveDetail != null)
+    	Registration registration = leaveDetail.getRegistration();
+        UserDetail userDetail = registration.getUserDetail();
+    	if(leaveDetail != null && registration != null && userDetail != null)
     	{
-    	
 			%>
 			<div class="row">
 					<div class="col-xs-12 col-md-12">
@@ -278,14 +299,28 @@
 						                     <label class="form-control label-text"><%= leaveDetail.getSendTo() %></label>
 						                    </div>
 						                  </div>
-						                
+						                <%   if(leaveDetail.getCc() != null)
+									      	{
+									      		%>
 						                 <div class="form-group col-md-6">
 						                  <label class="col-sm-4 control-label" style="text-align: left;">Cc</label>
 						                   <div class="col-sm-8">
 						                    <label class="form-control label-text"><%= leaveDetail.getCc() %></label>
 						                   </div>
 						                 </div>
-						                
+						                <%
+									      	} else{
+						                %>
+						                <div class="form-group col-md-6">
+						                  <label class="col-sm-4 control-label" style="text-align: left;">Cc</label>
+						                   <div class="col-sm-8">
+						                    <label class="form-control label-text"><% out.println("NA"); %></label>
+						                   </div>
+						                 </div>
+						                 
+						                 <%
+									      	}
+						                 %>
 						                  <div class="form-group col-md-6">
 						                  <label class="col-sm-4 control-label" style="text-align: left;">From Date</label>
 						                   <div class="col-sm-8">
@@ -313,7 +348,26 @@
 						                    <label class="form-control label-text"><%= leaveDetail.getStatus() %></label>
 						                   </div>
 						                  </div>
-						                
+						                 <%   if(leaveDetail.getApprovedBy() != null)
+									      	{
+									      		%>
+											       <div class="form-group col-md-6">
+											        <label class="col-sm-4 control-label" style="text-align: left;">Approved By</label>
+											         <div class="col-sm-8">
+											          <label class="form-control label-text"><%= leaveDetail.getApprovedBy() %></label>
+											         </div>
+											      </div>
+											      
+											      <div class="form-group col-md-6">
+											        <label class="col-sm-4 control-label" style="text-align: left;">Approved Date</label>
+											         <div class="col-sm-8">
+											          <label class="form-control label-text"><%= DateFormats.ddMMMyyyy(timeZone).format(leaveDetail.getApprovedDate()) %></label>
+											         </div>
+											      </div>
+									      		<%
+									      	}
+									      	
+									      %>
 						                  <div class="form-group col-md-6">
 						                  <label class="col-sm-4 control-label" style="text-align: left;">Subject</label>
 						                   <div class="col-sm-8">
@@ -327,7 +381,7 @@
 						                    <label  class="form-control label-text"><%= leaveDetail.getReason() %></label>
 						                   </div>
 						                 </div>
-						                
+						                 
 						                </div>
 						            </div>
 						        </div>
@@ -355,8 +409,8 @@
     </section>
     <!-- /.content -->
   </div>
-  
-  <script src="js/jQuery-2.2.0.min.js"></script>
+<script src="js/jQuery-2.2.0.min.js"></script>
+<script src="js/select2.full.min.js"></script>
 <script src="js/jquery.datetimepicker.full.js"></script>
 <script type="text/javascript">
 
@@ -378,7 +432,7 @@ $('#toDate').datetimepicker({
 function validate()
 {
 	var sendTo=$(".leave-form #sendTo").val();
-	var cc=$(".leave-form #cc").val();
+	//var cc=$(".leave-form #cc").val();
 	var fromDate=$(".leave-form #fromDate").val();
 	var toDate=$(".leave-form #toDate").val();
 	var leaveType=$(".leave-form #leaveType").val();
@@ -389,15 +443,10 @@ function validate()
     $('.has-error').removeClass("has-error");
     
 	
-	if(sendTo==''||!isEmail(sendTo)){
+	if(sendTo==''||sendTo==null){
 		$(".leave-form #sendTo").parent().addClass("has-error")
 		valid=false;
 		}	
-	
-	if(cc==''){
-		$(".leave-form #cc").parent().addClass("has-error")
-		valid=false;
-		}
 	
 	if(fromDate==''){
 		$(".leave-form #fromDate").parent().addClass("has-error")
@@ -446,9 +495,76 @@ function validate()
         $(".leave-form #submit_btn").text("Updating...");
         }
 }
-	
-	
-	
-	
 </script>
+
+<script type="text/javascript">
+
+  $(function () {
+	 //alert('hi');
+    $(".search_emp").select2({
+    	
+    	minimumInputLength: 3,
+        multiple: false,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: 'searchEmployees',
+            dataType: 'json',
+            type: "GET",
+            quietMillis: 50,
+            data: function (term) {
+//             	alert("::::: " + term.term)
+                return {
+                    q: term.term
+                };
+            },
+            processResults: function (data) {
+//             	alert("::::: " + data);
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name+" <"+item.userid+">",
+//                             slug: item.slug,
+                            id: item.userid
+                        }
+                    })
+                };
+            }
+        }
+    });
+    
+    
+    $(".search_empCc").select2({
+    	
+    	minimumInputLength: 3,
+        multiple: true,
+        minimumResultsForSearch: 10,
+        ajax: {
+            url: 'searchEmployees',
+            dataType: 'json',
+            type: "GET",
+            quietMillis: 50,
+            data: function (term) {
+//             	alert("::::: " + term.term)
+                return {
+                	q: term.term
+                };
+            },
+            processResults: function (data) {
+//             	alert("::::: " + data);
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name+" <"+item.userid+">",
+//                             slug: item.slug,
+                            id: item.userid
+                        }
+                    })
+                };
+            }
+        }
+    });
+}); 
+ 
+</script>	
+
  </body>
