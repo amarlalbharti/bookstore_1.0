@@ -1,181 +1,174 @@
-<%@page import="java.util.Date"%>
-<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
-<%@page import="java.util.TimeZone"%>
-<%@page import="com.ems.config.DateFormats"%>
-<%@page import="com.ems.domain.Attendance"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title></title>
-<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
 </head>
 <body>
-	<div class="content-wrapper">
+	
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+        <small>Control panel</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
+
     <!-- Main content -->
-    <%
-    	TimeZone timeZone = (TimeZone)request.getSession().getAttribute("timezone");
-    %>
-    
-    
     <section class="content">
-	      <div class="row">
-	    	 <div class="col-lg-3 col-xs-6">
-		    	 <div class="small-box bg-purple">
-		           <div class="inner">
-		             <h3>${emp_count}</h3>
-		
-		             <p>Total Employees</p>
-		           </div>
-		           <div class="icon">
-		             <i class="ion ion-person-add"></i>
-		           </div>
-		           <a href="adminEmployees" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-		         </div>
-	        </div>
-	        <div class="col-lg-3 col-xs-6">
-		    	 <div class="small-box bg-maroon">
-		           <div class="inner">
-		             <h3>${emp_in_count}</h3>
-		
-		             <p>Todays Emp Logins</p>
-		           </div>
-		           <div class="icon">
-		             <i class="ion ion-clock"></i>
-		           </div>
-		           <a href="adminCheckInOut" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-		         </div>
-	        </div>
-			<div class="col-lg-3 col-xs-6">
-		    	 <div class="small-box bg-yellow">
-		           <div class="inner">
-		             <h3>${leaveList}</h3>
-		
-		             <p>Employees Leaves</p>
-		           </div>
-		           <div class="icon">
-		             <i class="fa fa-fw fa-calendar-times-o"></i>
-		           </div>
-		           <a href="secureleavesdash" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-		         </div>
-	        </div>
-			<div class="col-lg-3 col-xs-6">
-		    	 <div class="small-box bg-red">
-		           <div class="inner">
-		             <h3>${payList}</h3>
-		
-		             <p>Payroll</p>
-		           </div>
-		           <div class="icon">
-		             <i class="fa fa-wa fa-inr"></i>
-		           </div>
-		           <a href="securePayrollList" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-		         </div>
-	        </div>
-			
-		</div>
-		<div class=" row margin-bottom">
-			<div class="col-xs-12">
-				
-				<%
-				 	
-					List<Attendance> attsList = (List)request.getAttribute("attsList");
-			  		if(!attsList.isEmpty())
-			  		{
-			  			Attendance att = attsList.get(0);
-			  			%>
-			  				Check In : 
-			  				<%= DateFormats.fullformat(timeZone).format(att.getInTime()) %>
-							<br>
-			  			<%
-			  			
-			  			
-			  			if(att != null && att.getOutTime() != null)
-		  				{
-		  					%>
-								Check Out : <%= DateFormats.fullformat(timeZone).format(att.getOutTime()) %>
-								<br>
-								Working Hours : <%= DateFormats.getWorkingHours(att.getInTime(), att.getOutTime()) %>
-								
-								<br><br>
-		  					<%
-		  				}
-			  			else
-			  			{
-		  					%>
-								<a href="empCheckOut"><button class="btn btn-primary ">Check Out</button></a> 
-		  					<%
-			  			}
-			  		}
-			  		else
-			  		{
-	  					%>
-							<a href="empCheckIn"><button class="btn btn-primary ">Check In</button></a>
-	  					<%
-			  		}
-				%>
-			</div>
-		</div>
-		
-		 <div class="col-md-6">
-			<div class="col-md-12">
-              <!-- <div class="form-group">
-                <label>Multiple</label>
-                <select class="form-control select2" name  multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                  <option>Alabama</option>
-                  <option>Alaska</option>
-                  <option>California</option>
-                  <option>Delaware</option>
-                  <option>Tennessee</option>
-                  <option>Texas</option>
-                  <option>Washington</option>
-                </select>
-              </div> -->
-              <!-- <div class="form-group">
-                <label>Minimal</label>
-                <select id ="search_emp" class="form-control search_emp">
-                </select>
-              </div> -->
-			</div>
-		</div>
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>150</h3>
+
+              <p>New Orders</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+              <p>Bounce Rate</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>44</h3>
+
+              <p>User Registrations</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>65</h3>
+
+              <p>Unique Visitors</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+      <!-- /.row -->
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-7 connectedSortable">
+          <!-- Custom tabs (Charts with tabs)-->
+          <div class="nav-tabs-custom">
+            <!-- Tabs within a box -->
+            <ul class="nav nav-tabs pull-right">
+              <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
+              <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
+              <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
+            </ul>
+            <div class="tab-content no-padding">
+              <!-- Morris chart - Sales -->
+              <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
+              <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+            </div>
+          </div>
+          <!-- /.nav-tabs-custom -->
+
+
+        </section>
+        <!-- /.Left col -->
+        <!-- right col (We are only adding the ID to make the widgets sortable)-->
+        <section class="col-lg-5 connectedSortable">
+
+          <!-- Map box -->
+          <div class="box box-solid bg-light-blue-gradient">
+            <div class="box-header">
+              <!-- tools box -->
+              <div class="pull-right box-tools">
+                <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range">
+                  <i class="fa fa-calendar"></i></button>
+                <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
+                  <i class="fa fa-minus"></i></button>
+              </div>
+              <!-- /. tools -->
+
+              <i class="fa fa-map-marker"></i>
+
+              <h3 class="box-title">
+                Visitors
+              </h3>
+            </div>
+            <div class="box-body">
+              <div id="world-map" style="height: 250px; width: 100%;"></div>
+            </div>
+            <!-- /.box-body-->
+            <div class="box-footer no-border">
+              <div class="row">
+                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                  <div id="sparkline-1"></div>
+                  <div class="knob-label">Visitors</div>
+                </div>
+                <!-- ./col -->
+                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                  <div id="sparkline-2"></div>
+                  <div class="knob-label">Online</div>
+                </div>
+                <!-- ./col -->
+                <div class="col-xs-4 text-center">
+                  <div id="sparkline-3"></div>
+                  <div class="knob-label">Exists</div>
+                </div>
+                <!-- ./col -->
+              </div>
+              <!-- /.row -->
+            </div>
+          </div>
+          <!-- /.box -->
+
+
+
+        </section>
+        <!-- right col -->
+      </div>
+      <!-- /.row (main row) -->
+
     </section>
     <!-- /.content -->
   </div>
-<!-- <script src="js/select2.full.min.js"></script> -->
-<!-- <script type="text/javascript">
-$(function () {
-    $("#search_emp").select2({
-    	minimumInputLength: 3,
-    	multiple: false,
-        minimumResultsForSearch: 10,
-        ajax: {
-            url: 'searchEmployees',
-            dataType: 'json',
-            type: "GET",
-            quietMillis: 50,
-            data: function (term) {
-                return {
-                    q: term.term
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.name+" <"+item.userid+">",
-                            id: item.userid
-                        }
-                    })
-                };
-            }
-        }
-    });
-});
-
-</script> -->
- </body>
+</body>
+</html>

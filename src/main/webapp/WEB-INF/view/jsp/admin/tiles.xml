@@ -6,6 +6,7 @@
 <tiles-definitions>
 
     
+    
     <definition name="adminTemplate" template="/WEB-INF/tilestemplate/jsp/adminTemplate.jsp">
     	<put-attribute name="header" value="/WEB-INF/view/jsp/admin/header.jsp" />
     	<put-attribute name="leftmenu" value="/WEB-INF/view/jsp/admin/leftmenu.jsp" />
@@ -13,144 +14,36 @@
     	<put-attribute name="footer" value="/WEB-INF/view/jsp/admin/footer.jsp" />
     </definition> 
      
-    <definition name="admindashboard" extends="adminTemplate">
+    <definition name="dashboard" extends="adminTemplate">
         <put-attribute name="title" value="EMS -  Dashboard Admin" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/dashboard.jsp" />
         <put-attribute name="currentpage" value="dashboard" cascade="true"/>
     </definition>
-    <definition name="adminattendance" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - In / Out list" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/attendance.jsp" />
-        <put-attribute name="currentpage" value="attendance" cascade="true"/>
+    <definition name="categories" extends="adminTemplate">
+        <put-attribute name="title" value="Categories" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/categories.jsp" />
+        <put-attribute name="currentpage" value="category" cascade="true"/>
     </definition>
-    <definition name="adminemployees" extends="adminTemplate">
-        <put-attribute name="title" value="EMS -  Employees List" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/employees.jsp" />
-        <put-attribute name="currentpage" value="employees" cascade="true"/>
+    <definition name="addCategory" extends="adminTemplate">
+        <put-attribute name="title" value="Add New Category" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addCategory.jsp" />
+        <put-attribute name="currentpage" value="addcategory" cascade="true"/>
     </definition>
-    <definition name="adminAddEmployee" extends="adminTemplate">
-        <put-attribute name="title" value="EMS -  Add New Employee" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addEmployee.jsp" />
-        <put-attribute name="currentpage" value="employees" cascade="true"/>
+    <definition name="editCategory" extends="adminTemplate">
+        <put-attribute name="title" value="Update Category" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/editCategory.jsp" />
+        <put-attribute name="currentpage" value="categories" cascade="true"/>
     </definition>
-    <definition name="viewEmpAttendence" extends="adminTemplate">
-        <put-attribute name="title" value="EMS -  View Employee Attendence" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/viewEmpAttendence.jsp" />
-        <put-attribute name="currentpage" value="employees" cascade="true"/>
+    <definition name="products" extends="adminTemplate">
+        <put-attribute name="title" value="Products" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/products.jsp" />
+        <put-attribute name="currentpage" value="products" cascade="true"/>
     </definition>
-    <definition name="adminProfile" extends="adminTemplate">
-        <put-attribute name="title" value="EMS -  View Admin Profile" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/userprofile.jsp" />
-        <put-attribute name="currentpage" value="profile" cascade="true"/>
+    <definition name="productView" extends="adminTemplate">
+        <put-attribute name="title" value="Add New Product" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productView.jsp" />
+        <put-attribute name="currentpage" value="addproduct" cascade="true"/>
     </definition>
-    <definition name="adminEditEmployee" extends="adminTemplate">
-        <put-attribute name="title" value="EMS -  Update Employee" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/editEmployee.jsp" />
-        <put-attribute name="currentpage" value="profile" cascade="true"/>
-    </definition>
-    <definition name="adminAddOtherInfo" extends="adminTemplate">
-        <put-attribute name="title" value="EMS -  Add Employee Other Info" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addOtherInfo.jsp" />
-        <put-attribute name="currentpage" value="profile" cascade="true"/>
-    </definition>
-    <definition name="adminViewEmployee" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Detail" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/viewEmployee.jsp" />
-        <put-attribute name="currentpage" value="profile" cascade="true"/>
-    </definition>
-    <definition name="adminDocuments" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Documents" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/documents.jsp" />
-        <put-attribute name="currentpage" value="profile" cascade="true"/>
-    </definition>
-    <definition name="adminleavesdash" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Leaves" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/leavesdashboard.jsp" />
-        <put-attribute name="currentpage" value="leaves" cascade="true"/>
-    </definition>
-    
-     <definition name="adminViewLeave" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Leaves" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/viewEmpLeave.jsp" />
-        <put-attribute name="currentpage" value="leaves" cascade="true"/>
-    </definition>
-    <definition name="adminBankDetail" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Bank Detail" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/user/userbankdetail.jsp" />
-        <put-attribute name="currentpage" value="employees" cascade="true"/>
-    </definition>
-    <definition name="leaveApplication" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Leave Detail" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/user/leaveapplication.jsp" />
-        <put-attribute name="currentpage" value="leaves" cascade="true"/>
-    </definition>
-    <definition name="reportData" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Export Data" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/reportData.jsp" />
-        <put-attribute name="currentpage" value="report" cascade="true"/>
-    </definition>
-    <definition name="adminAddBranch" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Branch" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addBranch.jsp" />
-        <put-attribute name="currentpage" value="branch" cascade="true"/>
-    </definition>
-    
-    <definition name="adminViewBranch" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Branch" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/branch.jsp" />
-        <put-attribute name="currentpage" value="branch" cascade="true"/>
-    </definition>
-    
-     <definition name="adminViewCountry" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Country" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addCountry.jsp" />
-        <put-attribute name="currentpage" value="country" cascade="true"/>
-    </definition>
-    
-    <definition name="adminViewDepartment" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Department" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addDepartment.jsp" />
-        <put-attribute name="currentpage" value="department" cascade="true"/>
-    </definition>
-    
-    <definition name="adminViewDesignation" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Designation" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addDesignation.jsp" />
-        <put-attribute name="currentpage" value="designation" cascade="true"/>
-    </definition>
-	<definition name="viewPayroll" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Payroll" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/payroll.jsp" />
-        <put-attribute name="currentpage" value="payroll" cascade="true"/>
-    </definition>
-    
-    <definition name="addPayroll" extends="indexTemplate">
-        <put-attribute name="title" value="EMS -  Payroll" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addPayroll.jsp" />
-    </definition>
-    
-    <definition name="viewPayrollReport" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - View Employee Payroll" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/payrollReport.jsp" />
-        <put-attribute name="currentpage" value="payroll" cascade="true"/>
-    </definition>
-    
-    <definition name="showPayrollReport" extends="indexTemplate">
-        <put-attribute name="title" value="EMS - Payroll Report" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/showPayrollReport.jsp" />
-    </definition>
-    
-    <definition name="adminNotifications" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Employee Notifications" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/notifications.jsp" />
-        <put-attribute name="currentpage" value="notifications" cascade="true"/>
-    </definition>
-    <definition name="myCalendar" extends="adminTemplate">
-        <put-attribute name="title" value="EMS - Employee Notifications" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/shared/myCalendar.jsp" />
-        <put-attribute name="currentpage" value="calendar" cascade="true"/>
-    </definition>
-    
     
     
 </tiles-definitions>

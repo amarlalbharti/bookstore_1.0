@@ -7,23 +7,22 @@
     
     <session-factory>
      	<property name="hbm2ddl.auto">update</property>
- 		<mapping class="com.ems.domain.LoginInfo"/>
-		<mapping class="com.ems.domain.Registration"/>
-		<mapping class="com.ems.domain.UserRole"/>
-		<mapping class="com.ems.domain.Persistent_Logins"/>
-		<mapping class="com.ems.domain.Attendance"/>
-		<mapping class="com.ems.domain.Department"/>
-		<mapping class="com.ems.domain.Designation"/>
-		<mapping class="com.ems.domain.UserDetail"/>
-		<mapping class="com.ems.domain.LeaveDetail"/>
-		<mapping class="com.ems.domain.Documents"/>
-		<mapping class="com.ems.domain.BankDetail"/>
-		<mapping class="com.ems.domain.Branch"/>
-		<mapping class="com.ems.domain.Country"/>
-		<mapping class="com.ems.domain.Payroll"/>
-		<mapping class="com.ems.domain.UserSetting"/>
-		<mapping class="com.ems.domain.Notification"/>
-
+ 		<mapping class="com.bookstore.domain.LoginInfo"/>
+		<mapping class="com.bookstore.domain.Registration"/>
+		<mapping class="com.bookstore.domain.UserRole"/>
+		<mapping class="com.bookstore.domain.Persistent_Logins"/>
+		<mapping class="com.bookstore.domain.Category"/>
+		<mapping class="com.bookstore.domain.Product"/>
+		<mapping class="com.bookstore.domain.Attribute"/>
+		<mapping class="com.bookstore.domain.AttributeValue"/>
+		<mapping class="com.bookstore.domain.Customer"/>
+		<mapping class="com.bookstore.domain.CustomerAddress"/>
+		<mapping class="com.bookstore.domain.Basket"/>
+		<mapping class="com.bookstore.domain.OrderItem"/>
+		<mapping class="com.bookstore.domain.ProductOrder"/>
+		<mapping class="com.bookstore.domain.Review"/>
+		
+		
     </session-factory>
     
 </hibernate-configuration>

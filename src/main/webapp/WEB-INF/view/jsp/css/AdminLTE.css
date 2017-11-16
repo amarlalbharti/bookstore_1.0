@@ -7,7 +7,9 @@
  *           Please visit http://opensource.org/licenses/MIT for more information
 !*/
 
-
+.fa {
+    padding-right: 5px !important;
+}
 input.error, button.error, select.error, textarea.error{
     border: 1px solid red;
     

@@ -9,13 +9,6 @@
         <put-attribute name="body" value="" />
     </definition> 
     
-    <!-- <definition name="homeTemplate" template="/WEB-INF/tilestemplate/jsp/homeTemplate.jsp">
-    	<put-attribute name="header" value="/WEB-INF/view/jsp/headerHome.jsp" />
-    	<put-attribute name="leftmenu" value="/WEB-INF/view/jsp/leftmenu.jsp" />
-        <put-attribute name="body" value="" />
-    </definition> 
-     -->
-    
     <definition name="index" extends="indexTemplate">
         <put-attribute name="title" value="EMS -  Home" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/index.jsp" />
@@ -36,6 +29,12 @@
         <put-attribute name="title" value="EMS - Reset Password" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/resetPassword.jsp" />
     </definition>
+    
+    <definition name="categoryview" extends="indexTemplate">
+        <put-attribute name="title" value="EMS - Reset Password" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/categoryview.jsp" />
+    </definition>
+    
     
     
     

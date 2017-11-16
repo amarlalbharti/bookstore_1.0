@@ -1,16 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>EMS</groupId>
-  <artifactId>ems</artifactId>
+  <groupId>BookStore</groupId>
+  <artifactId>bookstore</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>EMS</name>
+  <name>bookstore</name>
   <description>This is employee management system</description>
 
 	<properties>
 		<org.springframework.version>4.0.2.RELEASE</org.springframework.version>
 		<apache.tiles>3.0.3</apache.tiles>
 		<spring.security.version>3.2.3.RELEASE</spring.security.version>
+		<log4j.version>1.2.17</log4j.version>
 	</properties>
     <dependencies>
 		<dependency>
@@ -352,7 +353,14 @@
 		    <artifactId>poi-ooxml</artifactId>
 		    <version>3.9</version>
 		</dependency>
-				
+		
+		
+		<!-- Log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>		
 </dependencies>
   
   
