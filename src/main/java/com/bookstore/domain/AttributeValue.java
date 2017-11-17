@@ -38,7 +38,7 @@ public class AttributeValue
 	@JoinColumn(name="attribute_id", referencedColumnName="attribute_id")
 	private Attribute attribute;
 	
-	@ManyToMany(mappedBy="attribute_values", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy="attributeValues", fetch = FetchType.LAZY)
 	private Set<Attribute> products = new HashSet();
 
 	public int getAttributeValueId()
