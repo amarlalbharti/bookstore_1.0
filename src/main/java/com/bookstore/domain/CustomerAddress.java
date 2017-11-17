@@ -13,40 +13,40 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="customeraddress")
+@Table(name="customer_address")
 public class CustomerAddress
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "customer_address_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int customerAddressId;
 	
-	@Column(nullable=false)
+	@Column(name = "landmark")
 	private String landmark;
 	
-	@Column(nullable=false)
-	private String customersStreet;
+	@Column(name = "customer_street", nullable=false)
+	private String customerStreet;
 	
-	@Column(nullable=false)
-	private String customersCity;
+	@Column(name = "customer_cCity", nullable=false)
+	private String customerCity;
 	
-	@Column(nullable=false)
-	private int customersPinCode;
+	@Column(name = "customer_pincode", nullable=false)
+	private int customerPinCode;
 	
-	@Column(nullable=false)
-	private String customersPhone;
+	@Column(name = "customer_phone", nullable=false)
+	private String customerPhone;
 	
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
-	@Column
+	@Column(name = "modify_date")
 	private Date modifyDate;
 	
-	@Column
+	@Column(name = "deleted_date")
 	private Date deletedDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customerId", referencedColumnName="customerId")
+	@JoinColumn(name="customer_id", referencedColumnName="customer_id")
 	private Customer customer;
 
 	public int getCustomerAddressId()
@@ -69,44 +69,44 @@ public class CustomerAddress
 		this.landmark = landmark;
 	}
 
-	public String getCustomersStreet()
+	public String getCustomerStreet()
 	{
-		return customersStreet;
+		return customerStreet;
 	}
 
-	public void setCustomersStreet(String customersStreet)
+	public void setCustomerStreet(String customerStreet)
 	{
-		this.customersStreet = customersStreet;
+		this.customerStreet = customerStreet;
 	}
 
-	public String getCustomersCity()
+	public String getCustomerCity()
 	{
-		return customersCity;
+		return customerCity;
 	}
 
-	public void setCustomersCity(String customersCity)
+	public void setCustomerCity(String customerCity)
 	{
-		this.customersCity = customersCity;
+		this.customerCity = customerCity;
 	}
 
-	public int getCustomersPinCode()
+	public int getCustomerPinCode()
 	{
-		return customersPinCode;
+		return customerPinCode;
 	}
 
-	public void setCustomersPinCode(int customersPinCode)
+	public void setCustomerPinCode(int customerPinCode)
 	{
-		this.customersPinCode = customersPinCode;
+		this.customerPinCode = customerPinCode;
 	}
 
-	public String getCustomersPhone()
+	public String getCustomerPhone()
 	{
-		return customersPhone;
+		return customerPhone;
 	}
 
-	public void setCustomersPhone(String customersPhone)
+	public void setCustomerPhone(String customerPhone)
 	{
-		this.customersPhone = customersPhone;
+		this.customerPhone = customerPhone;
 	}
 
 	public Date getCreateDate()

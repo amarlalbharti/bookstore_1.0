@@ -17,28 +17,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="attributevalue")
+@Table(name="attribute_value")
 public class AttributeValue
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "attribute_value_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int attributeValueId;
 	
-	@Column(nullable=false)
+	@Column(name = "attribute_value", nullable=false)
 	private String attributeValue;
 	
-	@Column(nullable=false)
+	@Column(name = "active", nullable=false)
 	private boolean active;
 	
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="attributeid", referencedColumnName="id")
+	@JoinColumn(name="attribute_id", referencedColumnName="attribute_id")
 	private Attribute attribute;
 	
-	@ManyToMany(mappedBy="attributeValues", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy="attribute_values", fetch = FetchType.LAZY)
 	private Set<Attribute> products = new HashSet();
 
 	public int getAttributeValueId()

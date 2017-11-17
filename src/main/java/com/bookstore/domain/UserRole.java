@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="userrole")
+@Table(name="user_role")
 public class UserRole implements Serializable
 {
 	private int sn;
@@ -25,7 +25,7 @@ public class UserRole implements Serializable
 	private LoginInfo log;
 	
 	@Id
-	@Column(nullable=false)
+	@Column(name = "sn", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getSn() {
 		return sn;
@@ -35,7 +35,7 @@ public class UserRole implements Serializable
 	}
 	
 	
-	@Column(nullable=false)
+	@Column(name = "user_role", nullable=false)
 	public String getUserrole() {
 		return userrole;
 	}

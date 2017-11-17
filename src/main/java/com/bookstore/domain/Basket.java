@@ -17,28 +17,28 @@ import javax.persistence.Table;
 public class Basket
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "basket_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int basketId;
 	
-	@Column(nullable=false)
+	@Column(name = "quantity", nullable=false)
 	private int quantity;
 	
-	@Column(nullable=false)
+	@Column(name = "final_price", nullable=false)
 	private double finalPrice;
 	
-	@Column(nullable=false)
+	@Column(name = "modify_date", nullable=false)
 	private Date modifyDate; 
 	
-	@Column
+	@Column(name = "deleted_date")
 	private Date deletedDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customerId", referencedColumnName="customerId")
+	@JoinColumn(name="customer_id", referencedColumnName="customer_id")
 	private Customer customer;
 
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="productId", referencedColumnName="pid")
+	@JoinColumn(name="product_id", referencedColumnName="pid")
 	private Product Product;
 
 	

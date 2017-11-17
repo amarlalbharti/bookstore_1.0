@@ -285,7 +285,7 @@ public class IndexController
 			LoginInfo info = loginInfoService.getLoginInfoByUserid(empid);
 			if(info != null)
 			{
-				info.setIsactive("false");
+				info.setIsActive("false");
 				loginInfoService.updateLoginInfo(info);
 				obj.put("success", true);
 				return obj.toJSONString();
@@ -308,7 +308,7 @@ public class IndexController
 			LoginInfo info = loginInfoService.getLoginInfoByUserid(empid);
 			if(info != null)
 			{
-				info.setIsactive("true");
+				info.setIsActive("true");
 				loginInfoService.updateLoginInfo(info);
 				obj.put("success", true);
 				return obj.toJSONString();

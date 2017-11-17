@@ -47,7 +47,7 @@ public class Registration implements Serializable
 	private LoginInfo loginInfo;
 	
 	@Id
-	@Column(nullable=false)
+	@Column(name = "rid", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	public int getRid() {
 		return rid;
@@ -57,7 +57,7 @@ public class Registration implements Serializable
 		this.rid = rid;
 	}
 	
-	@Column(nullable=false)
+	@Column(name = "name", nullable=false)
 	public String getName()
 	{
 		return name;
@@ -68,7 +68,7 @@ public class Registration implements Serializable
 		this.name = name;
 	}
 
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	public Date getCreateDate() {
 		return createDate;
 	}
@@ -77,7 +77,7 @@ public class Registration implements Serializable
 		this.createDate = createDate;
 	}
 
-	@Column
+	@Column(name = "modify_date")
 	public Date getModifyDate() {
 		return modifyDate;
 	}
@@ -88,7 +88,7 @@ public class Registration implements Serializable
 
 	
 
-	@Column(nullable=false)
+	@Column(name = "dob")
 	public Date getDob() {
 		return dob;
 	}
@@ -97,7 +97,7 @@ public class Registration implements Serializable
 		this.dob = dob;
 	}
 
-	@Column(nullable= false)
+	@Column(name = "gender", nullable= false)
 	public String getGender() {
 		return gender;
 	}
@@ -106,7 +106,7 @@ public class Registration implements Serializable
 		this.gender = gender;
 	}
 
-	@Column
+	@Column(name = "profile_image")
 	public String getProfileImage() {
 		return profileImage;
 	}

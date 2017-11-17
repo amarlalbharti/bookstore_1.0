@@ -17,35 +17,35 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="productorder")
+@Table(name="product_order")
 public class ProductOrder
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "product_order_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int productOrderId;
 	
-	@Column(nullable=false)
+	@Column(name = "final_price", nullable=false)
 	private Double finalPrice;
 	
-	@Column(nullable=false)
+	@Column(name = "total_items", nullable=false)
 	private int totalItems;
 	
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
-	@Column
+	@Column(name = "modify_date")
 	private Date modifyDate;
 	
-	@Column
+	@Column(name = "cancel_date")
 	private Date cancelDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customerId", referencedColumnName="customerId")
+	@JoinColumn(name="customer_id", referencedColumnName="customer_id")
 	private Customer customer;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customerAddressId", referencedColumnName="customerAddressId")
+	@JoinColumn(name="customer_address_id", referencedColumnName="customer_address_id")
 	private CustomerAddress customerAddress;
 	
 	@OneToMany(mappedBy="productOrder", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 

@@ -19,34 +19,34 @@ import javax.persistence.Table;
 public class Attribute
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "attribute_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int id;
+	private int attributeId;
 	
-	@Column(nullable=false)
+	@Column(name="attribute_name", nullable=false)
 	private String attributeName;
 	
-	@Column(nullable=false)
+	@Column(name = "active", nullable=false)
 	private boolean active;
 	
-	@Column(nullable=false)
+	@Column(name="create_date", nullable=false)
 	private Date createDate;
 	
-	@Column(nullable=true)
+	@Column(name="modify_date", nullable=true)
 	private Date modifyDate;
 
 	@OneToMany(mappedBy="attribute", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<AttributeValue> attributeValues = new HashSet(); 
 	
 	
-	public int getId()
+	public int getAttributeId()
 	{
-		return id;
+		return attributeId;
 	}
 
-	public void setId(int id)
+	public void setAttributeId(int attributeId)
 	{
-		this.id = id;
+		this.attributeId = attributeId;
 	}
 
 	public String getAttributeName()

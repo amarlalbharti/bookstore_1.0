@@ -17,31 +17,31 @@ import javax.persistence.Table;
 public class Review
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "review_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int reviewId;
 	
-	@Column(nullable=false)
+	@Column(name = "customer_name", nullable=false)
 	private String customerName;
 	
-	@Column(nullable=false)
+	@Column(name = "review_rating", nullable=false)
 	private int reviewRating;
 	
-	@Column
+	@Column(name = "review_text")
 	private String reviewText;
 	
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
-	@Column
+	@Column(name = "modify_date")
 	private Date modifyDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="productId", referencedColumnName="pid")
+	@JoinColumn(name="product_id", referencedColumnName="pid")
 	private Product product;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customerId", referencedColumnName="customerId")
+	@JoinColumn(name="customer_id", referencedColumnName="customer_id")
 	private Customer customer;
 
 	public int getReviewId()

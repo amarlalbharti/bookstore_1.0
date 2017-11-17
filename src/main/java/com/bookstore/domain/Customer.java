@@ -19,29 +19,29 @@ import javax.persistence.Table;
 public class Customer
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name="customer_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int customerId;
 	
-	@Column(nullable=false)
+	@Column(name="first_name", nullable=false)
 	private String firstName;
 	
-	@Column
+	@Column(name="last_name")
 	private String lastName;
 	
-	@Column(nullable=false)
+	@Column(name="gender", nullable=false)
 	private String gender;
 	
-	@Column
+	@Column(name="dob")
 	private Date dob;
 	
-	@Column(nullable=false)
+	@Column(name="contact", nullable=false)
 	private String contact;
 	
-	@Column(nullable=false, unique=true)
+	@Column(name="email", nullable=false, unique=true)
 	private String email;
 	
-	@Column(nullable=false)
+	@Column(name="password", nullable=false)
 	private String password;
 
 	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 

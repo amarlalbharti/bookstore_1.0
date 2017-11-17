@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -20,65 +21,66 @@ import javax.persistence.JoinColumn;
 @Table(name="product")
 public class Product
 {
-	
 	@Id
-	@Column(nullable=false)
+	@Column(name = "pid", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int pid;
 	
-	@Column(nullable=false)
+	@Column(name = "product_name", nullable=false)
 	private String productName;
 	
-	@Column(nullable=false)
+	@Column(name = "short_desc", nullable=false)
 	private String shortDesc;
 	
-	@Column
+	@Column(name = "product_url")
 	private String productUrl;
 	
-	@Column(nullable=false)
+	@Column(name = "product_viewed", nullable=false)
 	private int productViewed;
 	
-	@Column
-	private String productImage;
+	@Column(name = "product_sku")
+	private String productSKU;
 	
-	@Column(nullable=false)
+	@Column(name = "product_price", nullable=false)
 	private Double productPrice;
 
-	@Column(nullable=false)
+	@Column(name = "product_mrp", nullable=false)
 	private Double productMRP;
 	
-	@Column(nullable=false)
+	@Column(name = "active", nullable=false)
 	private boolean active;
 
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 
-	@Column(nullable=false)
+	@Column(name = "modify_date", nullable=false)
 	private Date modifyDate;
 
-	@Column
+	@Column(name = "delete_date")
 	private Date deleteDate;
 
-	
-	@Column(nullable=false)
+	@Column(name = "disable_by_button", nullable=false)
 	private boolean disableByButton;
 
-	@Column(nullable=false)
+	@Column(name = "show_on_home_page", nullable=false)
 	private boolean showOnHomePage;
 	
-	@Column(nullable=false)
+	@Column(name = "customer_review", nullable=false)
 	private boolean customerReview;
 
-	@Column
+	@Column(name = "product_tin")
 	private String productTin;
 
-	
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinTable(name="product_attributevalue", 
+    @JoinTable(name="product_attribute_value", 
                 joinColumns={@JoinColumn(name="pid")}, 
-                inverseJoinColumns={@JoinColumn(name="attributeValueId")})
+                inverseJoinColumns={@JoinColumn(name="attribute_value_id")})
 	private Set<AttributeValue> attributeValues = new HashSet();
 
+	@OneToMany(mappedBy="product", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	private Set<ProductImage> productImages = new HashSet();
+	
+	
 	public int getPid()
 	{
 		return pid;
@@ -129,14 +131,14 @@ public class Product
 		this.productViewed = productViewed;
 	}
 
-	public String getProductImage()
+	public String getProductSKU()
 	{
-		return productImage;
+		return productSKU;
 	}
 
-	public void setProductImage(String productImage)
+	public void setProductSKU(String productSKU)
 	{
-		this.productImage = productImage;
+		this.productSKU = productSKU;
 	}
 
 	public Double getProductPrice()
@@ -197,6 +199,66 @@ public class Product
 	public void setAttributeValues(Set<AttributeValue> attributeValues)
 	{
 		this.attributeValues = attributeValues;
+	}
+
+	public Double getProductMRP()
+	{
+		return productMRP;
+	}
+
+	public void setProductMRP(Double productMRP)
+	{
+		this.productMRP = productMRP;
+	}
+
+	public boolean isDisableByButton()
+	{
+		return disableByButton;
+	}
+
+	public void setDisableByButton(boolean disableByButton)
+	{
+		this.disableByButton = disableByButton;
+	}
+
+	public boolean isShowOnHomePage()
+	{
+		return showOnHomePage;
+	}
+
+	public void setShowOnHomePage(boolean showOnHomePage)
+	{
+		this.showOnHomePage = showOnHomePage;
+	}
+
+	public boolean isCustomerReview()
+	{
+		return customerReview;
+	}
+
+	public void setCustomerReview(boolean customerReview)
+	{
+		this.customerReview = customerReview;
+	}
+
+	public String getProductTin()
+	{
+		return productTin;
+	}
+
+	public void setProductTin(String productTin)
+	{
+		this.productTin = productTin;
+	}
+
+	public Set<ProductImage> getProductImages()
+	{
+		return productImages;
+	}
+
+	public void setProductImages(Set<ProductImage> productImages)
+	{
+		this.productImages = productImages;
 	}
 	
 	

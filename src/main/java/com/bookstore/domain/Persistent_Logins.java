@@ -15,10 +15,14 @@ import javax.persistence.Table;
 public class Persistent_Logins implements Serializable{
 	
 	private String username;
-	private String series;
-	private String token;
 	
-	@Column(nullable=false)
+	private String series;
+	
+	private String token;
+
+	private Date lastUsed;
+
+	@Column(name = "username", nullable=false)
 	public String getUsername() {
 		return username;
 	}
@@ -27,7 +31,7 @@ public class Persistent_Logins implements Serializable{
 	}
 	
 	@Id
-	@Column(nullable=false)
+	@Column(name = "series", nullable=false)
 	public String getSeries() {
 		return series;
 	}
@@ -35,7 +39,7 @@ public class Persistent_Logins implements Serializable{
 		this.series = series;
 	}
 	
-	@Column(nullable=false)
+	@Column(name = "token", nullable=false)
 	public String getToken() {
 		return token;
 	}
@@ -43,13 +47,12 @@ public class Persistent_Logins implements Serializable{
 		this.token = token;
 	}
 	
-	@Column(nullable=false)
-	public Date getLast_used() {
-		return last_used;
+	@Column(name = "last_used", nullable=false)
+	public Date getLastUsed() {
+		return lastUsed;
 	}
-	public void setLast_used(Date last_used) {
-		this.last_used = last_used;
+	public void setLastUsed(Date lastUsed) {
+		this.lastUsed = lastUsed;
 	}
-	private Date last_used;
-
+	
 }

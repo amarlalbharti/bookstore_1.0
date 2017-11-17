@@ -23,33 +23,33 @@ public class Category
 {
 	
 	@Id
-	@Column(nullable=false)
+	@Column(name = "cid", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int cid;
 	
-	@Column(nullable=false, unique=true)
+	@Column(name = "category_name", nullable=false, unique=true)
 	private String categoryName;
 	
-	@Column(nullable=false)
+	@Column(name = "category_detail", nullable=false)
 	private String categoryDetail;
 	
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
-	@Column(nullable=true)
+	@Column(name = "modify_date")
 	private Date modifyDate;
 	
-	@Column(nullable=true)
+	@Column(name = "delete_date")
 	private Date deleteDate;
 	
-	@Column(nullable=true)
+	@Column(name = "active", nullable=false)
 	private boolean active;
 	
-	@Column(nullable=false)
+	@Column(name = "display_order", nullable=false)
 	private int displayOrder;
 	
 	@ManyToOne 
-    @JoinColumn(name = "parentid")
+    @JoinColumn(name = "parent_id")
 	private Category parent;
 
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 

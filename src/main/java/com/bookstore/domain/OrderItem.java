@@ -13,32 +13,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="orderitem")
+@Table(name="order_item")
 public class OrderItem
 {
 	@Id
-	@Column(nullable=false)
+	@Column(name = "order_item_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int orderItemId;
 	
-	@Column(nullable=false)
+	@Column(name = "quantity", nullable=false)
 	private int quantity;
 	
-	@Column(nullable=false)
+	@Column(name = "product_price", nullable=false)
 	private double productPrice;
 	
-	@Column(nullable=false)
+	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
-	@Column
+	@Column(name = "modify_date")
 	private Date modifyDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="productId", referencedColumnName="pid")
+	@JoinColumn(name="product_id", referencedColumnName="pid")
 	private Product product;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="productOrderId", referencedColumnName="productOrderId")
+	@JoinColumn(name="product_order_id", referencedColumnName="product_order_id")
 	private ProductOrder productOrder;
 
 	public int getOrderItemId()
