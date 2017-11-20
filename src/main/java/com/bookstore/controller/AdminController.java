@@ -4,12 +4,17 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookstore.config.Roles;
+import com.bookstore.domain.LoginInfo;
+import com.bookstore.service.LoginInfoService;
 
 /**
  * @author A. L. Bharti
@@ -18,6 +23,7 @@ import com.bookstore.config.Roles;
 @Controller
 public class AdminController
 {
+	@Autowired private LoginInfoService loginInfoService;
 	/**
 	 * @param map
 	 * @param request 
@@ -27,8 +33,28 @@ public class AdminController
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		System.out.println("from admin dashboard");
+		checkPassword() ;
+		System.out.println("from admin dashboard : " + principal);
 		return "dashboard";
+	}
+	
+	
+	private boolean changePassword() {
+		loginInfoService.resetPassword("amarlalbharti@gmail.com", "12345");
+		return true;
+	}
+	
+	private boolean checkPassword() {
+		try {
+			System.out.println("result +++++++++++++++++++++++++");
+			LoginInfo info = loginInfoService.getLoginInfoByUserid("amarlalbharti@gmail.com");
+			System.out.println("result " +BCrypt.checkpw("12345", info.getPassword()));
+			System.out.println("result ===========================");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 	
 }
