@@ -112,9 +112,6 @@ input[type="file"] {
       </div>
     </nav>
   </header>
-<%
-	
-%>
 <script type="text/javascript">
 	$(document).ready(function(){
 		alertify.alert("Hello : <%= session.getAttribute("msg") %>" );

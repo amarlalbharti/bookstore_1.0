@@ -121,8 +121,9 @@ public class LoginInfoDaoImpl implements LoginInfoDao
 				loginInfo.setPassword(hashedPassword);
 				this.sessionFactory.getCurrentSession().update(loginInfo);
 				this.sessionFactory.getCurrentSession().flush();
+				return true;
 			}
-			return true;
+			
 		}
 		catch (Exception e) 
 		{

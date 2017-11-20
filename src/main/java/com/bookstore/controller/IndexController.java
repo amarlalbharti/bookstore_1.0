@@ -189,7 +189,7 @@ public class IndexController
 				loginInfoService.updateLoginInfo(info);
 				String url = ProjectConfig.url+"/resetPassword?email="+userid+"&token="+uuid;
 				System.out.println("url : " + url);
-				String subject = "Reset Password from EMS-Vasonomics ";
+				String subject = "Reset Password from BookStore ";
 				String content = "Dear "+ reg.getName()+", <br><br>"
 						+ "Please click on link below to reset password <br>"
 						+ "<br>"
