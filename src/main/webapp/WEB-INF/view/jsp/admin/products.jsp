@@ -19,37 +19,11 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header" >
-      <h1>
-        <small>View Category</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="dashboad"><i class="fa fa-dashboard"></i> Home</a></li>
-        <%
-        	List<Category> parentHierarchy = (List)request.getAttribute("parentHierarchy");
-        	if(parentHierarchy != null && !parentHierarchy.isEmpty()){
-        		%>
-	    			<li><a href="categories">Categories</a></li>
-	    		<%	
-        		while(!parentHierarchy.isEmpty()){
-					Category patent =parentHierarchy.remove(0);
-					if(!parentHierarchy.isEmpty()){
-						%>
-		        			<li><a href="categories?cid=<%= patent.getCid()%>"><%= patent.getCategoryName()%></a></li>
-		        		<%
-					}else{
-		        		%>
-		        			<li class="active"><%= patent.getCategoryName()%></li>
-		        		<%	
-					}
-        		}
-        	}else{
-        		%>
-        			<li class="active">Categories</li>
-        		<%	
-        	}
-        %>
-      </ol>
+    <section class="content-header clearfix" >
+      <h1 class="pull-left">Products</h1>
+      <div class="pull-right">
+      	<a href="addProduct" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      </div>
     </section>
 
     <!-- Main content -->
@@ -60,16 +34,12 @@
         <div class="col-md-12">
           <!-- Horizontal Form -->
           <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">View Category</h3>
-            </div>
-            <!-- /.box-header -->
             <div class="box-body">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="dataTables_length" id="example1_length">
 							<label>Show 
-							<select name="rpp" id="rpp" aria-controls="example1" class="form-control input-sm">
+							<select name="rpp" aria-controls="example1" class="form-control input-sm">
 								<option value="10" ${rpp==10 ? 'selected': '' }>10</option>
 								<option value="25" ${rpp==25 ? 'selected': ''}>25</option>
 								<option value="50" ${rpp==50 ? 'selected': ''}>50</option>
@@ -90,12 +60,14 @@
               <table class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th style="text-align: center;">#</th>
-                  <th>Category Name</th>
-                  <th>Parent Category </th>
-                  <th style="text-align: center;">Active</th>
-                  <th style="text-align: center;">Create Date</th>
-                  <th style="text-align: center;">Action</th>
+                  <th style="text-align: center;"><input type="checkbox" ></th>
+                  <th style="text-align: center;">Picture</th>
+                  <th>Product</th>
+                  <th style="text-align: center;">SKU</th>
+                  <th >Price</th>
+                  <th >Stock Unit</th>
+                  <th style="text-align: center;">Published</th>
+                  <th style="text-align: center;">Edit</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -109,28 +81,16 @@
                 		for(Product product : productList){
                 			%>
                 				<tr>
-                				  <td style="text-align: center;"><%= ++count%></td>
-				                  <td><a href="viewProduct?pid=<%= product.getPid()%>"><%= product.getProductName()%></a></td>
-				                  <td><%= product.getProductUrl()!=null ? product.getProductUrl():'-' %></td>
-				                  <td style="text-align: center;"><span id="active<%= product.getPid()%>"><%= product.isActive()? "Yes" : "No" %></span></td>
+                				  <td style="text-align: center;"><input type="checkbox" ></td>
+                				  <td style="text-align: center;"><img src="images/Camera_Icon.png" width="75px"></td>
+				                  <td><%= product.getProductName()%></td>
+				                  <td>-</td>
+				                  <td><%= product.getProductPrice()%></td>
+				                  <td>10</td>
+				                  <td style="text-align: center;"><span id="active<%= product.getPid()%>"><%= product.isActive()? "<i class=\"text-primary fa fa-check true-icon\"></i>" : "<i class=\"text-danger fa fa-close true-icon\"></i>" %></span></td>
 				                  <td style="text-align: center;"><%= DateUtils.clientDateFormat.format(product.getCreateDate())%></td>
 				                  <td style="text-align: center;">
-				                  	<a href="editProduct?pid=<%= product.getPid()%>"><i class="fa fa-fw fa-edit"></i></a>
-				                  	<%
-				                  		if( product.isActive()){
-				                  			%>
-						        				<span class="category_status">
-						        					<a href="javascript:void(0);" class="deactivate" catid="<%= product.getPid()%>"><i class="fa fa-fw fa-close"></i></a>
-						        				</span>	
-						        			<%
-				                  		}else{
-				                  			%>
-				                  				<span class="category_status">
-						        					<a href="javascript:void(0);" class="activate" catid="<%= product.getPid()%>" ><i class="fa fa-fw fa-check"></i></a>
-						        				</span>
-						        			<%
-				                  		}
-				                  	%>
+				                  	<a href="editProduct?pid=<%= product.getPid()%>"class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
 				                  </td>
 				                </tr>
                 			<%

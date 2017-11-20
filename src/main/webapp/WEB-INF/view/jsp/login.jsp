@@ -53,7 +53,7 @@ html
 
 <div class="login-box">
   <div class="login-logo" style="margin-bottom: 0px; padding-bottom: 0px;">
-    <a href="index"><img alt="Vasonomics" src="images/vaso.png" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
+    <a href="index"><img alt="Vasonomics" src="images/logo.jpg" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

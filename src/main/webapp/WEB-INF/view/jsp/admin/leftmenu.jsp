@@ -36,14 +36,14 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="${currentpage == 'category' || currentpage == 'addcategory' || currentpage == 'products' || currentpage == 'addproduct' ? 'active' : ''} treeview">
+        <li class="${currentpage == 'category' || currentpage == 'products' ? 'active' : ''} treeview">
           <a href="#">
             <i class="fa fa-book"></i>
             <span>CataLog</span>
           </a>
           <ul class="treeview-menu">
-            <li class="${currentpage == 'category' || currentpage == 'addcategory' ? 'active' : ''}"><a href="categories"><i class="fa fa-circle-o"></i> Categories</a></li>
-            <li class="${currentpage == 'products' || currentpage == 'addproduct' ? 'active' : ''}"><a href="products"><i class="fa fa-circle-o"></i> Products</a></li>
+            <li class="${currentpage == 'category' ? 'active' : ''}"><a href="categories"><i class="fa fa-circle-o"></i> Categories</a></li>
+            <li class="${currentpage == 'products' ? 'active' : ''}"><a href="products"><i class="fa fa-circle-o"></i> Products</a></li>
           </ul>
         </li>
         <li class="treeview">

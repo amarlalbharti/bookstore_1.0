@@ -23,7 +23,26 @@
  <!-- jQuery 2.2.0 -->
 <script src="js/jQuery-2.2.0.min.js"></script>
 <script src="js/alertify.js"></script>
- 
+ <style type="text/css">
+input[type="file"] {
+    display: none !important;
+}
+.custom-file-upload {
+    cursor: pointer;
+    margin-top: -30px !important;
+    position: absolute !important;
+}
+.bodyCoverWait {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    opacity: 0.8;
+    background: #ececec;
+}
+</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini" style="display: none;">
 <div class="wrapper">
@@ -93,3 +112,12 @@
       </div>
     </nav>
   </header>
+<%
+	
+%>
+<script type="text/javascript">
+	$(document).ready(function(){
+		alertify.alert("Hello : <%= session.getAttribute("msg") %>" );
+	});
+	
+</script>

@@ -1,9 +1,12 @@
 package com.bookstore.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.bookstore.config.ProjectConfig;
 import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Category;
@@ -68,7 +73,33 @@ public class CategoryController
 	       category.setActive(model.isActive());
 	       category.setCreateDate(new Date());
 	       category.setModifyDate(new Date());
-	       categoryService.addCategory(category);
+	       int cid = categoryService.addCategory(category);
+	       MultipartFile image = model.getCategoryImage();
+	       if(image != null){
+	    	   String imageName = image.getOriginalFilename();
+				try
+				{
+					if (imageName != null && !imageName.equals(""))
+					{
+						imageName = imageName.replace(" ", "-");
+						String imgUrl = "upload/category/" + cid + "/" + imageName;
+						category.setCategoryImage(imageName);
+						category.setCid(cid);
+						File img = new File(ProjectConfig.UPLOAD_PATH + imgUrl);
+						if (!img.exists())
+						{
+							img.mkdirs();
+						}
+						image.transferTo(img);
+						categoryService.updateCategory(category);
+					}
+				} catch (IOException ie)
+				{
+					ie.printStackTrace();
+				}
+	            
+	       }
+           
 	       
 		}
 		
@@ -128,33 +159,32 @@ public class CategoryController
 		}
 		return "redirect:categories";
 	}
-	@RequestMapping(value = "/changeStatus")
-    public @ResponseBody String changeStatus(ModelMap map, HttpServletRequest request, Principal principal)
+	
+	@RequestMapping(value = "/deleteCategory", method = RequestMethod.GET)
+	public String deleteCategory(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		String catStatus = request.getParameter("catStatus");
-		String cid = request.getParameter("cid");
-		JSONObject resp = new JSONObject();
-		if(Validation.isNotNullNotEmpty(catStatus) && Validation.isNumeric(cid)){
-			Category category = categoryService.getCategoryById(Util.getNumeric(cid));
-			if(category != null){
-				if(catStatus.equals("activate")){
-					category.setActive(true);
-					resp.put("msg", "Category activated successfully !");
+		HttpSession session = request.getSession();
+		try{
+			String cid = request.getParameter("cid");
+			if(Validation.isNumeric(cid)){
+				Category category = categoryService.getCategoryById(Util.getNumeric(cid));
+				if(category != null){
+					category.setDeleteDate(new Date());
+					categoryService.updateCategory(category);
+					session.setAttribute("msgType", "success");
+					session.setAttribute("msg", "Category deleted successfully !");
+					return "redirect:categories";
 				}else{
-					category.setActive(false);
-					resp.put("msg", "Category de-activated successfully !");
+					session.setAttribute("msg", "Category not found !");
 				}
-				categoryService.updateCategory(category);
-				resp.put("status", "success");
-			}else{
-				resp.put("status", "failed");
-				resp.put("msg", "Oops Category not found !");
 			}
-		}else{
-			resp.put("status", "failed");
-			resp.put("msg", "Oops Something wrong !");
+		}catch(Exception e){
+			session.setAttribute("msg", "Oopps something wrong !");
+			e.printStackTrace();
 		}
-		
-		return resp.toJSONString();
+		session.setAttribute("msgType", "error");
+		return "redirect:categories";
 	}
+	
+	
 }

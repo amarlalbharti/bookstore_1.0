@@ -14,20 +14,17 @@
 </head>
 <body>
 	
-
+<%
+	CategoryModel edit = (CategoryModel) request.getAttribute("categoryForm");
+%>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Category
-        <small>Update Category</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="dashboad"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="categories"><i class="fa fa-dashboard"></i> Category</a></li>
-        <li class="active">Update Category</li>
-      </ol>
+    <section class="content-header clearfix">
+      <h1 class="pull-left">Update Category</h1>
+      <div class="pull-right">
+      	<button class="btn btn-flat btn-danger pull-right " id="delete_category"><i class="fa fa-fw fa-close"></i> Delete</button>
+      </div>
     </section>
 
     <!-- Main content -->
@@ -35,7 +32,7 @@
       
       <!-- Main row -->
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
           <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-header with-border">
@@ -51,7 +48,6 @@
                       <form:select path="parent.cid" class="form-control titleCase select2"  placeholder="Enter category name" tabindex="1" maxlength="100">
                       	<form:option value="0">[None]</form:option>
                       	<%
-                      	CategoryModel edit = (CategoryModel) request.getAttribute("categoryForm");
                       		List<Category> categoryList = (List<Category>)request.getAttribute("categoryList");
                       		for(Category category : categoryList){
                       			String catName = category.getCategoryName();
@@ -124,5 +120,16 @@
     </section>
     <!-- /.content -->
   </div>
+<script type="text/javascript">
+ $(document).ready(function(){
+	$(document).on("click","#delete_category",function() {
+		var r = confirm("Do you want to delete this ?"); 
+		if(r){
+			window.location = "deleteCategory?cid=<%= edit.getCid() %>";	
+		}
+		 
+	});
+ });
+</script>	
 </body>
 </html>

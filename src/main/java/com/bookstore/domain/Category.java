@@ -33,6 +33,10 @@ public class Category
 	@Column(name = "category_detail", nullable=false)
 	private String categoryDetail;
 	
+	@Column(name = "category_image")
+	private String categoryImage;
+	
+	
 	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
@@ -83,6 +87,16 @@ public class Category
 	public void setCategoryDetail(String categoryDetail)
 	{
 		this.categoryDetail = categoryDetail;
+	}
+
+	public String getCategoryImage()
+	{
+		return categoryImage;
+	}
+
+	public void setCategoryImage(String categoryImage)
+	{
+		this.categoryImage = categoryImage;
 	}
 
 	public Date getCreateDate()

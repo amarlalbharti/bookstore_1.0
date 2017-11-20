@@ -19,7 +19,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
-      <h1 class="pull-left">View Category</h1>
+      <h1 class="pull-left">Category</h1>
       <div class="pull-right">
       	<a href="addCategory" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
       </div>

@@ -3,6 +3,7 @@ package com.bookstore.model;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bookstore.domain.Category;
 
@@ -19,6 +20,8 @@ public class CategoryModel
 	private boolean active;
 	
 	private int displayOrder;
+	
+	private MultipartFile categoryImage;
 	
 	private Category parent;
 
@@ -70,6 +73,16 @@ public class CategoryModel
 	public void setDisplayOrder(int displayOrder)
 	{
 		this.displayOrder = displayOrder;
+	}
+
+	public MultipartFile getCategoryImage()
+	{
+		return categoryImage;
+	}
+
+	public void setCategoryImage(MultipartFile categoryImage)
+	{
+		this.categoryImage = categoryImage;
 	}
 
 	public Category getParent()

@@ -42,7 +42,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form:form class="form-horizontal" role="form" method="POST" action="addCategory" commandName="categoryForm" autocomplete="off" id="form">
+            <form:form class="form-horizontal" role="form" method="POST" action="addCategory" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
               <div class="box-body">
                 <div class="form-group">
                   <label for="categoryName" class="col-sm-3 control-label">Parent Category</label>
@@ -86,8 +86,20 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="categoryImage" class="col-sm-3 control-label">Picture</label>
+                  <div class="col-sm-9">
+                    <label class="btn btn-primary btn-flat btn-xs">
+						<input name="categoryImage" id="categoryImage" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="categoryImage();" />
+						<i class="fa fa-fw fa-cloud-upload"></i>
+						Browse
+					</label>
+					<span class="text-danger"><form:label path="" id="userImgErr" class="image_error" /></span>
+                  </div>
+                </div>
+                <div class="form-group">
                   <label for="categoryDetail" class="col-sm-3 control-label">Display Order</label>
                   <div class="col-sm-9">
+                  	  <img src = "" width="75px">
                       <form:input path="displayOrder" class="form-control"  placeholder="Enter display order." type="number" tabindex="15" maxlength="100"/>
 	                  <span class="text-danger"><form:errors path="displayOrder" /></span>
                   </div>
@@ -116,4 +128,5 @@
     <!-- /.content -->
   </div>
 </body>
+
 </html>
