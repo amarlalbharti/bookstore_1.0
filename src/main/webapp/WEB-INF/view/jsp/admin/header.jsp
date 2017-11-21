@@ -112,9 +112,39 @@ input[type="file"] {
       </div>
     </nav>
   </header>
-<script type="text/javascript">
-	$(document).ready(function(){
-		alertify.alert("Hello : <%= session.getAttribute("msg") %>" );
-	});
-	
-</script>
+<%
+	String msg = (String)session.getAttribute("msg");
+	String msgType = (String)session.getAttribute("msgType");
+	if(msg != null && msgType != null){
+		if(msgType.equals("success")){
+			%>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						alertify.success("Success : <%= session.getAttribute("msg") %>" );
+					});
+				</script>
+			<%
+		}else if(msgType.equals("warning")){
+			%>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						alertify.warning("Warning : <%= session.getAttribute("msg") %>" );
+					});
+				</script>
+			<%
+			
+		}else if(msgType.equals("error")){
+			%>
+				<script type="text/javascript">
+					$(document).ready(function(){
+						alertify.error("Error : <%= session.getAttribute("msg") %>" );
+					});
+				</script>
+			<%
+		}
+		session.removeAttribute("msg");
+		session.removeAttribute("msgType");
+		
+	}
+%>
+  

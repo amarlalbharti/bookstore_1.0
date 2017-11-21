@@ -39,102 +39,59 @@
       <div class="row">
       	<div class="col-md-12">
           <!-- Horizontal Form -->
-          <div class="box box-danger">
+          <div>
             <div class="nav-tabs-custom">
 	            <ul class="nav nav-tabs">
 	              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Product</a></li>
-	              <%
-						if(viewmode != null && !viewmode.equals("add")){
-							%>
-								<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Images</a></li>
-	              				<li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Categories</a></li>
-							<%
-						}
-				  %>
-	              
-	            </ul>
+	              	<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Images</a></li>
+	              	<li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Categories</a></li>
+			    </ul>
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
-	              	<%
-						if(viewmode == null || viewmode.equals("add")){
-							%>
-								<form:form class="form-horizontal" role="form" method="POST" action="addProduct" commandName="productForm" autocomplete="off" id="form">
-					              <div class="box-body">
-					                <div class="form-group">
-					                  <label for="categoryName" class="col-sm-3 control-label">Product Name</label>
-					                  <div class="col-sm-9">
-					                      <form:input path="productName" class="form-control titleCase"  placeholder="Enter product name" tabindex="1"/>
-						                  <span class="text-danger"><form:errors path="productName" /></span>
-					                  </div>
-					                </div>
-					                <div class="form-group">
-					                  <label for="shortDesc" class="col-sm-3 control-label">Product Detail</label>
-					                  <div class="col-sm-9">
-					                      <form:input path="shortDesc" class="form-control titleCase"  placeholder="Enter short description " tabindex="5" maxlength="100"/>
-						                  <span class="text-danger"><form:errors path="shortDesc" /></span>
-					                  </div>
-					                </div>
-					                <div class="form-group">
-					                  <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
-					                  <div class="col-sm-9">
-					                      <form:input path="productPrice" class="form-control number_only"  placeholder="Enter product price" tabindex="5" />
-						                  <span class="text-danger"><form:errors path="productPrice" /></span>
-					                  </div>
-					                </div>
-					                <div class="form-group">
-					                	<label for="shortDesc" class="col-sm-3 control-label">Active</label>
-					                  <div class="col-sm-9" style="padding-top: 7px;">
-					                    <form:checkbox path="active" class="padding-top" tabindex="10"/>
-					                  </div>
-					                </div>
-					                
-					              </div>
-					              <!-- /.box-body -->
-					              <div class="box-footer">
-					                <a href="products"><button type="button" class="btn btn-default">Cancel</button></a>
-					                <button type="submit" class="btn btn-info pull-right">Save</button>
-					              </div>
-					              <!-- /.box-footer -->
-					            </form:form>
-							<%
-						}else if(viewmode.equals("view") && product != null){
-							%>
-							<form class="form-horizontal" role="form">
-								<div class="box-body">
-									<div class="form-group">
-					                  <label for="categoryName" class="col-sm-3 control-label">Product Name</label>
-					                  <div class="col-sm-9">
-					                      <label class="form-control titleCase" ><%= product.getProductName() %></label>
-						              </div>
-					                </div>
-					                <div class="form-group">
-					                  <label for="categoryName" class="col-sm-3 control-label">Product Detail</label>
-					                  <div class="col-sm-9">
-					                      <label class="form-control titleCase" ><%= product.getShortDesc() %></label>
-						              </div>
-					                </div>
-					                <div class="form-group">
-					                  <label for="categoryName" class="col-sm-3 control-label">Product Price</label>
-					                  <div class="col-sm-9">
-					                      <label class="form-control titleCase" ><%= product.getProductPrice() %></label>
-						              </div>
-					                </div>
-					                <div class="form-group">
-					                  <label for="categoryName" class="col-sm-3 control-label">Create Date</label>
-					                  <div class="col-sm-9">
-					                      <label class="form-control titleCase" ><%= DateUtils.clientDateFormat.format(product.getCreateDate()) %></label>
-						              </div>
-					                </div>
+	              	<div class="box-body">
+		            <form:form class="form-horizontal" role="form" method="POST" action="addProduct" commandName="productForm" autocomplete="off" id="form">
+		              <div class="col-md-7">
+				          <div class="box box-default">
+				            <div class="box-header with-border">
+				              <h3 class="box-title">Generation Information</h3>
+				            </div>
+				            <!-- /.box-header -->
+				            <div class="box-body" style="display: block;">
+				              <div class="form-group">
+				                  <label for="categoryName" class="col-sm-3 control-label">Product Name</label>
+				                  <div class="col-sm-9">
+				                      <form:input path="productName" class="form-control titleCase"  placeholder="Enter product name" tabindex="1"/>
+					                  <span class="text-danger"><form:errors path="productName" /></span>
+				                  </div>
 				                </div>
-			                </form>
-							<%
-						}else  if(viewmode.equals("edit")){
-							%>
-								<p>This is edit tab</p>
-							<%
-						}
-					%>
-	                
+				                <div class="form-group">
+				                  <label for="shortDesc" class="col-sm-3 control-label">Product Detail</label>
+				                  <div class="col-sm-9">
+				                      <form:input path="shortDesc" class="form-control titleCase"  placeholder="Enter short description " tabindex="5" maxlength="100"/>
+					                  <span class="text-danger"><form:errors path="shortDesc" /></span>
+				                  </div>
+				                </div>
+				                <div class="form-group">
+				                  <label for="productPrice" class="col-sm-3 control-label">Product Price</label>
+				                  <div class="col-sm-9">
+				                      <form:input path="productPrice" class="form-control number_only"  placeholder="Enter product price" tabindex="5" />
+					                  <span class="text-danger"><form:errors path="productPrice" /></span>
+				                  </div>
+				                </div>
+				                <div class="form-group">
+				                	<label for="shortDesc" class="col-sm-3 control-label">Active</label>
+				                  <div class="col-sm-9" style="padding-top: 7px;">
+				                    <form:checkbox path="active" class="padding-top" tabindex="10"/>
+				                  </div>
+				                </div>
+				            </div>
+				            <!-- /.box-body -->
+				          </div>
+				          <!-- /.box -->
+				      </div>
+      				  
+		            </form:form>
+					</div>		
 	              </div>
 	              <%
 						if(viewmode != null && !viewmode.equals("add")){
