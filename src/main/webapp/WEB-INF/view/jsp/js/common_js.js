@@ -3,8 +3,13 @@ jQuery(document).ready(function() {
 	setTimeout(function() {
 	      $(".alert-dismissible").css("display","none");
 	}, 5000);
-
-			
+	
+	$('.number_only').each(function() {
+		if($(this).val() == undefined || $(this).val() == ""){
+	    	$(this).val("0");
+	    }
+	});
+	
 	$(".number_only").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
@@ -12,6 +17,9 @@ jQuery(document).ready(function() {
             (e.keyCode == 65 && ( e.ctrlKey === true || e.metaKey === true ) ) || 
              // Allow: home, end, left, right, down, up
             (e.keyCode >= 35 && e.keyCode <= 40)) {
+        		if($(this).val().indexOf(".") > 0 && e.keyCode == 190){
+        			e.preventDefault();
+        		}
                  // let it happen, don't do anything
                  return;
         }
@@ -19,8 +27,8 @@ jQuery(document).ready(function() {
         if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }
+        
     });
-	
 	$(document.body).on('change', '.number_pasitive' ,function(){
 		
 		if($(this).val() < 0)
@@ -30,7 +38,7 @@ jQuery(document).ready(function() {
 //		alert("hello" );
 	});
 	
-	$(document.body).on('keypress', '.titleCase' ,function(){
+	$(document.body).on('keyup', '.titleCase' ,function(){
 		var string = $(this).val();
 		if(string.length <= 1){
 			string = string.charAt(0).toUpperCase() + string.slice(1);

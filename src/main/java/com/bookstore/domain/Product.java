@@ -59,8 +59,8 @@ public class Product
 	@Column(name = "delete_date")
 	private Date deleteDate;
 
-	@Column(name = "disable_by_button", nullable=false)
-	private boolean disableByButton;
+	@Column(name = "disable_buy_button", nullable=false)
+	private boolean disableBuyButton;
 
 	@Column(name = "show_on_home_page", nullable=false)
 	private boolean showOnHomePage;
@@ -71,6 +71,13 @@ public class Product
 	@Column(name = "product_tin")
 	private String productTin;
 
+	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(name="product_category", 
+                joinColumns={@JoinColumn(name="pid")}, 
+                inverseJoinColumns={@JoinColumn(name="cid")})
+	private Set<Category> categories = new HashSet();
+
+	
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name="product_attribute_value", 
                 joinColumns={@JoinColumn(name="pid")}, 
@@ -191,6 +198,16 @@ public class Product
 		this.deleteDate = deleteDate;
 	}
 
+	public Set<Category> getCategories()
+	{
+		return categories;
+	}
+
+	public void setCategories(Set<Category> categories)
+	{
+		this.categories = categories;
+	}
+
 	public Set<AttributeValue> getAttributeValues()
 	{
 		return attributeValues;
@@ -211,14 +228,14 @@ public class Product
 		this.productMRP = productMRP;
 	}
 
-	public boolean isDisableByButton()
+	public boolean isDisableBuyButton()
 	{
-		return disableByButton;
+		return disableBuyButton;
 	}
 
-	public void setDisableByButton(boolean disableByButton)
+	public void setDisableBuyButton(boolean disableBuyButton)
 	{
-		this.disableByButton = disableByButton;
+		this.disableBuyButton = disableBuyButton;
 	}
 
 	public boolean isShowOnHomePage()

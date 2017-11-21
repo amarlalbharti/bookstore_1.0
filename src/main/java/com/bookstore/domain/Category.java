@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -58,6 +59,10 @@ public class Category
 
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<Category> childCategories = new HashSet();
+	
+	@ManyToMany(mappedBy="categories", fetch = FetchType.LAZY)
+	private Set<Product> products = new HashSet();
+
 	
 	public int getCid()
 	{
@@ -170,6 +175,16 @@ public class Category
 	public void setChildCategories(Set<Category> childCategories)
 	{
 		this.childCategories = childCategories;
+	}
+
+	public Set<Product> getProducts()
+	{
+		return products;
+	}
+
+	public void setProducts(Set<Product> products)
+	{
+		this.products = products;
 	}
 
 	

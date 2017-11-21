@@ -49,16 +49,31 @@ public class ProductController
 		map.addAttribute("rpp", rpp);
 		return "products";
 	}
-	@RequestMapping(value = "/viewProduct", method = RequestMethod.GET)
+	@RequestMapping(value = "/editProduct", method = RequestMethod.GET)
 	public String viewProduct(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try{
 			String pid = request.getParameter("pid");
 			if(Validation.isNumeric(pid)){
-				map.addAttribute("viewmode", "view");
-				map.addAttribute("product", productService.getProductById(Util.getNumeric(pid)));
-				System.out.println("from viewProduct");
-				return "productView";	
+				Product product = productService.getProductById(Util.getNumeric(pid));
+				if(product != null) {
+					ProductModel model = new ProductModel();
+					model.setPid(product.getPid());
+					model.setProductName(product.getProductName());
+					model.setShortDesc(product.getShortDesc());
+					model.setProductSKU(product.getProductSKU());
+					model.setProductPrice(String.valueOf(product.getProductPrice()));
+					model.setProductMRP(String.valueOf(product.getProductMRP()));
+					model.setActive(product.isActive());
+					model.setProductTin(product.getProductTin());
+					model.setDisableBuyButton(product.isDisableBuyButton());
+					model.setShowOnHomePage(product.isShowOnHomePage());
+					model.setCustomerReview(product.isCustomerReview());
+					map.addAttribute("productForm", model);
+					map.addAttribute("categoryList", categoryService.getAllCategories());
+					return "productView";	
+				}
+				
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -69,9 +84,13 @@ public class ProductController
 	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
 	public String addProduct(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		map.addAttribute("productForm", new ProductModel());
-		map.addAttribute("viewmode", "add");
-		System.out.println("from addProduct");
+		try{
+			ProductModel model = new ProductModel();
+			map.addAttribute("productForm", model);
+			map.addAttribute("categoryList", categoryService.getAllCategories());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return "productView";
 	}
 	
@@ -81,35 +100,55 @@ public class ProductController
 	{
 		if (result.hasErrors()) {
 			System.out.println("in validation");
-			return "addCategory";
-		} else
-		{
-			try{
-		       Product product = new Product();
-		       product.setProductName(model.getProductName());
-		       product.setShortDesc(model.getShortDesc());
-		       product.setActive(model.isActive());
-		       product.setProductPrice(model.getProductPrice());
-		       product.setCreateDate(new Date());
-		       product.setModifyDate(new Date());
-		       int pid = productService.addProduct(product);
-		       return "redirect:viewProduct?pid="+pid;
-			}catch(Exception e){
+			map.addAttribute("categoryList", categoryService.getAllCategories());
+			return "productView";
+		} else {
+			try {
+				if (model.getPid() > 0) {
+					Product product = productService.getProductById(model.getPid());
+					if(product != null) {
+						product.setProductName(model.getProductName());
+						product.setShortDesc(model.getShortDesc());
+						product.setProductSKU(model.getProductSKU());
+						product.setProductPrice(Double.valueOf(model.getProductPrice()));
+						product.setProductMRP(Double.valueOf(model.getProductMRP()));
+						product.setActive(model.isActive());
+						product.setProductTin(model.getProductTin());
+						product.setDisableBuyButton(model.isDisableBuyButton());
+						product.setShowOnHomePage(model.isShowOnHomePage());
+						product.setCustomerReview(model.isCustomerReview());
+						product.setModifyDate(new Date());
+						productService.updateProduct(product);
+						return "redirect:editProduct?pid=" + product.getPid();
+					}
+					
+				} else {
+					Product product = new Product();
+					product.setProductName(model.getProductName());
+					product.setShortDesc(model.getShortDesc());
+					product.setProductSKU(model.getProductSKU());
+					product.setProductPrice(Double.valueOf(model.getProductPrice()));
+					product.setProductMRP(Double.valueOf(model.getProductMRP()));
+					product.setActive(model.isActive());
+					product.setProductTin(model.getProductTin());
+					product.setDisableBuyButton(model.isDisableBuyButton());
+					product.setShowOnHomePage(model.isShowOnHomePage());
+					product.setCustomerReview(model.isCustomerReview());
+					product.setCreateDate(new Date());
+					product.setModifyDate(new Date());
+					int pid = productService.addProduct(product);
+					return "redirect:editProduct?pid=" + pid;
+				}
+
+				
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
 		return "redirect:products";
 	}
 	
 	
-	@RequestMapping(value = "/editProduct", method = RequestMethod.GET)
-	public String editProduct(ModelMap map, HttpServletRequest request, Principal principal)
-	{
-		map.addAttribute("viewmode", "edit");
-		System.out.println("from editProduct");
-		return "productView";
-	}
 	
 	
 }
