@@ -37,7 +37,7 @@
 			<div class="">
               <table id="example1"  class="table table-bordered table-striped">
                 <thead>
-                <tr>
+                <tr class="bg-primary">
                   <th style="text-align: center;">#</th>
                   <th>Category Name</th>
                   <th style="text-align: center;">Active</th>

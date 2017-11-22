@@ -59,7 +59,7 @@
 			<div class="">
               <table class="table table-bordered table-striped">
                 <thead>
-                <tr>
+                <tr class="bg-primary">
                   <th style="text-align: center;"><input type="checkbox" ></th>
                   <th style="text-align: center;">Picture</th>
                   <th>Product</th>
@@ -67,7 +67,8 @@
                   <th >Price</th>
                   <th >Stock Unit</th>
                   <th style="text-align: center;">Published</th>
-                  <th style="text-align: center;">Edit</th>
+                  <th style="text-align: center;">Create Date</th>
+                  <th style="text-align: center;">Action</th>
                 </tr>
                 </thead>
                 <tbody>

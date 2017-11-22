@@ -43,7 +43,7 @@
             <div class="nav-tabs-custom">
 	            <ul class="nav nav-tabs">
 	              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Product</a></li>
-	              	<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Images</a></li>
+	              	<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pictures</a></li>
 	              	<li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Categories</a></li>
 			    </ul>
 	            <div class="tab-content">
@@ -150,9 +150,16 @@
 					                          				catName = parent.getCategoryName() + " >> "+ catName;
 					                          				parent = parent.getParent();
 					                          			}
-					                          			%>
-					                          				<form:option value="<%= category.getCid() %>"><%=catName %></form:option>
-					                          			<%
+					                          			if(model.getCategories().contains(category.getCid())){
+					                          				%>
+						                          				<form:option value="<%= category.getCid() %>"  selected="selected"><%=catName %></form:option>
+						                          			<%
+					                          			}else{
+					                          				%>
+						                          				<form:option value="<%= category.getCid() %>"  ><%=catName %></form:option>
+						                          			<%
+					                          			}
+					                          			
 					                          		}
 					                      		}
 					                      		
@@ -169,7 +176,7 @@
 	             
 				  <!-- /.tab-pane -->
 	              <div class="tab-pane" id="tab_2">
-	                The European languages are members of the same family.
+	                <div id = "product_images">The European languages are members of the same family.</div>
 	              </div>
 	              <!-- /.tab-pane -->
 	              <div class="tab-pane" id="tab_3">
@@ -190,6 +197,49 @@
     <!-- /.content -->
   </div>
   </form:form>
-  
+<script type="text/javascript">
+$(document).ready(function(){
+	<%
+		if(model != null && model.getPid() > 0){
+			%>
+			getProductImages(<%= model.getPid() %>);
+			<%
+		}
+	%>
+	
+	$(document).on("click","#refesh_images",function() {
+		getProductImages(<%= model.getPid() %>);
+	});
+}); 
+
+function getProductImages(pid){
+	$.ajax({
+		type : "GET",
+		url : "getProductImages",
+		data : {"pid" : pid},
+		success : function(data) {
+				$("#product_images").html(data);        
+		}
+		
+	});
+}
+function uploadProfileImage()
+	{
+		var image=document.getElementById("profile-image").files[0];
+		var senddata=new FormData();
+	 	senddata.append("image", image);
+		$.ajax({
+	 		  url: "${pageContext.request.contextPath}/profileImageUpld",
+	 		  type: "POST",
+	 		  async: "false",
+	 		  data: senddata,
+	 		  processData: false,  // tell jQuery not to process the data
+	 		  contentType: false,   // tell jQuery not to set contentType
+	 		  success:function(response){
+	 			  alert(response);
+	 		  }
+	 		});
+	}
+</script>
 </body>
 </html>

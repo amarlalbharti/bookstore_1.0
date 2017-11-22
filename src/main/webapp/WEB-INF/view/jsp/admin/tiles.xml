@@ -46,4 +46,10 @@
     </definition>
     
     
+    <definition name="productCategosies" extends="indexTemplate">
+    	<put-attribute name="title" value="Add New Product" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productCategosies.jsp" />
+    </definition>
+    
+    
 </tiles-definitions>

@@ -1,14 +1,19 @@
 package com.bookstore.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +21,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bookstore.config.ProjectConfig;
 import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Category;
@@ -71,6 +80,12 @@ public class ProductController
 					model.setDisableBuyButton(product.isDisableBuyButton());
 					model.setShowOnHomePage(product.isShowOnHomePage());
 					model.setCustomerReview(product.isCustomerReview());
+					if(product.getCategories() != null && !product.getCategories().isEmpty()) {
+						Iterator<Category> it = product.getCategories().iterator();
+						while(it.hasNext()) {
+							model.getCategories().add(it.next().getCid());
+						}
+					}
 					map.addAttribute("productForm", model);
 					map.addAttribute("categoryList", categoryService.getAllCategories());
 					return "productView";	
@@ -157,8 +172,6 @@ public class ProductController
 		}
 		return "redirect:products";
 	}
-	
-	
 	
 	
 }

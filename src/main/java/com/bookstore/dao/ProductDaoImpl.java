@@ -3,6 +3,7 @@ package com.bookstore.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -41,9 +42,18 @@ public class ProductDaoImpl implements ProductDao
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Product getProductById(Integer productId)
 	{
-		return (Product)sessionFactory.getCurrentSession().get(Product.class, productId);
+		try{
+			List<Product> list = this.sessionFactory.getCurrentSession().createCriteria(Product.class).add(Restrictions.eq("pid", productId)).setFetchMode("categories", FetchMode.JOIN).list();
+			if(list != null && !list.isEmpty()) {
+				return list.get(0);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<Product> getAllProducts()
