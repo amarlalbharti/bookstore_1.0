@@ -139,7 +139,7 @@
 				            	<div class="form-group">
 				                  <label for="categories" class="col-sm-3 control-label">Categories</label>
 				                  <div class="col-sm-9">
-				                      <form:select path="categories.category.cid" class="form-control select2" multiple="multiple"  tabindex="5" >
+				                      <form:select path="categories" class="form-control select2" multiple="multiple"  tabindex="5" >
 			                      			<%
 					                      		List<Category> categoryList = (List<Category>)request.getAttribute("categoryList");
 					                      		if(categoryList != null && !categoryList.isEmpty()){

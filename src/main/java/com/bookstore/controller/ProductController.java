@@ -3,6 +3,8 @@ package com.bookstore.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -118,6 +120,10 @@ public class ProductController
 						product.setShowOnHomePage(model.isShowOnHomePage());
 						product.setCustomerReview(model.isCustomerReview());
 						product.setModifyDate(new Date());
+						if(model.getCategories() != null && !model.getCategories().isEmpty()){
+							List<Category> categories = categoryService.getAllCategories(model.getCategories());
+							product.setCategories(new HashSet<Category>(categories));
+						}
 						productService.updateProduct(product);
 						return "redirect:editProduct?pid=" + product.getPid();
 					}
@@ -134,6 +140,10 @@ public class ProductController
 					product.setDisableBuyButton(model.isDisableBuyButton());
 					product.setShowOnHomePage(model.isShowOnHomePage());
 					product.setCustomerReview(model.isCustomerReview());
+					if(model.getCategories() != null && !model.getCategories().isEmpty()){
+						List<Category> categories = categoryService.getAllCategories(model.getCategories());
+						product.setCategories(new HashSet<Category>(categories));
+					}
 					product.setCreateDate(new Date());
 					product.setModifyDate(new Date());
 					int pid = productService.addProduct(product);

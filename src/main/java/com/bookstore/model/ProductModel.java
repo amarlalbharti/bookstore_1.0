@@ -1,6 +1,8 @@
 package com.bookstore.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -46,7 +48,7 @@ public class ProductModel
 
 	private boolean showOnHomePage;
 	
-	private Set<Category> categories = new HashSet();
+	private List<Integer> categories = new ArrayList<Integer>();
 	
 	public int getPid()
 	{
@@ -158,15 +160,16 @@ public class ProductModel
 		this.showOnHomePage = showOnHomePage;
 	}
 
-	public Set<Category> getCategories()
+	public List<Integer> getCategories()
 	{
 		return categories;
 	}
 
-	public void setCategories(Set<Category> categories)
+	public void setCategories(List<Integer> categories)
 	{
 		this.categories = categories;
 	}
+
 	
 	
 	

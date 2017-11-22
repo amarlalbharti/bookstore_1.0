@@ -76,6 +76,20 @@ public class CategoryDaoImpl implements CategoryDao
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Category> getAllCategories(List cids){
+		try {
+			
+			return this.sessionFactory.getCurrentSession().createCriteria(Category.class)
+					.add(Restrictions.in("cid", cids))
+					.list();
+			
+		} catch (Exception e){
+			System.out.println("Error in getAllCategories ");
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Category> getAllCategories(int first, int max){

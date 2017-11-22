@@ -14,6 +14,8 @@ public interface CategoryDao
 	
 	public List<Category> getAllCategories();
 	
+	public List<Category> getAllCategories(List cids);
+	
 	public List<Category> getAllCategories(int first, int max);
 	
 	public List<Category> getAllRootCategories(int first, int max);

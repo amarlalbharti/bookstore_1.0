@@ -52,6 +52,9 @@ public class CategoryServiceImpl implements CategoryService
         }
         return finallist;
 	}
+	public List<Category> getAllCategories(List cids){
+		return this.categoryDao.getAllCategories(cids);
+	}
 	
 	public List<Category> getAllCategories(int first, int max){
 		return this.categoryDao.getAllCategories(first, max);
