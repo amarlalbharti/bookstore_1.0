@@ -52,31 +52,27 @@ public class ProductImageController
 	@RequestMapping(value = "/profileImageUpld")
     public @ResponseBody String ajaxFileUpload(MultipartHttpServletRequest request, HttpServletRequest req, Principal principal)throws ServletException, IOException
     {   
-		if(principal != null)
-		{
-			MultipartFile mpf = null;
-			int flag=0;
-			Iterator<String> itr=request.getFileNames();
-			while(itr.hasNext()){
-			mpf=request.getFile(itr.next());
-			flag++;
-	        boolean isMultipart=ServletFileUpload.isMultipartContent(request);
-	        System.out.println("is file " + isMultipart + " file name " + mpf.getOriginalFilename());
-			}
-			if(flag > 0 && mpf != null && mpf.getOriginalFilename() != null && mpf.getOriginalFilename() != "")
-			{
-				String filename=null;
-				filename=mpf.getOriginalFilename().replace(" ", "-");
-				File dl = new File(ProjectConfig.UPLOAD_PATH+"/product/"+filename);
-		    	System.out.println("PATH="+dl.getAbsolutePath());
-			    if(!dl.exists()){
-			    	System.out.println("in not file"+dl.getAbsolutePath());
-				    dl.mkdirs();
-			    }
-				mpf.transferTo(dl);
-				System.out.println("multiple images uploaded");
-				return "success";
-			}
+		MultipartFile mpf = null;
+		int flag=0;
+		Iterator<String> itr=request.getFileNames();
+		while(itr.hasNext()){
+		mpf=request.getFile(itr.next());
+		flag++;
+        boolean isMultipart=ServletFileUpload.isMultipartContent(request);
+        System.out.println("is file " + isMultipart + " file name " + mpf.getOriginalFilename());
+		}
+		if(flag > 0 && mpf != null && mpf.getOriginalFilename() != null && mpf.getOriginalFilename() != "") {
+			String filename=null;
+			filename=mpf.getOriginalFilename().replace(" ", "-");
+			File dl = new File(ProjectConfig.UPLOAD_PATH+"/product/"+filename);
+	    	System.out.println("PATH="+dl.getAbsolutePath());
+		    if(!dl.exists()){
+		    	System.out.println("in not file"+dl.getAbsolutePath());
+			    dl.mkdirs();
+		    }
+			mpf.transferTo(dl);
+			System.out.println("multiple images uploaded");
+			return "success";
 		}
 		return "failed";
     }

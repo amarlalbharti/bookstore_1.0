@@ -50,30 +50,45 @@
 		<div class="box-body">
 			<div>
 				<div class="form-group">
+	               <label for="imageName" class="col-sm-3 control-label">Picture</label>
+	               <div class="col-sm-9">
+	                   <!-- <input type="file" name="filePhoto" value="" id="filePhoto" class="required borrowerImageFile" data-errormsg="PhotoUploadErrorMsg">
+					    -->
+					   <div class="thumbnail">
+							<img id="previewHolder" alt="Uploaded Image Preview Holder" src="http://pjcgroundworks.co.uk/wp-content/uploads/2015/04/no-image-available.png" />
+					   </div>
+
+						<label class="btn btn-primary btn-flat btn-xs"> 
+							<input name="filePhoto" id="filePhoto" type="file" class="required borrowerImageFile" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75"  /> 
+							<i class="fa fa-fw fa-cloud-upload"></i> Browse
+						</label>
+					</div>
+	            </div>
+				<div class="form-group">
 	               <label for="imageName" class="col-sm-3 control-label">Picture Title</label>
 	               <div class="col-sm-9">
-	                   <input name="imageName" class="form-control titleCase"  placeholder="Enter image title" tabindex="5" maxlength="100"/>
+	                   <input name="imageName" id = "imageName" class="form-control titleCase"  placeholder="Enter image title" tabindex="5" maxlength="100"/>
 	                	<span class="text-danger"></span>
 	               </div>
 	            </div>
 	            <div class="form-group">
 	               <label for="imageAlt" class="col-sm-3 control-label">Picture Alt</label>
 	               <div class="col-sm-9">
-	                   <input name="imageAlt" class="form-control titleCase"  placeholder="Enter image alt" tabindex="5" maxlength="100"/>
+	                   <input name="imageAlt" id = "imageAlt" class="form-control titleCase"  placeholder="Enter image alt" tabindex="5" maxlength="100"/>
 	                	<span class="text-danger"></span>
 	               </div>
 	            </div>
 	            <div class="form-group">
 	               <label for="imageDetail" class="col-sm-3 control-label">Picture Detail</label>
 	               <div class="col-sm-9">
-	                   <textarea name="imageDetail" class="form-control titleCase"  placeholder="Enter image detail" tabindex="5" maxlength="100"></textarea>
+	                   <textarea name="imageDetail" id = "imageDetail"  class="form-control titleCase"  placeholder="Enter image detail" tabindex="5" maxlength="100"></textarea>
 	                	<span class="text-danger"></span>
 	               </div>
 	            </div>
 	            <div class="form-group">
 	               <label for="imageOrder" class="col-sm-3 control-label">Display Order</label>
 	               <div class="col-sm-9">
-	                   <input name="imageOrder" class="form-control number_only" type="number" min="0"  placeholder="Enter image order" tabindex="5" maxlength="100"/>
+	                   <input name="imageOrder" id = "imageOrder"  class="form-control number_only" type="number" min="0"  placeholder="Enter image order" tabindex="5" maxlength="100"/>
 	                	<span class="text-danger"></span>
 	               </div>
 	            </div>
@@ -81,7 +96,7 @@
 		</div>
 		<div class="box-footer">
             <a href="products"><button type="button" class="btn btn-default">Cancel</button></a>
-            <button type="button" class="btn btn-primary pull-right"><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload</button>
+            <button type="button" id = "upload_product_picture" class="btn btn-primary pull-right "><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload</button>
           </div>
 	</div>
 </div>

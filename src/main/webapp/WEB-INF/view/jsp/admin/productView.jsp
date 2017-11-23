@@ -13,6 +13,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style>
+.thumbnail {
+  position: relative;
+  width: 160px;
+  height: 120px;
+  overflow: hidden;
+  background-color: black;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+</style>
 </head>
 <body>
 	<%
@@ -210,24 +233,34 @@ $(document).ready(function(){
 	$(document).on("click","#refesh_images",function() {
 		getProductImages(<%= model.getPid() %>);
 	});
-}); 
-
-function getProductImages(pid){
-	$.ajax({
-		type : "GET",
-		url : "getProductImages",
-		data : {"pid" : pid},
-		success : function(data) {
-				$("#product_images").html(data);        
-		}
+	
+	function getProductImages(pid){
+		$.ajax({
+			type : "GET",
+			url : "getProductImages",
+			data : {"pid" : pid},
+			success : function(data) {
+					$("#product_images").html(data);        
+			}
+			
+		});
 		
-	});
-}
-function uploadProfileImage()
-	{
-		var image=document.getElementById("profile-image").files[0];
+	}
+	$(document).on("click","#upload_product_picture",function() {
+		var image=document.getElementById("filePhoto").files[0];
+		var imageName = $("#imageName").val();
+		var imageAlt = $("#imageAlt").val();
+		var imageDetail = $("#imageDetail").val();
+		var imageOrder = $("#imageOrder").val();
+		if(imageName == ""){
+			alertify.error("Picture name is required !");
+			return;
+		}
 		var senddata=new FormData();
 	 	senddata.append("image", image);
+	 	senddata.append("imageAlt", imageAlt);
+	 	senddata.append("imageDetail", imageDetail);
+	 	senddata.append("imageOrder", imageOrder);
 		$.ajax({
 	 		  url: "${pageContext.request.contextPath}/profileImageUpld",
 	 		  type: "POST",
@@ -238,8 +271,32 @@ function uploadProfileImage()
 	 		  success:function(response){
 	 			  alert(response);
 	 		  }
-	 		});
-	}
+ 		});
+	});
+	
+	
+}); 
+
+
+	
 </script>
+<script language=javascript type='text/javascript'>
+    
+    $(document).ready(function(){
+        function readURL(input) {
+    		alert("readURL")
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewHolder').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    	$(document).on("change","#filePhoto",function() {
+            readURL(this);
+        });
+    });
+</script>   
 </body>
 </html>
