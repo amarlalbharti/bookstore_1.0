@@ -46,9 +46,9 @@
     </definition>
     
     
-    <definition name="productCategosies" extends="indexTemplate">
+    <definition name="productImages" extends="indexTemplate">
     	<put-attribute name="title" value="Add New Product" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productCategosies.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productImages.jsp" />
     </definition>
     
     

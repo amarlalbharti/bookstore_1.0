@@ -248,19 +248,26 @@ $(document).ready(function(){
 	}
 	$(document).on("click","#upload_product_picture",function() {
 		var image=document.getElementById("filePhoto").files[0];
+		var pid = $("#productid").val();
 		var imageName = $("#imageName").val();
 		var imageAlt = $("#imageAlt").val();
 		var imageDetail = $("#imageDetail").val();
 		var imageOrder = $("#imageOrder").val();
+		if(pid == "" || pid == "0"){
+			alertify.error("Product Not Saved !");
+			return;
+		}
 		if(imageName == ""){
 			alertify.error("Picture name is required !");
 			return;
 		}
 		var senddata=new FormData();
 	 	senddata.append("image", image);
+	 	senddata.append("imageName", imageName);
 	 	senddata.append("imageAlt", imageAlt);
 	 	senddata.append("imageDetail", imageDetail);
 	 	senddata.append("imageOrder", imageOrder);
+	 	senddata.append("pid", pid);
 		$.ajax({
 	 		  url: "${pageContext.request.contextPath}/profileImageUpld",
 	 		  type: "POST",
@@ -269,12 +276,21 @@ $(document).ready(function(){
 	 		  processData: false,  // tell jQuery not to process the data
 	 		  contentType: false,   // tell jQuery not to set contentType
 	 		  success:function(response){
-	 			  alert(response);
+	 			 var json = JSON.parse(response);
+	 			 if(json.status == "success"){
+	 				 alertify.success("Product image uploaded successfully !");
+	 			 }else{
+	 				alertify.error(json.msg);
+	 			 }
+	 			 getProductImages(<%= model.getPid() %>);
 	 		  }
  		});
 	});
 	
 	
+	$(document).on("click","#delete_product_image",function() {
+		var pid = $("#pid").val();
+	});
 }); 
 
 
@@ -284,7 +300,6 @@ $(document).ready(function(){
     
     $(document).ready(function(){
         function readURL(input) {
-    		alert("readURL")
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {

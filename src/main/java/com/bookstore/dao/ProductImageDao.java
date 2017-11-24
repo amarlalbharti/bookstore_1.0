@@ -14,4 +14,6 @@ public interface ProductImageDao
 	
 	public List<ProductImage> getProductImageByProductId(int productId);
 	
+	public boolean setProductImage(int productId);
+	
 }

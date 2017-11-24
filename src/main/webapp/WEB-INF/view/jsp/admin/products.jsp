@@ -1,3 +1,4 @@
+<%@page import="com.bookstore.config.ProjectConfig"%>
 <%@page import="com.bookstore.domain.Product"%>
 <%@page import="org.springframework.util.StringUtils"%>
 <%@page import="com.bookstore.config.DateUtils"%>
@@ -83,7 +84,7 @@
                 			%>
                 				<tr>
                 				  <td style="text-align: center;"><input type="checkbox" ></td>
-                				  <td style="text-align: center;"><img src="images/Camera_Icon.png" width="75px"></td>
+                				  <td style="text-align: center;"><img alt="<%= product.getProductName() %>" src="<%=ProjectConfig.PUBLIC_PATH %><%= product.getProductUrl() %>" width="75px"></td>
 				                  <td><%= product.getProductName()%></td>
 				                  <td>-</td>
 				                  <td><%= product.getProductPrice()%></td>

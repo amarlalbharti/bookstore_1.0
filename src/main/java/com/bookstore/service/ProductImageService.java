@@ -13,5 +13,7 @@ public interface ProductImageService
 	public ProductImage getProductImageById(int imageId);
 	
 	public List<ProductImage> getProductImageByProductId(int productId);
+	
+	public boolean setProductImage(int productId);
 
 }

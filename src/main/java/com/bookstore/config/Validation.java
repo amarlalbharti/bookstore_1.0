@@ -1,8 +1,11 @@
 package com.bookstore.config;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class Validation {
@@ -10,6 +13,15 @@ public class Validation {
 		     
 	private static Pattern PASSWORD_PATTERN = Pattern.compile("((?=.*\\d)(?=.*[a-z]).{4,20})");
     
+	private static List<String> imageExtensions = new ArrayList<String>();
+	static{
+		imageExtensions.add("jpeg");
+		imageExtensions.add("JPEG");
+		imageExtensions.add("png");
+		imageExtensions.add("PNG");
+		imageExtensions.add("JPG");
+		imageExtensions.add("jpg");
+	}
 	public static boolean validateEmail(String userName){
          
         Matcher mtch = emailNamePtrn.matcher(userName);
@@ -40,4 +52,12 @@ public class Validation {
 		}
 		return false;
 	}
+    public static boolean isImageExtention(String filename){
+    	if(filename  != null) {
+        	String ext = FilenameUtils.getExtension(filename);
+        	return imageExtensions.contains(ext);
+    	}
+    	return false;
+    }
+    
 }

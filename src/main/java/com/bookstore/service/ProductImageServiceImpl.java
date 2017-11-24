@@ -35,5 +35,9 @@ public class ProductImageServiceImpl implements ProductImageService
 	{
 		return this.productImageDao.getProductImageByProductId(productId);
 	}
+	
+	public boolean setProductImage(int productId) {
+		return this.productImageDao.setProductImage(productId);
+	}
 
 }

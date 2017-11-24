@@ -65,5 +65,14 @@ public class ProductImageDaoImpl implements ProductImageDao
 		}
 		return null;
 	}
+	public boolean setProductImage(int productId) {
+		try{
+			this.sessionFactory.getCurrentSession().createSQLQuery("UPDATE product SET product_url = (SELECT image_url FROM product_image WHERE pid = :pid ORDER BY image_order LIMIT 1) WHERE pid = :pid ").setParameter("pid", productId).executeUpdate();
+			return true;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 }
