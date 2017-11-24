@@ -290,6 +290,7 @@ $(document).ready(function(){
 	
 	$(document).on("click","#delete_product_image",function() {
 		var pid = $("#pid").val();
+		
 	});
 }); 
 
