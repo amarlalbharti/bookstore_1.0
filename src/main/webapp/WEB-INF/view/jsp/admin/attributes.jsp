@@ -1,3 +1,4 @@
+<%@page import="com.bookstore.domain.Attribute"%>
 <%@page import="org.springframework.util.StringUtils"%>
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
@@ -19,9 +20,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
-      <h1 class="pull-left">Category</h1>
+      <h1 class="pull-left">Attributes</h1>
       <div class="pull-right">
-      	<a href="addCategory" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="addAttribute" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
       </div>
     </section>
 
@@ -48,23 +49,17 @@
                 <tbody>
                 <%
 	                int  count = 0; 
-                	List<Category> categoryList = (List)request.getAttribute("categoryList");
-                	if(categoryList != null && !categoryList.isEmpty()){
-                		for(Category category : categoryList){
-                			String catName = category.getCategoryName();
-                			Category cat = category;
-                			while(cat.getParent() != null){
-                				cat = cat.getParent();
-                				catName = cat.getCategoryName() + " >> "+ catName;
-                			}
+                	List<Attribute> attributeList = (List)request.getAttribute("attributeList");
+                	if(attributeList != null && !attributeList.isEmpty()){
+                		for(Attribute attribute : attributeList){
                 			%>
                 				<tr>
                 				  <td style="text-align: center;"><%= ++count%></td>
-				                  <td><%= catName %></td>
-				                  <td style="text-align: center;"><span id="active<%= category.getCid()%>"><%= category.isActive()? "Yes" : "No" %></span></td>
-				                  <td style="text-align: center;"><%= category.getDisplayOrder()%></td>
+				                  <td><%= attribute.getAttributeName() %></td>
+				                  <td style="text-align: center;"><span id="active<%= attribute.getAttributeId()%>"><%= attribute.isActive()? "Yes" : "No" %></span></td>
+				                  <td style="text-align: center;"><%= DateUtils.clientDateFormat.format(attribute.getCreateDate())%></td>
 				                  <td style="text-align: center;">
-				                  	<a href="editCategory?cid=<%= category.getCid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+				                  	<a href="editAttribute?attributeId=<%= attribute.getAttributeId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
 				                  </td>
 				                </tr>
                 			<%

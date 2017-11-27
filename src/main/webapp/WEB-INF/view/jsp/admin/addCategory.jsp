@@ -36,11 +36,8 @@
       <div class="row">
         <div class="col-md-12">
           <!-- Horizontal Form -->
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Add Category</h3>
-            </div>
-            <!-- /.box-header -->
+          <div class="box box-primary">
+            
             <!-- form start -->
             <form:form class="form-horizontal" role="form" method="POST" action="addCategory" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
               <div class="box-body">

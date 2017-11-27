@@ -1,5 +1,6 @@
 package com.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +17,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="attribute")
-public class Attribute
+public class Attribute implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1694865627897752349L;
+
 	@Id
 	@Column(name = "attribute_id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
