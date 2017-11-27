@@ -302,6 +302,7 @@ $(document).ready(function(){
 		 			 }else{
 		 				alertify.error(json.msg);
 		 			 }
+		 			 getProductImages(<%= model.getPid() %>);
 				}
 			});
 		}
