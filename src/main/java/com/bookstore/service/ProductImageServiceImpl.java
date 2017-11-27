@@ -26,6 +26,11 @@ public class ProductImageServiceImpl implements ProductImageService
 		return this.productImageDao.updateProductImage(productImage);
 	}
 
+	public int deleteProductImage(List<Integer> imageIds) 
+	{
+		return this.productImageDao.deleteProductImage(imageIds);
+	}
+	
 	public ProductImage getProductImageById(int imageId)
 	{
 		return this.productImageDao.getProductImageById(imageId);

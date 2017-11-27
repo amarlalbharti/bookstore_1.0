@@ -42,6 +42,18 @@ public class ProductImageDaoImpl implements ProductImageDao
 		return false;
 	}
 
+	public int deleteProductImage(List<Integer> imageIds) {
+		try{
+			return  this.sessionFactory.getCurrentSession().createQuery("delete FROM ProductImage WHERE imageId in (:imageIds)")
+					.setParameterList("imageIds", imageIds)
+					.executeUpdate();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
 	public ProductImage getProductImageById(int imageId)
 	{
 		try{

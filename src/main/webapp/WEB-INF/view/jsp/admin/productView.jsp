@@ -289,8 +289,22 @@ $(document).ready(function(){
 	
 	
 	$(document).on("click","#delete_product_image",function() {
-		var pid = $("#pid").val();
-		
+		var imageid = $(this).attr("imageid");
+		if(confirm("Are you sure to delete this ?")){
+			$.ajax({
+				type : "GET",
+				url : "deleteProductImage",
+				data : {"imageId" : imageid},
+				success : function(response) {
+					 var json = JSON.parse(response);
+		 			 if(json.status == "success"){
+		 				 alertify.success(json.msg);
+		 			 }else{
+		 				alertify.error(json.msg);
+		 			 }
+				}
+			});
+		}
 	});
 }); 
 

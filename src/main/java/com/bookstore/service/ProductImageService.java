@@ -10,6 +10,8 @@ public interface ProductImageService
 	
 	public boolean updateProductImage(ProductImage productImage);
 	
+	public int deleteProductImage(List<Integer> imageIds) ;
+	
 	public ProductImage getProductImageById(int imageId);
 	
 	public List<ProductImage> getProductImageByProductId(int productId);

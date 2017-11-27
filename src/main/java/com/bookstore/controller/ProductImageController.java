@@ -3,6 +3,7 @@ package com.bookstore.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -52,6 +53,30 @@ public class ProductImageController
 			e.printStackTrace();
 		}
 		return "productImages";
+    }
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "/deleteProductImage")
+    public @ResponseBody String deleteProductImage(ModelMap map, HttpServletRequest request, Principal principal)
+    {
+		JSONObject json = new JSONObject();
+		try{
+			String imageId = request.getParameter("imageId");
+			if(Validation.isNumeric(imageId)){
+				List<Integer> list = new ArrayList();
+				list.add(Util.getNumeric(imageId));
+				if(productImageService.deleteProductImage(list) > 0) {
+					json.put("status", "success");
+					json.put("msg", "Picture deleted successfully !");
+					return json.toJSONString();
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		json.put("status", "error");
+		json.put("msg", "Opps something wrong !");
+		return json.toJSONString();
     }
 	
 

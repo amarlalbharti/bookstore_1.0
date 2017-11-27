@@ -28,8 +28,8 @@
 				          <td><%= image.getImageDesc() %></td>
 				          <td style="text-align: center;"><%= image.getImageOrder()%></td>
 				          <td style="text-align: center;">
-				          	<button class="btn btn-flat btn-sm btn-primary" id="edit_product_image"><i class="fa fa-fw fa-edit"></i> Edit</button>
-				          	<button class="btn btn-flat btn-sm btn-danger" id="delete_product_image"><i class="fa fa-fw fa-close"></i> Delete</button>
+				          	<button type="button" class="btn btn-flat btn-sm btn-primary" imageid="<%= image.getImageId() %>" id="edit_product_image"><i class="fa fa-fw fa-edit"></i> Edit</button>
+				          	<button type="button" class="btn btn-flat btn-sm btn-danger" imageid="<%= image.getImageId() %>" id="delete_product_image"><i class="fa fa-fw fa-close"></i> Delete</button>
 				          </td>
 				        </tr>
 	    			<%
