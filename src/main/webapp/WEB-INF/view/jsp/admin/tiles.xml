@@ -58,16 +58,16 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/attributes.jsp" />
         <put-attribute name="currentpage" value="attribute" cascade="true"/>
     </definition>
-    <definition name="addAttribute" extends="adminTemplate">
-        <put-attribute name="title" value="Add Product Attributes" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addAttribute.jsp" />
+    <definition name="attributeView" extends="adminTemplate">
+        <put-attribute name="title" value="Product Attribute" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/attributeView.jsp" />
         <put-attribute name="currentpage" value="attribute" cascade="true"/>
     </definition>
-    <definition name="editAttribute" extends="adminTemplate">
-        <put-attribute name="title" value="Edit Product Attributes" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/editAttribute.jsp" />
-        <put-attribute name="currentpage" value="attribute" cascade="true"/>
+    <definition name="attributeValues" extends="indexTemplate">
+    	<put-attribute name="title" value="Attribute values" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/attributeValues.jsp" />
     </definition>
+    
     
     <!-- saumya 22-nov-2017 -->
     <definition name="customers" extends="adminTemplate">

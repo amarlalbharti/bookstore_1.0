@@ -69,12 +69,6 @@
 				                </tr>
                 			<%
                 		}
-                	}else{
-                		%>
-	        				<tr>
-	        				  <td colspan="7">No record founds !</td>
-			                </tr>
-	        			<%
                 	}
                 %>
                 

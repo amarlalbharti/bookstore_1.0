@@ -49,8 +49,8 @@
     <section class="content-header clearfix">
       <h1 class="pull-left">Product ${model.getPid() > 0 ? model.getProductName : '' } </h1>
       <div class="pull-right">
-      	<button type="submit" class="btn btn-flat btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-      	<button type="submit" class="btn btn-flat btn-primary"><i class="fa fa-floppy-o"></i> Save & Continue</button>
+      	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="save"><i class="fa fa-floppy-o"></i> Save</button>
+      	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="continue"><i class="fa fa-floppy-o"></i> Save & Continue</button>
       	<button class="btn btn-flat btn-danger" id="delete_category"><i class="fa fa-fw fa-close"></i> Delete</button>
       </div>
     </section>
@@ -199,11 +199,11 @@
 	             
 				  <!-- /.tab-pane -->
 	              <div class="tab-pane" id="tab_2">
-	                <div id = "product_images">The European languages are members of the same family.</div>
+	                <div id = "product_images">Save product to upload pictures.</div>
 	              </div>
 	              <!-- /.tab-pane -->
 	              <div class="tab-pane" id="tab_3">
-	                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	                
 	              </div>
 	              <!-- /.tab-pane -->
 							
@@ -234,6 +234,7 @@ $(document).ready(function(){
 		getProductImages(<%= model.getPid() %>);
 	});
 	
+	// added by Amar, get all images inner page for current product
 	function getProductImages(pid){
 		$.ajax({
 			type : "GET",
@@ -246,8 +247,12 @@ $(document).ready(function(){
 		});
 		
 	}
+	// added by Amar, Upload product image
 	$(document).on("click","#upload_product_picture",function() {
-		var image=document.getElementById("filePhoto").files[0];
+		var image;
+		if(document.getElementById("filePhoto") != null){
+			image=document.getElementById("filePhoto").files[0];
+		}
 		var pid = $("#productid").val();
 		var imageName = $("#imageName").val();
 		var imageAlt = $("#imageAlt").val();
@@ -261,6 +266,7 @@ $(document).ready(function(){
 			alertify.error("Picture name is required !");
 			return;
 		}
+		var imageId = $("#imageId").val();
 		var senddata=new FormData();
 	 	senddata.append("image", image);
 	 	senddata.append("imageName", imageName);
@@ -268,6 +274,7 @@ $(document).ready(function(){
 	 	senddata.append("imageDetail", imageDetail);
 	 	senddata.append("imageOrder", imageOrder);
 	 	senddata.append("pid", pid);
+	 	senddata.append("imageId", imageId);
 		$.ajax({
 	 		  url: "${pageContext.request.contextPath}/profileImageUpld",
 	 		  type: "POST",
@@ -283,11 +290,12 @@ $(document).ready(function(){
 	 				alertify.error(json.msg);
 	 			 }
 	 			 getProductImages(<%= model.getPid() %>);
+	 			$(window).scrollTop(0);
 	 		  }
  		});
 	});
 	
-	
+	//added by amar, Delete product image
 	$(document).on("click","#delete_product_image",function() {
 		var imageid = $(this).attr("imageid");
 		if(confirm("Are you sure to delete this ?")){
@@ -303,17 +311,33 @@ $(document).ready(function(){
 		 				alertify.error(json.msg);
 		 			 }
 		 			 getProductImages(<%= model.getPid() %>);
+		 			$(window).scrollTop(0);
 				}
 			});
 		}
 	});
+	//added by amar, Update product image
+	$(document).on("click","#edit_product_image",function() {
+		var imageid = $(this).attr("imageid");
+		var pid = <%= model.getPid() %>;
+		$.ajax({
+			type : "GET",
+			url : "getProductImages",
+			data : {"pid" : pid, "imageId" : imageid},
+			success : function(data) {
+					$("#product_images").html(data);        
+					$('html, body').animate({
+				        scrollTop: $("#updateImageDiv").offset().top
+				    }, 100);
+			}
+			
+		});
+	});
 }); 
 
-
-	
 </script>
 <script language=javascript type='text/javascript'>
-    
+	// addded by amar, preview browsed image before upload
     $(document).ready(function(){
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -328,6 +352,15 @@ $(document).ready(function(){
             readURL(this);
         });
     });
+	
+    $('#form').on('keyup keypress', function(e) {
+    	  var keyCode = e.keyCode || e.which;
+    	  if (keyCode === 13) { 
+    	    e.preventDefault();
+    	    return false;
+    	  }
+    	});
 </script>   
+
 </body>
 </html>

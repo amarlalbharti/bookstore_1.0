@@ -35,10 +35,6 @@
         <div class="col-md-12">
           <!-- Horizontal Form -->
           <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Update Category</h3>
-            </div>
-            <!-- /.box-header -->
             <!-- form start -->
             <form:form class="form-horizontal" role="form" method="POST" action="editCategory" commandName="categoryForm" autocomplete="off" id="form">
               <div class="box-body">

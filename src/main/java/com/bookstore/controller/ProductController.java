@@ -115,6 +115,8 @@ public class ProductController
 	public String addProduct(@ModelAttribute(value = "productForm") @Valid ProductModel model,BindingResult result,
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
+		String submit = request.getParameter("submit");
+		System.out.println("submit button vvalue : " + submit);
 		if (result.hasErrors()) {
 			System.out.println("in validation");
 			map.addAttribute("categoryList", categoryService.getAllCategories());
@@ -140,7 +142,10 @@ public class ProductController
 							product.setCategories(new HashSet<Category>(categories));
 						}
 						productService.updateProduct(product);
-						return "redirect:editProduct?pid=" + product.getPid();
+						if(submit != null && !submit.equals("save")) {
+							return "redirect:editProduct?pid=" + product.getPid();
+						}
+						
 					}
 					
 				} else {
@@ -162,7 +167,9 @@ public class ProductController
 					product.setCreateDate(new Date());
 					product.setModifyDate(new Date());
 					int pid = productService.addProduct(product);
-					return "redirect:editProduct?pid=" + pid;
+					if(submit != null && !submit.equals("save")) {
+						return "redirect:editProduct?pid=" + pid;
+					}
 				}
 
 				

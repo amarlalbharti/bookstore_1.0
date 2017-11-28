@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bookstore.config.ProjectConfig;
@@ -46,7 +47,7 @@ public class AttributeController
 	public String addAttribute(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		map.addAttribute("attributeForm", new AttributeModel());
-		return "addAttribute";
+		return "attributeView";
 	}
 	
 	
@@ -57,19 +58,28 @@ public class AttributeController
 	{
 		if (result.hasErrors()) {
 			System.out.println("in validation addAttribute");
-			return "addAttribute";
+			return "attributeView";
 		} else {
-	       Attribute attribute = new Attribute();
-	       attribute.setAttributeName(model.getAttributeName());
-	       attribute.setActive(model.isActive());
-	       attribute.setCreateDate(new Date());
-	       attribute.setModifyDate(new Date());
-	       attributeService.addAttribute(attribute);
+			if(model.getAttributeId() <= 0) {
+				Attribute attribute = new Attribute();
+				attribute.setAttributeName(model.getAttributeName());
+				attribute.setActive(model.isActive());
+				attribute.setCreateDate(new Date());
+				attribute.setModifyDate(new Date());
+				attributeService.addAttribute(attribute);
+			}else {
+				Attribute attribute = attributeService.getAttributeByAttributeId(model.getAttributeId());
+				attribute.setAttributeName(model.getAttributeName());
+				attribute.setActive(model.isActive());
+				attribute.setCreateDate(new Date());
+				attribute.setModifyDate(new Date());
+				attributeService.updateAttribute(attribute);
+			}
 		}
 		return "redirect:attributes";
 	}
 	
-	@RequestMapping(value = "/editAttribute", method = RequestMethod.GET)
+	@RequestMapping(value = "/attributeView", method = RequestMethod.GET)
 	public String editAttribute(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		String attributeId = request.getParameter("attributeId");
@@ -81,14 +91,21 @@ public class AttributeController
 				model.setAttributeName(attribute.getAttributeName());
 				model.setActive(attribute.isActive());
 				map.addAttribute("attributeForm", model);
-				return "editAttribute";
+				return "attributeView";
 			}
 		}
-		
-		
-		AttributeModel model = new AttributeModel();
-		map.addAttribute("attributeForm", new AttributeModel());
-		return "addAttribute";
+		return "redirect:attributes";
 	}
+	
+	@RequestMapping(value = "/attributeValues", method = RequestMethod.GET)
+	public @ResponseBody String attributeValues(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		String attributeId = request.getParameter("attributeId");
+		if(Validation.isNumeric(attributeId)) {
+			
+		}
+		return "attributeValues";
+	}
+	
 	
 }

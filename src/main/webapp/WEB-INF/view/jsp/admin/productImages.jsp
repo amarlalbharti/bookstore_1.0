@@ -16,11 +16,12 @@
     </thead>
     <tbody>
     <%	Product product = (Product)request.getAttribute("product");
+    	ProductImage editImage = (ProductImage)request.getAttribute("editImage");
     	if(product != null){
 	    	List<ProductImage> productImages = (List)request.getAttribute("productImages");
 	    	if(productImages != null && !productImages.isEmpty()){
 	    		for(ProductImage image : productImages){
-	    			%>
+    				%>
 	    				<tr>
 	    				  <td style="text-align: center;"><img alt="<%= image.getImageAlt() %>" src="<%=ProjectConfig.PUBLIC_PATH %><%= image.getImageURL() %>" width="100px"></td>
 				          <td><%= image.getImageName() %></td>
@@ -54,7 +55,7 @@
   </table>
 	<%
 		if(product != null){
-		
+			if(editImage == null){
 	%>
 			<div class="box box-info box-solid">
 				<div class="box-header with-border">
@@ -70,7 +71,6 @@
 							   <div class="thumbnail">
 									<img id="previewHolder" alt="Uploaded Image Preview Holder" src="http://pjcgroundworks.co.uk/wp-content/uploads/2015/04/no-image-available.png" />
 							   </div>
-		
 								<label class="btn btn-primary btn-flat btn-xs"> 
 									<input name="productid" id="productid" type="hidden" value="<%= product.getPid()%>" >
 									<input name="filePhoto" id="filePhoto" type="file" class="required borrowerImageFile" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75"  /> 
@@ -114,6 +114,61 @@
 		          </div>
 			</div>
 			<%
+			}else{
+				%>
+				<div class="box box-info box-solid" id ="updateImageDiv">
+					<div class="box-header with-border">
+			          <h3 class="box-title">Update Product Picture</h3>
+			        </div>
+					<div class="box-body">
+						<div>
+							<div class="form-group">
+				               <label for="imageName" class="col-sm-3 control-label">Picture</label>
+				               <div class="col-sm-9">
+				                   <div class="thumbnail">
+										<img id="previewHolder" alt="Uploaded Image Preview Holder" src="<%= ProjectConfig.PUBLIC_PATH + editImage.getImageURL()%>" />
+										<input type="hidden" id="imageId" value="<%= editImage.getImageId()%>">
+										<input name="productid" id="productid" type="hidden" value="<%= product.getPid()%>" >
+								   </div>
+								</div>
+				            </div>
+							<div class="form-group">
+				               <label for="imageName" class="col-sm-3 control-label">Picture Title</label>
+				               <div class="col-sm-9">
+				                   <input name="imageName" id = "imageName" class="form-control titleCase" value="<%= editImage.getImageName()%>"  placeholder="Enter image title" tabindex="5" maxlength="100"/>
+				                	<span class="text-danger"></span>
+				               </div>
+				            </div>
+				            <div class="form-group">
+				               <label for="imageAlt" class="col-sm-3 control-label">Picture Alt</label>
+				               <div class="col-sm-9">
+				                   <input name="imageAlt" id = "imageAlt" class="form-control titleCase" value="<%= editImage.getImageAlt()%>" placeholder="Enter image alt" tabindex="5" maxlength="100"/>
+				                	<span class="text-danger"></span>
+				               </div>
+				            </div>
+				            <div class="form-group">
+				               <label for="imageDetail" class="col-sm-3 control-label">Picture Detail</label>
+				               <div class="col-sm-9">
+				                   <textarea name="imageDetail" id = "imageDetail"  class="form-control titleCase" placeholder="Enter image detail" tabindex="5" maxlength="100"><%= editImage.getImageDesc()%></textarea>
+				                	<span class="text-danger"></span>
+				               </div>
+				            </div>
+				            <div class="form-group">
+				               <label for="imageOrder" class="col-sm-3 control-label">Display Order</label>
+				               <div class="col-sm-9">
+				                   <input name="imageOrder" id = "imageOrder"  class="form-control number_only" type="number" min="0"  placeholder="Enter image order" value="<%= editImage.getImageOrder()%>" tabindex="5" maxlength="100"/>
+				                	<span class="text-danger"></span>
+				               </div>
+				            </div>
+						</div>
+					</div>
+					<div class="box-footer">
+			            <button type="button" id="refesh_images" class="btn btn-default"><i class="fa fa-undo" aria-hidden="true"></i> Reset</button>
+			            <button type="button" id = "upload_product_picture" class="btn btn-primary pull-right"><i class="fa fa-upload"></i>&nbsp;&nbsp;Upload</button>
+			        </div>
+				</div>
+				<%
+			}
 		}
 	%>
 </div>

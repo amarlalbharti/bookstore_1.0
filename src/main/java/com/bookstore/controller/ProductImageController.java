@@ -48,6 +48,10 @@ public class ProductImageController
 				List<ProductImage> productImages = productImageService.getProductImageByProductId(Util.getNumeric(pid));
 				map.addAttribute("productImages", productImages);
 				map.addAttribute("product", productService.getProductById(Util.getNumeric(pid)));
+				String imageId = request.getParameter("imageId");
+				if(Validation.isNumeric(imageId)) {
+					map.addAttribute("editImage", productImageService.getProductImageById(Util.getNumeric(imageId)));
+				}
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -63,13 +67,18 @@ public class ProductImageController
 		try{
 			String imageId = request.getParameter("imageId");
 			if(Validation.isNumeric(imageId)){
-				List<Integer> list = new ArrayList();
-				list.add(Util.getNumeric(imageId));
-				if(productImageService.deleteProductImage(list) > 0) {
-					json.put("status", "success");
-					json.put("msg", "Picture deleted successfully !");
-					return json.toJSONString();
+				ProductImage image = productImageService.getProductImageById(Util.getNumeric(imageId));
+				if(image != null) {
+					List<Integer> list = new ArrayList();
+					list.add(Util.getNumeric(imageId));
+					if(productImageService.deleteProductImage(list) > 0) {
+						productImageService.setProductImage(image.getProduct().getPid());
+						json.put("status", "success");
+						json.put("msg", "Picture deleted successfully !");
+						return json.toJSONString();
+					}
 				}
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -85,6 +94,7 @@ public class ProductImageController
     public @ResponseBody String ajaxFileUpload(MultipartHttpServletRequest request, HttpServletRequest req, Principal principal)throws ServletException, IOException
     {   
 		String pid = req.getParameter("pid");
+		String imageId = req.getParameter("imageId");
 		String imageName = req.getParameter("imageName");
 		String imageAlt = req.getParameter("imageAlt");
 		String imageDetail = req.getParameter("imageDetail");
@@ -114,43 +124,55 @@ public class ProductImageController
 			json.put("status", "error");
 			return json.toJSONString();
 		}
-		MultipartFile mpf = null;
-		int flag=0;
-		Iterator<String> itr=request.getFileNames();
-		while (itr.hasNext()){
-			mpf = request.getFile(itr.next());
-			flag++;
-			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-			System.out.println("is file " + isMultipart + " file name " + mpf.getOriginalFilename());
-		}
-		if(flag > 0 && mpf != null && mpf.getOriginalFilename() != null && mpf.getOriginalFilename() != "") {
-			
-			if(!Validation.isImageExtention(mpf.getOriginalFilename())) {
-				json.put("msg", "Image Extension not allowed !");
-				return json.toJSONString();
+		if(imageId == null || !Validation.isNumeric(imageId)) {
+			MultipartFile mpf = null;
+			int flag=0;
+			Iterator<String> itr=request.getFileNames();
+			while (itr.hasNext()){
+				mpf = request.getFile(itr.next());
+				flag++;
+				boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+				System.out.println("is file " + isMultipart + " file name " + mpf.getOriginalFilename());
 			}
-			String filename=UUID.randomUUID().toString();
-			String imagepath = "products/"+filename+"."+FilenameUtils.getExtension(mpf.getOriginalFilename());
-			File dl = new File(ProjectConfig.UPLOAD_PATH+""+imagepath);
-	    	System.out.println("PATH="+dl.getAbsolutePath());
-		    if(!dl.exists()){
-		    	System.out.println("in not file"+dl.getAbsolutePath());
-			    dl.mkdirs();
-		    }
-			mpf.transferTo(dl);
-			ProductImage productImage = new ProductImage();
+			if(flag > 0 && mpf != null && mpf.getOriginalFilename() != null && mpf.getOriginalFilename() != "") {
+				
+				if(!Validation.isImageExtention(mpf.getOriginalFilename())) {
+					json.put("msg", "Image Extension not allowed !");
+					return json.toJSONString();
+				}
+				String filename=UUID.randomUUID().toString();
+				String imagepath = "products/"+filename+"."+FilenameUtils.getExtension(mpf.getOriginalFilename());
+				File dl = new File(ProjectConfig.UPLOAD_PATH+""+imagepath);
+		    	System.out.println("PATH="+dl.getAbsolutePath());
+			    if(!dl.exists()){
+			    	System.out.println("in not file"+dl.getAbsolutePath());
+				    dl.mkdirs();
+			    }
+				mpf.transferTo(dl);
+				ProductImage productImage = new ProductImage();
+				productImage.setImageName(imageName);
+				productImage.setImageAlt(imageAlt);
+				productImage.setImageDesc(imageDetail);
+				productImage.setImageOrder(Util.getNumeric(imageOrder));
+				productImage.setImageURL(imagepath);
+				productImage.setCreateDate(new Date());
+				productImage.setProduct(product);
+				productImageService.addProductImage(productImage);
+				productImageService.setProductImage(product.getPid());
+				json.put("status", "success");
+				
+			}
+		}else {
+			ProductImage productImage = productImageService.getProductImageById(Util.getNumeric(imageId));
 			productImage.setImageName(imageName);
 			productImage.setImageAlt(imageAlt);
 			productImage.setImageDesc(imageDetail);
 			productImage.setImageOrder(Util.getNumeric(imageOrder));
-			productImage.setImageURL(imagepath);
-			productImage.setCreateDate(new Date());
-			productImage.setProduct(product);
-			productImageService.addProductImage(productImage);
+			productImageService.updateProductImage(productImage);
 			productImageService.setProductImage(product.getPid());
 			json.put("status", "success");
-			
 		}
+		
 		return json.toJSONString();
     }
 	

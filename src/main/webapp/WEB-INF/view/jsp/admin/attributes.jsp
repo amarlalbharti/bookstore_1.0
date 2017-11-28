@@ -39,10 +39,10 @@
               <table id="example1"  class="table table-bordered table-striped">
                 <thead>
                 <tr class="bg-primary">
-                  <th style="text-align: center;">#</th>
-                  <th>Category Name</th>
+                  <th style="text-align: center;" width="50px"><input type="checkbox" ></th>
+                  <th>Attribute Name</th>
                   <th style="text-align: center;">Active</th>
-                  <th style="text-align: center;">Display Order</th>
+                  <th style="text-align: center;">Create Date</th>
                   <th style="text-align: center;">Action</th>
                 </tr>
                 </thead>
@@ -54,12 +54,12 @@
                 		for(Attribute attribute : attributeList){
                 			%>
                 				<tr>
-                				  <td style="text-align: center;"><%= ++count%></td>
+                				  <td style="text-align: center;"><input type="checkbox" ></td>
 				                  <td><%= attribute.getAttributeName() %></td>
 				                  <td style="text-align: center;"><span id="active<%= attribute.getAttributeId()%>"><%= attribute.isActive()? "Yes" : "No" %></span></td>
 				                  <td style="text-align: center;"><%= DateUtils.clientDateFormat.format(attribute.getCreateDate())%></td>
 				                  <td style="text-align: center;">
-				                  	<a href="editAttribute?attributeId=<%= attribute.getAttributeId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+				                  	<a href="attributeView?attributeId=<%= attribute.getAttributeId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
 				                  </td>
 				                </tr>
                 			<%
