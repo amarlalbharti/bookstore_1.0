@@ -1,7 +1,7 @@
 <%@page import="org.springframework.util.StringUtils"%>
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="com.bookstore.domain.Category"%>
+<%@page import="com.bookstore.domain.Customer"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -19,9 +19,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
-      <h1 class="pull-left">Category</h1>
+      <h1 class="pull-left">Customers</h1>
       <div class="pull-right">
-      	<a href="addCategory" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="#" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
       </div>
     </section>
 
@@ -32,43 +32,49 @@
       <div class="row">
         <div class="col-md-12">
           <!-- Horizontal Form -->
-          <div class="box box-primary">
+          <div class="box box-info">
             <div class="box-body">
 			<div class="">
               <table id="example1"  class="table table-bordered table-striped">
                 <thead>
-                <tr class="bg-primary">
+                <tr>
                   <th style="text-align: center;">#</th>
-                  <th>Category Name</th>
-                  <th style="text-align: center;">Active</th>
-                  <th style="text-align: center;">Display Order</th>
+                  <th>Email</th>
+                  <th style="text-align: center;">Name</th>
+                  <th style="text-align: center;">Gender</th>
+                  <th style="text-align: center;">Contact No.</th>
+                  <th style="text-align: center;">Address</th>
                   <th style="text-align: center;">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <%
 	                int  count = 0; 
-                	List<Category> categoryList = (List)request.getAttribute("categoryList");
-                	if(categoryList != null && !categoryList.isEmpty()){
-                		for(Category category : categoryList){
-                			String catName = category.getCategoryName();
-                			Category cat = category;
-                			while(cat.getParent() != null){
-                				cat = cat.getParent();
-                				catName = cat.getCategoryName() + " >> "+ catName;
-                			}
+                	List<Customer> customerList = (List)request.getAttribute("customerList");
+                	if(customerList != null && !customerList.isEmpty()){
+                		for(Customer customer : customerList){
+                			
                 			%>
                 				<tr>
                 				  <td style="text-align: center;"><%= ++count%></td>
-				                  <td><%= catName %></td>
-				                  <td style="text-align: center;"><span id="active<%= category.getCid()%>"><%= category.isActive()? "Yes" : "No" %></span></td>
-				                  <td style="text-align: center;"><%= category.getDisplayOrder()%></td>
+				                  <td><%= customer.getEmail() %></td>
+				                  <td style="text-align: center;"><%= customer.getFirstName()+' '+customer.getLastName()%></td>
+				                  <td style="text-align: center;"><%= customer.getGender()%></td>
+				                  <td style="text-align: center;"><%= customer.getContact()%></td>
+				                  <td style="text-align: center;"><%= customer.getContact()%></td>
+				                 
 				                  <td style="text-align: center;">
-				                  	<a href="editCategory?cid=<%= category.getCid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+				                  	<a href="viewCustomer?customerId=<%= customer.getCustomerId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> View</a>
 				                  </td>
 				                </tr>
                 			<%
                 		}
+                	}else{
+                		%>
+	        				<tr>
+	        				  <td colspan="7">No record founds !</td>
+			                </tr>
+	        			<%
                 	}
                 %>
                 

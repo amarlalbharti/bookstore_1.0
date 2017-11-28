@@ -52,4 +52,22 @@
     </definition>
     
     
+<!--     Product Attributes configuration -->
+    <definition name="attributes" extends="adminTemplate">
+        <put-attribute name="title" value="Product Attributes" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/attributes.jsp" />
+        <put-attribute name="currentpage" value="attribute" cascade="true"/>
+    </definition>
+    <definition name="addAttribute" extends="adminTemplate">
+        <put-attribute name="title" value="Add Product Attributes" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/addAttribute.jsp" />
+        <put-attribute name="currentpage" value="attribute" cascade="true"/>
+    </definition>
+    <definition name="editAttribute" extends="adminTemplate">
+        <put-attribute name="title" value="Edit Product Attributes" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/editAttribute.jsp" />
+        <put-attribute name="currentpage" value="attribute" cascade="true"/>
+    </definition>
+    
+    
 </tiles-definitions>
