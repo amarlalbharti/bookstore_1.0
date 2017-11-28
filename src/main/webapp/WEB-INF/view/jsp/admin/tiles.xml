@@ -69,5 +69,17 @@
         <put-attribute name="currentpage" value="attribute" cascade="true"/>
     </definition>
     
+    <!-- saumya 22-nov-2017 -->
+    <definition name="customers" extends="adminTemplate">
+        <put-attribute name="title" value="Customers" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/customers.jsp" />
+        <put-attribute name="currentpage" value="customer" cascade="true"/>
+    </definition>
+    <definition name="customerView" extends="adminTemplate">
+        <put-attribute name="title" value="Customers" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/viewCustomer.jsp" />
+        <put-attribute name="currentpage" value="customer" cascade="true"/>
+    </definition>
+    
     
 </tiles-definitions>

@@ -17,70 +17,75 @@
 </head>
 <body>
 <%
+Customer customer = (Customer)request.getAttribute("customer");
 	%>
 
 	<div class="content-wrapper">
-    
+    <section class="content-header clearfix" >
+      <h1 class="pull-left">Customers</h1>
+      <ol class="breadcrumb">
+        <li><a href="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="customers"><i class="fa fa-dashboard"></i> Customers</a></li>
+        <li class="active">View Customer</li>
+      </ol>
+     </section>
     <!-- Main content -->
     <section class="content">
 		      <!-- Your Page Content Here -->
 		<div class="row">
-			<div class="col-xs-12 col-md-12">
-				<div class="box box-info">
-					<div class="box-body no-padding">
-						<div class="nav-tabs-custom no-margin">
-				            <ul class="nav nav-tabs">
-				              <li class="active"><a href="#tab_1" data-toggle="tab">Customer Profile</a></li>
-				              <li><a href="#tab_2" data-toggle="tab">Customer Basket</a></li>
-				              
-				              </ul>
-				            <div class="tab-content">
-				              <div class="tab-pane active" id="tab_1">
-								<div class="box-body">
-									<div class="form-horizontal">
-						              <div class="box-body">
-                                      <div class="form-group col-md-6 no-padding no-margin">
-				                           <div class="form-group col-md-12 no-margin">
-							                  <label class="col-sm-4 control-label" style="text-align: left;">Name</label>
-							                  <div class="col-sm-8">
-							                    <label class="form-control label-text"></label>
-							                  </div>
-							                </div>
-							                <div class="form-group col-md-12 no-margin">
-							                  <label class="col-sm-4 control-label"  style="text-align: left;">User ID</label>
-							                  <div class="col-sm-8">
-							                    <label class="form-control label-text"></label>
-							                  </div>
-							                </div>
-							                
-						                </div>
-						                
-						                <div class="form-group col-md-6 no-margin">
-						                  <label class="col-sm-4 control-label"  style="text-align: left;">Gender</label>
-						                  <div class="col-sm-8">
-						                    <label class="form-control"></label>
-						                  </div>
-						                </div>
-						                
-						                <div class="form-group col-md-6 no-margin">
-						                  <label class="col-sm-4 control-label"  style="text-align: left;">Contact Number</label>
-						                  <div class="col-sm-8">
-						                    <label class="form-control"></label>
-						                  </div>
-						                </div>
-						                
-						                <div class="form-group col-md-6 no-margin">
-						                  <label class="col-sm-4 control-label"  style="text-align: left;">Registration</label>
-						                  <div class="col-sm-8">
-						                    <label class="form-control"></label>
-						                  </div>
-						                </div>
-									                
-								  						                
-					              </div>
+			<div class="col-md-12">
+				<div class="nav-tabs-custom">
+			            <ul class="nav nav-tabs">
+			              <li class="active"><a href="#tab_1" data-toggle="tab">Customer Info</a></li>
+			              <li><a href="#tab_2" data-toggle="tab">Customer Basket</a></li>
+			            </ul>
+			            <div class="tab-content">
+			              <div class="tab-pane active" id="tab_1">
+							<div class="box-body">
+							  <div class="col-md-12">
+								<div class="box box-default box-solid">
+								<div class="box-header with-border">
+					              <h3 class="box-title">General Information</h3>
 					            </div>
-							</div>
+					              <div class="box-body">
+                                     
+		                           <div class="form-group">
+					                  <label class="col-sm-4 control-label" style="text-align: left;">Name</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control label-text"><%=customer.getFirstName()+' '+customer.getLastName() %></label>
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label class="col-sm-4 control-label"  style="text-align: left;">Email ID</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control label-text"><%=customer.getEmail()%></label>
+					                  </div>
+					                </div>
+					                <div class="form-group ">
+					                  <label class="col-sm-4 control-label"  style="text-align: left;">Gender</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control"><%=customer.getGender()%></label>
+					                  </div>
+					                </div>
+					                
+					                <div class="form-group">
+					                  <label class="col-sm-4 control-label"  style="text-align: left;">Contact Number</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control"><%=customer.getContact()%></label>
+					                  </div>
+					                </div>
+					                
+					                <div class="form-group">
+					                  <label class="col-sm-4 control-label"  style="text-align: left;">DOB</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control"><%=DateUtils.clientDateFormat.format(customer.getDob())%></label>
+					                  </div>
+					                </div>
+				             	 </div>
+				              </div>
+				            </div>
 						</div>
+					</div>
 						
 					   <div class="tab-pane" id="tab_2">
 					    <form action="appUserResetPassword" method="POST" id="changePsw">		
@@ -114,8 +119,7 @@
 						</form>
 					</div>
 				</div></div>
-			</div>
-		   </div>
+			
 		  </div>
 		</div>
     </section>

@@ -47,6 +47,18 @@
             <li class="${currentpage == 'attribute' ? 'active' : ''}"><a href="attributes"><i class="fa fa-circle-o"></i> Attributes</a></li>
           </ul>
         </li>
+        
+        
+        <li class="${currentpage == 'customer' ? 'active' : ''} treeview">
+          <a href="#">
+            <i class="fa fa-user"></i>
+            <span>Customers</span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="customers"><i class="fa fa-circle-o"></i> Customers</a></li>
+          </ul>
+        </li> 
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
