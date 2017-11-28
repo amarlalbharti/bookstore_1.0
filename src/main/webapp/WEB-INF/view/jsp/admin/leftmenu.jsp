@@ -36,7 +36,7 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        <li class="${currentpage == 'category' || currentpage == 'products' ? 'active' : ''} treeview">
+        <li class="${currentpage == 'category' || currentpage == 'products' || currentpage == 'attribute' ? 'active' : ''} treeview">
           <a href="#">
             <i class="fa fa-book"></i>
             <span>CataLog</span>
@@ -44,6 +44,7 @@
           <ul class="treeview-menu">
             <li class="${currentpage == 'category' ? 'active' : ''}"><a href="categories"><i class="fa fa-circle-o"></i> Categories</a></li>
             <li class="${currentpage == 'products' ? 'active' : ''}"><a href="products"><i class="fa fa-circle-o"></i> Products</a></li>
+            <li class="${currentpage == 'attribute' ? 'active' : ''}"><a href="attributes"><i class="fa fa-circle-o"></i> Attributes</a></li>
           </ul>
         </li>
         <li class="treeview">
