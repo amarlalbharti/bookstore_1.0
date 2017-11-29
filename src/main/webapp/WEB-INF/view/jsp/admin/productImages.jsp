@@ -57,7 +57,7 @@
 		if(product != null){
 			if(editImage == null){
 	%>
-			<div class="box box-info box-solid">
+			<div class="box box-primary box-solid">
 				<div class="box-header with-border">
 		          <h3 class="box-title">Add Product Picture</h3>
 		        </div>
@@ -116,7 +116,7 @@
 			<%
 			}else{
 				%>
-				<div class="box box-info box-solid" id ="updateImageDiv">
+				<div class="box box-primary box-solid" id ="updateImageDiv">
 					<div class="box-header with-border">
 			          <h3 class="box-title">Update Product Picture</h3>
 			        </div>

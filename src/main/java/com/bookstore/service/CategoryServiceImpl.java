@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.bookstore.comparator.CategoryComparator;
 import com.bookstore.dao.CategoryDao;
-import com.bookstore.dao.LoginInfoDao;
 import com.bookstore.domain.Category;
 
 @Service

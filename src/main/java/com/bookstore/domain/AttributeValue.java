@@ -34,8 +34,8 @@ public class AttributeValue
 	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="attribute_id", referencedColumnName="attribute_id")
+	@ManyToOne
+	@JoinColumn(name="attribute_id")
 	private Attribute attribute;
 	
 	@ManyToMany(mappedBy="attributeValues", fetch = FetchType.LAZY)

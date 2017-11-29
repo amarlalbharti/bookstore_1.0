@@ -91,6 +91,109 @@
     </section>
     <!-- /.content -->
   </div>
-</body>
 
+<script type="text/javascript">
+$(document).ready(function(){
+	<%
+		if(model != null && model.getAttributeId() > 0){
+			%>
+			getAttributeValues(<%= model.getAttributeId() %>);
+			<%
+		}
+	%>
+	
+	$(document).on("click","#refesh_attribute_value",function() {
+		getAttributeValues(<%= model.getAttributeId() %>);
+	});
+	
+	// added by Amar, get all attribute values inner page for current attribute
+	function getAttributeValues(attributeId){
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/getAttributeValues",
+			data : {"attributeId" : attributeId},
+			success : function(data) {
+					$("#attribute_values").html(data);        
+			}
+			
+		});
+		
+	}
+	// added by Amar, add or update attrbute value
+	$(document).on("click","#save_attribute_value",function() {
+		alert("save_attrivute_value button clicked");
+		var attribute_value_id = $("#attribute_value_id").val();
+		var attribute_value = $("#attribute_value").val();
+		var attributeId = $("#attributeId").val();
+		
+		if(attributeId == "" || attributeId == "0"){
+			alertify.error("Attribute Not Saved !");
+			return;
+		}
+		if(attribute_value == ""){
+			alertify.error("Attribute value is required !");
+			return;
+		}
+		var senddata=new FormData();
+	 	senddata.append("attributeValueId", attribute_value_id);
+	 	senddata.append("attributeValue", attribute_value);
+	 	senddata.append("attributeId", attributeId);
+	 	
+		$.ajax({
+	 		  url: "${pageContext.request.contextPath}/saveAttributeValue",
+	 		  type: "POST",
+	 		  async: "false",
+	 		  data: senddata,
+	 		  processData: false,  // tell jQuery not to process the data
+	 		  contentType: false,   // tell jQuery not to set contentType
+	 		  success:function(response){
+	 			 var json = JSON.parse(response);
+	 			 if(json.status == "success"){
+	 				 alertify.success(json.msg);
+	 			 }else{
+	 				alertify.error(json.msg);
+	 			 }
+	 			getAttributeValues(<%= model.getAttributeId() %>);
+	 		  }
+ 		});
+	});
+	
+	//added by amar, Delete product image
+	$(document).on("click","#delete_attribute_value",function() {
+		var attributeValueId = $(this).attr("attributeValueId");
+		if(confirm("Are you sure to delete this ?")){
+			$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/deleteAttributeValue",
+				data : {"attributeValueId" : attributeValueId},
+				success : function(response) {
+					 var json = JSON.parse(response);
+		 			 if(json.status == "success"){
+		 				 alertify.success(json.msg);
+		 			 }else{
+		 				alertify.error(json.msg);
+		 			 }
+		 			getAttributeValues(<%= model.getAttributeId() %>);
+				}
+			});
+		}
+	});
+	//added by amar, Update product image
+	$(document).on("click","#edit_attribute_value",function() {
+		var attributeValueId = $(this).attr("attributeValueId");
+		var attributeId = $("#attributeId").val();
+		$.ajax({
+			type : "GET",
+			url : "getAttributeValues",
+			data : {"attributeId" : attributeId, "attributeValueId" : attributeValueId},
+			success : function(data) {
+					$("#product_images").html(data);        
+			}
+			
+		});
+	});
+}); 
+
+</script>
+</body>
 </html>
