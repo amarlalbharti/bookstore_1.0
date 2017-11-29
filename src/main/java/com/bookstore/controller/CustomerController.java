@@ -1,6 +1,7 @@
 package com.bookstore.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
+import com.bookstore.domain.Basket;
+import com.bookstore.domain.CustomerAddress;
 import com.bookstore.service.CustomerService;
 
 /**
@@ -39,9 +42,14 @@ public class CustomerController
 	{
 		try{
 			String customerId = request.getParameter("customerId");
+			
 			if(Validation.isNumeric(customerId)){
 				map.addAttribute("viewmode", "view");
 				map.addAttribute("customer", customerService.getCustomerById(Util.getNumeric(customerId)));
+				List<CustomerAddress> custAddress=customerService.getAddressByCustId(Util.getNumeric(customerId)) ;
+				map.addAttribute("custAddress", custAddress);
+				List<Basket> custBasket=customerService.getBasketByCustId(Util.getNumeric(customerId)) ;
+				map.addAttribute("custBasket", custBasket);
 				System.out.println("from viewCustomer");
 				return "customerView";	
 			}
