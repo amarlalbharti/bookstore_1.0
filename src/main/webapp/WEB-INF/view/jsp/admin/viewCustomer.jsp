@@ -1,3 +1,4 @@
+<%@page import="com.bookstore.domain.CustomerAddress"%>
 <%@page import="org.springframework.util.StringUtils"%>
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
@@ -37,7 +38,8 @@ Customer customer = (Customer)request.getAttribute("customer");
 				<div class="nav-tabs-custom">
 			            <ul class="nav nav-tabs">
 			              <li class="active"><a href="#tab_1" data-toggle="tab">Customer Info</a></li>
-			              <li><a href="#tab_2" data-toggle="tab">Customer Basket</a></li>
+			              <li><a href="#tab_2" data-toggle="tab">Customer Address</a></li>
+			              <li><a href="#tab_3" data-toggle="tab">Customer Basket</a></li>
 			            </ul>
 			            <div class="tab-content">
 			              <div class="tab-pane active" id="tab_1">
@@ -46,6 +48,93 @@ Customer customer = (Customer)request.getAttribute("customer");
 								<div class="box box-default box-solid">
 								<div class="box-header with-border">
 					              <h3 class="box-title">General Information</h3>
+					            </div>
+					              <div class="box-body">
+                                     
+		                           <div class="form-group">
+					                  <label class="col-sm-4 control-label" style="text-align: right;">Name</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control label-text"><%=customer.getFirstName()+' '+customer.getLastName() %></label>
+					                  </div>
+					                </div>
+					                <div class="form-group">
+					                  <label class="col-sm-4 control-label"  style="text-align: right;">Email ID</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control label-text"><%=customer.getEmail()%></label>
+					                  </div>
+					                </div>
+					                <div class="form-group ">
+					                  <label class="col-sm-4 control-label"  style="text-align: right;">Gender</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control"><%=customer.getGender()%></label>
+					                  </div>
+					                </div>
+					                
+					                <div class="form-group">
+					                  <label class="col-sm-4 control-label"  style="text-align: right;">Contact Number</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control"><%=customer.getContact()%></label>
+					                  </div>
+					                </div>
+					                
+					                <div class="form-group">
+					                  <label class="col-sm-4 control-label"  style="text-align: right;">DOB</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control"><%=DateUtils.clientDateFormat.format(customer.getDob())%></label>
+					                  </div>
+					                </div>
+				             	 </div>
+				              </div>
+				            </div>
+						</div>
+					</div>
+						
+					   <div class="tab-pane" id="tab_2">
+							<div class="box-body">
+							  <div class="col-md-12">
+								<div class="box box-default box-solid">
+								<%
+					                int  count = 0; 
+					              	List<CustomerAddress> custAddList = (List)request.getAttribute("custAddress");
+					              	if(custAddList != null && !custAddList.isEmpty()){
+				              		for(CustomerAddress customerAddress : custAddList){
+			              		%>
+								<div class="box-header with-border">
+					              <h3 class="box-title">Address <%= ++count%></h3>
+					            </div>
+					              <div class="box-body">
+                                     
+		                           <div class="form-group">
+					                  <label class="col-sm-4 control-label" style="text-align: right;">Name</label>
+					                  <div class="col-sm-8">
+					                    <label class="form-control label-text"><%=customerAddress.getCustomerStreet() +", "+ customerAddress.getCustomerCity() +" "+customerAddress.getCustomerPinCode() %></label>
+					                  </div>
+					                </div>
+					          	 </div>
+				             	 <%
+					                		}
+						              		
+						              	}else{
+					                		%>
+						        				<div class="form-group">
+						        				  No record founds !
+								                </div>
+						        			<%
+					                	}
+					                %>
+				              </div>
+				              
+				              
+				            </div>
+						</div>
+					</div>
+					
+					<div class="tab-pane" id="tab_3">
+							<div class="box-body">
+							  <div class="col-md-12">
+								<div class="box box-default box-solid">
+								<div class="box-header with-border">
+					              <h3 class="box-title">Basket Information</h3>
 					            </div>
 					              <div class="box-body">
                                      
@@ -86,40 +175,8 @@ Customer customer = (Customer)request.getAttribute("customer");
 				            </div>
 						</div>
 					</div>
-						
-					   <div class="tab-pane" id="tab_2">
-					    <form action="appUserResetPassword" method="POST" id="changePsw">		
-							<div class="box-body">
-								<div class="form-horizontal">
-									<div class="box-body">
-										
-										<div class="form-group has-feedback col-md-6">
-											<label class="col-sm-4 control-label" style="text-align: left;">New Password</label>
-											<div class="col-sm-8">
-												<input type="password" class="form-control" placeholder="New Password" name="newPassword"  required="required">
-												<input type="hidden" name="empid" value="">
-				        						<span class="fa fa-lock  form-control-feedback"></span>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-										<div class="form-group has-feedback col-md-6">
-											<label class="col-sm-4 control-label" style="text-align: left;">Confirm Password</label>
-											<div class="col-sm-8">
-												<input type="password" class="form-control" placeholder="Confirm Password" name="confPassword"  required="required">
-	        									<span class="fa fa-lock  form-control-feedback"></span>
-											</div>
-										</div>
-										<div class="clearfix"></div>
-										<div class="form-group has-feedback col-md-6">
-											<button type="submit" class="btn btn-primary btn-flat pull-right" style="margin-right: 15px;">Change Password</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div></div>
-			
+				</div>
+			</div>
 		  </div>
 		</div>
     </section>
