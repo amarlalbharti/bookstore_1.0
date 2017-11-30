@@ -116,9 +116,14 @@ public class ProductController
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
 		String submit = request.getParameter("submit");
-		System.out.println("submit button vvalue : " + submit);
+		if(submit != null && submit.equals("copy")) {
+			System.out.println("Copy product called");
+			model.setPid(0);
+			map.addAttribute("categoryList", categoryService.getAllCategories());
+			return "productView";
+		}
 		if (result.hasErrors()) {
-			System.out.println("in validation");
+			System.out.println("Product Validation failed with error(s) : " + result.getTarget());
 			map.addAttribute("categoryList", categoryService.getAllCategories());
 			return "productView";
 		} else {
@@ -180,5 +185,36 @@ public class ProductController
 		return "redirect:products";
 	}
 	
+	@RequestMapping(value = "/copyProduct", method = RequestMethod.POST)
+	public String copyProduct(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		try{
+			String pid = request.getParameter("pid");
+			if(Validation.isNumeric(pid)){
+				Product product = productService.getProductById(Util.getNumeric(pid));
+				if(product != null) {
+					ProductModel model = new ProductModel();
+					model.setProductName(product.getProductName()+" - Copy");
+					model.setShortDesc(product.getShortDesc());
+					model.setProductSKU(product.getProductSKU());
+					model.setProductPrice(String.valueOf(product.getProductPrice()));
+					model.setProductMRP(String.valueOf(product.getProductMRP()));
+					model.setActive(false);
+					model.setProductTin(product.getProductTin());
+					model.setDisableBuyButton(product.isDisableBuyButton());
+					model.setShowOnHomePage(product.isShowOnHomePage());
+					model.setCustomerReview(product.isCustomerReview());
+					
+					map.addAttribute("productForm", model);
+					map.addAttribute("categoryList", categoryService.getAllCategories());
+					return "productView";	
+				}
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "redirect:products";
+	}
 	
 }

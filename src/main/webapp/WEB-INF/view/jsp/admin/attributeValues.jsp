@@ -52,13 +52,13 @@ if(attribute != null){
 	<%
 		if(editAttributeValue == null){
 	%>
-			<div class="box box-primary box-solid">
+			<div class="box box-primary box-solid form-horizontal">
 				<div class="box-header with-border">
 		          <h3 class="box-title">Add Attribute Value</h3>
 		        </div>
 				<div class="box-body">
 					<div class="form-group">
-		               <label for="imageName" class="col-sm-3 control-label">Attribute Value</label>
+		               <label for="attribute_value" class="col-sm-3 control-label"><%= attribute.getAttributeName() %></label>
 		               <div class="col-sm-9">
 		                   <input name="attribute_value" id = "attribute_value" class="form-control titleCase"  placeholder="Enter attribute value" tabindex="5"/>
 		                	<span class="text-danger"></span>
@@ -72,13 +72,13 @@ if(attribute != null){
 			<%
 			}else{
 				%>
-				<div class="box box-info box-solid" id ="updateImageDiv">
+				<div class="box box-primary box-solid form-horizontal" >
 					<div class="box-header with-border">
 			          <h3 class="box-title">Update Attribute Value</h3>
 			        </div>
 					<div class="box-body">
 						<div class="form-group">
-			               <label for="imageName" class="col-sm-3 control-label">Attribute Value</label>
+			               <label for="attribute_value" class="col-sm-3 control-label"><%= attribute.getAttributeName() %></label>
 			               <div class="col-sm-9">
 			               		<input type="hidden" name="attribute_value_id" id="attribute_value_id" value="<%= editAttributeValue.getAttributeValueId()%>"/>
 			                   <input name="attribute_value" id = "attribute_value" class="form-control titleCase" value="<%=editAttributeValue.getAttributeValue() %>"  placeholder="Enter attribute value" tabindex="5"/>

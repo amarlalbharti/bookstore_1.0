@@ -51,7 +51,14 @@
       <div class="pull-right">
       	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="save"><i class="fa fa-floppy-o"></i> Save</button>
       	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="continue"><i class="fa fa-floppy-o"></i> Save & Continue</button>
-      	<button class="btn btn-flat btn-danger" id="delete_category"><i class="fa fa-fw fa-close"></i> Delete</button>
+      	<%
+      		if(model!= null && model.getPid() > 0){
+      			%>
+      				<button type="submit" class="btn btn-flat btn-primary" name="submit" value="copy"><i class="fa fa-clone"></i> Copy Product</button>
+      			<%
+      		}
+      	%>
+      	<button type="button" class="btn btn-flat btn-danger" id="delete_category"><i class="fa fa-fw fa-close"></i> Delete</button>
       </div>
     </section>
 
@@ -320,21 +327,19 @@ $(document).ready(function(){
 	$(document).on("click","#edit_product_image",function() {
 		var imageid = $(this).attr("imageid");
 		var pid = <%= model.getPid() %>;
-		$.ajax({
-			type : "GET",
-			url : "getProductImages",
-			data : {"pid" : pid, "imageId" : imageid},
-			success : function(data) {
-					$("#product_images").html(data);        
-					$('html, body').animate({
-				        scrollTop: $("#updateImageDiv").offset().top
-				    }, 100);
-			}
-			
-		});
+		
 	});
+	//added by amar, Update product image
+	$(document).on("click","#copy_product",function() {
+		var form = $('<form action="${pageContext.request.contextPath}/copyProduct" method="post">' +
+			'<input type="hidden" name="pid" value="<%= model.getPid() %>" />' +
+			'</form>');
+		$('body').append(form);
+		$(form).submit();
+	});
+	
+	
 }); 
-
 </script>
 <script language=javascript type='text/javascript'>
 	// addded by amar, preview browsed image before upload

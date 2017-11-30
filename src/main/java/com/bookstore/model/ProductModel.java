@@ -1,5 +1,6 @@
 package com.bookstore.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,8 +19,13 @@ import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.bookstore.domain.Category;
 
-public class ProductModel
+public class ProductModel implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6477035127133875606L;
+
 	private int pid;
 	
 	@NotEmpty(message="{NotEmpty.productForm.productName}")

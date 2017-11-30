@@ -121,11 +121,9 @@ $(document).ready(function(){
 	}
 	// added by Amar, add or update attrbute value
 	$(document).on("click","#save_attribute_value",function() {
-		alert("save_attrivute_value button clicked");
 		var attribute_value_id = $("#attribute_value_id").val();
 		var attribute_value = $("#attribute_value").val();
 		var attributeId = $("#attributeId").val();
-		
 		if(attributeId == "" || attributeId == "0"){
 			alertify.error("Attribute Not Saved !");
 			return;
@@ -187,7 +185,7 @@ $(document).ready(function(){
 			url : "getAttributeValues",
 			data : {"attributeId" : attributeId, "attributeValueId" : attributeValueId},
 			success : function(data) {
-					$("#product_images").html(data);        
+				$("#attribute_values").html(data);
 			}
 			
 		});
