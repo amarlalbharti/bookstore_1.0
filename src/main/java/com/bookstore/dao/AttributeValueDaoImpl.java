@@ -3,6 +3,7 @@ package com.bookstore.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -59,6 +60,7 @@ public class AttributeValueDaoImpl implements AttributeValueDao
 		try {
 			return (List)this.sessionFactory.getCurrentSession().createCriteria(AttributeValue.class)
 					.add(Restrictions.eq("attribute.attributeId", attributeId))
+					.addOrder(Order.asc("displayOrder"))
 					.list();
 		}catch (Exception e) {
 			e.printStackTrace();

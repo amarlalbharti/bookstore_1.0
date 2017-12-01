@@ -124,6 +124,7 @@ $(document).ready(function(){
 		var attribute_value_id = $("#attribute_value_id").val();
 		var attribute_value = $("#attribute_value").val();
 		var attributeId = $("#attributeId").val();
+		var display_order = $("#display_order").val();
 		if(attributeId == "" || attributeId == "0"){
 			alertify.error("Attribute Not Saved !");
 			return;
@@ -136,6 +137,7 @@ $(document).ready(function(){
 	 	senddata.append("attributeValueId", attribute_value_id);
 	 	senddata.append("attributeValue", attribute_value);
 	 	senddata.append("attributeId", attributeId);
+	 	senddata.append("displayOrder", display_order);
 	 	
 		$.ajax({
 	 		  url: "${pageContext.request.contextPath}/saveAttributeValue",

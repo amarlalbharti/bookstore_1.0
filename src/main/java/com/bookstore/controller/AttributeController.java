@@ -135,6 +135,7 @@ public class AttributeController
 			
 			String attributeId = request.getParameter("attributeId");
 			String attributeValue = request.getParameter("attributeValue");
+			String displayOrder = request.getParameter("displayOrder");
 			if(Validation.isNumeric(attributeId)) {
 				if(!Validation.isNotNullNotEmpty(attributeValue)) {
 					json.put("status", "error");
@@ -148,6 +149,7 @@ public class AttributeController
 						AttributeValue value = attributeValueService.getAttributeValueById(Util.getNumeric(attributeValueId));
 						if(value != null) {
 							value.setAttributeValue(attributeValue);
+							value.setDisplayOrder(Util.getNumeric(displayOrder));
 							attributeValueService.updateAttributeValue(value);
 							json.put("status", "success");
 							json.put("msg", "Attribute value updated successfully !");
@@ -156,6 +158,7 @@ public class AttributeController
 					}else {
 						AttributeValue value = new AttributeValue();
 						value.setAttributeValue(attributeValue);
+						value.setDisplayOrder(Util.getNumeric(displayOrder));
 						value.setAttribute(attribute);
 						value.setCreateDate(new Date());
 						attributeValueService.addAttributeValue(value);

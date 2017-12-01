@@ -31,6 +31,9 @@ public class AttributeValue
 	@Column(name = "active", nullable=false)
 	private boolean active;
 	
+	@Column(name = "display_order", nullable=false)
+	private int displayOrder;
+	
 	@Column(name = "create_date", nullable=false)
 	private Date createDate;
 	
@@ -69,6 +72,16 @@ public class AttributeValue
 	public void setActive(boolean active)
 	{
 		this.active = active;
+	}
+
+	public int getDisplayOrder()
+	{
+		return displayOrder;
+	}
+
+	public void setDisplayOrder(int displayOrder)
+	{
+		this.displayOrder = displayOrder;
 	}
 
 	public Date getCreateDate()
