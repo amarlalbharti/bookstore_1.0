@@ -21,7 +21,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix">
-      <h1 class="pull-left">Update Category</h1>
+      <h1 class="pull-left">Edit category : <%= edit.getCategoryName()%>
+      <a href="categories"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to categories</small></a>
+      </h1>
       <div class="pull-right">
       	<button class="btn btn-flat btn-danger pull-right " id="delete_category"><i class="fa fa-fw fa-close"></i> Delete</button>
       </div>

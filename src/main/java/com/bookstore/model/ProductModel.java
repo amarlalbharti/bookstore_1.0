@@ -54,6 +54,10 @@ public class ProductModel implements Serializable
 
 	private boolean showOnHomePage;
 	
+	private String createDate;
+	
+	private String modifyDate;
+	
 	private List<Integer> categories = new ArrayList<Integer>();
 	
 	public int getPid()
@@ -164,6 +168,26 @@ public class ProductModel implements Serializable
 	public void setShowOnHomePage(boolean showOnHomePage)
 	{
 		this.showOnHomePage = showOnHomePage;
+	}
+
+	public String getCreateDate()
+	{
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate)
+	{
+		this.createDate = createDate;
+	}
+
+	public String getModifyDate()
+	{
+		return modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate)
+	{
+		this.modifyDate = modifyDate;
 	}
 
 	public List<Integer> getCategories()
