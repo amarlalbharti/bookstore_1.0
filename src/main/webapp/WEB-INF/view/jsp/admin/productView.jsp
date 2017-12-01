@@ -40,6 +40,10 @@
 <body>
 	<%
 		ProductModel model = (ProductModel)request.getAttribute("productForm");
+		String title = "Add new product";
+		if(model != null && model.getPid() > 0){
+			title = "Edit product : "+ model.getProductName();
+		}
 	%>
 	
   <!-- Content Wrapper. Contains page content -->
@@ -47,14 +51,18 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix">
-      <h1 class="pull-left">Product ${model.getPid() > 0 ? model.getProductName : '' } </h1>
+      <h1 class="pull-left"><%=title %> 
+      <a href="products"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to products</small></a>
+      </h1>
       <div class="pull-right">
       	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="save"><i class="fa fa-floppy-o"></i> Save</button>
       	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="continue"><i class="fa fa-floppy-o"></i> Save & Continue</button>
       	<%
       		if(model!= null && model.getPid() > 0){
       			%>
-      				<button type="submit" class="btn btn-flat btn-primary" name="submit" value="copy"><i class="fa fa-clone"></i> Copy Product</button>
+	      			<button type="button" class="btn btn-flat btn-info" data-toggle="modal" data-target="#modal-default">
+		                <i class="fa fa-clone"></i> Copy Product
+		            </button>
       			<%
       		}
       	%>
@@ -154,7 +162,18 @@
 				                    <form:checkbox path="customerReview" class="padding-top" tabindex="10"/>
 				                  </div>
 				                </div>
-				                
+				                <div class="form-group">
+				                	<label for="CreateDate" class="col-sm-3 control-label">Last Modified</label>
+				                  <div class="col-sm-9" >
+				                    <label class="control-label"><%=model.getModifyDate() %></label>
+				                  </div>
+				                </div>
+				                <div class="form-group">
+				                	<label for="CreateDate" class="col-sm-3 control-label">Create Date</label>
+				                  <div class="col-sm-9" >
+				                    <label class="control-label"><%=model.getCreateDate() %></label>
+				                  </div>
+				                </div>
 				            </div>
 				            <!-- /.box-body -->
 				          </div>
@@ -222,11 +241,61 @@
         
       </div>
       <!-- /.row (main row) -->
-
+		
     </section>
     <!-- /.content -->
   </div>
   </form:form>
+  <%
+  	if(model != null && model.getPid() > 0){
+		%>
+			<div class="modal fade" id="modal-default">
+			    <div class="modal-dialog">
+			      <div class="modal-content">
+			        <div class="modal-header bg-primary">
+			          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			            <span aria-hidden="true">&times;</span></button>
+			          <h4 class="modal-title">Copy product</h4>
+			        </div>
+			        <form action="copyProduct"  class="form-horizontal" method="POST">
+				        <div class="modal-body">
+							<div class="form-group">
+			                  <label for="productName" class="col-sm-3 control-label">Product Name</label>
+			                  <div class="col-sm-9">
+			                      <input name="pid" value="<%=model.getPid() %>" type="hidden">
+			                      <input name="productName" class="form-control " placeholder="Enter product name" value="<%=model.getProductName() %> - copy" tabindex="5" />
+				                  <span class="text-danger " id="productNameError"></span>
+			                  </div>
+			                </div>
+							<div class="form-group">
+								<label for="active" class="col-sm-3 control-label">Publish</label>
+								<div class="col-sm-9" style="padding-top: 7px;">
+									<input type="checkbox" name="active" class="padding-top" tabindex="10" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="active" class="col-sm-3 control-label">Copy Pictures</label>
+								<div class="col-sm-9" style="padding-top: 7px;">
+									<input type="checkbox" name="copyPictures" class="padding-top" tabindex="15" />
+								</div>
+							</div>
+						</div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+				          <button type="submit" name="submitbtn" value="save" class="btn btn-flat btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+				          <button type="submit" name="submitbtn" value="continue" class="btn btn-flat btn-primary"><i class="fa fa-floppy-o"></i> Save & Continue</button>
+				        </div>
+			        </form>
+			      </div>
+			      <!-- /.modal-content -->
+			    </div>
+			    <!-- /.modal-dialog -->
+			  </div>
+		<%
+	}
+  %>
+  
+  
 <script type="text/javascript">
 $(document).ready(function(){
 	<%
@@ -327,18 +396,19 @@ $(document).ready(function(){
 	$(document).on("click","#edit_product_image",function() {
 		var imageid = $(this).attr("imageid");
 		var pid = <%= model.getPid() %>;
-		
+		$.ajax({
+			type : "GET",
+			url : "getProductImages",
+			data : {"pid" : pid, "imageId" : imageid},
+			success : function(data) {
+					$("#product_images").html(data);        
+					$('html, body').animate({
+				        scrollTop: $("#updateImageDiv").offset().top
+				    }, 100);
+			}
+			
+		});
 	});
-	//added by amar, Update product image
-	$(document).on("click","#copy_product",function() {
-		var form = $('<form action="${pageContext.request.contextPath}/copyProduct" method="post">' +
-			'<input type="hidden" name="pid" value="<%= model.getPid() %>" />' +
-			'</form>');
-		$('body').append(form);
-		$(form).submit();
-	});
-	
-	
 }); 
 </script>
 <script language=javascript type='text/javascript'>
@@ -365,7 +435,7 @@ $(document).ready(function(){
     	    return false;
     	  }
     	});
-</script>   
+</script>
 
 </body>
 </html>

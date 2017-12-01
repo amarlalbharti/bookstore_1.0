@@ -20,7 +20,7 @@
     <section class="content-header">
       <h1>
         Category
-        <small>Add Category</small>
+        <a href="categories"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to categories</small></a>
       </h1>
       <ol class="breadcrumb">
         <li><a href="dashboad"><i class="fa fa-dashboard"></i> Home</a></li>

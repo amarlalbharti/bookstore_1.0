@@ -23,6 +23,7 @@
     <section class="content-header">
       <h1>
         Attribute
+        <a href="attributes"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to categories</small></a>
       </h1>
       <ol class="breadcrumb">
         <li><a href="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>

@@ -25,14 +25,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.bookstore.config.DateUtils;
 import com.bookstore.config.ProjectConfig;
 import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Category;
 import com.bookstore.domain.Product;
+import com.bookstore.domain.ProductImage;
 import com.bookstore.model.CategoryModel;
 import com.bookstore.model.ProductModel;
 import com.bookstore.service.CategoryService;
+import com.bookstore.service.ProductImageService;
 import com.bookstore.service.ProductService;
 
 @Controller
@@ -40,6 +43,7 @@ public class ProductController
 {
 	@Autowired private CategoryService categoryService; 
 	@Autowired private ProductService productService; 
+	@Autowired private ProductImageService productImageService; 
 	
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public String categories(ModelMap map, HttpServletRequest request, Principal principal)
@@ -80,6 +84,8 @@ public class ProductController
 					model.setDisableBuyButton(product.isDisableBuyButton());
 					model.setShowOnHomePage(product.isShowOnHomePage());
 					model.setCustomerReview(product.isCustomerReview());
+					model.setCreateDate(DateUtils.clientFullformat.format(product.getCreateDate()));
+					model.setModifyDate(DateUtils.clientFullformat.format(product.getModifyDate()));
 					if(product.getCategories() != null && !product.getCategories().isEmpty()) {
 						Iterator<Category> it = product.getCategories().iterator();
 						while(it.hasNext()) {
@@ -116,12 +122,6 @@ public class ProductController
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
 		String submit = request.getParameter("submit");
-		if(submit != null && submit.equals("copy")) {
-			System.out.println("Copy product called");
-			model.setPid(0);
-			map.addAttribute("categoryList", categoryService.getAllCategories());
-			return "productView";
-		}
 		if (result.hasErrors()) {
 			System.out.println("Product Validation failed with error(s) : " + result.getTarget());
 			map.addAttribute("categoryList", categoryService.getAllCategories());
@@ -190,26 +190,33 @@ public class ProductController
 	{
 		try{
 			String pid = request.getParameter("pid");
+			String submitbtn = request.getParameter("submitbtn");
 			if(Validation.isNumeric(pid)){
 				Product product = productService.getProductById(Util.getNumeric(pid));
 				if(product != null) {
-					ProductModel model = new ProductModel();
-					model.setProductName(product.getProductName()+" - Copy");
-					model.setShortDesc(product.getShortDesc());
-					model.setProductSKU(product.getProductSKU());
-					model.setProductPrice(String.valueOf(product.getProductPrice()));
-					model.setProductMRP(String.valueOf(product.getProductMRP()));
-					model.setActive(false);
-					model.setProductTin(product.getProductTin());
-					model.setDisableBuyButton(product.isDisableBuyButton());
-					model.setShowOnHomePage(product.isShowOnHomePage());
-					model.setCustomerReview(product.isCustomerReview());
-					
-					map.addAttribute("productForm", model);
-					map.addAttribute("categoryList", categoryService.getAllCategories());
-					return "productView";	
+					String productName = request.getParameter("productName");
+					boolean active = request.getParameter("active") != null ? true : false;
+					boolean copyPictures = request.getParameter("copyPictures") != null ? true : false;
+					product.setProductName(productName);
+					product.setActive(active);
+					product.setProductUrl(null);
+					int productid = productService.addProduct(product);
+					product.setPid(productid);
+					if(copyPictures) {
+						List<ProductImage> images = productImageService.getProductImageByProductId(Util.getNumeric(pid));
+						for(ProductImage image : images) {
+							image.setProduct(product);
+							productImageService.addProductImage(image);
+						}
+						
+					}
+					productImageService.setProductImage(productid);
+					if(submitbtn != null && submitbtn.equals("continue")) {
+						return "redirect:editProduct?pid=" + productid;
+					}else {
+						return "redirect:products";
+					}
 				}
-				
 			}
 		}catch(Exception e){
 			e.printStackTrace();
