@@ -51,7 +51,7 @@ public class ProductController
 		System.out.println("from products");
 		
 		int pn = request.getParameter("pn") != null? Integer.parseInt(request.getParameter("pn")) : 1;
-		int rpp = request.getParameter("rpp") != null? Integer.parseInt(request.getParameter("rpp")) : Util.rpp;
+		int rpp = request.getParameter("rpp") != null? Integer.parseInt(request.getParameter("rpp")) : Util.RPP;
 		String cid = request.getParameter("cid");
 		if(Validation.isNumeric(cid)){
 			map.addAttribute("listcount", productService.countProductsByCategoryIds(new ArrayList<Integer>(Util.getNumeric(cid))));

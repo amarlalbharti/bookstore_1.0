@@ -20,7 +20,7 @@
 	   		for(Product product : products){
 	  				%>
 	   				<tr>
-	   				  <td style="text-align: center;"><img alt="<%= product.getProductName() %>" src="<%=ProjectConfig.PUBLIC_PATH %><%= product.getProductUrl() %>" width="100px"></td>
+	   				  <td style="text-align: center;"><img alt="<%= product.getProductName() %>" src="<%=ProjectConfig.PUBLIC_PATH %><%= product.getProductUrl() %>" width="75px"></td>
 			          <td><%= product.getProductName() %></td>
 			          <td><%= product.getProductPrice()%></td>
 			          <td><%= product.getProductSKU()%></td>

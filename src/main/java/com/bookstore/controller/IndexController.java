@@ -55,6 +55,14 @@ public class IndexController
 		return "redirect:login";
 	}
 	
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		System.out.println("test : " );
+		System.out.println("from test page of index controller");
+		return "test";
+	}
+	
 	
 	
 	/**

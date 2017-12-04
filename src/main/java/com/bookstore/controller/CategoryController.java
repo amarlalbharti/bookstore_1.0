@@ -203,16 +203,18 @@ public class CategoryController
 		HttpSession session = request.getSession();
 		try{
 			String cid = request.getParameter("cid");
+			String pn = request.getParameter("pn");
+			int pageno = Validation.isNumeric(pn) ? Util.getNumeric(cid):1;
 			if(Validation.isNumeric(cid)){
 				List<Integer> cids = new ArrayList();
 				cids.add(Util.getNumeric(cid));
-				List<Product> products = productService.getProductsByCategoryIds(cids, 0, 100);
+				List<Product> products = productService.getProductsByCategoryIds(cids, (pageno-1)*Util.RPP, Util.RPP);
 				map.addAttribute("productList", products);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return "getCategoryProducts";
+		return "categoryProducts";
 	}
 	
 	
