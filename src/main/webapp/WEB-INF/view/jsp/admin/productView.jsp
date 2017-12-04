@@ -42,7 +42,7 @@
 		ProductModel model = (ProductModel)request.getAttribute("productForm");
 		String title = "Add new product";
 		if(model != null && model.getPid() > 0){
-			title = "Edit product : "+ model.getProductName();
+			title = "Edit product - "+ model.getProductName();
 		}
 	%>
 	

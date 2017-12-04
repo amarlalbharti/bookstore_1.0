@@ -34,6 +34,12 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/editCategory.jsp" />
         <put-attribute name="currentpage" value="category" cascade="true"/>
     </definition>
+    <definition name="getCategoryProducts" extends="indexTemplate">
+    	<put-attribute name="title" value="getCategoryProducts" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/getCategoryProducts.jsp" />
+    </definition>
+    
+    
     <definition name="products" extends="adminTemplate">
         <put-attribute name="title" value="Products" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/products.jsp" />

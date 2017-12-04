@@ -3,7 +3,9 @@ package com.bookstore.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,8 +27,10 @@ import com.bookstore.config.ProjectConfig;
 import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Category;
+import com.bookstore.domain.Product;
 import com.bookstore.model.CategoryModel;
 import com.bookstore.service.CategoryService;
+import com.bookstore.service.ProductService;
 
 /**
  * @author A. L. Bharti
@@ -36,6 +40,7 @@ import com.bookstore.service.CategoryService;
 public class CategoryController
 {
 	@Autowired private CategoryService categoryService; 
+	@Autowired private ProductService productService; 
 	
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public String categories(ModelMap map, HttpServletRequest request, Principal principal)
@@ -67,6 +72,11 @@ public class CategoryController
 		} else
 		{
 	       Category category = new Category();
+	       if(model.getParent() != null && model.getParent().getCid() > 0){
+			   category.setParent(model.getParent());
+		   }else{
+			   category.setParent(null);
+		   }
 	       category.setCategoryName(model.getCategoryName());
 	       category.setCategoryDetail(model.getCategoryDetail());
 	       category.setDisplayOrder(model.getDisplayOrder());
@@ -82,7 +92,7 @@ public class CategoryController
 					if (imageName != null && !imageName.equals(""))
 					{
 						imageName = imageName.replace(" ", "-");
-						String imgUrl = "upload/category/" + cid + "/" + imageName;
+						String imgUrl = ProjectConfig.UPLOAD_PATH+"category/" + cid + "/" + imageName;
 						category.setCategoryImage(imageName);
 						category.setCid(cid);
 						File img = new File(ProjectConfig.UPLOAD_PATH + imgUrl);
@@ -123,7 +133,7 @@ public class CategoryController
 					model.setParent(category.getParent());
 					map.addAttribute("categoryForm", model);
 					map.addAttribute("categoryList", categoryService.getAllCategories());
-					System.out.println("from editCategory");
+					System.out.println("Edit category cid : "+ category.getCid()+", category : "+category.getCategoryName());
 					return "editCategory";
 				}
 			}
@@ -184,6 +194,25 @@ public class CategoryController
 		}
 		session.setAttribute("msgType", "error");
 		return "redirect:categories";
+	}
+	
+	
+	@RequestMapping(value = "/getCategoryProducts", method = RequestMethod.GET)
+	public String getCategoryProducts(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		HttpSession session = request.getSession();
+		try{
+			String cid = request.getParameter("cid");
+			if(Validation.isNumeric(cid)){
+				List<Integer> cids = new ArrayList();
+				cids.add(Util.getNumeric(cid));
+				List<Product> products = productService.getProductsByCategoryIds(cids, 0, 100);
+				map.addAttribute("productList", products);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "getCategoryProducts";
 	}
 	
 	
