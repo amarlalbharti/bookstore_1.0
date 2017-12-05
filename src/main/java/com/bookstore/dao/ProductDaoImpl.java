@@ -111,6 +111,8 @@ public class ProductDaoImpl implements ProductDao
 		try {
 			return this.sessionFactory.getCurrentSession().createCriteria(Product.class)
 					.add(Restrictions.isNull("deleteDate"))
+					.createAlias("categories", "catAlias")
+					.add(Restrictions.in("catAlias.cid", categoryIds))
 					.setFirstResult(first)
 					.setMaxResults(max)
 					.addOrder(Order.asc("productName"))
