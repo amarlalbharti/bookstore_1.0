@@ -1,3 +1,4 @@
+<%@page import="com.bookstore.config.ProjectConfig"%>
 <%@page import="com.bookstore.model.CategoryModel"%>
 <%@page import="com.bookstore.domain.Category"%>
 <%@page import="java.util.List"%>
@@ -11,6 +12,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style>
+.thumbnail {
+  position: relative;
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  background-color: black;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+</style>
 </head>
 <body>
 	
@@ -46,7 +70,7 @@ if(edit != null){
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
 	              	<div class="box-body">
-            			<form:form class="form-horizontal" role="form" method="POST" action="editCategory" commandName="categoryForm" autocomplete="off" id="form">
+            			<form:form class="form-horizontal" role="form" method="POST" action="editCategory" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
 			              <div class="box-body">
 			              	<div class="form-group">
 			                  <label for="categoryName" class="col-sm-3 control-label">Parent Category</label>
@@ -97,6 +121,34 @@ if(edit != null){
 			                  </div>
 			                </div>
 			                <div class="form-group">
+			                  <label for="categoryImage" class="col-sm-3 control-label">Picture</label>
+			                  <div class="col-sm-9">
+			                  	<%
+			                  		if(edit.getCategoryImageUrl() != null && !edit.getCategoryImageUrl().isEmpty() ){
+			                  			%>
+			                  			   <div class="thumbnail">
+												<img id="previewHolder" alt="Uploaded Image Preview Holder" src="<%= ProjectConfig.PUBLIC_PATH+edit.getCategoryImageUrl() %>" />
+										   </div>
+			                  			<%
+			                  		}else{
+			                  			%>
+			                  			   <div class="thumbnail">
+												<img id="previewHolder" alt="Uploaded Image Preview Holder" src="http://pjcgroundworks.co.uk/wp-content/uploads/2015/04/no-image-available.png" />
+										   </div>
+			                  			<%
+			                  		}
+			                  	%>
+			                  	
+			                    <label class="btn btn-primary btn-flat btn-xs">
+									<input name="categoryImage" id="categoryImage" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="categoryImage();" />
+									<i class="fa fa-fw fa-cloud-upload"></i>
+									Browse
+								</label>
+								<form:hidden path="categoryImageUrl"/>
+								<span class="text-danger"><form:label path="" id="userImgErr" class="image_error" /></span>
+			                  </div>
+			                </div>
+			                <div class="form-group">
 			                  <label for="categoryDetail" class="col-sm-3 control-label">Display Order</label>
 			                  <div class="col-sm-9">
 			                      <form:input path="displayOrder" class="form-control"  placeholder="Enter display order." type="number" tabindex="15" maxlength="100"/>
@@ -120,8 +172,8 @@ if(edit != null){
             		</div>
            		  </div>
            		  <div class="tab-pane" id="tab_2">
-	              	<div class="box-body" id="category_products">
-	              		Save Category first !
+	              	<div class="box-body">
+	              		<div id="category_products" style="min-height: 300px"></div>
 	              	</div>
 	              </div>
            		</div>
@@ -139,14 +191,14 @@ if(edit != null){
   <script type="text/javascript">
 $(document).ready(function(){
 	$(document).on("click","#refesh_category_product",function() {
-		getCategoryProducts(<%=edit.getCid()%>);
+		getCategoryProducts(<%=edit.getCid()%>,1);
 	});
 	// added by Amar, get all images inner page for current product
-	function getCategoryProducts(pid){
+	function getCategoryProducts(pid,pn){
 		$.ajax({
 			type : "GET",
 			url : "getCategoryProducts",
-			data : {"cid" : <%=edit.getCid()%>},
+			data : {"cid" : <%=edit.getCid()%>,'pn':pn},
 			success : function(data) {
 					$("#category_products").html(data);        
 			}
@@ -154,6 +206,18 @@ $(document).ready(function(){
 		});
 		
 	}
+	
+	$(document).on("click",".pagination .previous_category_product",function() {
+		var pn = $(this).attr("pn");
+		getCategoryProducts(<%=edit.getCid()%>, pn);
+	});
+	$(document).on("click",".pagination .next_category_product",function() {
+		var pn = $(this).attr("pn");
+		getCategoryProducts(<%=edit.getCid()%>, pn);
+	});
+	
+	
+	
 });	
 $(document).ready(function(){
 	$(document).on("click","#delete_category",function() {
@@ -168,5 +232,31 @@ $(document).ready(function(){
 <%
 }
 %>
+<script language=javascript type='text/javascript'>
+	// addded by amar, preview browsed image before upload
+    $(document).ready(function(){
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewHolder').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    	$(document).on("change","#categoryImage",function() {
+            readURL(this);
+        });
+    });
+	
+    $('#form').on('keyup keypress', function(e) {
+    	  var keyCode = e.keyCode || e.which;
+    	  if (keyCode === 13) { 
+    	    e.preventDefault();
+    	    return false;
+    	  }
+    	});
+</script>
+
 </body>
 </html>

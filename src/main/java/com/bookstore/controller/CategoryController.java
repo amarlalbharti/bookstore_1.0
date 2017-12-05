@@ -128,6 +128,7 @@ public class CategoryController
 					model.setCid(category.getCid());
 					model.setCategoryName(category.getCategoryName());
 					model.setCategoryDetail(category.getCategoryDetail());
+					model.setCategoryImageUrl(category.getCategoryImage());
 					model.setDisplayOrder(category.getDisplayOrder());
 					model.setActive(category.isActive());
 					model.setParent(category.getParent());
@@ -164,6 +165,26 @@ public class CategoryController
 		       category.setDisplayOrder(model.getDisplayOrder());
 		       category.setActive(model.isActive());
 		       category.setModifyDate(new Date());
+		       
+		       MultipartFile image = model.getCategoryImage();
+		       if(image != null) {
+		    	   String imageName = image.getOriginalFilename();
+					try {
+						if (imageName != null && !imageName.equals("")) {
+							imageName = imageName.replace(" ", "-");
+							String imgUrl = "category/" + category.getCid() + "/" + imageName;
+							category.setCategoryImage(imgUrl);
+							File img = new File(ProjectConfig.UPLOAD_PATH+imgUrl);
+							if (!img.exists())
+							{
+								img.mkdirs();
+							}
+							image.transferTo(img);
+						}
+					} catch (IOException ie) {
+						ie.printStackTrace();
+					}
+		       }
 		       categoryService.updateCategory(category);
 		   }
 		}
@@ -204,12 +225,16 @@ public class CategoryController
 		try{
 			String cid = request.getParameter("cid");
 			String pn = request.getParameter("pn");
-			int pageno = Validation.isNumeric(pn) ? Util.getNumeric(cid):1;
+			int pageno = Validation.isNumeric(pn) ? Util.getNumeric(pn):1;
 			if(Validation.isNumeric(cid)){
 				List<Integer> cids = new ArrayList();
 				cids.add(Util.getNumeric(cid));
 				List<Product> products = productService.getProductsByCategoryIds(cids, (pageno-1)*Util.RPP, Util.RPP);
+				map.addAttribute("countProducts", productService.countProductsByCategoryIds(cids));
 				map.addAttribute("productList", products);
+				map.addAttribute("rpp", Util.RPP);
+				map.addAttribute("pn", pageno);
+				
 			}
 		}catch(Exception e){
 			e.printStackTrace();

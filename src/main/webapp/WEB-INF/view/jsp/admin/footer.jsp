@@ -9,9 +9,9 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('body').show();
-	});
+$(document).ready(function(){
+	$('.bodyCoverWait').hide();
+});
 </script> 
 
 <!-- Slimscroll -->

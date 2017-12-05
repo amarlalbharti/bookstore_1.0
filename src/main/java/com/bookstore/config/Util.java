@@ -9,7 +9,7 @@ import org.springframework.util.StringUtils;
 
 public class Util 
 {
-	public static int RPP = 10;
+	public static int RPP = 2;
 	
 	public static Integer getNumeric(String value){
 		if(Validation.isNumeric(value)){

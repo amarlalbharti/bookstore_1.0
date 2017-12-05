@@ -17,6 +17,8 @@ public class CategoryModel
 	@NotEmpty(message="{NotEmpty.categoryForm.categoryDetail}")
 	private String categoryDetail;
 	
+	private String categoryImageUrl;
+	
 	private boolean active;
 	
 	private int displayOrder;
@@ -53,6 +55,16 @@ public class CategoryModel
 	public void setCategoryDetail(String categoryDetail)
 	{
 		this.categoryDetail = categoryDetail;
+	}
+
+	public String getCategoryImageUrl()
+	{
+		return categoryImageUrl;
+	}
+
+	public void setCategoryImageUrl(String categoryImageUrl)
+	{
+		this.categoryImageUrl = categoryImageUrl;
 	}
 
 	public boolean isActive()

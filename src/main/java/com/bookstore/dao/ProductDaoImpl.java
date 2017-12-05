@@ -161,6 +161,8 @@ public class ProductDaoImpl implements ProductDao
 			
 			return (Long)this.sessionFactory.getCurrentSession().createCriteria(Product.class)
 					.add(Restrictions.isNull("deleteDate"))
+					.createAlias("categories", "catAlias")
+					.add(Restrictions.in("catAlias.cid", categoryIds))
 					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 					.setProjection(Projections.rowCount())
 					.uniqueResult();

@@ -46,7 +46,11 @@ input[type="file"] {
 }
 </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini" style="display: none;">
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="bodyCoverWait" style="text-align: center; ">
+	<img style="position: relative;top: 250px;" alt="Please wait..." src="images/loading_spinner.gif">
+</div>
+
 <div class="wrapper">
 
   <header class="main-header">
