@@ -10,6 +10,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<style>
+.thumbnail {
+  position: relative;
+  width: 80px;
+  height: 60px;
+  overflow: hidden;
+  background-color: black;
+}
+.thumbnail img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+</style>
 </head>
 <body>
 	
@@ -92,6 +115,9 @@
 			                <div class="form-group">
 			                  <label for="categoryImage" class="col-sm-3 control-label">Picture</label>
 			                  <div class="col-sm-9">
+			                    <div class="thumbnail">
+									<img id="previewHolder" alt="Uploaded Image Preview Holder" src="images/no-preview-available.png" />
+							    </div>
 			                    <label class="btn btn-primary btn-flat btn-xs">
 									<input name="categoryImage" id="categoryImage" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="categoryImage();" />
 									<i class="fa fa-fw fa-cloud-upload"></i>
@@ -141,6 +167,33 @@
     </section>
     <!-- /.content -->
   </div>
+  
+<script language=javascript type='text/javascript'>
+	// addded by amar, preview browsed image before upload
+    $(document).ready(function(){
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewHolder').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    	$(document).on("change","#categoryImage",function() {
+            readURL(this);
+        });
+    });
+	
+    $('#form').on('keyup keypress', function(e) {
+    	  var keyCode = e.keyCode || e.which;
+    	  if (keyCode === 13) { 
+    	    e.preventDefault();
+    	    return false;
+    	  }
+    	});
+</script>
+  
 </body>
 
 </html>

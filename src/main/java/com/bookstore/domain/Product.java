@@ -78,14 +78,11 @@ public class Product
 	private Set<Category> categories = new HashSet();
 
 	
-	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    @JoinTable(name="product_attribute_value", 
-                joinColumns={@JoinColumn(name="pid")}, 
-                inverseJoinColumns={@JoinColumn(name="attribute_value_id")})
-	private Set<AttributeValue> attributeValues = new HashSet();
-
 	@OneToMany(mappedBy="product", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<ProductImage> productImages = new HashSet();
+	
+	@OneToMany(mappedBy="product", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	private Set<ProductAttribute> productAttributes = new HashSet();
 	
 	
 	public int getPid()
@@ -208,16 +205,6 @@ public class Product
 		this.categories = categories;
 	}
 
-	public Set<AttributeValue> getAttributeValues()
-	{
-		return attributeValues;
-	}
-
-	public void setAttributeValues(Set<AttributeValue> attributeValues)
-	{
-		this.attributeValues = attributeValues;
-	}
-
 	public Double getProductMRP()
 	{
 		return productMRP;
@@ -277,10 +264,15 @@ public class Product
 	{
 		this.productImages = productImages;
 	}
-	
-	
-	
-	
-	
+
+	public Set<ProductAttribute> getProductAttributes()
+	{
+		return productAttributes;
+	}
+
+	public void setProductAttributes(Set<ProductAttribute> productAttributes)
+	{
+		this.productAttributes = productAttributes;
+	}
 	
 }

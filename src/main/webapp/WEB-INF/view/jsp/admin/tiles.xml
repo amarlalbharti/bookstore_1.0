@@ -73,6 +73,10 @@
     	<put-attribute name="title" value="Attribute values" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/attributeValues.jsp" />
     </definition>
+    <definition name="productAttributes" extends="indexTemplate">
+    	<put-attribute name="title" value="Product Attributes" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productAttributes.jsp" />
+    </definition>
     
     
     <!-- saumya 22-nov-2017 -->

@@ -82,7 +82,7 @@
 	            <ul class="nav nav-tabs">
 	              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Product</a></li>
 	              	<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pictures</a></li>
-	              	<li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Categories</a></li>
+	              	<li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Attributes</a></li>
 			    </ul>
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
@@ -229,7 +229,7 @@
 	              </div>
 	              <!-- /.tab-pane -->
 	              <div class="tab-pane" id="tab_3">
-	                
+                	<div id = "product_attributes">Save product to map product attributes.</div>
 	              </div>
 	              <!-- /.tab-pane -->
 							
@@ -302,6 +302,7 @@ $(document).ready(function(){
 		if(model != null && model.getPid() > 0){
 			%>
 			getProductImages(<%= model.getPid() %>);
+			getProductAttributes(<%= model.getPid() %>);
 			<%
 		}
 	%>
@@ -317,12 +318,27 @@ $(document).ready(function(){
 			url : "getProductImages",
 			data : {"pid" : pid},
 			success : function(data) {
-					$("#product_images").html(data);        
+				$("#product_images").html(data);  
 			}
 			
 		});
 		
 	}
+	
+	// added by Amar, get all images inner page for current product
+	function getProductAttributes(pid){
+		$.ajax({
+			type : "GET",
+			url : "getProductAttributes",
+			data : {"pid" : pid},
+			success : function(data) {
+				$("#product_attributes").html(data);     
+			}
+			
+		});
+		
+	}
+	
 	// added by Amar, Upload product image
 	$(document).on("click","#upload_product_picture",function() {
 		var image;

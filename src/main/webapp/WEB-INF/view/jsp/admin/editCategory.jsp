@@ -16,7 +16,7 @@
 .thumbnail {
   position: relative;
   width: 80px;
-  height: 80px;
+  height: 60px;
   overflow: hidden;
   background-color: black;
 }
