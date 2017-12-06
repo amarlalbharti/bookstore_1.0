@@ -38,11 +38,11 @@
               <table id="example1"  class="table table-bordered table-striped">
                 <thead>
                 <tr class="bg-primary">
-                  <th style="text-align: center;">#</th>
-                  <th>Category Name</th>
-                  <th style="text-align: center;">Active</th>
-                  <th style="text-align: center;">Display Order</th>
-                  <th style="text-align: center;">Action</th>
+                  <th width="5%" style="text-align: center;">#</th>
+                  <th width="55%">Category Name</th>
+                  <th width="10%" style="text-align: center;">Active</th>
+                  <th width="10%"style="text-align: center;">Display Order</th>
+                  <th width="20%"style="text-align: center;">Action</th>
                 </tr>
                 </thead>
                 <tbody>

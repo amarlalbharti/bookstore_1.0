@@ -16,7 +16,7 @@
 .thumbnail {
   position: relative;
   width: 80px;
-  height: 60px;
+  height: 80px;
   overflow: hidden;
   background-color: black;
 }
@@ -133,7 +133,7 @@ if(edit != null){
 			                  		}else{
 			                  			%>
 			                  			   <div class="thumbnail">
-												<img id="previewHolder" alt="Uploaded Image Preview Holder" src="http://pjcgroundworks.co.uk/wp-content/uploads/2015/04/no-image-available.png" />
+												<img id="previewHolder" alt="Uploaded Image Preview Holder" src="images/no-preview-available.png" />
 										   </div>
 			                  			<%
 			                  		}
