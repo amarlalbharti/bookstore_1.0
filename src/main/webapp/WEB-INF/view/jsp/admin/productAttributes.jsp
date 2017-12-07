@@ -66,21 +66,21 @@
 				<div class="box-body">
 					<div>
 						<div class="form-group">
-			               <label for="imageName" class="col-sm-3 control-label">Picture Title</label>
+			               <label for="attribute_type" class="col-sm-3 control-label">Attribute Type</label>
 			               <div class="col-sm-9">
-			                    <select class="form-control select2" id="attribute_type">
+			                    <select class="form-control col-md-12 select2" name="attribute_type" id="attribute_type">
 			                    	<option value="OPTIONS">Options</option>
 			                    	<option value="CUSTOM_TEXT">Custom Text</option>
 			                    	<option value="CUSTOM_HTML_TEXT">Custom HTML Text</option>
 			                    	<option value="HYPERLINK">Hyperlink</option>
 			                    </select>
-			                	<span class="text-danger"></span>
+			                	<span class="text-danger" id="attribute_type_error"></span>
 			               </div>
 			            </div>
 			            <div class="form-group" >
-			               <label for="imageAlt" class="col-sm-3 control-label">Attribute</label>
+			               <label for="attribute" class="col-sm-3 control-label">Attribute</label>
 			               <div class="col-sm-9">
-			                   <select class="form-control select2" id="product_attribute">
+			                   <select class="form-control select2" name="attribute" id="attribute">
 			                   <%
 			                   	List<Attribute> attributeList = (List)request.getAttribute("attributeList");
 			            		if(attributeList != null && !attributeList.isEmpty()){
@@ -92,47 +92,47 @@
 			            		}
 								%>
 			                   </select>
-			                   <span class="text-danger"></span>
+			                   <span class="text-danger" id="attribute_error"></span>
 			               </div>
 			            </div>
 			            <div class="form-group" id="div_attribute_option">
-			               <label for="imageDetail" class="col-sm-3 control-label">Option</label>
+			               <label for="attributeOption" class="col-sm-3 control-label">Attribute Option</label>
 			               <div class="col-sm-9">
-			                   <select class="form-control select2" id="product_attribute_option">
+			                   <select class="form-control select2" name="product_attribute_option" id="product_attribute_option">
 			                   </select> 
-			                   <span class="text-danger"></span>
+			                   <span class="text-danger" id="product_attribute_option_error"></span>
 			               </div>
 			            </div>
 			            <div class="form-group" style="display: none;" id="div_attribute_value">
-			               <label for="imageDetail" class="col-sm-3 control-label">Value</label>
+			               <label for="attribute_value" class="col-sm-3 control-label">Attribute Value</label>
 			               <div class="col-sm-9">
-			                   <input name="imageAlt" id = "imageAlt" class="form-control titleCase"  placeholder="Enter image alt" tabindex="5" maxlength="100"/>
-			                	<span class="text-danger"></span>
+			                   <input name="product_attribute_value" id = "product_attribute_value" class="form-control titleCase"  placeholder="Enter attribute value" tabindex="5"/>
+			                	<span class="text-danger" id = "product_attribute_value_error"></span>
 			               </div>
 			            </div>
 			            <div class="form-group">
 		                	<label for="active" class="col-sm-3 control-label">Allow Filter</label>
 		                  <div class="col-sm-9" style="padding-top: 7px;">
-		                    <input type="checkbox" name="allowfilter" class="padding-top" tabindex="10">
+		                    <input type="checkbox" name="allow_filter" id="allow_filter" class="padding-top" tabindex="10">
 		                  </div>
 		                </div>
 		                <div class="form-group">
 		                	<label for="active" class="col-sm-3 control-label">Show on product page</label>
 		                  <div class="col-sm-9" style="padding-top: 7px;">
-		                    <input type="checkbox" name="showonproductpage" class="padding-top" tabindex="10">
+		                    <input type="checkbox" name="show_on_product_page" id="show_on_product_page" class="padding-top" tabindex="10">
 		                  </div>
 		                </div>
 			            <div class="form-group">
 			               <label for="imageOrder" class="col-sm-3 control-label">Display Order</label>
 			               <div class="col-sm-9">
-			                   <input name="imageOrder" id = "imageOrder"  class="form-control number_only" type="number" min="0"  placeholder="Enter image order" value="0" tabindex="5" maxlength="100"/>
-			                	<span class="text-danger"></span>
+			                   <input name="attribute_order" id = "attribute_order"  class="form-control number_only" type="number" placeholder="Enter attribute order" value="0" tabindex="5" />
+			                	<span class="text-danger" id = "attribute_order_error" ></span>
 			               </div>
 			            </div>
 					</div>
 				</div>
 				<div class="box-footer">
-		            <button type="button" id = "upload_product_picture" class="btn btn-primary pull-right "><i class="btn btn-flat"></i> Save</button>
+		            <button type="button" id="save_product_attribute" value="save" class="btn btn-primary pull-right "><i class="fa fa-floppy-o"></i> Save</button>
 		          </div>
 			</div>
 			<%
@@ -200,7 +200,7 @@
 					</div>
 					<div class="box-footer">
 			            <button type="button" class="btn btn-default">Cancel</button>
-			            <button type="button" id = "upload_product_picture" class="btn btn-primary pull-right "><i class="btn btn-flat"></i> Update</button>
+			            <button type="button" id = "upload_product_picture" class="btn btn-primary pull-right "><i class="fa fa-floppy-o"></i> Update</button>
 			        </div>
 				</div>
 				<%
@@ -208,39 +208,44 @@
 		}
 	%>
 </div>
+<script src="js/common_js.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	getProductAttributeValues($("#product_attribute").val());
+	// added by Amar, on load get attributes for this product
+	getProductAttributeValues($("#attribute").val());
 	
-	
-	$(document).on("change","#product_attribute",function() {
-		getProductAttributeValues($("#product_attribute").val());
+	// added by Amar, get attribute values on change attribute
+	$(document).on("change","#attribute",function() {
+		getProductAttributeValues($("#attribute").val());
 	});
 	
-	// added by Amar, get all images inner page for current product
+	// added by Amar, get attribute values for this attribute.
 	function getProductAttributeValues(attributeId){
-		$.ajax({
-			type : "GET",
-			url : "getProductAttributeValues",
-			data : {"attributeId" : attributeId},
-			success : function(response) {
-				$('#product_attribute_option option').remove();
-				var json = JSON.parse(response);
-				if(json.status==200){
-					$.each(json.values, function(key,value) {
-					  $('#product_attribute_option').append($('<option>', { 
-					        value: value.attributeValueId,
-					        text : value.attributeValue 
-					  }));
-					}); 
-				}else{
-					alertify.error(json.msg);
+		if(attributeId != null && attributeId != ""){
+			$.ajax({
+				type : "GET",
+				url : "getProductAttributeValues",
+				data : {"attributeId" : attributeId},
+				success : function(response) {
+					$('#product_attribute_option option').remove();
+					var json = JSON.parse(response);
+					if(json.status==200){
+						$.each(json.values, function(key,value) {
+						  $('#product_attribute_option').append($('<option>', { 
+						        value: value.attributeValueId,
+						        text : value.attributeValue 
+						  }));
+						}); 
+					}else{
+						alertify.error(json.msg);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 	
+	// added by amar, toggle attribute option and value on attribute change
 	$(document).on("change","#attribute_type",function() {
 		var value = $(this).val();
 		if(value == "OPTIONS"){
@@ -251,6 +256,7 @@ $(document).ready(function(){
 			$("#div_attribute_value").show();
 		}
 	});
+	
 	
 });
 </script>

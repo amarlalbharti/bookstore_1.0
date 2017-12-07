@@ -81,8 +81,8 @@
             <div class="nav-tabs-custom">
 	            <ul class="nav nav-tabs">
 	              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Product</a></li>
-	              	<li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pictures</a></li>
-	              	<li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Attributes</a></li>
+	              	<li class="" id="refesh_product_images"><a href="#tab_2" data-toggle="tab" aria-expanded="false">Pictures</a></li>
+	              	<li class="" id="refesh_product_attributes"><a href="#tab_3" data-toggle="tab" aria-expanded="false">Attributes</a></li>
 			    </ul>
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
@@ -307,8 +307,11 @@ $(document).ready(function(){
 		}
 	%>
 	
-	$(document).on("click","#refesh_images",function() {
+	$(document).on("click","#refesh_product_images",function() {
 		getProductImages(<%= model.getPid() %>);
+	});
+	$(document).on("click","#refesh_product_attributes",function() {
+		getProductAttributes(<%= model.getPid() %>);
 	});
 	
 	// added by Amar, get all images inner page for current product
@@ -424,6 +427,69 @@ $(document).ready(function(){
 			}
 			
 		});
+	});
+	
+
+	$(document).on("click","#save_product_attribute",function() {
+		$("#save_product_attribute").prop('disabled', true);
+		
+		var submitType=$(this).val();
+		var pid = $("#pid").val();
+		var attribute_type = $("#attribute_type").val();
+		var attribute = $("#attribute").val(); 
+		var product_attribute_option = $("#product_attribute_option").val();
+		var product_attribute_value = $("#product_attribute_value").val();
+		var allow_filter = $("#allow_filter").val();
+		var show_on_product_page = $("#show_on_product_page").val();
+		var attribute_order = $("#attribute_order").val();
+		var valid = true;
+		if(attribute == null || attribute == ""){
+			$("#attribute_error").text("Attribute is required");
+			valid = false;
+		}
+		if(attribute_type !="OPTIONS"){
+			if($.trim(product_attribute_value)== ""){
+				$("#product_attribute_value_error").text("Attribute value is required");
+				valid = false;
+			}
+		}else{
+			if(product_attribute_option == null || $.trim(product_attribute_option)== ""){
+				$("#product_attribute_option_error").text("Attribute option is required");
+				valid = false;
+			}
+		}
+		if($.trim(attribute_order)== ""){
+			$("#attribute_order_error").text("Display order is required");
+			valid = false;
+		}
+		if(!valid){
+			return false;
+		}else{
+			alert("Hello save");
+			$.ajax({
+				type : "POST",
+				url : "saveProductAttribute",
+				data : {"pid" : pid,
+					"submitType" : submitType,
+					"attribute_type" : attribute_type,
+					"attribute" : attribute,
+					"product_attribute_option" : product_attribute_option,
+					"product_attribute_value" : product_attribute_value,
+					"allow_filter" : allow_filter,
+					"show_on_product_page" : show_on_product_page,
+					"attribute_order" : attribute_order
+					},
+				success : function(response) {
+					var json = JSON.parse(response);
+					if(json.status==200){
+						alertify.success(json.msg);
+					}else{
+						alertify.error(json.msg);
+					}
+					getProductAttributes(<%= model.getPid() %>);
+				}
+			});
+		}
 	});
 }); 
 </script>
