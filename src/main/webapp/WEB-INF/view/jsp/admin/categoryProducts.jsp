@@ -6,9 +6,9 @@
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <tr class="bg-primary">
-      <th width="10%" style="text-align: center;">#</th>
-      <th width="20%" style="text-align: center;">Picture</th>
-      <th width="30%">Product Name</th>
+      <th width="50px" style="text-align: center;">#</th>
+      <th width="100px" style="text-align: center;">Picture</th>
+      <th width="40%">Product Name</th>
       <th width="10%">Price</th>
       <th width="10%">Product SKU</th>
       <th width="20%" style="text-align: center;">Action</th>
