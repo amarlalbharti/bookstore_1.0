@@ -47,12 +47,18 @@ public class ProductAttributeController
 			if(Validation.isNumeric(pid)){
 				List<ProductAttribute> productAttributes = productAttributeService.getProductAttributeByPid(Util.getNumeric(pid));
 				map.addAttribute("productAttributes", productAttributes);
-				map.addAttribute("attributeList", attributeService.getAttributes());
+				
+				List<Attribute> attributes = attributeService.getAttributeNotMappedByPid(Util.getNumeric(pid));
 				map.addAttribute("product", productService.getProductById(Util.getNumeric(pid)));
 				String productAttributeId = request.getParameter("productAttributeId");
 				if(Validation.isNumeric(productAttributeId)) {
-					map.addAttribute("editProductAttribute", productAttributeService.getProductAttributeById(Util.getNumeric(productAttributeId)));
+					ProductAttribute productAttribute = productAttributeService.getProductAttributeById(Util.getNumeric(productAttributeId));
+					attributes.add(0, productAttribute.getAttribute());
+					map.addAttribute("editProductAttribute", productAttribute);
 				}
+				map.addAttribute("attributeList", attributes);
+				
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -74,8 +80,8 @@ public class ProductAttributeController
 			String attribute = request.getParameter("attribute");
 			String product_attribute_option = request.getParameter("product_attribute_option");
 			String product_attribute_value = request.getParameter("product_attribute_value");
-			boolean allow_filter = request.getParameter("allow_filter") != null ? true : false;
-			boolean show_on_product_page = request.getParameter("show_on_product_page") != null ? true : false;
+			boolean allow_filter = request.getParameter("allow_filter") != null ? Boolean.parseBoolean(request.getParameter("allow_filter")) : false;
+			boolean show_on_product_page = request.getParameter("show_on_product_page") != null ? Boolean.parseBoolean(request.getParameter("show_on_product_page")) : false;
 			String attribute_order = request.getParameter("attribute_order");
 			
 			Attribute attr = null;
@@ -130,6 +136,7 @@ public class ProductAttributeController
 						return json.toJSONString();
 					}
 				}
+				allow_filter = false;
 				
 			}
 			
@@ -142,6 +149,7 @@ public class ProductAttributeController
 						if(Validation.isNumeric(productAttributeId)) {
 							productAttribute = productAttributeService.getProductAttributeById(Util.getNumeric(productAttributeId));
 							if(productAttribute != null) {
+								productAttribute.setAttribute(attr);
 								productAttribute.setAttributeCustomValue(product_attribute_value);
 								productAttribute.setAttributeType(attribute_type);
 								productAttribute.setAttributeValue(attributeValue);
@@ -151,7 +159,7 @@ public class ProductAttributeController
 								productAttribute.setShowOnProductPage(show_on_product_page);
 								productAttributeService.updateProductAttribute(productAttribute);
 								json.put("status", 200);
-								json.put("msg", "Product attribute added successfully !");
+								json.put("msg", "Product attribute updated successfully !");
 								return json.toJSONString();
 							}
 							else {
@@ -164,6 +172,7 @@ public class ProductAttributeController
 						}
 					}else {
 						productAttribute = new ProductAttribute();
+						productAttribute.setAttribute(attr);
 						productAttribute.setAttributeCustomValue(product_attribute_value);
 						productAttribute.setAttributeType(attribute_type);
 						productAttribute.setAttributeValue(attributeValue);

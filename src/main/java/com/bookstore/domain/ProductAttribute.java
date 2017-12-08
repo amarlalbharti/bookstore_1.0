@@ -43,6 +43,9 @@ public class ProductAttribute
 	@OneToOne(cascade = CascadeType.ALL)
 	private AttributeValue attributeValue;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Attribute attribute;
+	
 	@ManyToOne 
     @JoinColumn(name = "pid")
 	public Product product;
@@ -126,6 +129,16 @@ public class ProductAttribute
 	public void setAttributeValue(AttributeValue attributeValue)
 	{
 		this.attributeValue = attributeValue;
+	}
+
+	public Attribute getAttribute()
+	{
+		return attribute;
+	}
+
+	public void setAttribute(Attribute attribute)
+	{
+		this.attribute = attribute;
 	}
 
 	public Product getProduct()

@@ -14,5 +14,6 @@ public interface AttributeDao
 	
 	public List<Attribute> getAttributes();
 	
+	public List<Attribute> getAttributeNotMappedByPid(int pid);
 	
 }

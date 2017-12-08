@@ -302,7 +302,6 @@ $(document).ready(function(){
 		if(model != null && model.getPid() > 0){
 			%>
 			getProductImages(<%= model.getPid() %>);
-			getProductAttributes(<%= model.getPid() %>);
 			<%
 		}
 	%>
@@ -435,13 +434,15 @@ $(document).ready(function(){
 		
 		var submitType=$(this).val();
 		var pid = $("#pid").val();
+		var product_attribute = $("#product_attribute").val();
 		var attribute_type = $("#attribute_type").val();
 		var attribute = $("#attribute").val(); 
 		var product_attribute_option = $("#product_attribute_option").val();
 		var product_attribute_value = $("#product_attribute_value").val();
-		var allow_filter = $("#allow_filter").val();
-		var show_on_product_page = $("#show_on_product_page").val();
+		var allow_filter = $('#allow_filter').is(':checked'); 
+		var show_on_product_page =  $("#show_on_product_page").is(':checked'); 
 		var attribute_order = $("#attribute_order").val();
+		alert(allow_filter);
 		var valid = true;
 		if(attribute == null || attribute == ""){
 			$("#attribute_error").text("Attribute is required");
@@ -465,12 +466,12 @@ $(document).ready(function(){
 		if(!valid){
 			return false;
 		}else{
-			alert("Hello save");
 			$.ajax({
 				type : "POST",
 				url : "saveProductAttribute",
 				data : {"pid" : pid,
 					"submitType" : submitType,
+					"product_attribute":product_attribute,
 					"attribute_type" : attribute_type,
 					"attribute" : attribute,
 					"product_attribute_option" : product_attribute_option,
@@ -490,6 +491,22 @@ $(document).ready(function(){
 				}
 			});
 		}
+	});
+	
+	//added by amar, Update product image
+	$(document).on("click","#edit_product_attribute",function() {
+		var product_attribute_id = $(this).attr("product_attribute_id");
+		var pid = <%= model.getPid() %>;
+		$.ajax({
+			type : "GET",
+			url : "getProductImages",
+			url : "getProductAttributes",
+			data : {"pid" : pid, "productAttributeId" : product_attribute_id},
+			success : function(data) {
+				$("#product_attributes").html(data);     
+			}
+			
+		});
 	});
 }); 
 </script>

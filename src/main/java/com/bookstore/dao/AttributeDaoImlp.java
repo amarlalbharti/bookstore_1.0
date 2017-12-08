@@ -57,4 +57,18 @@ public class AttributeDaoImlp implements AttributeDao
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Attribute> getAttributeNotMappedByPid(int pid){
+		try{
+			return this.sessionFactory.getCurrentSession().createSQLQuery("SELECT * FROM `attribute` WHERE attribute_id NOT IN (SELECT attribute_attribute_id FROM `product_attribute_value` WHERE pid=:pid)")
+					.addEntity(Attribute.class)
+					.setParameter("pid", pid)
+					.list();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 }

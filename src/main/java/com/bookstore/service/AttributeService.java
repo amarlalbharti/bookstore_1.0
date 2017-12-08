@@ -14,4 +14,5 @@ public interface AttributeService
 	
 	public List<Attribute> getAttributes();
 	
+	public List<Attribute> getAttributeNotMappedByPid(int pid);
 }

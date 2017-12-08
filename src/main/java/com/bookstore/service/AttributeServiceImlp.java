@@ -33,4 +33,7 @@ public class AttributeServiceImlp implements AttributeService
 		return this.attributeDao.getAttributes();
 	}
 	
+	public List<Attribute> getAttributeNotMappedByPid(int pid){
+		return this.attributeDao.getAttributeNotMappedByPid(pid);
+	}
 }
