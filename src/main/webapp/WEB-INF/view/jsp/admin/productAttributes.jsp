@@ -8,10 +8,11 @@
   <table class="table table-bordered table-hover table-striped">
     <thead>
     <tr class="bg-primary">
-      <th width="10%" style="text-align: center;">Attribute</th>
-      <th width="20%">Value</th>
-      <th width="20%">Allow Filter</th>
-      <th width="20%">Show on product page</th>
+      <th width="30px" style="text-align: center;">#</th>
+      <th width="20%" >Attribute Name</th>
+      <th width="20%">Attribute Value</th>
+      <th width="10%" style="text-align: center;">Allow Filter</th>
+      <th width="15%" style="text-align: center;">Show on product page</th>
       <th width="10%" style="text-align: center;">Display Order</th>
       <th width="20%" style="text-align: center;">Action</th>
     </tr>
@@ -22,14 +23,16 @@
     	if(product != null){
     		List<ProductAttribute> productAttributes = (List)request.getAttribute("productAttributes");
 	    	if(productAttributes != null && !productAttributes.isEmpty()){
+	    		int count=0;
 	    		for(ProductAttribute productAttribute : productAttributes){
     				%>
 	    				<tr>
+	    				  <td style="text-align: center;"><%= ++count %></td>
 				          <td><%= productAttribute.getAttributeValue().getAttribute().getAttributeName() %></td>
 				          <td><%= productAttribute.getAttributeValue().getAttributeValue() %></td>
-				          <td style="text-align: center;"><%= productAttribute.isAllowFilter()%></td>
-				          <td style="text-align: center;"><%= productAttribute.isShowOnProductPage()%></td>
-				          <td><%= productAttribute.getDisplayOrder() %></td>
+				          <td style="text-align: center;"><%= productAttribute.isAllowFilter()  ? "<i class=\"fa fa-check text-primary\"></i>" : "<i class=\"fa fa-close text-danger\"></i>"%></td>
+				          <td style="text-align: center;"><%= productAttribute.isShowOnProductPage() ? "<i class=\"fa fa-check text-primary\"></i>" : "<i class=\"fa fa-close text-danger\"></i>" %></td>
+				          <td style="text-align: center;"><%= productAttribute.getDisplayOrder() %></td>
 				          <td style="text-align: center;">
 				          	<button type="button" class="btn btn-flat btn-sm btn-primary" imageid="" id="edit_product_image"><i class="fa fa-fw fa-edit"></i> Edit</button>
 				          	<button type="button" class="btn btn-flat btn-sm btn-danger" imageid="" id="delete_product_image"><i class="fa fa-fw fa-close"></i> Delete</button>
