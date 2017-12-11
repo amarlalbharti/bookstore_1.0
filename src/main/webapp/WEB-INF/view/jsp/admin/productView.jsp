@@ -442,7 +442,6 @@ $(document).ready(function(){
 		var allow_filter = $('#allow_filter').is(':checked'); 
 		var show_on_product_page =  $("#show_on_product_page").is(':checked'); 
 		var attribute_order = $("#attribute_order").val();
-		alert(allow_filter);
 		var valid = true;
 		if(attribute == null || attribute == ""){
 			$("#attribute_error").text("Attribute is required");

@@ -197,9 +197,11 @@ public class ProductController
 					String productName = request.getParameter("productName");
 					boolean active = request.getParameter("active") != null ? true : false;
 					boolean copyPictures = request.getParameter("copyPictures") != null ? true : false;
+					product = (Product)product.clone();
 					product.setProductName(productName);
 					product.setActive(active);
 					product.setProductUrl(null);
+					product.setPid(0);
 					int productid = productService.addProduct(product);
 					product.setPid(productid);
 					if(copyPictures) {

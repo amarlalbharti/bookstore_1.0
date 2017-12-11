@@ -1,5 +1,6 @@
 package com.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,8 +20,13 @@ import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name="product")
-public class Product
+public class Product implements Serializable, Cloneable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1260798206177683765L;
+
 	@Id
 	@Column(name = "pid", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -275,4 +281,12 @@ public class Product
 		this.productAttributes = productAttributes;
 	}
 	
+	
+	
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
 }
