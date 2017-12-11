@@ -3,6 +3,7 @@ package com.bookstore.dao;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -57,7 +58,9 @@ public class ProductAttributeDaoImpl implements ProductAttributeDao
 	public List<ProductAttribute> getProductAttributeByPid(int pid){
 		try {
 			return this.sessionFactory.getCurrentSession().createCriteria(ProductAttribute.class)
-			.add(Restrictions.eq("product.pid", pid)).list();
+			.add(Restrictions.eq("product.pid", pid))
+			.addOrder(Order.asc("displayOrder"))
+			.list();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

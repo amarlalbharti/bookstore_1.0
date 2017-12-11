@@ -3,6 +3,7 @@ package com.bookstore.controller;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +40,10 @@ public class IndexController
 {
 	@Autowired private  RegistrationService registrationService; 
 	@Autowired private  LoginInfoService loginInfoService; 
-	@Autowired private  MailService mailService; 
-	
+	@Autowired
+	private MailService mailService;
+	@Autowired
+	private MessageSource messageSource;
 	
 	/**
 	 * @param map
@@ -72,13 +76,15 @@ public class IndexController
 	 * @return
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(ModelMap map, HttpServletRequest request, Principal principal)
+	public String login(ModelMap map, HttpServletRequest request, Principal principal, Locale locale)
 	{
 		if(principal != null)
 		{
 //			return "redirect:userHome";
 		}
-		System.out.println("from index page of index controller test");
+		System.out.println("Local : "+locale);
+		System.out.println("from index page of index controller test : " + messageSource.getMessage("label.login.remember_me", null, locale));
+		map.addAttribute("errormsg", messageSource.getMessage("NotEmpty.categoryForm.categoryName", null, "Hello to all", locale));
 		return "login";
 	}
 	

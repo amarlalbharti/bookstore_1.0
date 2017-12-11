@@ -1,3 +1,4 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -80,30 +81,31 @@ html
 			}
 		%>
 		<div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="j_username" id="j_username" required="required">
+        <input type="email" class="form-control" placeholder="<spring:message code="label.login.email" />" name="j_username" id="j_username" required="required">
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="j_password" id="j_password" required="required">
+        <input type="password" class="form-control" placeholder="<spring:message code="label.login.password" />" name="j_password" id="j_password" required="required">
         <span class="fa fa-lock  form-control-feedback"></span>
       </div>
       <div class="row">
-        <div class="col-xs-8">
+        <div class="col-xs-6">
           <div class="checkbox">
             <label>
-              <input type="checkbox" name="_spring_security_remember_me"> Remember Me
+              <input type="checkbox" name="_spring_security_remember_me"> <spring:message code="label.login.remember_me" />
             </label>
           </div>
         </div>
         <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-fw fa-sign-in"></i> Sign In</button>
+        <div class="col-xs-6">
+          <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-fw fa-sign-in"></i> <spring:message code="label.login.signin" /></button>
         </div>
         <!-- /.col -->
       </div>
     </form>
 
     <a href="forgotPassword">I forgot my password</a><br>
+    ${errormsg}
   </div>
   <!-- /.login-box-body -->
 </div>

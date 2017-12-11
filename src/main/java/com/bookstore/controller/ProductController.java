@@ -202,6 +202,7 @@ public class ProductController
 					product.setActive(active);
 					product.setProductUrl(null);
 					product.setPid(0);
+					product.setProductAttributes(null);
 					int productid = productService.addProduct(product);
 					product.setPid(productid);
 					if(copyPictures) {

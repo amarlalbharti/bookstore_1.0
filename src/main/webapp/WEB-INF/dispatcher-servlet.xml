@@ -51,6 +51,15 @@
 	    <property name="defaultEncoding" value="UTF-8" />
 	</bean>
 	
+	
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+		<property name="defaultLocale" value="en" />
+		<property name="cookieName" value="myAppLocaleCookie"></property>
+		<property name="cookieMaxAge" value="3600"></property>
+	</bean>
+
+	
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <property name="ignoreUnresolvablePlaceholders" value="true"/>
 	    <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>
@@ -94,8 +103,11 @@
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 	   <property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-
+	
 	<mvc:interceptors>
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="locale" />
+		</bean>
 	     <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
 	         <property name="cacheSeconds" value="0"/>
 	         <property name="useExpiresHeader" value="true"/>

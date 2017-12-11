@@ -61,7 +61,7 @@
                 				<tr>
                 				  <td style="text-align: center;"><%= ++count%></td>
 				                  <td><%= catName %></td>
-				                  <td style="text-align: center;"><span id="active<%= category.getCid()%>"><%= category.isActive()? "Yes" : "No" %></span></td>
+				                  <td style="text-align: center;"><span id="active<%= category.getCid()%>"><%= category.isActive()? "<i class=\"fa fa-check text-primary\"></i>" : "<i class=\"fa fa-close text-danger\"></i>" %></span></td>
 				                  <td style="text-align: center;"><%= category.getDisplayOrder()%></td>
 				                  <td style="text-align: center;">
 				                  	<a href="editCategory?cid=<%= category.getCid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
