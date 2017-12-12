@@ -1,3 +1,6 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +20,9 @@
 <div class="login-box">
   
   <div class="login-box-body" style="background-color: transparent;">
-    <img alt="" src="${pageContext.request.contextPath}/images/404.png" width="100%">
-    <h2 class="text-center">Page Not Foumd</h2>
+    <img alt="" src="${pageContext.request.contextPath}/images/access_denied.jpg" width="100%">
     <div class="text-center" >
-	    <a href="javascript:window.history.back();"><img alt="" src="${pageContext.request.contextPath}/images/arrow-back-icon.png" width="60px"></a>
+	     <a href="login" class="btn btn-primary btn-block btn-flat"><i class="fa fa-fw fa-sign-in"></i> <spring:message code="label.login.signin" /></a>
     </div>
   </div>
   <!-- /.login-box-body -->

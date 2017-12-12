@@ -151,6 +151,15 @@ public class IndexController
 		
 	}
 	
+	@RequestMapping(value = "/accessDenied", method = RequestMethod.GET)
+	public String accessDenied(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		System.out.println("from access denied ");
+		
+		return "accessDenied";
+		
+	}
+	
 	
 	/**
 	 * @param map

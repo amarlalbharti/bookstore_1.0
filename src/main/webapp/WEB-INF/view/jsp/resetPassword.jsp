@@ -10,15 +10,15 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="css/ionicons.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="css/AdminLTE.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminLTE.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="css/blue.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blue.css">
 <style type="text/css">
 	.error {
 		color: red;
@@ -29,13 +29,13 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo" style="margin-bottom: 0px; padding-bottom: 0px;">
-    <a href="index"><img alt="Vasonomics" src="images/vaso.png" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
+    <a href="${pageContext.request.contextPath}/index"><img alt="Book Store" src="images/vaso.png" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
 <!--     <p class="login-box-msg">Sign in to start your session</p> -->
 
-  <form action="resetPassword" method="post" id="resetPwd" onsubmit="return validate()">
+  <form action="${pageContext.request.contextPath}/resetPassword" method="post" id="resetPwd" onsubmit="return validate()">
 		<div class="form-group has-feedback">
 			<%
 				String resetPwd = (String)request.getAttribute("resetPwd");
@@ -77,9 +77,9 @@
 <!-- /.login-box -->
 
 <!-- jQuery 2.2.0 -->
-<script src="js/jQuery-2.2.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jQuery-2.2.0.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 </body>
 <script type="text/javascript">
 $(document).ready(function()

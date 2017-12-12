@@ -21,6 +21,12 @@
         <put-attribute name="title" value="Shopping - Error Page" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/error.jsp" />
     </definition>
+    <definition name="accessDenied" extends="indexTemplate">
+        <put-attribute name="title" value="Shopping - Access Denied" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/accessDenied.jsp" />
+    </definition>
+    
+    
     <definition name="forgotPassword" extends="indexTemplate">
         <put-attribute name="title" value="Shopping - Forgot Password" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/forgotPassword.jsp" />

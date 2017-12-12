@@ -23,11 +23,11 @@
     <section class="content-header">
       <h1>
         Attribute
-        <a href="attributes"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to categories</small></a>
+        <a href="${pageContext.request.contextPath}/admin/attributes"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to attributes</small></a>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="attributes"><i class="fa fa-dashboard"></i> attributes</a></li>
+        <li><a href="${pageContext.request.contextPath}/dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/admin/attributes"><i class="fa fa-dashboard"></i> attributes</a></li>
         <li class="active">${model.attributeId > 0 ? 'Update Attribute': 'Add Attribute'}</li>
       </ol>
     </section>
@@ -46,7 +46,7 @@
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
 	              	<div class="">
-	              		<form:form class="form-horizontal" role="form" method="POST" action="addAttribute" commandName="attributeForm" autocomplete="off" id="form">
+	              		<form:form class="form-horizontal" role="form" method="POST" action="${pageContext.request.contextPath}/admin/attributes/add" commandName="attributeForm" autocomplete="off" id="form">
 				            
 		              		<div class="box-body" style="min-height: 300px">
 			            	<!-- form start -->
@@ -68,7 +68,7 @@
 				              </div>
 			              </div>
 			              <div class="box-footer">
-			                <a href="attributes"><button type="button" class="btn btn-default">Cancel</button></a>
+			                <a href="${pageContext.request.contextPath}/admin/attributes"><button type="button" class="btn btn-default">Cancel</button></a>
 			                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
 			              </div>
 			              </form:form>
@@ -185,7 +185,7 @@ $(document).ready(function(){
 		var attributeId = $("#attributeId").val();
 		$.ajax({
 			type : "GET",
-			url : "getAttributeValues",
+			url : "${pageContext.request.contextPath}/getAttributeValues",
 			data : {"attributeId" : attributeId, "attributeValueId" : attributeValueId},
 			success : function(data) {
 				$("#attribute_values").html(data);

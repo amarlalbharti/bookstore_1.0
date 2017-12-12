@@ -23,7 +23,7 @@
     <section class="content-header clearfix" >
       <h1 class="pull-left">Products</h1>
       <div class="pull-right">
-      	<a href="addProduct" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="${pageContext.request.contextPath}/admin/products/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
       </div>
     </section>
 
@@ -92,7 +92,7 @@
 				                  <td style="text-align: center;"><span id="active<%= product.getPid()%>"><%= product.isActive()? "<i class=\"text-primary fa fa-check true-icon\"></i>" : "<i class=\"text-danger fa fa-close true-icon\"></i>" %></span></td>
 				                  <td style="text-align: center;"><%= DateUtils.clientDateFormat.format(product.getCreateDate())%></td>
 				                  <td style="text-align: center;">
-				                  	<a href="editProduct?pid=<%= product.getPid()%>"class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+				                  	<a href="${pageContext.request.contextPath}/admin/products/edit/<%= product.getPid()%>"class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
 				                  </td>
 				                </tr>
                 			<%

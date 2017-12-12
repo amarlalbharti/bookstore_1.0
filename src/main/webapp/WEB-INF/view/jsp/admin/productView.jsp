@@ -47,12 +47,12 @@
 	%>
 	
   <!-- Content Wrapper. Contains page content -->
-  <form:form class="form-horizontal" role="form" method="POST" action="addProduct" commandName="productForm" autocomplete="off" id="form">
+  <form:form class="form-horizontal" role="form" method="POST" action="${pageContext.request.contextPath}/admin/products/add" commandName="productForm" autocomplete="off" id="form">
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix">
       <h1 class="pull-left"><%=title %> 
-      <a href="products"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to products</small></a>
+      <a href="${pageContext.request.contextPath}/admin/products"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to products</small></a>
       </h1>
       <div class="pull-right">
       	<button type="submit" class="btn btn-flat btn-primary" name="submit" value="save"><i class="fa fa-floppy-o"></i> Save</button>
@@ -317,7 +317,7 @@ $(document).ready(function(){
 	function getProductImages(pid){
 		$.ajax({
 			type : "GET",
-			url : "getProductImages",
+			url : "${pageContext.request.contextPath}/getProductImages",
 			data : {"pid" : pid},
 			success : function(data) {
 				$("#product_images").html(data);  
@@ -331,7 +331,7 @@ $(document).ready(function(){
 	function getProductAttributes(pid){
 		$.ajax({
 			type : "GET",
-			url : "getProductAttributes",
+			url : "${pageContext.request.contextPath}/getProductAttributes",
 			data : {"pid" : pid},
 			success : function(data) {
 				$("#product_attributes").html(data);     
@@ -395,7 +395,7 @@ $(document).ready(function(){
 		if(confirm("Are you sure to delete this ?")){
 			$.ajax({
 				type : "GET",
-				url : "deleteProductImage",
+				url : "${pageContext.request.contextPath}/deleteProductImage",
 				data : {"imageId" : imageid},
 				success : function(response) {
 					 var json = JSON.parse(response);
@@ -416,7 +416,7 @@ $(document).ready(function(){
 		var pid = <%= model.getPid() %>;
 		$.ajax({
 			type : "GET",
-			url : "getProductImages",
+			url : "${pageContext.request.contextPath}/getProductImages",
 			data : {"pid" : pid, "imageId" : imageid},
 			success : function(data) {
 					$("#product_images").html(data);        
@@ -467,7 +467,7 @@ $(document).ready(function(){
 		}else{
 			$.ajax({
 				type : "POST",
-				url : "saveProductAttribute",
+				url : "${pageContext.request.contextPath}/saveProductAttribute",
 				data : {"pid" : pid,
 					"submitType" : submitType,
 					"product_attribute":product_attribute,
@@ -498,8 +498,7 @@ $(document).ready(function(){
 		var pid = <%= model.getPid() %>;
 		$.ajax({
 			type : "GET",
-			url : "getProductImages",
-			url : "getProductAttributes",
+			url : "${pageContext.request.contextPath}/getProductAttributes",
 			data : {"pid" : pid, "productAttributeId" : product_attribute_id},
 			success : function(data) {
 				$("#product_attributes").html(data);     

@@ -20,7 +20,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="images/User_Avatar.png" class="img-circle" alt="User Image">
+          <img src="${pageContext.request.contextPath}/images/User_Avatar.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>Amar</p>
@@ -42,9 +42,9 @@
             <span>CataLog</span>
           </a>
           <ul class="treeview-menu">
-            <li class="${currentpage == 'category' ? 'active' : ''}"><a href="categories"><i class="fa fa-circle-o"></i> Categories</a></li>
-            <li class="${currentpage == 'products' ? 'active' : ''}"><a href="products"><i class="fa fa-circle-o"></i> Products</a></li>
-            <li class="${currentpage == 'attribute' ? 'active' : ''}"><a href="attributes"><i class="fa fa-circle-o"></i> Attributes</a></li>
+            <li class="${currentpage == 'category' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/category"><i class="fa fa-circle-o"></i> Categories</a></li>
+            <li class="${currentpage == 'products' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/products"><i class="fa fa-circle-o"></i> Products</a></li>
+            <li class="${currentpage == 'attribute' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/attributes"><i class="fa fa-circle-o"></i> Attributes</a></li>
           </ul>
         </li>
         

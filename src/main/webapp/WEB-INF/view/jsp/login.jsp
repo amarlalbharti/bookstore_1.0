@@ -11,15 +11,15 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="css/ionicons.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="css/AdminLTE.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminLTE.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="css/blue.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/blue.css">
 <style type="text/css">
 
 .error {
@@ -28,7 +28,7 @@
 	
 html 
 { 
-  background: url(images/ems-bg.jpg) no-repeat center center fixed; 
+  background: url(${pageContext.request.contextPath}/images/ems-bg.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -49,12 +49,12 @@ html
 </head>
 <body class="hold-transition login-page" style="background: transparent;">
 <div class="bodyCoverWait" style="text-align: center; ">
-	<img style="position: relative;top: 250px;" alt="Please wait..." src="images/loading_spinner.gif">
+	<img style="position: relative;top: 250px;" alt="Please wait..." src="${pageContext.request.contextPath}/images/loading_spinner.gif">
 </div>
 
 <div class="login-box">
   <div class="login-logo" style="margin-bottom: 0px; padding-bottom: 0px;">
-    <a href="index"><img alt="Vasonomics" src="images/logo.jpg" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
+    <a href="index"><img alt="Book Store" src="${pageContext.request.contextPath}/images/logo.jpg" style="width:360px; margin-bottom: 0px; padding-bottom: 0px;"/></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -112,9 +112,9 @@ html
 <!-- /.login-box -->
 
 <!-- jQuery 2.2.0 -->
-<script src="js/jQuery-2.2.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jQuery-2.2.0.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
-<script src="js/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script>
 $(document).ready(function(){
  $(document.body).on("change", "#j_username", function(e) {

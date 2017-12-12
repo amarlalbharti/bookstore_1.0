@@ -238,7 +238,7 @@
 		}
 	%>
 </div>
-<script src="js/common_js.js"></script>
+<script src="${pageContext.request.contextPath}/js/common_js.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	

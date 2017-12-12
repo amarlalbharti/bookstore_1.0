@@ -69,7 +69,7 @@
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
 	              	<div class="box-body">
-	              		<form:form class="form-horizontal" role="form" method="POST" action="addCategory" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
+	              		<form:form class="form-horizontal" role="form" method="POST" action="${pageContext.request.contextPath}/admin/category/add" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
 			              <div class="box-body">
 			                <div class="form-group">
 			                  <label for="categoryName" class="col-sm-3 control-label">Parent Category</label>
@@ -143,7 +143,7 @@
 			              </div>
 			              <!-- /.box-body -->
 			              <div class="box-footer">
-			                <a href="categories"><button type="button" class="btn btn-default">Cancel</button></a>
+			                <a href="${pageContext.request.contextPath}/admin/category"><button type="button" class="btn btn-default">Cancel</button></a>
 			                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
 			              </div>
 			              <!-- /.box-footer -->

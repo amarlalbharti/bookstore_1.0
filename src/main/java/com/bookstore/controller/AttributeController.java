@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,7 +40,7 @@ public class AttributeController
 	private AttributeValueService attributeValueService; 
 	
 	
-	@RequestMapping(value = "/attributes", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/attributes", method = RequestMethod.GET)
 	public String attributes(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		System.out.println("from attributes");
@@ -49,7 +50,7 @@ public class AttributeController
 		return "attributes";
 	}
 	
-	@RequestMapping(value = "/addAttribute", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/attributes/add", method = RequestMethod.GET)
 	public String addAttribute(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		map.addAttribute("attributeForm", new AttributeModel());
@@ -58,7 +59,7 @@ public class AttributeController
 	
 	
 
-	@RequestMapping(value = "/addAttribute", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/attributes/add", method = RequestMethod.POST)
 	public String addCategory(@ModelAttribute(value = "attributeForm") @Valid AttributeModel model,BindingResult result,
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
@@ -82,13 +83,13 @@ public class AttributeController
 				attributeService.updateAttribute(attribute);
 			}
 		}
-		return "redirect:attributes";
+		return "redirect:/admin/attributes";
 	}
 	
-	@RequestMapping(value = "/attributeView", method = RequestMethod.GET)
-	public String editAttribute(ModelMap map, HttpServletRequest request, Principal principal)
+	@RequestMapping(value = "admin/attributes/edit/{attributeId}", method = RequestMethod.GET)
+	public String editAttribute(@PathVariable(value="attributeId" ) String attributeId,ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		String attributeId = request.getParameter("attributeId");
+//		String attributeId = request.getParameter("attributeId");
 		if(Validation.isNumeric(attributeId)){
 			Attribute attribute = attributeService.getAttributeByAttributeId(Util.getNumeric(attributeId));
 			if(attribute != null){
@@ -100,7 +101,7 @@ public class AttributeController
 				return "attributeView";
 			}
 		}
-		return "redirect:attributes";
+		return "redirect:/admin/attributes";
 	}
 	
 	@RequestMapping(value = "/getAttributeValues", method = RequestMethod.GET)

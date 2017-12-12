@@ -21,7 +21,7 @@
     <section class="content-header clearfix" >
       <h1 class="pull-left">Category</h1>
       <div class="pull-right">
-      	<a href="addCategory" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
       </div>
     </section>
 
@@ -64,7 +64,7 @@
 				                  <td style="text-align: center;"><span id="active<%= category.getCid()%>"><%= category.isActive()? "<i class=\"fa fa-check text-primary\"></i>" : "<i class=\"fa fa-close text-danger\"></i>" %></span></td>
 				                  <td style="text-align: center;"><%= category.getDisplayOrder()%></td>
 				                  <td style="text-align: center;">
-				                  	<a href="editCategory?cid=<%= category.getCid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+				                  	<a href="${pageContext.request.contextPath}/admin/category/edit/<%= category.getCid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
 				                  </td>
 				                </tr>
                 			<%
@@ -87,8 +87,8 @@
     </section>
     <!-- /.content -->
   </div>
-<script src="js/jquery.dataTables.js"></script>
-<script src="js/dataTables.bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.dataTables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable({

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,7 +43,7 @@ public class CategoryController
 	@Autowired private CategoryService categoryService; 
 	@Autowired private ProductService productService; 
 	
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/category", method = RequestMethod.GET)
 	public String categories(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		System.out.println("from Categories");
@@ -52,7 +53,7 @@ public class CategoryController
 		return "categories";
 	}
 	
-	@RequestMapping(value = "/addCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/category/add", method = RequestMethod.GET)
 	public String addCategory(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		map.addAttribute("categoryForm", new CategoryModel());
@@ -61,7 +62,7 @@ public class CategoryController
 		return "addCategory";
 	}
 	
-	@RequestMapping(value = "/addCategory", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/category/add", method = RequestMethod.POST)
 	public String addCategory(@ModelAttribute(value = "categoryForm") @Valid CategoryModel model,BindingResult result,
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
@@ -113,14 +114,14 @@ public class CategoryController
 	       
 		}
 		
-		return "redirect:categories";
+		return "redirect:/admin/category";
 	}
 	
-	@RequestMapping(value = "/editCategory", method = RequestMethod.GET)
-	public String editCategory(ModelMap map, HttpServletRequest request, Principal principal)
+	@RequestMapping(value = "admin/category/edit/{cid}", method = RequestMethod.GET)
+	public String editCategory(@PathVariable(value="cid" ) String cid, ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try{
-			String cid = request.getParameter("cid");
+//			String cid = request.getParameter("cid");
 			if(cid != null && cid.trim().length() > 0){
 				Category category = categoryService.getCategoryById(Integer.parseInt(cid));
 				if(category != null){
@@ -141,9 +142,9 @@ public class CategoryController
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return "redirect:categories";
+		return "redirect:admin/category";
 	}
-	@RequestMapping(value = "/editCategory", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/category/update", method = RequestMethod.POST)
 	public String updateCategory(@ModelAttribute(value = "categoryForm") @Valid CategoryModel model,BindingResult result,
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
@@ -188,15 +189,15 @@ public class CategoryController
 		       categoryService.updateCategory(category);
 		   }
 		}
-		return "redirect:categories";
+		return "redirect:/admin/category";
 	}
 	
-	@RequestMapping(value = "/deleteCategory", method = RequestMethod.GET)
-	public String deleteCategory(ModelMap map, HttpServletRequest request, Principal principal)
+	@RequestMapping(value = "/admin/category/delete/{cid}", method = RequestMethod.GET)
+	public String deleteCategory(@PathVariable(value="cid" ) String cid, ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		HttpSession session = request.getSession();
 		try{
-			String cid = request.getParameter("cid");
+//			String cid = request.getParameter("cid");
 			if(Validation.isNumeric(cid)){
 				Category category = categoryService.getCategoryById(Util.getNumeric(cid));
 				if(category != null){
@@ -214,7 +215,7 @@ public class CategoryController
 			e.printStackTrace();
 		}
 		session.setAttribute("msgType", "error");
-		return "redirect:categories";
+		return "redirect:/admin/category";
 	}
 	
 	

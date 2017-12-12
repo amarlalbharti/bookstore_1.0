@@ -9,22 +9,22 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-<link rel="stylesheet" href="css/select2.min.css">
-<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/select2.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/font-awesome.min.css">
 <!-- Ionicons -->
-<link rel="stylesheet" href="css/ionicons.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="css/AdminLTE.css">
-<link rel="stylesheet" href="css/skin-blue.css">
-<link rel="stylesheet" href="css/datepicker3.css">
-<link rel="stylesheet" href="css/dataTables.bootstrap.css">
-<link rel="stylesheet" href="css/alertify.css" />
-<link rel="stylesheet" href="css/alertify.default.css"/> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/AdminLTE.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/skin-blue.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/datepicker3.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.default.css"/> 
  <!-- jQuery 2.2.0 -->
-<script src="js/jQuery-2.2.0.min.js"></script>
-<script src="js/alertify.js"></script>
+<script src="${pageContext.request.contextPath}/js/jQuery-2.2.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/alertify.js"></script>
  <style type="text/css">
 input[type="file"] {
     display: none !important;
@@ -45,17 +45,40 @@ input[type="file"] {
     background: #ececec;
 }
 </style>
+<script>
+		function getLogOut(){
+			if (XMLHttpRequest)
+			{
+				x=new XMLHttpRequest();
+			}
+			else
+			{
+				x=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+		     x.onreadystatechange=function()
+			{
+		    	 if(x.readyState==4 && x.status==200)
+					{
+		    		 var res = x.responseText;
+		    		 window.location.href="${pageContext.request.contextPath}/j_spring_security_logout";
+		    		}
+			}
+			x.open("GET", "${pageContext.request.contextPath}/insertLogOut",true);
+			x.send();
+			return true;
+		}
+</script>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="bodyCoverWait" style="text-align: center; ">
-	<img style="position: relative;top: 250px;" alt="Please wait..." src="images/loading_spinner.gif">
+	<img style="position: relative;top: 250px;" alt="Please wait..." src="${pageContext.request.contextPath}/images/loading_spinner.gif">
 </div>
 
 <div class="wrapper">
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="dashboard" class="logo">
+    <a href="${pageContext.request.contextPath}/dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -74,13 +97,13 @@ input[type="file"] {
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="images/User_Avatar.png" class="user-image" alt="User Image">
+              <img src="${pageContext.request.contextPath}/images/User_Avatar.png" class="user-image" alt="User Image">
               <span class="hidden-xs">Amar</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="images/User_Avatar.png" class="img-circle" alt="User Image">
+                <img src="${pageContext.request.contextPath}/images/User_Avatar.png" class="img-circle" alt="User Image">
 
                 <p>
                   Amar - Web Developer
@@ -108,7 +131,7 @@ input[type="file"] {
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <button onclick="getLogOut()" class="btn btn-default btn-flat">Sign out</button>
                 </div>
               </li>
             </ul>

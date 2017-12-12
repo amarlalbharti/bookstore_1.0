@@ -24,7 +24,7 @@ html{
 </head>
 <body style="margin: 0 !important;" id="grad">
 <div style="width: 100%; height: 100%;" >
-	<a href="login">Login</a>
+	<a href="${pageContext.request.contextPath}/login">Login</a>
 </div>
 
 </body>

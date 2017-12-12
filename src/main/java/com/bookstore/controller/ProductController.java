@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,7 +46,7 @@ public class ProductController
 	@Autowired private ProductService productService; 
 	@Autowired private ProductImageService productImageService; 
 	
-	@RequestMapping(value = "/products", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/products", method = RequestMethod.GET)
 	public String categories(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		System.out.println("from products");
@@ -64,11 +65,11 @@ public class ProductController
 		map.addAttribute("rpp", rpp);
 		return "products";
 	}
-	@RequestMapping(value = "/editProduct", method = RequestMethod.GET)
-	public String viewProduct(ModelMap map, HttpServletRequest request, Principal principal)
+	@RequestMapping(value = "admin/products/edit/{pid}", method = RequestMethod.GET)
+	public String viewProduct(@PathVariable(value="pid" ) String pid,ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try{
-			String pid = request.getParameter("pid");
+//			String pid = request.getParameter("pid");
 			if(Validation.isNumeric(pid)){
 				Product product = productService.getProductById(Util.getNumeric(pid));
 				if(product != null) {
@@ -101,10 +102,10 @@ public class ProductController
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return "redirect:products";
+		return "redirect:/admin/products";
 	}
 	
-	@RequestMapping(value = "/addProduct", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/products/add", method = RequestMethod.GET)
 	public String addProduct(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try{
@@ -117,7 +118,7 @@ public class ProductController
 		return "productView";
 	}
 	
-	@RequestMapping(value = "/addProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/products/add", method = RequestMethod.POST)
 	public String addProduct(@ModelAttribute(value = "productForm") @Valid ProductModel model,BindingResult result,
 			                  ModelMap map, HttpServletRequest request,Principal principal)
 	{
@@ -148,7 +149,7 @@ public class ProductController
 						}
 						productService.updateProduct(product);
 						if(submit != null && !submit.equals("save")) {
-							return "redirect:editProduct?pid=" + product.getPid();
+							return "redirect:/admin/products/edit/" + product.getPid();
 						}
 						
 					}
@@ -173,7 +174,7 @@ public class ProductController
 					product.setModifyDate(new Date());
 					int pid = productService.addProduct(product);
 					if(submit != null && !submit.equals("save")) {
-						return "redirect:editProduct?pid=" + pid;
+						return "redirect:/admin/products/edit/" + pid;
 					}
 				}
 
@@ -182,10 +183,10 @@ public class ProductController
 				e.printStackTrace();
 			}
 		}
-		return "redirect:products";
+		return "redirect:/admin/products";
 	}
 	
-	@RequestMapping(value = "/copyProduct", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/products/copy", method = RequestMethod.POST)
 	public String copyProduct(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try{
@@ -215,16 +216,16 @@ public class ProductController
 					}
 					productImageService.setProductImage(productid);
 					if(submitbtn != null && submitbtn.equals("continue")) {
-						return "redirect:editProduct?pid=" + productid;
+						return "redirect:/admin/products/edit/" + productid;
 					}else {
-						return "redirect:products";
+						return "redirect:/admin/products";
 					}
 				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return "redirect:products";
+		return "redirect:/admin/products";
 	}
 	
 }

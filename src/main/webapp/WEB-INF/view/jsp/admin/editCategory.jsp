@@ -47,7 +47,7 @@ if(edit != null){
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix">
       <h1 class="pull-left">Edit category - <%= edit.getCategoryName()%>
-      <a href="categories"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to categories</small></a>
+      <a href="${pageContext.request.contextPath}/admin/category"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to categories</small></a>
       </h1>
       <div class="pull-right">
       	<button class="btn btn-flat btn-danger pull-right " id="delete_category"><i class="fa fa-fw fa-close"></i> Delete</button>
@@ -70,7 +70,7 @@ if(edit != null){
 	            <div class="tab-content">
 	              <div class="tab-pane active" id="tab_1">
 	              	<div class="box-body">
-            			<form:form class="form-horizontal" role="form" method="POST" action="editCategory" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
+            			<form:form class="form-horizontal" role="form" method="POST" action="${pageContext.request.contextPath}/admin/category/update" commandName="categoryForm" enctype="multipart/form-data" autocomplete="off" id="form">
 			              <div class="box-body">
 			              	<div class="form-group">
 			                  <label for="categoryName" class="col-sm-3 control-label">Parent Category</label>
@@ -164,7 +164,7 @@ if(edit != null){
 			              </div>
 			              <!-- /.box-body -->
 			              <div class="box-footer">
-			                <a href="categories"><button type="button" class="btn btn-default">Cancel</button></a>
+			                <a href="${pageContext.request.contextPath}/admin/category"><button type="button" class="btn btn-default">Cancel</button></a>
 			                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
 			              </div>
 			              <!-- /.box-footer -->
@@ -197,7 +197,7 @@ $(document).ready(function(){
 	function getCategoryProducts(pid,pn){
 		$.ajax({
 			type : "GET",
-			url : "getCategoryProducts",
+			url : "${pageContext.request.contextPath}/getCategoryProducts",
 			data : {"cid" : <%=edit.getCid()%>,'pn':pn},
 			success : function(data) {
 					$("#category_products").html(data);        
@@ -223,7 +223,7 @@ $(document).ready(function(){
 	$(document).on("click","#delete_category",function() {
 		var r = confirm("Do you want to delete this ?"); 
 		if(r){
-			window.location = "deleteCategory?cid=<%= edit.getCid() %>";	
+			window.location = "${pageContext.request.contextPath}/admin/category/delete/<%= edit.getCid() %>";	
 		}
 		 
 	});

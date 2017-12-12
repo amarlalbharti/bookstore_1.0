@@ -22,7 +22,7 @@
     <section class="content-header clearfix" >
       <h1 class="pull-left">Attributes</h1>
       <div class="pull-right">
-      	<a href="addAttribute" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="${pageContext.request.contextPath}/admin/attributes/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
       </div>
     </section>
 
@@ -59,7 +59,7 @@
 				                  <td style="text-align: center;"><span id="active<%= attribute.getAttributeId()%>"><%= attribute.isActive()? "Yes" : "No" %></span></td>
 				                  <td style="text-align: center;"><%= DateUtils.clientDateFormat.format(attribute.getCreateDate())%></td>
 				                  <td style="text-align: center;">
-				                  	<a href="attributeView?attributeId=<%= attribute.getAttributeId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
+				                  	<a href="${pageContext.request.contextPath}/admin/attributes/edit/<%= attribute.getAttributeId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> Edit</a>
 				                  </td>
 				                </tr>
                 			<%
@@ -82,8 +82,8 @@
     </section>
     <!-- /.content -->
   </div>
-<script src="js/jquery.dataTables.js"></script>
-<script src="js/dataTables.bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.dataTables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable({
