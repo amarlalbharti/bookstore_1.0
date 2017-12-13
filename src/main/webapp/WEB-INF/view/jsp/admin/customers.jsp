@@ -87,8 +87,8 @@
     </section>
     <!-- /.content -->
   </div>
-<script src="js/jquery.dataTables.js"></script>
-<script src="js/dataTables.bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.dataTables.js"></script>
+<script src="${pageContext.request.contextPath}/js/dataTables.bootstrap.js"></script>
 <script>
   $(function () {
     $('#example1').DataTable({

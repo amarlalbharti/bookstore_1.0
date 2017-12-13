@@ -52,7 +52,13 @@ public class Category
 	
 	@Column(name = "display_order", nullable=false)
 	private int displayOrder;
-	
+
+	@Column(name = "created_by")
+	private String createdBy;
+
+	@Column(name = "modify_by")
+	private String modifyBy;
+
 	@ManyToOne 
     @JoinColumn(name = "parent_id")
 	private Category parent;
@@ -185,6 +191,26 @@ public class Category
 	public void setProducts(Set<Product> products)
 	{
 		this.products = products;
+	}
+
+	public String getCreatedBy()
+	{
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
+
+	public String getModifyBy()
+	{
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy)
+	{
+		this.modifyBy = modifyBy;
 	}
 
 	

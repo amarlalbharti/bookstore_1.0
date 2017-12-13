@@ -133,7 +133,7 @@ if(edit != null){
 			                  		}else{
 			                  			%>
 			                  			   <div class="thumbnail">
-												<img id="previewHolder" alt="Uploaded Image Preview Holder" src="images/no-preview-available.png" />
+												<img id="previewHolder" alt="Uploaded Image Preview Holder" src="${pageContext.request.contextPath}/images/no-preview-available.png" />
 										   </div>
 			                  			<%
 			                  		}
@@ -197,7 +197,7 @@ $(document).ready(function(){
 	function getCategoryProducts(pid,pn){
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/getCategoryProducts",
+			url : "${pageContext.request.contextPath}/admin/getCategoryProducts",
 			data : {"cid" : <%=edit.getCid()%>,'pn':pn},
 			success : function(data) {
 					$("#category_products").html(data);        

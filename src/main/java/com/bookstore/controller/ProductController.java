@@ -51,18 +51,6 @@ public class ProductController
 	{
 		System.out.println("from products");
 		
-		int pn = request.getParameter("pn") != null? Integer.parseInt(request.getParameter("pn")) : 1;
-		int rpp = request.getParameter("rpp") != null? Integer.parseInt(request.getParameter("rpp")) : Util.RPP;
-		String cid = request.getParameter("cid");
-		if(Validation.isNumeric(cid)){
-			map.addAttribute("listcount", productService.countProductsByCategoryIds(new ArrayList<Integer>(Util.getNumeric(cid))));
-			map.addAttribute("productList", productService.getProductsByCategoryIds(new ArrayList<Integer>(Util.getNumeric(cid)), (pn-1)*rpp, rpp));
-		}else{
-			map.addAttribute("listcount", productService.countProducts());
-			map.addAttribute("productList", productService.getProducts((pn-1)*rpp, rpp));
-		}
-		map.addAttribute("pn", pn);
-		map.addAttribute("rpp", rpp);
 		return "products";
 	}
 	@RequestMapping(value = "admin/products/edit/{pid}", method = RequestMethod.GET)
@@ -186,7 +174,7 @@ public class ProductController
 		return "redirect:/admin/products";
 	}
 	
-	@RequestMapping(value = "/admin/products/copy", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/products/copy", method = RequestMethod.POST)
 	public String copyProduct(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try{
@@ -226,6 +214,27 @@ public class ProductController
 			e.printStackTrace();
 		}
 		return "redirect:/admin/products";
+	}
+	
+	
+	@RequestMapping(value = "admin/products/list/{pn}", method = RequestMethod.GET)
+	public String getProductList(@PathVariable(value="pn" ) String pageno, ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		System.out.println("from products");
+		
+		int pn = Validation.isNumeric(pageno) ? Util.getNumeric(pageno) : 1;
+		int rpp = Validation.isNumeric(request.getParameter("rpp")) ? Util.getNumeric(request.getParameter("rpp")) : Util.RPP;
+		String cid = request.getParameter("cid");
+		if(Validation.isNumeric(cid)){
+			map.addAttribute("listcount", productService.countProductsByCategoryIds(new ArrayList<Integer>(Util.getNumeric(cid))));
+			map.addAttribute("productList", productService.getProductsByCategoryIds(new ArrayList<Integer>(Util.getNumeric(cid)), (pn-1)*rpp, rpp));
+		}else{
+			map.addAttribute("listcount", productService.countProducts());
+			map.addAttribute("productList", productService.getProducts((pn-1)*rpp, rpp));
+		}
+		map.addAttribute("pn", pn);
+		map.addAttribute("rpp", rpp);
+		return "productList";
 	}
 	
 }

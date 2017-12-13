@@ -50,7 +50,10 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productView.jsp" />
         <put-attribute name="currentpage" value="products" cascade="true"/>
     </definition>
-    
+    <definition name="productList" extends="indexTemplate">
+    	<put-attribute name="title" value="Products List" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productList.jsp" />
+    </definition>
     
     <definition name="productImages" extends="indexTemplate">
     	<put-attribute name="title" value="Add New Product" />

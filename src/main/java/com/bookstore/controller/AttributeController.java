@@ -104,7 +104,7 @@ public class AttributeController
 		return "redirect:/admin/attributes";
 	}
 	
-	@RequestMapping(value = "/getAttributeValues", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/getAttributeValues", method = RequestMethod.GET)
 	public String getAttributeValues(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try {
@@ -128,7 +128,7 @@ public class AttributeController
 	
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/saveAttributeValue", method = RequestMethod.POST)
+	@RequestMapping(value = "admin/saveAttributeValue", method = RequestMethod.POST)
 	public @ResponseBody String saveAttributeValue(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		JSONObject json = new JSONObject();
@@ -183,7 +183,7 @@ public class AttributeController
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/deleteAttributeValue", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/deleteAttributeValue", method = RequestMethod.GET)
 	public @ResponseBody String deleteAttributeValue(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		JSONObject json = new JSONObject();

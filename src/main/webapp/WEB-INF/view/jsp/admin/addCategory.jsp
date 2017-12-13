@@ -116,7 +116,7 @@
 			                  <label for="categoryImage" class="col-sm-3 control-label">Picture</label>
 			                  <div class="col-sm-9">
 			                    <div class="thumbnail">
-									<img id="previewHolder" alt="Uploaded Image Preview Holder" src="images/no-preview-available.png" />
+									<img id="previewHolder" alt="Uploaded Image Preview Holder" src="${pageContext.request.contextPath}/images/no-preview-available.png" />
 							    </div>
 			                    <label class="btn btn-primary btn-flat btn-xs">
 									<input name="categoryImage" id="categoryImage" type="file" accept="image/jpg,image/png,image/jpeg,image/gif" tabindex="75" onchange="categoryImage();" />

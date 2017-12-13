@@ -41,6 +41,13 @@ public class Attribute implements Serializable
 	@Column(name="modify_date", nullable=true)
 	private Date modifyDate;
 
+	@Column(name = "created_by")
+	private String createdBy;
+
+	@Column(name = "modify_by")
+	private String modifyBy;
+
+	
 	@OneToMany(mappedBy="attribute", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<AttributeValue> attributeValues = new HashSet(); 
 	
@@ -103,6 +110,26 @@ public class Attribute implements Serializable
 	public void setAttributeValues(Set<AttributeValue> attributeValues)
 	{
 		this.attributeValues = attributeValues;
+	}
+
+	public String getCreatedBy()
+	{
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
+
+	public String getModifyBy()
+	{
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy)
+	{
+		this.modifyBy = modifyBy;
 	}
 	
 	

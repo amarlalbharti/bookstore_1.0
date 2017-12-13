@@ -84,6 +84,8 @@ public class CategoryController
 	       category.setActive(model.isActive());
 	       category.setCreateDate(new Date());
 	       category.setModifyDate(new Date());
+	       category.setCreatedBy(principal.getName());
+	       category.setModifyBy(principal.getName());
 	       int cid = categoryService.addCategory(category);
 	       MultipartFile image = model.getCategoryImage();
 	       if(image != null){
@@ -166,7 +168,7 @@ public class CategoryController
 		       category.setDisplayOrder(model.getDisplayOrder());
 		       category.setActive(model.isActive());
 		       category.setModifyDate(new Date());
-		       
+		       category.setModifyBy(principal.getName());
 		       MultipartFile image = model.getCategoryImage();
 		       if(image != null) {
 		    	   String imageName = image.getOriginalFilename();
@@ -219,7 +221,7 @@ public class CategoryController
 	}
 	
 	
-	@RequestMapping(value = "/getCategoryProducts", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/getCategoryProducts", method = RequestMethod.GET)
 	public String getCategoryProducts(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		HttpSession session = request.getSession();

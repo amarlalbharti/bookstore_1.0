@@ -77,6 +77,13 @@ public class Product implements Serializable, Cloneable
 	@Column(name = "product_tin")
 	private String productTin;
 
+	@Column(name = "created_by")
+	private String createdBy;
+
+	@Column(name = "modify_by")
+	private String modifyBy;
+
+	
 	@ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name="product_category", 
                 joinColumns={@JoinColumn(name="pid")}, 
@@ -283,6 +290,26 @@ public class Product implements Serializable, Cloneable
 	
 	
 	
+	public String getCreatedBy()
+	{
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy)
+	{
+		this.createdBy = createdBy;
+	}
+
+	public String getModifyBy()
+	{
+		return modifyBy;
+	}
+
+	public void setModifyBy(String modifyBy)
+	{
+		this.modifyBy = modifyBy;
+	}
+
 	@Override
 	public Object clone() throws CloneNotSupportedException
 	{

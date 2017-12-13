@@ -39,7 +39,7 @@ public class ProductImageController
 	@Autowired private ProductImageService productImageService; 
 	
 	
-	@RequestMapping(value = "/getProductImages")
+	@RequestMapping(value = "admin/getProductImages")
     public String getProductImages(ModelMap map, HttpServletRequest request, Principal principal)
     {
 		try{
@@ -60,7 +60,7 @@ public class ProductImageController
     }
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/deleteProductImage")
+	@RequestMapping(value = "admin/deleteProductImage")
     public @ResponseBody String deleteProductImage(ModelMap map, HttpServletRequest request, Principal principal)
     {
 		JSONObject json = new JSONObject();
@@ -90,7 +90,7 @@ public class ProductImageController
 	
 
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/profileImageUpld")
+	@RequestMapping(value = "admin/profileImageUpld")
     public @ResponseBody String ajaxFileUpload(MultipartHttpServletRequest request, HttpServletRequest req, Principal principal)throws ServletException, IOException
     {   
 		String pid = req.getParameter("pid");
@@ -141,7 +141,7 @@ public class ProductImageController
 					return json.toJSONString();
 				}
 				String filename=UUID.randomUUID().toString();
-				String imagepath = "products/"+filename+"."+FilenameUtils.getExtension(mpf.getOriginalFilename());
+				String imagepath = "products/"+product.getPid()+"/"+filename+"."+FilenameUtils.getExtension(mpf.getOriginalFilename());
 				File dl = new File(ProjectConfig.UPLOAD_PATH+""+imagepath);
 		    	System.out.println("PATH="+dl.getAbsolutePath());
 			    if(!dl.exists()){

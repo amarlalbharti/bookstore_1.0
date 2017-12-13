@@ -317,7 +317,7 @@ $(document).ready(function(){
 	function getProductImages(pid){
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/getProductImages",
+			url : "${pageContext.request.contextPath}/admin/getProductImages",
 			data : {"pid" : pid},
 			success : function(data) {
 				$("#product_images").html(data);  
@@ -331,7 +331,7 @@ $(document).ready(function(){
 	function getProductAttributes(pid){
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/getProductAttributes",
+			url : "${pageContext.request.contextPath}/admin/getProductAttributes",
 			data : {"pid" : pid},
 			success : function(data) {
 				$("#product_attributes").html(data);     
@@ -370,7 +370,7 @@ $(document).ready(function(){
 	 	senddata.append("pid", pid);
 	 	senddata.append("imageId", imageId);
 		$.ajax({
-	 		  url: "${pageContext.request.contextPath}/profileImageUpld",
+	 		  url: "${pageContext.request.contextPath}/admin/profileImageUpld",
 	 		  type: "POST",
 	 		  async: "false",
 	 		  data: senddata,
@@ -395,7 +395,7 @@ $(document).ready(function(){
 		if(confirm("Are you sure to delete this ?")){
 			$.ajax({
 				type : "GET",
-				url : "${pageContext.request.contextPath}/deleteProductImage",
+				url : "${pageContext.request.contextPath}/admin/deleteProductImage",
 				data : {"imageId" : imageid},
 				success : function(response) {
 					 var json = JSON.parse(response);
@@ -416,7 +416,7 @@ $(document).ready(function(){
 		var pid = <%= model.getPid() %>;
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/getProductImages",
+			url : "${pageContext.request.contextPath}/admin/getProductImages",
 			data : {"pid" : pid, "imageId" : imageid},
 			success : function(data) {
 					$("#product_images").html(data);        
@@ -467,7 +467,7 @@ $(document).ready(function(){
 		}else{
 			$.ajax({
 				type : "POST",
-				url : "${pageContext.request.contextPath}/saveProductAttribute",
+				url : "${pageContext.request.contextPath}/admin/saveProductAttribute",
 				data : {"pid" : pid,
 					"submitType" : submitType,
 					"product_attribute":product_attribute,
@@ -498,7 +498,7 @@ $(document).ready(function(){
 		var pid = <%= model.getPid() %>;
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/getProductAttributes",
+			url : "${pageContext.request.contextPath}/admin/getProductAttributes",
 			data : {"pid" : pid, "productAttributeId" : product_attribute_id},
 			success : function(data) {
 				$("#product_attributes").html(data);     

@@ -39,7 +39,7 @@ public class ProductAttributeController
 	@Autowired
 	private AttributeValueService attributeValueService;
 	
-	@RequestMapping(value = "/getProductAttributes")
+	@RequestMapping(value = "/admin/getProductAttributes")
     public String getProductAttributes(ModelMap map, HttpServletRequest request, Principal principal)
     {
 		try{
@@ -67,7 +67,7 @@ public class ProductAttributeController
     }
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/saveProductAttribute", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/saveProductAttribute", method = RequestMethod.POST)
     public @ResponseBody String saveProductAttribute(ModelMap map, HttpServletRequest request, Principal principal)
     {
 		JSONObject json = new JSONObject();
@@ -202,7 +202,7 @@ public class ProductAttributeController
     }
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/getProductAttributeValues")
+	@RequestMapping(value = "/admin/getProductAttributeValues")
     public @ResponseBody String getProductAttributeValues(ModelMap map, HttpServletRequest request, Principal principal)
     {
 		JSONObject json = new JSONObject();

@@ -111,7 +111,7 @@ $(document).ready(function(){
 	function getAttributeValues(attributeId){
 		$.ajax({
 			type : "GET",
-			url : "${pageContext.request.contextPath}/getAttributeValues",
+			url : "${pageContext.request.contextPath}/admin/getAttributeValues",
 			data : {"attributeId" : attributeId},
 			success : function(data) {
 					$("#attribute_values").html(data);        

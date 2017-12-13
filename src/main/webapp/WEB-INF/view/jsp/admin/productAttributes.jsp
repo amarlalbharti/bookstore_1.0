@@ -256,7 +256,7 @@ $(document).ready(function(){
 			var sel_option = $("#product_attribute_option").attr("sel_option");
 			$.ajax({
 				type : "GET",
-				url : "getProductAttributeValues",
+				url : "${pageContext.request.contextPath}/admin/getProductAttributeValues",
 				data : {"attributeId" : attributeId},
 				success : function(response) {
 					$('#product_attribute_option option').remove();
