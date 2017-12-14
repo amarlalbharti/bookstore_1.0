@@ -15,7 +15,7 @@ import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Basket;
 import com.bookstore.domain.CustomerAddress;
-import com.bookstore.service.CustomerService;
+import com.bookstore.service.RegistrationService;
 
 /**
  * @author Saumya
@@ -25,14 +25,14 @@ import com.bookstore.service.CustomerService;
 @Controller
 public class CustomerController
 {
-	@Autowired private CustomerService customerService; 
+	@Autowired private RegistrationService registrationService; 
 	
-	@RequestMapping(value = "/customers", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/customers", method = RequestMethod.GET)
 	public String categories(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		System.out.println("from customers");
 		
-		map.addAttribute("customerList", customerService.getAllCustomers());
+//		map.addAttribute("customerList", customerService.getAllCustomers());
 		
 		return "customers";
 	}
@@ -45,11 +45,11 @@ public class CustomerController
 			
 			if(Validation.isNumeric(customerId)){
 				map.addAttribute("viewmode", "view");
-				map.addAttribute("customer", customerService.getCustomerById(Util.getNumeric(customerId)));
-				List<CustomerAddress> custAddress=customerService.getAddressByCustId(Util.getNumeric(customerId)) ;
-				map.addAttribute("custAddress", custAddress);
-				List<Basket> custBasket=customerService.getBasketByCustId(Util.getNumeric(customerId)) ;
-				map.addAttribute("custBasket", custBasket);
+//				map.addAttribute("customer", customerService.getCustomerById(Util.getNumeric(customerId)));
+//				List<CustomerAddress> custAddress=customerService.getAddressByCustId(Util.getNumeric(customerId)) ;
+//				map.addAttribute("custAddress", custAddress);
+//				List<Basket> custBasket=customerService.getBasketByCustId(Util.getNumeric(customerId)) ;
+//				map.addAttribute("custBasket", custBasket);
 				System.out.println("from viewCustomer");
 				return "customerView";	
 			}

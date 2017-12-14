@@ -5,8 +5,12 @@ import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +39,12 @@ public class AdminController
 	{
 //		checkPassword() ;
 		System.out.println("from admin dashboard : " + principal);
+		
 		return "dashboard";
 	}
 	
 	
-	private boolean changePassword() {
+/*	private boolean changePassword() {
 		loginInfoService.resetPassword("amarlalbharti@gmail.com", "12345");
 		return true;
 	}
@@ -56,5 +61,5 @@ public class AdminController
 		
 		return false;
 	}
-	
+	*/
 }

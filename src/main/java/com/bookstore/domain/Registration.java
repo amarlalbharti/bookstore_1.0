@@ -46,6 +46,13 @@ public class Registration implements Serializable
 	
 	private LoginInfo loginInfo;
 	
+	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	private Set<Basket> baskets = new HashSet();
+	
+	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	private Set<CustomerAddress> customerAddresses = new HashSet();
+	
+	
 	@Id
 	@Column(name = "rid", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)

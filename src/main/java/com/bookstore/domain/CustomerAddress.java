@@ -46,8 +46,8 @@ public class CustomerAddress
 	private Date deletedDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customer_id", referencedColumnName="customer_id")
-	private Customer customer;
+	@JoinColumn(name="user_id", referencedColumnName="rid")
+	private Registration registration;
 
 	public int getCustomerAddressId()
 	{
@@ -139,16 +139,16 @@ public class CustomerAddress
 		this.deletedDate = deletedDate;
 	}
 
-	public Customer getCustomer()
+	public Registration getRegistration()
 	{
-		return customer;
+		return registration;
 	}
 
-	public void setCustomer(Customer customer)
+	public void setRegistration(Registration registration)
 	{
-		this.customer = customer;
+		this.registration = registration;
 	}
-	
+
 	
 	
 }

@@ -5,8 +5,11 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.bookstore.domain.Category"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -43,14 +46,14 @@
 	   <thead>
 	   <tr class="bg-primary">
 	     <th style="text-align: center;"><input type="checkbox" ></th>
-	     <th style="text-align: center;">Picture</th>
-	     <th>Product</th>
-	     <th style="text-align: center;">SKU</th>
-	     <th >Price</th>
-	     <th >Stock Unit</th>
-	     <th style="text-align: center;">Published</th>
-	     <th style="text-align: center;">Create Date</th>
-	     <th style="text-align: center;">Action</th>
+	     <th style="text-align: center;"><spring:message code="label.product.header.picture"/></th>
+	     <th><spring:message code="label.product.header.product"/></th>
+	     <th style="text-align: center;"><spring:message code="label.product.header.sku"/></th>
+	     <th ><spring:message code="label.product.header.price"/></th>
+	     <th ><spring:message code="label.product.header.stock_unit"/></th>
+	     <th style="text-align: center;"><spring:message code="label.product.header.published"/></th>
+	     <th style="text-align: center;"><spring:message code="label.product.header.create_date"/></th>
+	     <th style="text-align: center;"><spring:message code="label.product.header.action"/></th>
 	   </tr>
 	   </thead>
 	   <tbody>
@@ -110,13 +113,13 @@
 					if(pn>1){
 						%>
 						<li class="paginate_button previous" id="products_previous" pn="<%= pn-1 %>">
-	  						<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a>
+	  						<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="0" tabindex="0"><spring:message code="label.datatable.pagination.previous"/></a>
 						</li>
 					<%	
 					}else{
 					%>
 						<li class="paginate_button previous disabled">
-  							<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="0" tabindex="0">Previous</a>
+  							<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="0" tabindex="0"><spring:message code="label.datatable.pagination.previous"/></a>
 						</li>
 					<%	
 						
@@ -129,13 +132,13 @@
 					if(pn<lastpage){
 						%>
 							<li class="paginate_button next" id="products_next" pn="<%= pn+1 %>">
-								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a>
+								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="7" tabindex="0"><spring:message code="label.datatable.pagination.next"/></a>
 							</li>
 						<%	
 					}else{
 						%>
  							<li class="paginate_button next disabled" >
-								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="7" tabindex="0">Next</a>
+								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="7" tabindex="0"><spring:message code="label.datatable.pagination.next"/></a>
 							</li>
 						<%	
 					}

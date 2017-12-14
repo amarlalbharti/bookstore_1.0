@@ -1,7 +1,7 @@
+<%@page import="com.bookstore.domain.Registration"%>
 <%@page import="org.springframework.util.StringUtils"%>
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="com.bookstore.domain.Customer"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -50,21 +50,21 @@
                 <tbody>
                 <%
 	                int  count = 0; 
-                	List<Customer> customerList = (List)request.getAttribute("customerList");
+                	List<Registration> customerList = (List)request.getAttribute("customerList");
                 	if(customerList != null && !customerList.isEmpty()){
-                		for(Customer customer : customerList){
+                		for(Registration customer : customerList){
                 			
                 			%>
                 				<tr>
                 				  <td style="text-align: center;"><%= ++count%></td>
-				                  <td><%= customer.getEmail() %></td>
-				                  <td style="text-align: center;"><%= customer.getFirstName()+' '+customer.getLastName()%></td>
+				                  <td><%= customer.getLoginInfo().getUserid() %></td>
+				                  <td style="text-align: center;"><%= customer.getName()%></td>
 				                  <td style="text-align: center;"><%= customer.getGender()%></td>
-				                  <td style="text-align: center;"><%= customer.getContact()%></td>
-				                  <td style="text-align: center;"><%= customer.getContact()%></td>
+				                  <td style="text-align: center;"><%= customer.getDob()%></td>
+				                  <td style="text-align: center;"><%= customer.getLoginInfo().getIsActive()%></td>
 				                 
 				                  <td style="text-align: center;">
-				                  	<a href="viewCustomer?customerId=<%= customer.getCustomerId()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> View</a>
+				                  	<a href="viewCustomer?customerId=<%= customer.getRid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> View</a>
 				                  </td>
 				                </tr>
                 			<%

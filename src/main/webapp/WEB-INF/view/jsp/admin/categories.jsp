@@ -3,8 +3,11 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.bookstore.domain.Category"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,9 +22,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
-      <h1 class="pull-left">Category</h1>
+      <h1 class="pull-left"><spring:message code="label.category"/></h1>
       <div class="pull-right">
-      	<a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="${pageContext.request.contextPath}/admin/category/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> <spring:message code="label.add.new" /></a>
       </div>
     </section>
 
@@ -39,10 +42,10 @@
                 <thead>
                 <tr class="bg-primary">
                   <th width="5%" style="text-align: center;">#</th>
-                  <th width="55%">Category Name</th>
-                  <th width="10%" style="text-align: center;">Active</th>
-                  <th width="10%"style="text-align: center;">Display Order</th>
-                  <th width="20%"style="text-align: center;">Action</th>
+                  <th width="55%"><spring:message code="label.category.name"/></th>
+                  <th width="10%" style="text-align: center;"><spring:message code="label.activate"/></th>
+                  <th width="10%"style="text-align: center;"><spring:message code="label.display.order"/></th>
+                  <th width="20%"style="text-align: center;"><spring:message code="label.action"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -97,14 +100,26 @@
       "searching": true,
       "ordering": false,
       "info": true,
-      "autoWidth": false
+      "autoWidth": false,
+      "language": {
+    	    "search": "<spring:message code="label.datatable.search"/>:",
+    	    "lengthMenu": "<spring:message code="label.datatable.lengthMenu"/>",
+            "zeroRecords": "<spring:message code="label.datatable.zeroRecords"/>",
+            "info": "<spring:message code="label.datatable.info"/>",
+            "infoEmpty": "<spring:message code="label.datatable.infoEmpty"/>",
+            "infoFiltered": "<spring:message code="label.datatable.infoFiltered"/>",
+            "paginate": {
+            	"first": "<spring:message code="label.datatable.pagination.first"/>",
+                "previous": "<spring:message code="label.datatable.pagination.previous"/>",
+                "next": "<spring:message code="label.datatable.pagination.next"/>",
+               	"last": "<spring:message code="label.datatable.pagination.last"/>"
+              }
+    	  }
     });
   });
 </script>
 <script type="text/javascript">
  $(document).ready(function(){
-	
-	
 	
 });
 </script>

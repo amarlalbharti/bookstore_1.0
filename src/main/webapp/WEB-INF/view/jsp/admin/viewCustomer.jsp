@@ -1,9 +1,9 @@
+<%@page import="com.bookstore.domain.Registration"%>
 <%@page import="com.bookstore.domain.Basket"%>
 <%@page import="com.bookstore.domain.CustomerAddress"%>
 <%@page import="org.springframework.util.StringUtils"%>
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
-<%@page import="com.bookstore.domain.Customer"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,7 +19,7 @@
 </head>
 <body>
 <%
-Customer customer = (Customer)request.getAttribute("customer");
+Registration customer = (Registration)request.getAttribute("customer");
 	%>
 
 	<div class="content-wrapper">
@@ -55,13 +55,13 @@ Customer customer = (Customer)request.getAttribute("customer");
 		                           <div class="form-group">
 					                  <label class="col-sm-4 control-label" style="text-align: right;">Name</label>
 					                  <div class="col-sm-8">
-					                    <label class="form-control label-text"><%=customer.getFirstName()+' '+customer.getLastName() %></label>
+					                    <label class="form-control label-text"><%=customer.getName() %></label>
 					                  </div>
 					                </div>
 					                <div class="form-group">
 					                  <label class="col-sm-4 control-label"  style="text-align: right;">Email ID</label>
 					                  <div class="col-sm-8">
-					                    <label class="form-control label-text"><%=customer.getEmail()%></label>
+					                    <label class="form-control label-text"><%=customer.getLoginInfo().getUserid()%></label>
 					                  </div>
 					                </div>
 					                <div class="form-group ">
@@ -74,7 +74,7 @@ Customer customer = (Customer)request.getAttribute("customer");
 					                <div class="form-group">
 					                  <label class="col-sm-4 control-label"  style="text-align: right;">Contact Number</label>
 					                  <div class="col-sm-8">
-					                    <label class="form-control"><%=customer.getContact()%></label>
+					                    <label class="form-control"><%=customer.getDob()%></label>
 					                  </div>
 					                </div>
 					                

@@ -315,30 +315,30 @@ $(document).ready(function(){
 	
 	// added by Amar, get all images inner page for current product
 	function getProductImages(pid){
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/admin/getProductImages",
-			data : {"pid" : pid},
-			success : function(data) {
-				$("#product_images").html(data);  
-			}
-			
-		});
-		
+		if(pid > 0){
+			$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/admin/getProductImages",
+				data : {"pid" : pid},
+				success : function(data) {
+					$("#product_images").html(data);  
+				}
+			});
+		}
 	}
 	
 	// added by Amar, get all images inner page for current product
 	function getProductAttributes(pid){
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/admin/getProductAttributes",
-			data : {"pid" : pid},
-			success : function(data) {
-				$("#product_attributes").html(data);     
-			}
-			
-		});
-		
+		if(pid > 0){
+			$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/admin/getProductAttributes",
+				data : {"pid" : pid},
+				success : function(data) {
+					$("#product_attributes").html(data);     
+				}
+			});
+		}
 	}
 	
 	// added by Amar, Upload product image

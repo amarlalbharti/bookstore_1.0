@@ -17,7 +17,6 @@
 		<mapping class="com.bookstore.domain.Attribute"/>
 		<mapping class="com.bookstore.domain.AttributeValue"/>
 		<mapping class="com.bookstore.domain.ProductAttribute"/>
-		<mapping class="com.bookstore.domain.Customer"/>
 		<mapping class="com.bookstore.domain.CustomerAddress"/>
 		<mapping class="com.bookstore.domain.Basket"/>
 		<mapping class="com.bookstore.domain.OrderItem"/>

@@ -105,7 +105,6 @@ html
     </form>
 
     <a href="forgotPassword">I forgot my password</a><br>
-    ${errormsg}
   </div>
   <!-- /.login-box-body -->
 </div>
@@ -117,14 +116,7 @@ html
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script>
 $(document).ready(function(){
- $(document.body).on("change", "#j_username", function(e) {
-    var eId = $("#j_username").val();
-    if(eId.length > 3 && !eId.includes('@'))
-    {
-    eId += "@vasonomics.com";
-    $("#j_username").val(eId);
-    }
-   });
+ 
 });
 
 $(document).ready(function(){

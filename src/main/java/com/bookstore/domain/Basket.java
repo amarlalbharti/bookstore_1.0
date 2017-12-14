@@ -34,8 +34,8 @@ public class Basket
 	private Date deletedDate;
 	
 	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customer_id", referencedColumnName="customer_id")
-	private Customer customer;
+	@JoinColumn(name="user_id", referencedColumnName="rid")
+	private Registration registration;
 
 	@ManyToOne(cascade=CascadeType.ALL) 
 	@JoinColumn(name="product_id", referencedColumnName="pid")
@@ -92,14 +92,14 @@ public class Basket
 		this.modifyDate = modifyDate;
 	}
 
-	public Customer getCustomer()
+	public Registration getRegistration()
 	{
-		return customer;
+		return registration;
 	}
 
-	public void setCustomer(Customer customer)
+	public void setRegistration(Registration registration)
 	{
-		this.customer = customer;
+		this.registration = registration;
 	}
 
 	public Product getProduct()
