@@ -32,7 +32,11 @@ public class Registration implements Serializable
 	
 	private int rid;
 	
-	private String name;
+	private String firstName;
+	
+	private String lastName;
+	
+	private String contactno;
 	
 	private Date dob;
 	
@@ -46,10 +50,8 @@ public class Registration implements Serializable
 	
 	private LoginInfo loginInfo;
 	
-	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<Basket> baskets = new HashSet();
 	
-	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<CustomerAddress> customerAddresses = new HashSet();
 	
 	
@@ -64,16 +66,40 @@ public class Registration implements Serializable
 		this.rid = rid;
 	}
 	
-	@Column(name = "name", nullable=false)
-	public String getName()
+	@Column(name = "first_name", nullable=false)
+	public String getFirstName()
 	{
-		return name;
+		return firstName;
 	}
 
-	public void setName(String name)
+	public void setFirstName(String firstName)
 	{
-		this.name = name;
+		this.firstName = firstName;
 	}
+
+	@Column(name = "last_name")
+	public String getLastName()
+	{
+		return lastName;
+	}
+
+	public void setLastName(String lastName)
+	{
+		this.lastName = lastName;
+	}
+
+	@Column(name = "contact_no")
+	public String getContactno()
+	{
+		return contactno;
+	}
+
+	public void setContactno(String contactno)
+	{
+		this.contactno = contactno;
+	}
+
+
 
 	@Column(name = "create_date", nullable=false)
 	public Date getCreateDate() {
@@ -131,5 +157,29 @@ public class Registration implements Serializable
 	public void setLoginInfo(LoginInfo loginInfo) {
 		this.loginInfo = loginInfo;
 	}
+	
+	@OneToMany(mappedBy="registration", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	public Set<Basket> getBaskets()
+	{
+		return baskets;
+	}
+
+	public void setBaskets(Set<Basket> baskets)
+	{
+		this.baskets = baskets;
+	}
+
+	@OneToMany(mappedBy="registration", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	public Set<CustomerAddress> getCustomerAddresses()
+	{
+		return customerAddresses;
+	}
+
+	public void setCustomerAddresses(Set<CustomerAddress> customerAddresses)
+	{
+		this.customerAddresses = customerAddresses;
+	}
+	
+	
 
 }

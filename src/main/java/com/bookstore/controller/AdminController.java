@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookstore.config.Roles;
+import com.bookstore.constraints.AttributeType;
 import com.bookstore.domain.LoginInfo;
 import com.bookstore.service.LoginInfoService;
 
@@ -34,11 +35,11 @@ public class AdminController
 	 * @param principal is the object for detail of loged in user
 	 * @return   name of view mapped in tiles for index page
 	 */
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/dashboard", method = RequestMethod.GET)
 	public String dashboard(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 //		checkPassword() ;
-		System.out.println("from admin dashboard : " + principal);
+		System.out.println("from admin dashboard : " + AttributeType.OPTIONS);
 		
 		return "dashboard";
 	}

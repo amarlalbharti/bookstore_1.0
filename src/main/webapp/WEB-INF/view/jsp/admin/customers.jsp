@@ -34,49 +34,7 @@
           <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-body">
-			<div class="">
-              <table id="example1"  class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th style="text-align: center;">#</th>
-                  <th>Email</th>
-                  <th style="text-align: center;">Name</th>
-                  <th style="text-align: center;">Gender</th>
-                  <th style="text-align: center;">Contact No.</th>
-                  <th style="text-align: center;">Address</th>
-                  <th style="text-align: center;">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <%
-	                int  count = 0; 
-                	List<Registration> customerList = (List)request.getAttribute("customerList");
-                	if(customerList != null && !customerList.isEmpty()){
-                		for(Registration customer : customerList){
-                			
-                			%>
-                				<tr>
-                				  <td style="text-align: center;"><%= ++count%></td>
-				                  <td><%= customer.getLoginInfo().getUserid() %></td>
-				                  <td style="text-align: center;"><%= customer.getName()%></td>
-				                  <td style="text-align: center;"><%= customer.getGender()%></td>
-				                  <td style="text-align: center;"><%= customer.getDob()%></td>
-				                  <td style="text-align: center;"><%= customer.getLoginInfo().getIsActive()%></td>
-				                 
-				                  <td style="text-align: center;">
-				                  	<a href="viewCustomer?customerId=<%= customer.getRid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> View</a>
-				                  </td>
-				                </tr>
-                			<%
-                		}
-                	}
-                %>
-                
-                </tbody>
-              </table>
-              </div>
-              
-              
+			<div class="" id="customers_list"></div>
             </div>
           </div>
         </div>
@@ -103,9 +61,17 @@
 </script>
 <script type="text/javascript">
  $(document).ready(function(){
-	
-	
-	
+	 getCustomerList(1);
+	 function getCustomerList(pn, rpp){
+			$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/admin/customers/list/"+pn,
+				data : {"rpp":rpp},
+				success : function(response) {
+					 $("#customers_list").html(response);
+				}
+			});
+		}
 });
 </script>
   

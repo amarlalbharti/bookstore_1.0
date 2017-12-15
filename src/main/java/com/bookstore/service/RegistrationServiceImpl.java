@@ -16,19 +16,35 @@ public class RegistrationServiceImpl implements RegistrationService
 {
 	@Autowired private RegistrationDao registrationDao;
 	
-	public Registration getRegistrationByUserid(String userid)
-	{
+	public int addRegistration(Registration registration) {
+		return this.registrationDao.addRegistration(registration);
+	}
+	
+	public boolean updateRegistration(Registration registration) {
+		return this.registrationDao.updateRegistration(registration);
+	}
+	
+	public Registration getRegistrationByRid(int rid) {
+		return this.registrationDao.getRegistrationByRid(rid);
+	}
+	
+	public Registration getRegistrationByUserid(String userid) {
 		return this.registrationDao.getRegistrationByUserid(userid);
 	}
 	
-	public List<Registration> getRegistrationList()
-	{
-		return this.registrationDao.getRegistrationList();
+	public List<Registration> getRegistrationList(boolean all , int first, int max){
+		return this.registrationDao.getRegistrationList(all, first, max);
 	}
 	
-	public boolean updateRegistration(Registration registration)
-	{
-		return this.registrationDao.updateRegistration(registration);
+	public List<Registration> getRegistrationListByRoles(List<String> roles, boolean all , int first, int max){
+		return this.registrationDao.getRegistrationListByRoles(roles, all, first, max);
 	}
-
+	
+	public long countRegistrationList() {
+		return this.registrationDao.countRegistrationList();
+	}
+	
+	public long countRegistrationListByRoles(List<String> roles) {
+		return this.registrationDao.countRegistrationListByRoles(roles);
+	}
 }

@@ -2,7 +2,7 @@
 <%@ page session="false"%>
 <html>
 <head>
-<title><spring:message code="label.title" /></title>
+<title><spring:message code="label.title"  /></title>
 </head>
 <body>
 	<form method="post" action="login">

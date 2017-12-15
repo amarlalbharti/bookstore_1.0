@@ -172,15 +172,15 @@ public class IndexController
 	{
 		if(request.isUserInRole(Roles.ROLE_ADMIN))
 		{
-			return "redirect:dashboard";
+			return "redirect:/admin/dashboard";
 		}
 		else if(request.isUserInRole(Roles.ROLE_MANAGER))
 		{
-			return "redirect:dashboard";
+			return "redirect:/admin/dashboard";
 		}
 		else
 		{
-			return "redirect:dashboard";
+			return "redirect:test";
 		}
 	}
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
@@ -213,7 +213,7 @@ public class IndexController
 				String url = ProjectConfig.url+"/resetPassword?email="+userid+"&token="+uuid;
 				System.out.println("url : " + url);
 				String subject = "Reset Password from BookStore ";
-				String content = "Dear "+ reg.getName()+", <br><br>"
+				String content = "Dear "+ reg.getFirstName()+", <br><br>"
 						+ "Please click on link below to reset password <br>"
 						+ "<br>"
 						+ "<a href='http://"+ url +"'>"+url+"</a>";

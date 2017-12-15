@@ -33,11 +33,12 @@ public class Basket
 	@Column(name = "deleted_date")
 	private Date deletedDate;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
 
-	@ManyToOne(cascade=CascadeType.ALL) 
+	
+	@ManyToOne
 	@JoinColumn(name="product_id", referencedColumnName="pid")
 	private Product Product;
 

@@ -88,11 +88,16 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/customers.jsp" />
         <put-attribute name="currentpage" value="customer" cascade="true"/>
     </definition>
+    <definition name="customersList" extends="indexTemplate">
+    	<put-attribute name="title" value="Customers List" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/customersList.jsp" />
+    </definition>
     <definition name="customerView" extends="adminTemplate">
         <put-attribute name="title" value="Customers" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/viewCustomer.jsp" />
         <put-attribute name="currentpage" value="customer" cascade="true"/>
     </definition>
+    
     
     
 </tiles-definitions>

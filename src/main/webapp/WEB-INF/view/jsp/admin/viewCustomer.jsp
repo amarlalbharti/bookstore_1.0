@@ -55,7 +55,7 @@ Registration customer = (Registration)request.getAttribute("customer");
 		                           <div class="form-group">
 					                  <label class="col-sm-4 control-label" style="text-align: right;">Name</label>
 					                  <div class="col-sm-8">
-					                    <label class="form-control label-text"><%=customer.getName() %></label>
+					                    <label class="form-control label-text"><%=customer.getFirstName() %></label>
 					                  </div>
 					                </div>
 					                <div class="form-group">
