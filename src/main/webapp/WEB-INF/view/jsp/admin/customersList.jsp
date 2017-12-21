@@ -50,7 +50,7 @@
           <th style="text-align: center;">Name</th>
           <th style="text-align: center;">Gender</th>
           <th style="text-align: center;">Contact No.</th>
-          <th style="text-align: center;">Address</th>
+          <th style="text-align: center;">Active</th>
           <th style="text-align: center;">Action</th>
         </tr>
         </thead>

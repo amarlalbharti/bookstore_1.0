@@ -89,7 +89,7 @@ public class LoginInfo implements Serializable
 		this.isActive = isActive;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="userrole" )  
+	@OneToMany(mappedBy="loginInfo", fetch = FetchType.LAZY, cascade=CascadeType.ALL)  
 	public Set<UserRole> getRoles() {
 		return roles;
 	}

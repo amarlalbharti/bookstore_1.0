@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -62,7 +63,6 @@ public class RegistrationDaoImpl implements RegistrationDao
 		List<Registration> list = this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
 				.createAlias("loginInfo", "logAlias")
 				.add(Restrictions.eq("logAlias.userid", userid))
-				.setFetchMode("loginInfo", FetchMode.JOIN)
 				.list();
 		if(!list.isEmpty())
 		{
@@ -73,16 +73,15 @@ public class RegistrationDaoImpl implements RegistrationDao
 	
 	@SuppressWarnings("unchecked")
 	public List<Registration> getRegistrationList(boolean all , int first, int max){
+		List<Registration> list = null;
 		try {
 			if(all) {
-				return (List<Registration>)this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
-						.setFetchMode("loginInfo", FetchMode.JOIN)
+				list = this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
 						.addOrder(Order.desc("createDate"))
 						.list();	
 			}else {
-				return (List<Registration>) this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+				list = this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
 						.addOrder(Order.desc("createDate"))
-						.setFetchMode("loginInfo", FetchMode.JOIN)
 						.setFirstResult(first)
 						.setMaxResults(max)
 						.list();				
@@ -90,7 +89,7 @@ public class RegistrationDaoImpl implements RegistrationDao
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return list;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -98,13 +97,17 @@ public class RegistrationDaoImpl implements RegistrationDao
 		try {
 			if(all) {
 				return this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+						.createAlias("loginInfo", "logAlias")
+						.createAlias("logAlias.roles", "rolesAlias")
+						.add(Restrictions.in("rolesAlias.userrole", roles))
 						.addOrder(Order.desc("createDate"))
-						.setFetchMode("loginInfo", FetchMode.JOIN)
-						.list();	
+						.list();
 			}else {
 				return this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+						.createAlias("loginInfo", "logAlias")
+						.createAlias("logAlias.roles", "rolesAlias")
+						.add(Restrictions.in("rolesAlias.userrole", roles))
 						.addOrder(Order.desc("createDate"))
-						.setFetchMode("loginInfo", FetchMode.JOIN)
 						.setFirstResult(first)
 						.setMaxResults(max)
 						.list();				
@@ -116,11 +119,18 @@ public class RegistrationDaoImpl implements RegistrationDao
 	}
 	
 	public long countRegistrationList() {
-		return 0;
+		return (Long)this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
 	}
 	
 	public long countRegistrationListByRoles(List<String> roles) {
-		return 0;
+		return (Long)this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+				.createAlias("loginInfo", "logAlias")
+				.createAlias("loginInfo.roles", "rolesAlias")
+				.add(Restrictions.in("rolesAlias.userrole", roles))
+				.setProjection(Projections.rowCount())
+				.uniqueResult();
 	}
 	
 	

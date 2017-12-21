@@ -1,6 +1,7 @@
 package com.bookstore.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bookstore.config.Roles;
 import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Basket;
@@ -41,8 +43,10 @@ public class CustomerController
 		System.out.println("from customers");
 		int pn = Validation.isNumeric(pageno) ? Util.getNumeric(pageno) : 1;
 		int rpp = Validation.isNumeric(request.getParameter("rpp")) ? Util.getNumeric(request.getParameter("rpp")) : Util.RPP;
+		List<String> roles = new ArrayList<String>();
+		roles.add(Roles.ROLE_MANAGER);
 		map.addAttribute("customersList", registrationService.getRegistrationList(true, 0, 0));
-		map.addAttribute("listcount", 0L);
+		map.addAttribute("listcount",registrationService.countRegistrationList());
 		map.addAttribute("pn", pn);
 		map.addAttribute("rpp", rpp);
 		return "customersList";

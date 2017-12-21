@@ -16,17 +16,23 @@ import javax.persistence.Table;
 @Table(name="user_role")
 public class UserRole implements Serializable
 {
-	private int sn;
-	
-//	private String userid;
-	
-	private String userrole;
-	
-	private LoginInfo log;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1328046800720780173L;
+
 	@Id
 	@Column(name = "sn", nullable=false)
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int sn;
+	
+	@Column(name = "user_role", nullable=false)
+	private String userrole;
+	
+	@ManyToOne() 
+	@JoinColumn(name="userid", referencedColumnName="userid")
+	private LoginInfo loginInfo;
+	
 	public int getSn() {
 		return sn;
 	}
@@ -35,20 +41,20 @@ public class UserRole implements Serializable
 	}
 	
 	
-	@Column(name = "user_role", nullable=false)
 	public String getUserrole() {
 		return userrole;
 	}
 	public void setUserrole(String userrole) {
 		this.userrole = userrole;
 	}
+	public LoginInfo getLoginInfo()
+	{
+		return loginInfo;
+	}
+	public void setLoginInfo(LoginInfo loginInfo)
+	{
+		this.loginInfo = loginInfo;
+	}
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="userid", referencedColumnName="userid")
-	public LoginInfo getLog() {
-		return log;
-	}
-	public void setLog(LoginInfo log) {
-		this.log = log;
-	}
+	
 }
