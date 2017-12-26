@@ -3,8 +3,10 @@
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -47,10 +49,10 @@
         <tr>
           <th style="text-align: center;">#</th>
           <th>Email</th>
-          <th style="text-align: center;">Name</th>
-          <th style="text-align: center;">Gender</th>
-          <th style="text-align: center;">Contact No.</th>
+          <th>Name</th>
+          <th>Gender</th>
           <th style="text-align: center;">Active</th>
+          <th>Create Date</th>
           <th style="text-align: center;">Action</th>
         </tr>
         </thead>
@@ -62,15 +64,14 @@
         			
         			%>
         				<tr>
-        				  <td style="text-align: center;"><%= count++%></td>
+        				  <td style="text-align: center;"><%= ++count%></td>
 			              <td><%= customer.getLoginInfo().getUserid() %></td>
-			              <td style="text-align: center;"><%= customer.getFirstName() + " " + customer.getLastName()%></td>
-			              <td style="text-align: center;"><%= customer.getGender()%></td>
-			              <td style="text-align: center;"><%= customer.getDob()%></td>
-			              <td style="text-align: center;"><%= customer.getLoginInfo().getIsActive()%></td>
-			             
+			              <td><%= customer.getFirstName() + " " + customer.getLastName()%></td>
+			              <td><%= customer.getGender()%></td>
+			              <td style="text-align: center;"><%= customer.getLoginInfo().getIsActive()%></td>			             
+			              <td><%= DateUtils.clientDateFormat.format(customer.getCreateDate())%></td>
 			              <td style="text-align: center;">
-			              	<a href="viewCustomer?customerId=<%= customer.getRid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> View</a>
+			              	<a href="${pageContext.request.contextPath}/admin/customers/edit/<%= customer.getRid()%>" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-edit"></i> View</a>
 			              </td>
 			            </tr>
         			<%

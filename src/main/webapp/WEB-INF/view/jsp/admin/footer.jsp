@@ -26,6 +26,8 @@ $(document).ready(function(){
 <script src="${pageContext.request.contextPath}/js/jquery.dataTables.js"></script>
 <script src="${pageContext.request.contextPath}/js/dataTables.bootstrap.min.js"></script>
 
+<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"></script>
+
 <!-- FastClick -->
 <script src="${pageContext.request.contextPath}/js/fastclick.js"></script>
 <!-- Bootstrap 3.3.6 -->
@@ -41,5 +43,9 @@ $(document).ready(function(){
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
+  });
+//Date picker
+  $('.datepicker').datepicker({
+    autoclose: true
   });
 </script>

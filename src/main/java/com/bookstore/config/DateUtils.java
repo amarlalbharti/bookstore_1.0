@@ -17,6 +17,9 @@ public class DateUtils
 	public static SimpleDateFormat fullFormat = new SimpleDateFormat("dd-MM-yyyy 'at' hh:mm a");
 	public static SimpleDateFormat clientFullformat = new SimpleDateFormat("MMM dd, yyyy 'at' hh:mm a");
 	
+	public static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+	
+	
 	public static String getWorkingHours(Date sdate, Date edate)
 	{
 		String res = "";

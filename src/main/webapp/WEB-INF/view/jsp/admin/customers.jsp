@@ -3,8 +3,10 @@
 <%@page import="com.bookstore.config.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,9 +21,9 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
-      <h1 class="pull-left">Customers</h1>
+      <h1 class="pull-left"><spring:message code="label.customers"/></h1>
       <div class="pull-right">
-      	<a href="#" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
+      	<a href="${pageContext.request.contextPath}/admin/customers/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> <spring:message code="label.add.new"/></a>
       </div>
     </section>
 

@@ -22,6 +22,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dataTables.bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.default.css"/> 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.default.css"/> 
+
  <!-- jQuery 2.2.0 -->
 <script src="${pageContext.request.contextPath}/js/jQuery-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/alertify.js"></script>
@@ -78,7 +80,7 @@ input[type="file"] {
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="${pageContext.request.contextPath}/dashboard" class="logo">
+    <a href="${pageContext.request.contextPath}/admin/dashboard" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
