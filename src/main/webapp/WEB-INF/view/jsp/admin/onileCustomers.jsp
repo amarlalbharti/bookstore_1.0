@@ -41,6 +41,7 @@
 				        <tr>
 				          <th>Email</th>
 				          <th>Session Id</th>
+				          <th>Authorities</th>
 				          <th>Last Used</th>
 				          <th style="text-align: center;">Action</th>
 				        </tr>
@@ -50,11 +51,13 @@
 			        	List<SessionInformation> customerList = (List)request.getAttribute("sessionsList");
 			        	if(customerList != null && !customerList.isEmpty()){
 			        		for(SessionInformation sess : customerList){
+			        			UserDetails ud = (UserDetails)sess.getPrincipal();
 			        			
 			        			%>
 			        				<tr>
-						              <td><%= ((UserDetails)sess.getPrincipal()).getUsername() %></td>
+						              <td><%= ud.getUsername() %></td>
 						              <td><%= sess.getSessionId()%></td>
+						              <td><%= ud.getAuthorities()%></td>
 						              <td title="<%= sess.getLastRequest()%>"><%= DateUtils.fullFormat.format(sess.getLastRequest())%></td>
 						              <td style="text-align: center;">
 						              	<a href="${pageContext.request.contextPath}/admin/customers" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
