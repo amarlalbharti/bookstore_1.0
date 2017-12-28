@@ -3,15 +3,20 @@ package com.bookstore.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -49,6 +54,10 @@ public class CustomerController
 	private RegistrationService registrationService; 
 	@Autowired 
 	private LoginInfoService loginInfoService; 
+	
+	@Autowired
+	private SessionRegistry sessionRegistry;
+	
 	
 	@RequestMapping(value = "admin/customers", method = RequestMethod.GET)
 	public String categories(ModelMap map, HttpServletRequest request, Principal principal)
@@ -195,9 +204,6 @@ public class CustomerController
 					reg.setDob(DateUtils.df.parse(model.getDob()));
 					
 					
-						
-					
-					
 					reg.setCreateDate(new Date());
 					reg.setModifyDate(new Date());
 //					int rid = registrationService.addRegistration(reg);
@@ -217,20 +223,30 @@ public class CustomerController
 		return "redirect:/admin/customers";
 	}
 	
-	@RequestMapping(value = "/viewCustomer", method = RequestMethod.GET)
+	@RequestMapping(value = "admin/customers/online", method = RequestMethod.GET)
 	public String viewProduct(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-		try{
-			String customerId = request.getParameter("customerId");
+		List<Object> proincipals = sessionRegistry.getAllPrincipals();
+		System.out.println("proincipals :   " + proincipals);
+		List<String> userids  = new ArrayList();
+		List<SessionInformation> ss  = new ArrayList();
+		Map<String, SessionInformation> sessonInfos= new HashMap();
+		
+		for(Object pri : proincipals) {
+			UserDetails pri1 = (UserDetails)pri;
+			userids.add(pri1.getUsername());
 			
-			if(Validation.isNumeric(customerId)){
-				System.out.println("from viewCustomer");
-				return "customerView";	
+			List<SessionInformation> sessions = sessionRegistry.getAllSessions(pri, false);
+			for(SessionInformation si : sessions) {
+				ss.add(si);
 			}
-		}catch(Exception e){
-			e.printStackTrace();
+			
 		}
-		return "redirect:customers";
+		
+		
+		map.addAttribute("sessionsList", ss);
+		
+		return "onileCustomers";
 	}
 	
 }

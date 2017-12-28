@@ -56,6 +56,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-circle-o"></i> Customers</a></li>
+            <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/customers/online"><i class="fa fa-circle-o"></i> Online Customers</a></li>
           </ul>
         </li> 
         

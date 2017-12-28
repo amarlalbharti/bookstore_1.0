@@ -32,6 +32,10 @@ public class RegistrationServiceImpl implements RegistrationService
 		return this.registrationDao.getRegistrationByUserid(userid);
 	}
 	
+	public List<Registration> getRegistrationList(List<String> userids){
+		return this.registrationDao.getRegistrationList(userids);
+	}
+	
 	public List<Registration> getRegistrationList(boolean all , int first, int max){
 		return this.registrationDao.getRegistrationList(all, first, max);
 	}

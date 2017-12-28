@@ -72,6 +72,22 @@ public class RegistrationDaoImpl implements RegistrationDao
 	}
 	
 	@SuppressWarnings("unchecked")
+	public List<Registration> getRegistrationList(List<String> userids){
+		List<Registration> list = null;
+		try {
+			if(userids != null && !userids.isEmpty()){
+				list = this.sessionFactory.getCurrentSession().createCriteria(Registration.class)
+						.createAlias("loginInfo", "logAlias")
+						.add(Restrictions.in("logAlias.userid", userids))
+						.list();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<Registration> getRegistrationList(boolean all , int first, int max){
 		List<Registration> list = null;
 		try {

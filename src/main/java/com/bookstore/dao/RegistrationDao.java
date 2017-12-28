@@ -19,6 +19,8 @@ public interface RegistrationDao
 	
 	public Registration getRegistrationByUserid(String userid);
 	
+	public List<Registration> getRegistrationList(List<String> userids);
+	
 	public List<Registration> getRegistrationList(boolean all , int first, int max);
 	
 	public List<Registration> getRegistrationListByRoles(List<String> roles, boolean all , int first, int max);
