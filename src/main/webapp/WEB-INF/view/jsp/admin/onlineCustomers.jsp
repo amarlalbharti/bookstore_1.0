@@ -1,3 +1,6 @@
+<%@page import="com.bookstore.comparator.SessionInfoComparator"%>
+<%@page import="java.util.Collections"%>
+<%@page import="com.bookstore.config.CustomerUtils"%>
 <%@page import="org.springframework.security.core.userdetails.UserDetails"%>
 <%@page import="org.springframework.security.core.session.SessionInformation"%>
 <%@page import="com.bookstore.domain.Registration"%>
@@ -36,9 +39,10 @@
           <!-- Horizontal Form -->
           <div class="box box-info">
             <div class="box-body">
-				<table id="example1"  class="table table-bordered table-striped">
+				<table id="example1"  class="table table-bordered">
 			        <thead>
-				        <tr>
+				        <tr class="bg-primary">
+				          <th style="text-align: center;"><input type="checkbox" name="sel[]"> </th>
 				          <th>Email</th>
 				          <th>Session Id</th>
 				          <th>Authorities</th>
@@ -54,13 +58,14 @@
 			        			UserDetails ud = (UserDetails)sess.getPrincipal();
 			        			
 			        			%>
-			        				<tr>
+			        				<tr class="<%= CustomerUtils.getCustomerStatusClass(sess) %>">
+						              <td style="text-align: center;"><input type="checkbox" name="sel[]"></td>
 						              <td><%= ud.getUsername() %></td>
 						              <td><%= sess.getSessionId()%></td>
 						              <td><%= ud.getAuthorities()%></td>
 						              <td title="<%= sess.getLastRequest()%>"><%= DateUtils.fullFormat.format(sess.getLastRequest())%></td>
 						              <td style="text-align: center;">
-						              	<a href="${pageContext.request.contextPath}/admin/customers" class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
+						              	<a href="${pageContext.request.contextPath}/admin/customers/logout/<%= sess.getSessionId()%>" class="btn btn-flat btn-sm btn-danger"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
 						              </td>
 						            </tr>
 			        			<%

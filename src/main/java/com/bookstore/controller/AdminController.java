@@ -38,8 +38,7 @@ public class AdminController
 	@RequestMapping(value = "admin/dashboard", method = RequestMethod.GET)
 	public String dashboard(ModelMap map, HttpServletRequest request, Principal principal)
 	{
-//		checkPassword() ;
-		System.out.println("from admin dashboard : " + AttributeType.OPTIONS);
+		System.out.println("from admin dashboard : " + principal);
 		
 		return "dashboard";
 	}

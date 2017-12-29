@@ -2,6 +2,7 @@ package com.bookstore.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bookstore.comparator.SessionInfoComparator;
 import com.bookstore.config.DateUtils;
 import com.bookstore.config.Roles;
 import com.bookstore.config.Util;
@@ -228,13 +230,10 @@ public class CustomerController
 	{
 		List<Object> proincipals = sessionRegistry.getAllPrincipals();
 		System.out.println("proincipals :   " + proincipals);
-		List<String> userids  = new ArrayList();
 		List<SessionInformation> ss  = new ArrayList();
-		Map<String, SessionInformation> sessonInfos= new HashMap();
 		
 		for(Object pri : proincipals) {
 			UserDetails pri1 = (UserDetails)pri;
-			userids.add(pri1.getUsername());
 			
 			List<SessionInformation> sessions = sessionRegistry.getAllSessions(pri, false);
 			for(SessionInformation si : sessions) {
@@ -243,10 +242,19 @@ public class CustomerController
 			
 		}
 		
-		
+		Collections.sort(ss, new SessionInfoComparator());
 		map.addAttribute("sessionsList", ss);
 		
-		return "onileCustomers";
+		return "onlineCustomers";
 	}
 	
+	
+	@RequestMapping(value = "admin/customers/logout/{SessionId}", method = RequestMethod.GET)
+	public String logoutCustomer(@PathVariable(value="SessionId" ) String SessionId, ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		System.out.println("Logout for session id :" + SessionId);
+		SessionInformation sess = sessionRegistry.getSessionInformation(SessionId);
+		sess.expireNow();
+		return "redirect:/admin/customers/online";
+	}
 }

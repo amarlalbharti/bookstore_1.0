@@ -97,9 +97,9 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/customerView.jsp" />
         <put-attribute name="currentpage" value="customer" cascade="true"/>
     </definition>
-    <definition name="onileCustomers" extends="adminTemplate">
+    <definition name="onlineCustomers" extends="adminTemplate">
         <put-attribute name="title" value="Online Customers" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/onileCustomers.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/onlineCustomers.jsp" />
         <put-attribute name="currentpage" value="customer" cascade="true"/>
     </definition>
     

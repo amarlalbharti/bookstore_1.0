@@ -127,6 +127,16 @@ public class IndexController
 		
 	}
 	
+	
+	@RequestMapping(value = "/session-expired", method = RequestMethod.GET)
+	public String sessionExpired(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		System.out.println("from session-expired ");
+		return "redirect:/login";
+		
+	}
+	
+	
 	/**
 	 * Destroy user session and delete cookies for this JSESSIONID
 	 * @param map

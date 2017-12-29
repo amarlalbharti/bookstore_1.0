@@ -41,7 +41,7 @@
 	<beans:bean id="concurrencyFilter"
         class="org.springframework.security.web.session.ConcurrentSessionFilter">
         <beans:property name="sessionRegistry" ref="sessionRegistry" />
-        <beans:property name="expiredUrl" value="/session-expired.jsp" />
+        <beans:property name="expiredUrl" value="/session-expired" />
     </beans:bean>
  
 	
