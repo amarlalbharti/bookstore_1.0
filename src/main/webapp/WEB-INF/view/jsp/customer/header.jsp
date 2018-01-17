@@ -173,7 +173,7 @@
 					 </g>
 					</svg>
 				  </div>
-				  Cart <span class="count">$94</span>
+				  Cart <i class="fa fa-inr" aria-hidden="true"></i> 0</span>
 				</a>
 				<div class="dropdown-menu">
 				  <strong>Recently added item(s)</strong>

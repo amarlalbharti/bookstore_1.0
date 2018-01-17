@@ -21,12 +21,12 @@
     <div class="carousel-box bottom-padding bottom-padding-mini load overflow" data-autoplay-disable="true">
 	  <div class="title-box no-margin">
 		<a class="next" href="#">
-		  <svg x="0" y="0" width="9px" height="16px" viewBox="0 0 9 16" enable-background="new 0 0 9 16" xml:space="preserve">
+		  <svg x="0" y="0" width="9px" height="32px" viewBox="0 0 9 16" enable-background="new 0 0 9 16" xml:space="preserve">
 			<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#fcfcfc" points="1,0.001 0,1.001 7,8 0,14.999 1,15.999 9,8 "></polygon>
 		  </svg>
 		</a>
 		<a class="prev" href="#">
-		  <svg x="0" y="0" width="9px" height="16px" viewBox="0 0 9 16" enable-background="new 0 0 9 16" xml:space="preserve">
+		  <svg x="0" y="0" width="9px" height="32px" viewBox="0 0 9 16" enable-background="new 0 0 9 16" xml:space="preserve">
 			<polygon fill-rule="evenodd" clip-rule="evenodd" fill="#fcfcfc" points="8,15.999 9,14.999 2,8 9,1.001 8,0.001 0,8 "></polygon>
 		  </svg>
 		</a>
@@ -130,7 +130,7 @@
 		  <div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-6.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -146,7 +146,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-5.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -162,7 +162,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-4.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -178,7 +178,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-3.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -194,7 +194,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-2.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -210,7 +210,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-1.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -228,7 +228,7 @@
 		  <div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-10.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -244,7 +244,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-9.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -260,7 +260,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-8.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -276,7 +276,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-7.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -292,7 +292,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-6.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -308,7 +308,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-5.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -326,7 +326,7 @@
 		  <div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-9.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -342,7 +342,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-8.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -358,7 +358,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-14.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -374,7 +374,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-13.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -390,7 +390,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-12.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">
@@ -406,7 +406,7 @@
 		  --><div class="product product-mini col-sm-2 col-md-2">
 			<div class="default">
 			  <a href="shop-product-view.html" class="product-image">
-				<img class="replace-2x" src="content/img/product-11.jpg" alt="" title="" width="270" height="270">
+				<img class="replace-2x" src="images/product_preview.png" alt="" title="" width="270" height="270">
 			  </a>
 			  <div class="product-description">
 				<div class="vertical">

@@ -20,6 +20,10 @@
         <put-attribute name="title" value="Shopping -  product" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/public/userProductView.jsp" />
     </definition>
+    <definition name="customerCartHeader" extends="indexTemplate">
+        <put-attribute name="title" value="Shopping cart header" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/cutomer/customerCartHeader.jsp" />
+    </definition>
     
     
 </tiles-definitions>
