@@ -1,11 +1,11 @@
 <%@page import="com.bookstore.comparator.SessionInfoComparator"%>
 <%@page import="java.util.Collections"%>
-<%@page import="com.bookstore.config.CustomerUtils"%>
+<%@page import="com.bookstore.util.CustomerUtils"%>
 <%@page import="org.springframework.security.core.userdetails.UserDetails"%>
 <%@page import="org.springframework.security.core.session.SessionInformation"%>
 <%@page import="com.bookstore.domain.Registration"%>
 <%@page import="org.springframework.util.StringUtils"%>
-<%@page import="com.bookstore.config.DateUtils"%>
+<%@page import="com.bookstore.util.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.List"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>

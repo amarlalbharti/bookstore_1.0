@@ -25,12 +25,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bookstore.config.ProjectConfig;
-import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Product;
 import com.bookstore.domain.ProductImage;
 import com.bookstore.service.ProductImageService;
 import com.bookstore.service.ProductService;
+import com.bookstore.util.Util;
 
 @Controller
 public class ProductImageController

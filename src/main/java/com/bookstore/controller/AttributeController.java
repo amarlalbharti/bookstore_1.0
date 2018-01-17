@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bookstore.config.ProjectConfig;
-import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Attribute;
 import com.bookstore.domain.AttributeValue;
@@ -30,6 +29,7 @@ import com.bookstore.model.AttributeModel;
 import com.bookstore.model.CategoryModel;
 import com.bookstore.service.AttributeService;
 import com.bookstore.service.AttributeValueService;
+import com.bookstore.util.Util;
 
 @Controller
 public class AttributeController

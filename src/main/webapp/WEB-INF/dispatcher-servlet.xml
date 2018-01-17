@@ -27,6 +27,7 @@
 	<mvc:resources location="/WEB-INF/view/jsp/img/" mapping="img/**" cache-period="31556926" />
 	<mvc:resources location="/WEB-INF/view/jsp/js/" mapping="js/**"  cache-period="31556926"/>
 	<mvc:resources location="/WEB-INF/view/jsp/fonts/" mapping="fonts/**" cache-period="31556926"/>
+	<mvc:resources location="/WEB-INF/view/jsp/theme/" mapping="theme/**" cache-period="31556926"/>
 	<mvc:resources location="/WEB-INF/view/jsp/ckeditor/" mapping="ckeditor/**" cache-period="31556926"/>
 	
 	

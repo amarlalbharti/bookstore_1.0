@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.constraints.AttributeType;
 import com.bookstore.domain.Attribute;
@@ -26,6 +25,7 @@ import com.bookstore.service.AttributeService;
 import com.bookstore.service.AttributeValueService;
 import com.bookstore.service.ProductAttributeService;
 import com.bookstore.service.ProductService;
+import com.bookstore.util.Util;
 
 @Controller
 public class ProductAttributeController

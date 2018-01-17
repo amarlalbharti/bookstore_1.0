@@ -1,4 +1,4 @@
-package com.bookstore.config;
+package com.bookstore.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

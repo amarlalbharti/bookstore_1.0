@@ -1,6 +1,6 @@
 <%@page import="com.bookstore.domain.Registration"%>
 <%@page import="org.springframework.util.StringUtils"%>
-<%@page import="com.bookstore.config.DateUtils"%>
+<%@page import="com.bookstore.util.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.List"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>

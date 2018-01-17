@@ -26,9 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.bookstore.config.DateUtils;
 import com.bookstore.config.ProjectConfig;
-import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Category;
 import com.bookstore.domain.Product;
@@ -38,6 +36,8 @@ import com.bookstore.model.ProductModel;
 import com.bookstore.service.CategoryService;
 import com.bookstore.service.ProductImageService;
 import com.bookstore.service.ProductService;
+import com.bookstore.util.DateUtils;
+import com.bookstore.util.Util;
 
 @Controller
 public class ProductController

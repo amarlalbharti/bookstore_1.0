@@ -2,7 +2,7 @@
 <%@page import="com.bookstore.domain.Category"%>
 <%@page import="java.util.List"%>
 <%@page import="com.bookstore.model.ProductModel"%>
-<%@page import="com.bookstore.config.DateUtils"%>
+<%@page import="com.bookstore.util.DateUtils"%>
 <%@page import="com.bookstore.domain.Product"%>
 
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>

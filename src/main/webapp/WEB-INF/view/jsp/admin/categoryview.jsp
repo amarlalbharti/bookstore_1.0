@@ -1,4 +1,4 @@
-<%@page import="com.bookstore.config.DateUtils"%>
+<%@page import="com.bookstore.util.DateUtils"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="com.bookstore.domain.Category"%>
 <%@page import="java.util.List"%>

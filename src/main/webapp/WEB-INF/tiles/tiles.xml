@@ -9,10 +9,7 @@
         <put-attribute name="body" value="" />
     </definition> 
     
-    <definition name="index" extends="indexTemplate">
-        <put-attribute name="title" value="Shopping -  Home" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/index.jsp" />
-    </definition>
+    
     <definition name="login" extends="indexTemplate">
         <put-attribute name="title" value="Shopping -  Login" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/login.jsp" />

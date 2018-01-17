@@ -25,13 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.bookstore.config.ProjectConfig;
-import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Category;
 import com.bookstore.domain.Product;
 import com.bookstore.model.CategoryModel;
 import com.bookstore.service.CategoryService;
 import com.bookstore.service.ProductService;
+import com.bookstore.util.Util;
 
 /**
  * @author A. L. Bharti

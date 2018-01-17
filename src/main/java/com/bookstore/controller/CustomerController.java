@@ -28,9 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookstore.comparator.SessionInfoComparator;
-import com.bookstore.config.DateUtils;
 import com.bookstore.config.Roles;
-import com.bookstore.config.Util;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Basket;
 import com.bookstore.domain.Category;
@@ -43,6 +41,8 @@ import com.bookstore.model.CustomerModel;
 import com.bookstore.model.ProductModel;
 import com.bookstore.service.LoginInfoService;
 import com.bookstore.service.RegistrationService;
+import com.bookstore.util.DateUtils;
+import com.bookstore.util.Util;
 
 /**
  * @author Saumya

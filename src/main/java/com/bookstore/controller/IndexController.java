@@ -17,19 +17,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.bookstore.config.DateUtils;
 import com.bookstore.config.ProjectConfig;
 import com.bookstore.config.Roles;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.LoginInfo;
+import com.bookstore.domain.Product;
 import com.bookstore.domain.Registration;
 import com.bookstore.service.LoginInfoService;
 import com.bookstore.service.MailService;
+import com.bookstore.service.ProductService;
 import com.bookstore.service.RegistrationService;
+import com.bookstore.util.DateUtils;
+import com.bookstore.util.Util;
 
 /**
  * @author A. L. Bharti
@@ -38,12 +42,17 @@ import com.bookstore.service.RegistrationService;
 @Controller
 public class IndexController 
 {
-	@Autowired private  RegistrationService registrationService; 
-	@Autowired private  LoginInfoService loginInfoService; 
+	@Autowired 
+	private  RegistrationService registrationService; 
+	@Autowired 
+	private  LoginInfoService loginInfoService; 
 	@Autowired
 	private MailService mailService;
 	@Autowired
 	private MessageSource messageSource;
+	@Autowired
+	private ProductService productService;
+	
 	
 	/**
 	 * @param map
@@ -56,8 +65,23 @@ public class IndexController
 	{
 		System.out.println("principal : " + principal);
 		System.out.println("from index page of index controller");
-		return "redirect:login";
+		List<Product> list = productService.getProducts(0, 10);
+		map.addAttribute("productlist", list);
+		
+		return "index";
 	}
+	
+	@RequestMapping(value = "/product/view/{pid}/{product}", method = RequestMethod.GET)
+	public String productView(@PathVariable(value="pid" ) String pid, ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		if(Validation.isNumeric(pid)){
+			map.addAttribute("product", productService.getProductById(Util.getNumeric(pid)));
+		}
+		return "userProductView";
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test(ModelMap map, HttpServletRequest request, Principal principal)
