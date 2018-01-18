@@ -40,6 +40,8 @@
  <!-- jQuery 2.2.0 -->
 <script src="${pageContext.request.contextPath}/js/jQuery-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/alertify.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/bookstore.js"></script>
   
   <script>
 		function getLogOut(){
@@ -156,9 +158,8 @@
 					<image src="img/png-icons/phone-icon.png" alt="" width="16" height="16" style="vertical-align: top;">
 				  </svg>
 				</a>
-			  </div><!-- .phone-header
-			  
-			  --><div class="btn-group cart-header">
+			  </div>
+			  <div class="btn-group cart-header " id="customer_cart_header">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 				  <div class="icon">
 					<svg x="0" y="0" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
@@ -176,47 +177,7 @@
 				  Cart <i class="fa fa-inr" aria-hidden="true"></i> 0</span>
 				</a>
 				<div class="dropdown-menu">
-				  <strong>Recently added item(s)</strong>
-				  <ul class="list-unstyled">
-					<li>
-					  <a href="shop-product-view.html" class="product-image"><img class="replace-2x" src="content/img/product-1.jpg" width="70" height="70" alt=""></a>
-					  <a href="#" class="product-remove">
-						<svg x="0" y="0" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-						  <g>
-							<path d="M6,13c0.553,0,1-0.447,1-1V7c0-0.553-0.447-1-1-1S5,6.447,5,7v5C5,12.553,5.447,13,6,13z"></path>
-							<path d="M10,13c0.553,0,1-0.447,1-1V7c0-0.553-0.447-1-1-1S9,6.447,9,7v5C9,12.553,9.447,13,10,13z"></path>
-							<path d="M14,3h-1V1c0-0.552-0.447-1-1-1H4C3.448,0,3,0.448,3,1v2H2C1.447,3,1,3.447,1,4s0.447,1,1,1
-							c0,0.273,0,8.727,0,9c0,1.104,0.896,2,2,2h8c1.104,0,2-0.896,2-2c0-0.273,0-8.727,0-9c0.553,0,1-0.447,1-1S14.553,3,14,3z M5,2h6v1
-							H5V2z M12,14H4V5h8V14z"></path>
-						  </g>
-						</svg>
-					  </a><!-- .product-remove -->
-					  <h4 class="product-name"><a href="shop-product-view.html" title="">New Apple iPad mini Wi-Fi + with special offer</a></h4>
-					  <div class="product-price">1 x <span class="price">$1199.00</span></div>
-					  <div class="clearfix"></div>
-					</li>
-					<li>
-					  <a href="shop-product-view.html" class="product-image"><img class="replace-2x" src="content/img/product-2.jpg" width="70" height="70" alt=""></a>
-					  <a href="#" class="product-remove">
-						<svg x="0" y="0" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-						  <g>
-							<path d="M6,13c0.553,0,1-0.447,1-1V7c0-0.553-0.447-1-1-1S5,6.447,5,7v5C5,12.553,5.447,13,6,13z"></path>
-							<path d="M10,13c0.553,0,1-0.447,1-1V7c0-0.553-0.447-1-1-1S9,6.447,9,7v5C9,12.553,9.447,13,10,13z"></path>
-							<path d="M14,3h-1V1c0-0.552-0.447-1-1-1H4C3.448,0,3,0.448,3,1v2H2C1.447,3,1,3.447,1,4s0.447,1,1,1
-							c0,0.273,0,8.727,0,9c0,1.104,0.896,2,2,2h8c1.104,0,2-0.896,2-2c0-0.273,0-8.727,0-9c0.553,0,1-0.447,1-1S14.553,3,14,3z M5,2h6v1
-							H5V2z M12,14H4V5h8V14z"></path>
-						  </g>
-						</svg>
-					  </a><!-- .product-remove -->
-					  <h4 class="product-name"><a href="shop-product-view.html" title="">New Apple iPad mini Wi-Fi + with special offer</a></h4>
-					  <div class="product-price">1 x <span class="price">$1199.00</span></div>
-					  <div class="clearfix"></div>
-					</li>
-				  </ul>
-				  <div class="cart-button">
-					<button class="btn btn-default">View Cart</button>
-					<button class="btn checkout btn-default">Checkout</button>
-				  </div>
+				  <strong>No Items Available in cart.</strong>
 				</div>
 			  </div><!-- .cart-header -->
 			</div><!-- .header-icons -->
@@ -283,3 +244,10 @@
 	</div>
   </div><!-- .header-wrapper -->
 </header><!-- .header -->
+<script type="text/javascript">
+$(document).ready(function(){
+	BookStore.getCartHeader();
+	
+}); 
+
+</script>
