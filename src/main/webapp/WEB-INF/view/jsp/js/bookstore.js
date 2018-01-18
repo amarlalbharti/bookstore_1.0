@@ -1,12 +1,8 @@
-
-
-$(function ( $, BookStore ) {
+$(document).ready(function(){
 	
 	
-	BookStore.getCartHeader = function(){
-		alert("Called JS file");
+	
+	jQuery.myfun = function(){
+	    alert("Hello from JS call");
 	};
-	
-	
-	
-})( jQuery , $.BookStore) ;
+}); 

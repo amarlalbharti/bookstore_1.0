@@ -246,8 +246,7 @@
 </header><!-- .header -->
 <script type="text/javascript">
 $(document).ready(function(){
-	BookStore.getCartHeader();
-	
+	$.myfun();
 }); 
 
 </script>
