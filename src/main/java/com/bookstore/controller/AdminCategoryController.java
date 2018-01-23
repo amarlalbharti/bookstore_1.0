@@ -38,7 +38,7 @@ import com.bookstore.util.Util;
  *
  */
 @Controller
-public class CategoryController
+public class AdminCategoryController
 {
 	@Autowired private CategoryService categoryService; 
 	@Autowired private ProductService productService; 

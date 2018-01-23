@@ -40,7 +40,7 @@ import com.bookstore.util.DateUtils;
 import com.bookstore.util.Util;
 
 @Controller
-public class ProductController
+public class AdminProductController
 {
 	@Autowired private CategoryService categoryService; 
 	@Autowired private ProductService productService; 

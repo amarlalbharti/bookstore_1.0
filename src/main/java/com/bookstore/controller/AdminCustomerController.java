@@ -50,7 +50,7 @@ import com.bookstore.util.Util;
  */
 
 @Controller
-public class CustomerController
+public class AdminCustomerController
 {
 	@Autowired 
 	private RegistrationService registrationService; 

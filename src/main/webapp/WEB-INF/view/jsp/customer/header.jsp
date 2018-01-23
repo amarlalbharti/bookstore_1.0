@@ -176,7 +176,7 @@
 				  </div>
 				  Cart <i class="fa fa-inr" aria-hidden="true"></i> 0</span>
 				</a>
-				<div class="dropdown-menu">
+				<div class="dropdown-menu" >
 				  <strong>No Items Available in cart.</strong>
 				</div>
 			  </div><!-- .cart-header -->
@@ -246,7 +246,12 @@
 </header><!-- .header -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$.myfun();
+	$.getCustomerCartHeader("${pageContext.request.contextPath}");
+	
+	
+	
+	
+	
+	
 }); 
-
 </script>

@@ -32,7 +32,7 @@ import com.bookstore.service.AttributeValueService;
 import com.bookstore.util.Util;
 
 @Controller
-public class AttributeController
+public class AdminAttributeController
 {
 	@Autowired 
 	private AttributeService attributeService; 

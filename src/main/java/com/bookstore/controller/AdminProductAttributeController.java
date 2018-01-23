@@ -28,7 +28,7 @@ import com.bookstore.service.ProductService;
 import com.bookstore.util.Util;
 
 @Controller
-public class ProductAttributeController
+public class AdminProductAttributeController
 {
 	@Autowired
 	private ProductService productService;

@@ -22,7 +22,7 @@
     </definition>
     <definition name="customerCartHeader" extends="indexTemplate">
         <put-attribute name="title" value="Shopping cart header" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/cutomer/customerCartHeader.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/customerCartHeader.jsp" />
     </definition>
     
     

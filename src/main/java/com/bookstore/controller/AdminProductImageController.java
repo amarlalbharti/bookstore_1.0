@@ -33,7 +33,7 @@ import com.bookstore.service.ProductService;
 import com.bookstore.util.Util;
 
 @Controller
-public class ProductImageController
+public class AdminProductImageController
 {
 	@Autowired private ProductService productService; 
 	@Autowired private ProductImageService productImageService; 
