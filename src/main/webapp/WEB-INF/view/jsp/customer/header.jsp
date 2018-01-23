@@ -34,6 +34,7 @@
   <!-- IE Styles-->
   <link rel='stylesheet' href="${pageContext.request.contextPath}/theme/css/ie.css">
   
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.default.css"/> 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/alertify.default.css"/> 
 
@@ -93,13 +94,13 @@
 			</button>
   
 			<nav class="collapse collapsing navbar-collapse">
-			  <ul class="nav navbar-nav navbar-right">
+			  <ul class="nav navbar-nav navbar-right top-header">
 				<%
 					if(request.getUserPrincipal() != null){
 						%>
 							<li><a href="${pageContext.request.contextPath}/user/profile">My Account</a></li>
 							<li><a href="${pageContext.request.contextPath}/user/wishlist"><i class="fa fa-heart"></i> My Wishlist</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/cart">My Cart <span class="count">2</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/user/cart">My Cart <span class="count">0</span></a></li>
 							<li><a href="${pageContext.request.contextPath}/user/checout">Checkout</a></li>
 							<li ><a href="javascript:void(0);" onclick="getLogOut();"><i class="fa fa-sign-out"></i> Log Out</a></li>
 						<%
@@ -129,8 +130,9 @@
 	  <div class="row">
 		<div class="col-xs-6 col-md-2 col-lg-3 logo-box">
 		  <div class="logo">
-			<a href="index.html">
-			  <img src="images/logo.jpg" class="logo-img" alt="">
+			<a href="${pageContext.request.contextPath}/index">
+			  <img src="${pageContext.request.contextPath}/images/logo.jpg" class="logo-img" alt="">
+			  <input type="hidden" id="root_path" value="${pageContext.request.contextPath}">
 			</a>
 		  </div>
 		</div><!-- .logo-box -->
@@ -246,12 +248,13 @@
 </header><!-- .header -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$.getCustomerCartHeader("${pageContext.request.contextPath}");
-	
-	
-	
-	
-	
+	<%
+		if(request.getUserPrincipal() != null){
+			%>
+			$.getCustomerCartHeader();
+			<%	
+		}
+	%>
 	
 }); 
 </script>

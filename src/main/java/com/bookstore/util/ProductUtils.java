@@ -42,6 +42,7 @@ public class ProductUtils
 	public static String friendlyProductName(String productName){
 		if(productName != null && !productName.trim().isEmpty()){
 			productName = productName.replaceAll(" +", "-");
+			productName = productName.replaceAll("-+", "-");
 			productName = productName.toLowerCase();
 		}
 		return productName;

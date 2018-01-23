@@ -34,13 +34,13 @@ public class Basket
 	private Date deletedDate;
 	
 	@ManyToOne
-	@JoinColumn(name="user_id", referencedColumnName="rid")
+	@JoinColumn(name="customer_id", referencedColumnName="rid")
 	private Registration registration;
 
 	
 	@ManyToOne
 	@JoinColumn(name="product_id", referencedColumnName="pid")
-	private Product Product;
+	private Product product;
 
 	
 	public int getBasketId()
@@ -105,12 +105,12 @@ public class Basket
 
 	public Product getProduct()
 	{
-		return Product;
+		return product;
 	}
 
 	public void setProduct(Product product)
 	{
-		Product = product;
+		this.product = product;
 	}
 	
 	

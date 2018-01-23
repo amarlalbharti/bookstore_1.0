@@ -75,7 +75,7 @@
 								  <li>1X-Reality PRO</li>
 								</ul>
 								<div class="actions">
-								  <a href="${pageContext.request.contextPath}/<%= ProductUtils.getFriendlyUrl(product)%>" class="add-cart">
+								  <a href="javascript:void(0);" class="add-cart" pid="<%= product.getPid()%>">
 									<svg x="0" y="0" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
 									  <g>
 										<path fill="#1e1e1e" d="M15.001,4h-0.57l-3.707-3.707c-0.391-0.391-1.023-0.391-1.414,0c-0.391,0.391-0.391,1.023,0,1.414L11.603,4
