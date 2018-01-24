@@ -5,7 +5,8 @@ $(document).ready(function(){
 			type : "GET",
 			url : path+"/customer/cart/header",
 			data : {},
-			success : function(response) {
+			success : function(response, status, code) {
+				alert(code);
 				$("#customer_cart_header").html(response);
 				$(".top-header .count").text($("#basket_size").val());
 			}

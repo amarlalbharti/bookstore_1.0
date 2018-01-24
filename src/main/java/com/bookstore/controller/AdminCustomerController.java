@@ -152,7 +152,7 @@ public class AdminCustomerController
 								}else if(Roles.ROLE_MANAGER.equals(role)){
 									ur.setUserrole(Roles.ROLE_MANAGER);
 								} else{
-									ur.setUserrole(Roles.ROLE_USER);
+									ur.setUserrole(Roles.ROLE_REGISTERED);
 								}
 								
 								reg.getLoginInfo().getRoles().add(ur);
@@ -188,7 +188,7 @@ public class AdminCustomerController
 							}else if(Roles.ROLE_MANAGER.equals(role)){
 								ur.setUserrole(Roles.ROLE_MANAGER);
 							} else{
-								ur.setUserrole(Roles.ROLE_USER);
+								ur.setUserrole(Roles.ROLE_REGISTERED);
 							}
 							
 							roles.add(ur);

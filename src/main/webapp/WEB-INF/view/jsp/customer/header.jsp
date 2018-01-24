@@ -108,7 +108,7 @@
 						%>
 							<li><a href="${pageContext.request.contextPath}/login">My Account</a></li>
 							<li><a href="${pageContext.request.contextPath}/login"><i class="fa fa-heart"></i> My Wishlist</a></li>
-							<li><a href="${pageContext.request.contextPath}/login">My Cart <span class="count">2</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/login">My Cart <span class="count">0</span></a></li>
 							<li><a href="${pageContext.request.contextPath}/login">Checkout</a></li>
 							<li><a href="${pageContext.request.contextPath}/login">Log in <i class="fa fa-lock after"></i></a></li>
 						<%
@@ -255,6 +255,5 @@ $(document).ready(function(){
 			<%	
 		}
 	%>
-	
 }); 
 </script>

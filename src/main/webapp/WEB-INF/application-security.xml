@@ -16,7 +16,13 @@
 	    <intercept-url pattern="/admin/*/*/*" access="hasRole('ROLE_ADMIN')" />
 	    <intercept-url pattern="/admin/*/*/*/*" access="hasRole('ROLE_ADMIN')" />
 	    
-		<form-login login-page="/index" default-target-url="/getLogedIn" authentication-failure-url="/failtologin" />
+	    <intercept-url pattern="/customer/*" access="hasRole('ROLE_REGISTERED')" />
+	    <intercept-url pattern="/customer/*/*" access="hasRole('ROLE_REGISTERED')" />
+	    <intercept-url pattern="/customer/*/*/*" access="hasRole('ROLE_REGISTERED')" />
+	    <intercept-url pattern="/customer/*/*/*/*" access="hasRole('ROLE_REGISTERED')" />
+	    
+	    
+		<form-login login-page="/login" default-target-url="/getLogedIn" authentication-failure-url="/failtologin" />
 		<access-denied-handler error-page="/accessDenied" />
 		<logout logout-success-url="/logout" delete-cookies="JSESSIONID" />
 	    
