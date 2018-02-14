@@ -27,14 +27,17 @@ public class CustomerAddress
 	@Column(name = "customer_street", nullable=false)
 	private String customerStreet;
 	
-	@Column(name = "customer_cCity", nullable=false)
+	@Column(name = "customer_city", nullable=false)
 	private String customerCity;
 	
 	@Column(name = "customer_pincode", nullable=false)
-	private int customerPinCode;
+	private String customerPinCode;
 	
 	@Column(name = "customer_phone", nullable=false)
 	private String customerPhone;
+	
+	@Column(name = "active", nullable=false)
+	private boolean active;
 	
 	@Column(name = "create_date", nullable=false)
 	private Date createDate;
@@ -89,12 +92,12 @@ public class CustomerAddress
 		this.customerCity = customerCity;
 	}
 
-	public int getCustomerPinCode()
+	public String getCustomerPinCode()
 	{
 		return customerPinCode;
 	}
 
-	public void setCustomerPinCode(int customerPinCode)
+	public void setCustomerPinCode(String customerPinCode)
 	{
 		this.customerPinCode = customerPinCode;
 	}
@@ -107,6 +110,16 @@ public class CustomerAddress
 	public void setCustomerPhone(String customerPhone)
 	{
 		this.customerPhone = customerPhone;
+	}
+
+	public boolean isActive()
+	{
+		return active;
+	}
+
+	public void setActive(boolean active)
+	{
+		this.active = active;
 	}
 
 	public Date getCreateDate()

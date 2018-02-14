@@ -100,8 +100,8 @@
 						%>
 							<li><a href="${pageContext.request.contextPath}/user/profile">My Account</a></li>
 							<li><a href="${pageContext.request.contextPath}/user/wishlist"><i class="fa fa-heart"></i> My Wishlist</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/cart">My Cart <span class="count">0</span></a></li>
-							<li><a href="${pageContext.request.contextPath}/user/checout">Checkout</a></li>
+							<li><a href="${pageContext.request.contextPath}/customer/cart">My Cart <span class="count">0</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/customer/checkout">Checkout</a></li>
 							<li ><a href="javascript:void(0);" onclick="getLogOut();"><i class="fa fa-sign-out"></i> Log Out</a></li>
 						<%
 					}else{

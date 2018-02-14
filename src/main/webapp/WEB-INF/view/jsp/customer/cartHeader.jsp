@@ -27,7 +27,7 @@
 		  }
 	}
 %>
-<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+<a href="${pageContext.request.contextPath}/customer/cart" class="dropdown-toggle" data-toggle="dropdown">
   <div class="icon">
 	<svg x="0" y="0" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
 	  <g>
@@ -77,7 +77,7 @@
 					%>
 					</ul>
 					<div class="cart-button">
-						<button class="btn btn-default">View Cart</button>
+						<a href="${pageContext.request.contextPath}/customer/cart" class="btn btn-default">View Cart</a>
 						<button class="btn checkout btn-default">Checkout</button>
 					</div>
 		<%

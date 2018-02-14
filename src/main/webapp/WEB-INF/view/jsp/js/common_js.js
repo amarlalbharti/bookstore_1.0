@@ -38,6 +38,17 @@ jQuery(document).ready(function() {
 //		alert("hello" );
 	});
 	
+	$(document.body).on('keydown', '.natural_numbers_only' ,function(){
+		
+		alert("Hello");
+		if(!$.isNumeric(basket_quantity) || $(this).val() < 1)
+		{
+			reurn
+		}
+//		alert("hello" );
+	});
+	
+	
 	$(document.body).on('keyup', '.titleCase' ,function(){
 		var string = $(this).val();
 		if(string.length <= 1){

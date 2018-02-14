@@ -4870,7 +4870,7 @@ a.edit i:before {
 *******************************************************************************/
 /* line 4, ../sass/_main.scss */
 #main {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 /* line 7, ../sass/_main.scss */
 #main.no-padding {
@@ -8404,10 +8404,18 @@ a.edit i:before {
 }
 /* line 1403, ../sass/_shop.scss */
 #checkoutsteps .step-title .number {
-  color: #7f7f7f;
-  float: right;
-  font-size: 16px;
-  line-height: 49px;
+	color: #0098ca;
+	float: left;
+	font-size: 16px;
+	line-height: 49px;
+	padding-right: 15px;
+}
+#checkoutsteps .active .step-title {
+	background: #0098ca;
+	color: #fff;
+}
+#checkoutsteps .active .step-title .number {
+	color: #fff;
 }
 /* line 1409, ../sass/_shop.scss */
 #checkoutsteps .step-title h6 {
@@ -8433,8 +8441,8 @@ a.edit i:before {
 }
 /* line 1430, ../sass/_shop.scss */
 #checkoutsteps .step-content label {
-  font-size: 12px;
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 24px;
 }
 /* line 1434, ../sass/_shop.scss */
 #checkoutsteps .step-content .radio,

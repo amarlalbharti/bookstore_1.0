@@ -153,11 +153,11 @@
 <script src="${pageContext.request.contextPath}/theme/js/layerslider/greensock.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/layerslider/layerslider.transitions.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/layerslider/layerslider.kreaturamedia.jquery.js"></script>
-<script src="${pageContext.request.contextPath}/theme/js/revolution/jquery.${pageContext.request.contextPath}/themepunch.tools.min.js"></script>
-<script src="${pageContext.request.contextPath}/theme/js/revolution/jquery.${pageContext.request.contextPath}/themepunch.revolution.min.js"></script>
+<script src="${pageContext.request.contextPath}/theme/js/revolution/jquery.themepunch.tools.min.js"></script>
+<script src="${pageContext.request.contextPath}/theme/js/revolution/jquery.themepunch.revolution.min.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/bootstrapValidator.min.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/bootstrap-datepicker.js"></script>
-<script src="${pageContext.request.contextPath}/theme/js/jplayer/jquery.jplayer.min.js"></script>
-<script src="${pageContext.request.contextPath}/theme/js/jplayer/jplayer.playlist.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/theme/js/jplayer/jquery.jplayer.min.js"></script> --%>
+<%-- <script src="${pageContext.request.contextPath}/theme/js/jplayer/jplayer.playlist.min.js"></script> --%>
 <script src="${pageContext.request.contextPath}/theme/js/jquery.scrollbar.min.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/main.js"></script>

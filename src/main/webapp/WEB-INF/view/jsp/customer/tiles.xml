@@ -20,9 +20,22 @@
         <put-attribute name="title" value="Shopping -  product" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/public/userProductView.jsp" />
     </definition>
-    <definition name="customerCartHeader" extends="indexTemplate">
+    <definition name="cartHeader" extends="indexTemplate">
         <put-attribute name="title" value="Shopping cart header" />
-        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/customerCartHeader.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/cartHeader.jsp" />
+    </definition>
+    
+    <definition name="basket" extends="customerTemplate">
+        <put-attribute name="title" value="Customer-Shopping cart" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/basket.jsp" />
+    </definition>
+    <definition name="checkout" extends="customerTemplate">
+        <put-attribute name="title" value="Customer-Check Out" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/checkout.jsp" />
+    </definition>
+    <definition name="checkoutStep" extends="indexTemplate">
+        <put-attribute name="title" value="Shopping - Checkout steps" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/checkoutStep.jsp" />
     </definition>
     
     

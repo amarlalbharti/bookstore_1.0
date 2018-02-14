@@ -34,6 +34,10 @@
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/editCategory.jsp" />
         <put-attribute name="currentpage" value="category" cascade="true"/>
     </definition>
+    <definition name="categoryview" extends="indexTemplate">
+        <put-attribute name="title" value="Shopping - Reset Password" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/categoryview.jsp" />
+    </definition>
     <definition name="categoryProducts" extends="indexTemplate">
     	<put-attribute name="title" value="getCategoryProducts" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/admin/categoryProducts.jsp" />
