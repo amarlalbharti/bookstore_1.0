@@ -130,7 +130,7 @@ $(document).ready(function(){
 		$.getCustomerCheckoutSteps("SHIPPINGINFO");
 	});
 	
-	$(document).on("click","#checkoutsteps .checkoutstep_customer_address",function() {
+	$(document).on("click","#checkoutsteps .select_customer_address",function() {
 		alert("Hello : " +$('input[name=customer_address]:checked').val());
 		var addr_id = $('input[name=customer_address]:checked').val();
 		if(addr_id != undefined){

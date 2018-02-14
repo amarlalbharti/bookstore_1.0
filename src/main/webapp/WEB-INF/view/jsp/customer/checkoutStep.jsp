@@ -99,7 +99,7 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 							%>
 							  <div class="clearfix"></div>
 							  <div class="col-sm-12 buttons-box text-right" style="margin-top: 30px;">
-								<button class="btn btn-primary text-uppercase checkoutstep_customer_address" type="button">Continue Checkout</button>
+								<button class="btn btn-primary text-uppercase select_customer_address" type="button">Continue Checkout</button>
 							  </div>
 							</form>
 						<%
@@ -108,33 +108,22 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 							%>
 								<form class="row no-margin">
 								  <div class="col-sm-6 col-md-6">
-									<label>First Name: <span class="required">*</span></label>
-									<input class="form-control" type="text">
-								  </div>
-								  <div class="col-sm-6 col-md-6">
-									<label>Last Name: <span class="required">*</span></label>
-									<input class="form-control" type="text">
-								  </div>
-								  
-								  <div class="clearfix"></div>
-								  
-								  <div class="col-sm-6 col-md-6">
-									<label>Company:</label>
-									<input class="form-control" type="text">
-								  </div>
-								  <div class="col-sm-6 col-md-6">
-									<label>Telephone: <span class="required">*</span></label>
-									<input class="form-control" type="text">
-								  </div>
-								  
-								  <div class="clearfix"></div>
-								  
-								  <div class="col-sm-6 col-md-6">
 									<label>Address: <span class="required">*</span></label>
 									<input class="form-control" type="text">
 								  </div>
 								  <div class="col-sm-6 col-md-6">
-									<label>City</label>
+									<label>Landmark: <span class="required">*</span></label>
+									<input class="form-control" type="text">
+								  </div>
+								  
+								  <div class="clearfix"></div>
+								  
+								  <div class="col-sm-6 col-md-6">
+									<label>Street:</label>
+									<input class="form-control" type="text">
+								  </div>
+								  <div class="col-sm-6 col-md-6">
+									<label>City: <span class="required">*</span></label>
 									<input class="form-control" type="text">
 								  </div>
 								  
@@ -147,18 +136,14 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 								  <div class="col-sm-6 col-md-6">
 									<label>Country</label>
 									<select class="form-control">
-									  <option>Country 1</option>
-									  <option>Country 2</option>
-									  <option>Country 3</option>
-									  <option>Country 4</option>
-									  <option>Country 5</option>
+									  <option>India</option>
 									</select>
 								  </div>
-				
+								  
 								  <div class="clearfix"></div>
 								  
 								  <div class="col-sm-12 buttons-box text-right">
-									<button type="button" class="btn btn-default">Continue</button>
+									<button class="btn btn-primary text-uppercase save_customer_address" type="button">Save & Continue Checkout</button>
 									<span class="required"><b>*</b> Required Field</span>
 								  </div>
 								</form>
