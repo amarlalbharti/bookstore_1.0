@@ -40,13 +40,12 @@ public class ProductOrder
 	@Column(name = "cancel_date")
 	private Date cancelDate;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@Column(name = "shipping_address")
+	private String shippingAddress;
+	
+	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
-	
-	@ManyToOne(cascade=CascadeType.ALL) 
-	@JoinColumn(name="customer_address_id", referencedColumnName="customer_address_id")
-	private CustomerAddress customerAddress;
 	
 	@OneToMany(mappedBy="productOrder", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<OrderItem> orderItems = new HashSet();
@@ -110,6 +109,16 @@ public class ProductOrder
 	{
 		this.cancelDate = cancelDate;
 	}
+	
+	public String getShippingAddress()
+	{
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(String shippingAddress)
+	{
+		this.shippingAddress = shippingAddress;
+	}
 
 	public Registration getRegistration()
 	{
@@ -119,16 +128,6 @@ public class ProductOrder
 	public void setRegistration(Registration registration)
 	{
 		this.registration = registration;
-	}
-
-	public CustomerAddress getCustomerAddress()
-	{
-		return customerAddress;
-	}
-
-	public void setCustomerAddress(CustomerAddress customerAddress)
-	{
-		this.customerAddress = customerAddress;
 	}
 
 	public Set<OrderItem> getOrderItems()

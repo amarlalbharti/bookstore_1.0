@@ -143,17 +143,18 @@ $(document).ready(function(){
 					if(json.status == "loggedout"){
 						$.redirectToLoginPage();
 					}else if(json.status == "success"){
-						$.getCustomerCheckoutSteps("PAYMENTINFO");
+						$.getCustomerCheckoutSteps("PRODUCTREVIEW");
 		 			 }else{
 		 				alertify.error(json.msg);
 		 			 }
 				}
 			});
 		}
-		
-		//$.getCustomerCheckoutSteps("SHIPPINGINFO");
 	});
 	
+	$(document).on("click","#checkoutsteps .continue_product_review",function() {
+		$.getCustomerCheckoutSteps("PAYMENTINFO");
+	});
 	
 	
 }); 

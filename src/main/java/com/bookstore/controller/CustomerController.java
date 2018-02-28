@@ -2,7 +2,10 @@ package com.bookstore.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +21,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Basket;
 import com.bookstore.domain.CustomerAddress;
+import com.bookstore.domain.OrderItem;
+import com.bookstore.domain.ProductOrder;
 import com.bookstore.domain.Registration;
 import com.bookstore.service.BasketService;
 import com.bookstore.service.CustomerAddressService;
+import com.bookstore.service.ProductOrderService;
 import com.bookstore.service.ProductService;
 import com.bookstore.service.RegistrationService;
 import com.bookstore.util.CheckoutSteps;
@@ -38,6 +44,8 @@ public class CustomerController
 	private RegistrationService registrationService;
 	@Autowired
 	private CustomerAddressService customerAddressService;
+	@Autowired
+	private ProductOrderService productOrderService;
 	
 	@RequestMapping(value = "customer/checkout", method = RequestMethod.GET)
 	public String getCustomerCheckout(ModelMap map, HttpServletRequest request, Principal principal)
@@ -73,7 +81,7 @@ public class CustomerController
 							for(CustomerAddress ca : customerAddresses){
 								if(ca.isActive()){
 									passedSteps.add(CheckoutSteps.SHIPPINGINFO);
-									step = CheckoutSteps.PAYMENTINFO.name();
+									step = CheckoutSteps.PRODUCTREVIEW.name();
 									break;
 								}
 							}
@@ -83,7 +91,7 @@ public class CustomerController
 					}else{
 						map.addAttribute("registration", registration);
 						if(step.equalsIgnoreCase(CheckoutSteps.LOGIN.name())){
-							CheckoutSteps.LOGIN.name();
+							step = CheckoutSteps.LOGIN.name();
 						}else{
 							passedSteps.add(CheckoutSteps.LOGIN);
 							if(step.equalsIgnoreCase(CheckoutSteps.SHIPPINGINFO.name())){
@@ -92,13 +100,13 @@ public class CustomerController
 							}else {
 								passedSteps.add(CheckoutSteps.SHIPPINGINFO);
 								map.addAttribute("activeAddresses", this.customerAddressService.getActiveCustomerAddressById(registration.getRid()));
-								if(step.equalsIgnoreCase(CheckoutSteps.PAYMENTINFO.name())){
-									step = CheckoutSteps.PAYMENTINFO.name();
+								if(step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name())){
+									step = CheckoutSteps.PRODUCTREVIEW.name();
+									map.addAttribute("baskets", this.basketService.getBasketByCustomer(registration.getRid()));
 								}else{
-									passedSteps.add(CheckoutSteps.SHIPPINGINFO);
-									if (step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name())){
-										step = CheckoutSteps.PRODUCTREVIEW.name();
-										map.addAttribute("baskets", this.basketService.getBasketByCustomer(registration.getRid()));
+									passedSteps.add(CheckoutSteps.PRODUCTREVIEW);
+									if (step.equalsIgnoreCase(CheckoutSteps.PAYMENTINFO.name())){
+										step = CheckoutSteps.PAYMENTINFO.name();
 									}
 									
 								}
@@ -165,6 +173,46 @@ public class CustomerController
 		return response.toJSONString();
 	}
 	
-	
+	@RequestMapping(value = "customer/placeorder", method = RequestMethod.GET)
+	public String placeOrder(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		if(principal != null){
+			Registration registration = this.registrationService.getRegistrationByUserid(principal.getName());
+			if(registration != null){
+				List<Basket> baskets = this.basketService.getBasketByCustomer(registration.getRid());
+				Set<OrderItem> orderedItems =  new HashSet<OrderItem>(); 
+				double subtotal = 0;
+				if(baskets != null && !baskets.isEmpty()) {
+					ProductOrder order = new ProductOrder();
+					
+					for(Basket basket : baskets) {
+						OrderItem item = new OrderItem();
+						item.setProductOrder(order);
+						item.setQuantity(basket.getQuantity());
+						item.setProduct(basket.getProduct());
+						item.setProductPrice(basket.getProduct().getProductPrice());
+						item.setCreateDate(new Date());
+						orderedItems.add(item);
+						subtotal += (basket.getQuantity() * basket.getProduct().getProductPrice());
+						basket.setDeletedDate(new Date());
+						this.basketService.updateBasket(basket);
+					}
+					CustomerAddress address = this.customerAddressService.getActiveCustomerAddressById(registration.getRid());
+					order.setRegistration(registration);
+					order.setTotalItems(baskets.size());
+					order.setShippingAddress(CustomerUtils.getShippingAddressValue(address));
+					order.setFinalPrice(subtotal);
+					order.setOrderItems(orderedItems);
+					order.setCreateDate(new Date());
+					this.productOrderService.addProductOrder(order);
+					
+				}else {
+					
+				}
+			}
+		}else{
+		}
+		return "redirect:/index";
+	}
 	
 }

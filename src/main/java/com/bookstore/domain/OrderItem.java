@@ -33,7 +33,7 @@ public class OrderItem
 	@Column(name = "modify_date")
 	private Date modifyDate;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne
 	@JoinColumn(name="product_id", referencedColumnName="pid")
 	private Product product;
 	

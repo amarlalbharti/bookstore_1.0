@@ -62,4 +62,25 @@ public class CustomerUtils
 		return sb.toString();
 		
 	}
+	
+	public static String getShippingAddressValue(CustomerAddress address){
+		StringBuilder sb = new StringBuilder(); 
+		if(address != null){
+			if(address.getCustomerStreet() != null){
+				sb.append(address.getCustomerStreet() +", ");
+			}
+			if(address.getLandmark() != null){
+				sb.append(address.getLandmark()  +", ");
+			}
+			if(address.getCustomerCity() != null){
+				sb.append(address.getCustomerCity() +", ");
+			}
+			if(address.getCustomerPinCode() != null){
+				sb.append(address.getCustomerPinCode());
+			}
+		}
+		
+		return sb.toString();
+		
+	}
 }

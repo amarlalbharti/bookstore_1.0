@@ -23,7 +23,6 @@
 <%
 Registration registration = (Registration)request.getAttribute("registration");
 List<CustomerAddress> customerAddresses = (List) request.getAttribute("customerAddresses");
-List<Basket> baskets = (List)request.getAttribute("baskets");
 String step = (String)request.getAttribute("step");
 if(!CustomerUtils.isValidCheckoutStep(step)){
 	response.sendRedirect(request.getContextPath()+"/customer/checkout");
@@ -34,7 +33,7 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
       <article class="content col-sm-9 col-md-9">
 		<ul id="checkoutsteps" class="clearfix panel-group">
 		  <li class="panel">
-			<a href="#step-1" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? "collapsed" : "" %>" data-parent="#checkoutsteps" data-toggle="collapse">
+			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
 			  <div class="number">1</div>
 			  <h6 class="text-uppercase">LogIn <%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? "<i class=\"fa fa-check text-info \"></i>" : "" %></h6>
 			</a>
@@ -73,7 +72,7 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 			</div>
 		  </li>
 		  <li class="panel">
-			<a href="#step-2" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "collapsed" : "" %>" data-parent="#checkoutsteps" data-toggle="collapse">
+			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
 			  <div class="number">2</div>
 			  <h6 class="text-uppercase">Shipping Information <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "<i class=\"fa fa-check text-info\"></i>" : "" %></h6>
 			</a>
@@ -156,32 +155,9 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 			</div>
 		  </li>
 		  <li class="panel">
-			<a href="#step-4" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "collapsed" : "" %>" data-parent="#checkoutsteps" data-toggle="collapse">
-			  <div class="number">4</div>
-			  <h6 class="text-uppercase">Payment Information <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PAYMENTINFO) ? "<i class=\"fa fa-check text-info\"></i>" : "" %></h6>
-			</a>
-			
-			<div id="step-4" class="collapse  <%= step.equalsIgnoreCase(CheckoutSteps.PAYMENTINFO.name()) ? "in" : "" %>">
-			  <div class="step-content">
-				<form>
-				  <div>
-					<label class="radio"><input type="radio" name="register"> Checkout as Guest</label>
-					<label class="radio"><input type="radio" name="register"> Register</label>
-				  </div>
-				</form>
-				
-				<div class="buttons-box text-right">
-				  <button type="button" class="btn btn-default">Continue</button>
-				  <span class="required"><b>*</b> Required Field</span>
-				</div>
-			  </div>
-			</div>
-		  </li>
-		  
-		  <li class="panel">
-			<a href="#step-5" class="step-title <%= step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name()) ? "collapsed" : "" %>" data-parent="#checkoutsteps" data-toggle="collapse">
-			  <div class="number">5</div>
-			  <h6 class="text-uppercase">Order Review </h6>
+			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PRODUCTREVIEW) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
+			  <div class="number">3</div>
+			  <h6 class="text-uppercase">Order Review <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PRODUCTREVIEW) ? "<i class=\"fa fa-check text-info\"></i>" : "" %></h6>
 			</a>
 			
 			<div id="step-5" class="collapse <%= step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name()) ? "in" : "" %>">
@@ -197,38 +173,66 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 					  </tr>
 					</thead>
 					<tbody>
-					  <tr>
-						<td>Samsung Galaxy Note 2</td>
-						<td>$499.00</td>
-						<td>1</td>
-						<td>$499.00</td>
-					  </tr>
-					  <tr>
-						<td>Sony Led TV KDL-46HX853</td>
-						<td>$1199.00</td>
-						<td>1</td>
-						<td>$1199.00</td>
-					  </tr>
+					<%
+						List<Basket> baskets = (List)request.getAttribute("baskets");
+						double subtotal = 0;
+						if(baskets != null && !baskets.isEmpty()){
+							for(Basket basket : baskets){
+								subtotal+= (basket.getQuantity() * basket.getProduct().getProductPrice());
+								%>
+									<tr>
+										<td><%= basket.getProduct().getProductName() %></td>
+										<td><i class="fa fa-inr" aria-hidden="true"></i> <%= basket.getProduct().getProductPrice() %></td>
+										<td><%= basket.getQuantity() %></td>
+										<td><i class="fa fa-inr" aria-hidden="true"></i> <%= basket.getQuantity() * basket.getProduct().getProductPrice() %></td>
+									</tr>
+								<%
+							}
+						}
+					%>
+					
  					  <tr>
 						<td colspan="3">Subtotal</td>
-						<td>$1698.00</td>
+						<td><i class="fa fa-inr" aria-hidden="true"></i> <%= subtotal %></td>
 					  </tr>
 					  <tr>
 						<td colspan="3">Shipping & Handling (Flat Rate - Fixed)</td>
-						<td>$5.00</td>
+						<td><i class="fa fa-inr" aria-hidden="true"></i> 0.0</td>
 					  </tr>
 					  <tr>
 						<td colspan="3">Grand Total</td>
-						<td>$1703.00</td>
+						<td><i class="fa fa-inr" aria-hidden="true"></i> <%= subtotal %></td>
 					  </tr>
 					</tbody>
 				  </table>
 				</div>
 				
-				<button type="button" class="btn btn-default">Place Order</button>
+				<button class="btn btn-primary text-uppercase continue_product_review" type="button">Continue Checkout</button>
 			  </div>
 			</div>
 		  </li>
+		  <li class="panel">
+			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PAYMENTINFO) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
+			  <div class="number">4</div>
+			  <h6 class="text-uppercase">Payment Information <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PAYMENTINFO) ? "<i class=\"fa fa-check text-info\"></i>" : "" %></h6>
+			</a>
+			
+			<div id="step-4" class="collapse  <%= step.equalsIgnoreCase(CheckoutSteps.PAYMENTINFO.name()) ? "in" : "" %>">
+			  <div class="step-content">
+				<form>
+				  <div>
+					<label class="radio"><input type="radio" name="register" checked="checked"> COD</label>
+				  </div>
+				</form>
+				
+				<div class="buttons-box text-right">
+				  <a href="${pageContext.request.contextPath}/customer/placeorder" class="btn btn-default">Place Order</a>
+				  <span class="required"><b>*</b> Required Field</span>
+				</div>
+			  </div>
+			</div>
+		  </li>
+		  
 		</ul><!-- #checkoutsteps -->
       </article><!-- .content -->
 
