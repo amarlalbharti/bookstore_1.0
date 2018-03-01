@@ -43,6 +43,9 @@ public class ProductOrder
 	@Column(name = "shipping_address")
 	private String shippingAddress;
 	
+	@Column(name = "customer_phone", nullable=false)
+	private String customerPhone;
+	
 	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
@@ -118,6 +121,16 @@ public class ProductOrder
 	public void setShippingAddress(String shippingAddress)
 	{
 		this.shippingAddress = shippingAddress;
+	}
+	
+	public String getCustomerPhone()
+	{
+		return customerPhone;
+	}
+
+	public void setCustomerPhone(String customerPhone)
+	{
+		this.customerPhone = customerPhone;
 	}
 
 	public Registration getRegistration()

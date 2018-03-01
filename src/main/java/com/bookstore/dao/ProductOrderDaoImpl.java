@@ -2,7 +2,10 @@ package com.bookstore.dao;
 
 import java.util.List;
 
+import org.hibernate.FetchMode;
+import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -39,16 +42,52 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 		return false;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ProductOrder getProductOrder(int productOrderId) {
 		try {
-			return (ProductOrder)this.sessionFactory.getCurrentSession().get(ProductOrder.class, productOrderId);
+			List<ProductOrder> list = this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.add(Restrictions.eq("productOrderId", productOrderId))
+					.setFetchMode("orderItems", FetchMode.JOIN)
+					.list();
+			if(list != null && !list.isEmpty()) {
+				return list.get(0);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	public ProductOrder getProductOrder(int productOrderId, int rid) {
+		try {
+			List<ProductOrder> list = this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.createAlias("registration", "regAlias")
+					.add(Restrictions.eq("regAlias.rid", rid))
+					.add(Restrictions.eq("productOrderId", productOrderId))
+					.setFetchMode("orderItems", FetchMode.JOIN)
+					.list();
+			if(list != null && !list.isEmpty()) {
+				return list.get(0);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public List<ProductOrder> getProductOrderByCustomer(int rid){
+		try {
+			return  this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.createAlias("registration", "regAlias")
+					.add(Restrictions.eq("regAlias.rid", rid))
+					.list();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

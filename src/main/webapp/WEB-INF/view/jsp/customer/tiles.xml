@@ -37,6 +37,9 @@
         <put-attribute name="title" value="Shopping - Checkout steps" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/customer/checkoutStep.jsp" />
     </definition>
-    
+    <definition name="orderConfirmation" extends="customerTemplate">
+        <put-attribute name="title" value="Customer-Order Condirmation" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/orderConfirmation.jsp" />
+    </definition>
     
 </tiles-definitions>

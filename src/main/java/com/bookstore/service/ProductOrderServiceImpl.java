@@ -29,6 +29,10 @@ public class ProductOrderServiceImpl implements ProductOrderService
 		return this.productOrderDao.getProductOrder(productOrderId);
 	}
 	
+	public ProductOrder getProductOrder(int productOrderId, int rid) {
+		return this.productOrderDao.getProductOrder(productOrderId, rid);
+	}
+	
 	public List<ProductOrder> getProductOrderByCustomer(int rid){
 		return this.productOrderDao.getProductOrderByCustomer(rid);
 	}

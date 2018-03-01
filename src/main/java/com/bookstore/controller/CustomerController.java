@@ -202,10 +202,11 @@ public class CustomerController
 					order.setTotalItems(baskets.size());
 					order.setShippingAddress(CustomerUtils.getShippingAddressValue(address));
 					order.setFinalPrice(subtotal);
+					order.setCustomerPhone(address.getCustomerPhone());
 					order.setOrderItems(orderedItems);
 					order.setCreateDate(new Date());
-					this.productOrderService.addProductOrder(order);
-					
+					int orderid = this.productOrderService.addProductOrder(order);
+					return "redirect:/customer/order/confirmation/"+orderid;
 				}else {
 					
 				}
@@ -214,5 +215,24 @@ public class CustomerController
 		}
 		return "redirect:/index";
 	}
-	
+	@RequestMapping(value = "customer/order/confirmation/{orderid}", method = RequestMethod.GET)
+	public String orderConfirmation(@PathVariable(value="orderid" ) String orderid, ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		try {
+			if(principal != null){
+				Registration registration = this.registrationService.getRegistrationByUserid(principal.getName());
+				if(registration != null) {
+					if(Validation.isNumeric(orderid)) {
+						map.addAttribute("productOrder", this.productOrderService.getProductOrder(Util.getNumeric(orderid), registration.getRid()));
+					}
+					return "orderConfirmation";
+				}
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/login";
+	}
 }

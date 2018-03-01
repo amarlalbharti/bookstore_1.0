@@ -12,6 +12,8 @@ public interface ProductOrderService
 	
 	public ProductOrder getProductOrder(int productOrderId);
 	
+	public ProductOrder getProductOrder(int productOrderId, int rid);
+	
 	public List<ProductOrder> getProductOrderByCustomer(int rid);
 	
 }
