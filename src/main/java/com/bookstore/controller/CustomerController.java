@@ -63,6 +63,9 @@ public class CustomerController
 		
 	}
 	
+	
+	
+	
 	@RequestMapping(value = "secure/checkout/steps", method = RequestMethod.GET)
 	public String getCustomerCheckoutStep(ModelMap map, HttpServletRequest request, Principal principal)
 	{
@@ -125,6 +128,32 @@ public class CustomerController
 			return "redirect:/login";
 		}
 		return "redirect:/login";
+	}
+	
+	@RequestMapping(value = "secure/customeraddress/add", method = RequestMethod.GET)
+	public @ResponseBody String addCustomeraddress(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		JSONObject response = new JSONObject();
+		try {
+			if(principal != null){
+				Registration registration = this.registrationService.getRegistrationByUserid(principal.getName());
+				if(registration != null){
+					
+				}else{
+					response.put("status", "loggedout");
+					return response.toJSONString();
+				}
+					
+			}else{
+				response.put("status", "loggedout");
+				return response.toJSONString();
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		response.put("status", "failed");
+		response.put("msg", "Oops something wrong !");
+		return response.toJSONString();
 	}
 	
 	

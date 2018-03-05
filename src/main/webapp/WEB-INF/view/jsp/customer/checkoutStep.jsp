@@ -123,7 +123,8 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 								  </div>
 								  <div class="col-sm-6 col-md-6">
 									<label>City: <span class="required">*</span></label>
-									<input class="form-control" type="text">
+									<select class="form-control " id="select2_city">
+									</select>
 								  </div>
 								  
 								  <div class="clearfix"></div>
@@ -238,6 +239,33 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 
 </div><!-- .page-box-content -->
 </div><!-- .page-box -->
-
+<script type="text/javascript">
+$(document).ready(function(){
+	 $('#select2_city').select2({
+		ajax : {
+				url : "${pageContext.request.contextPath}/search/ceties",
+				delay: 250,
+				dataType: 'json',
+				placeholder: 'Search for a repository',
+			    minimumInputLength: 1,
+				data: function (params) {
+			      var query = {
+			        search: params.term,
+			        page: params.page || 1
+			      }
+			      return query;
+			    },
+			    processResults: function (data) {
+			    	return {
+			          results: data.results
+			        };
+		        }
+				
+				
+			}
+		});
+	
+});
+</script>
 </body>
 </html>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,10 +35,13 @@ public class CustomerCartController
 	@Autowired
 	private RegistrationService registrationService;
 	
+	static final Logger logger = Logger.getLogger(CustomerCartController.class);
+	
 	@RequestMapping(value = "customer/cart", method = RequestMethod.GET)
 	public String getCustomerCart(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		map.addAttribute("basketList", this.basketService.getBasketByCustomer(principal.getName()));
+		logger.info("customer/cart called by "+ principal.getName());
 		return "basket";
 	}
 	

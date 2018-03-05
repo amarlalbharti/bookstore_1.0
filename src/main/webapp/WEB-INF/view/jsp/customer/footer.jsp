@@ -157,6 +157,7 @@
 <script src="${pageContext.request.contextPath}/theme/js/revolution/jquery.themepunch.revolution.min.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/bootstrapValidator.min.js"></script>
 <script src="${pageContext.request.contextPath}/theme/js/bootstrap-datepicker.js"></script>
+<script src="${pageContext.request.contextPath}/theme/js/select2.full.js"></script>
 <%-- <script src="${pageContext.request.contextPath}/theme/js/jplayer/jquery.jplayer.min.js"></script> --%>
 <%-- <script src="${pageContext.request.contextPath}/theme/js/jplayer/jplayer.playlist.min.js"></script> --%>
 <script src="${pageContext.request.contextPath}/theme/js/jquery.scrollbar.min.js"></script>

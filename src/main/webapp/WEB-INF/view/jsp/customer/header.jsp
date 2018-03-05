@@ -23,6 +23,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/theme/css/ladda.min.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/theme/css/datepicker.css">
   <link rel="stylesheet" href="${pageContext.request.contextPath}/theme/css/jquery.scrollbar.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/theme/css/select2.css">
   
   <!-- Theme CSS -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/theme/css/style.css">

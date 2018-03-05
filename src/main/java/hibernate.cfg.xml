@@ -22,6 +22,9 @@
 		<mapping class="com.bookstore.domain.OrderItem"/>
 		<mapping class="com.bookstore.domain.ProductOrder"/>
 		<mapping class="com.bookstore.domain.Review"/>
+		<mapping class="com.bookstore.domain.Country"/>
+		<mapping class="com.bookstore.domain.State"/>
+		<mapping class="com.bookstore.domain.City"/>
 		
 		
     </session-factory>
