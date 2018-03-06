@@ -130,14 +130,25 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 								  <div class="clearfix"></div>
 								  
 								  <div class="col-sm-6 col-md-6">
-									<label>Zip/Postal Code: <span class="required">*</span></label>
-									<input class="form-control" type="text">
+									<label>State: <span class="required">*</span></label>
+									<select class="form-control">
+									  <option value="0">Select State</option>
+									</select>
 								  </div>
 								  <div class="col-sm-6 col-md-6">
 									<label>Country</label>
 									<select class="form-control">
-									  <option>India</option>
+									  <option value="0" >Select Country</option>
 									</select>
+								  </div>
+								  <div class="clearfix"></div>
+								  <div class="col-sm-6 col-md-6">
+									<label>Zip/Postal Code: <span class="required">*</span></label>
+									<input class="form-control" type="text">
+								  </div>
+								  <div class="col-sm-6 col-md-6">
+									<label>Contact</label>
+									<input class="form-control" type="text">
 								  </div>
 								  
 								  <div class="clearfix"></div>
@@ -250,8 +261,7 @@ $(document).ready(function(){
 			    minimumInputLength: 1,
 				data: function (params) {
 			      var query = {
-			        search: params.term,
-			        page: params.page || 1
+			        search: params.term
 			      }
 			      return query;
 			    },
@@ -264,7 +274,29 @@ $(document).ready(function(){
 				
 			}
 		});
-	
+
+	 $(document).on("change","#select2_city",function() {
+			var cityid=$(this).val();
+			$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/get/statecountry/"+cityid,
+				data : {},
+				success : function(response) {
+					
+					var json = JSON.parse(response);
+
+					$('#mySelect')
+					    .find('option')
+					    .remove()
+					    .end()
+					    .append('<option value="whatever">text</option>')
+					    .val('whatever')
+					;
+
+
+				}
+			});
+		});
 });
 </script>
 </body>
