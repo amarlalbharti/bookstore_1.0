@@ -4,12 +4,12 @@ jQuery(document).ready(function() {
 	      $(".alert-dismissible").css("display","none");
 	}, 5000);
 	
-	$('.number_only').each(function() {
-		if($(this).val() == undefined || $(this).val() == ""){
-	    	$(this).val("0");
-	    }
-	});
-	
+//	$('.number_only').each(function() {
+//		if($(this).val() == undefined || $(this).val() == ""){
+//	    	$(this).val("0");
+//	    }
+//	});
+//	
 	$(".number_only").keydown(function (e) {
         // Allow: backspace, delete, tab, escape, enter and .
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||

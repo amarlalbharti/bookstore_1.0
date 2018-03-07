@@ -105,25 +105,25 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 							
 						}else{
 							%>
-								<form class="row no-margin">
+								<form class="row no-margin address_form">
 								  <div class="col-sm-6 col-md-6">
 									<label>Address: <span class="required">*</span></label>
-									<input class="form-control" type="text">
+									<input class="form-control" id="shipping_address" type="text">
 								  </div>
 								  <div class="col-sm-6 col-md-6">
 									<label>Landmark: <span class="required">*</span></label>
-									<input class="form-control" type="text">
+									<input class="form-control" id="shipping_landmark" type="text">
 								  </div>
 								  
 								  <div class="clearfix"></div>
 								  
 								  <div class="col-sm-6 col-md-6">
 									<label>Street:</label>
-									<input class="form-control" type="text">
+									<input class="form-control" id="shipping_street" type="text">
 								  </div>
 								  <div class="col-sm-6 col-md-6">
 									<label>City: <span class="required">*</span></label>
-									<select class="form-control " id="select2_city">
+									<select class="form-control "  id="shipping_city">
 									</select>
 								  </div>
 								  
@@ -131,24 +131,24 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 								  
 								  <div class="col-sm-6 col-md-6">
 									<label>State: <span class="required">*</span></label>
-									<select class="form-control">
+									<select class="form-control" id="shipping_state">
 									  <option value="0">Select State</option>
 									</select>
 								  </div>
 								  <div class="col-sm-6 col-md-6">
-									<label>Country</label>
-									<select class="form-control">
+									<label>Country: <span class="required">*</span></label>
+									<select class="form-control" id="shipping_country">
 									  <option value="0" >Select Country</option>
 									</select>
 								  </div>
 								  <div class="clearfix"></div>
 								  <div class="col-sm-6 col-md-6">
 									<label>Zip/Postal Code: <span class="required">*</span></label>
-									<input class="form-control" type="text">
+									<input class="form-control number_only" id="shipping_pin" type="text">
 								  </div>
 								  <div class="col-sm-6 col-md-6">
-									<label>Contact</label>
-									<input class="form-control" type="text">
+									<label>Contact: <span class="required">*</span></label>
+									<input class="form-control number_only" id="shipping_contact" type="text">
 								  </div>
 								  
 								  <div class="clearfix"></div>
@@ -250,9 +250,10 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 
 </div><!-- .page-box-content -->
 </div><!-- .page-box -->
+<script src="${pageContext.request.contextPath}/js/common_js.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	 $('#select2_city').select2({
+	 $('#shipping_city').select2({
 		ajax : {
 				url : "${pageContext.request.contextPath}/search/ceties",
 				delay: 250,
@@ -275,7 +276,7 @@ $(document).ready(function(){
 			}
 		});
 
-	 $(document).on("change","#select2_city",function() {
+	 $(document).on("change","#shipping_city",function() {
 			var cityid=$(this).val();
 			$.ajax({
 				type : "GET",
@@ -285,18 +286,50 @@ $(document).ready(function(){
 					
 					var json = JSON.parse(response);
 
-					$('#mySelect')
+					$('#shpping_state')
 					    .find('option')
 					    .remove()
 					    .end()
-					    .append('<option value="whatever">text</option>')
-					    .val('whatever')
-					;
+					    .append('<option value="'+json.stateid+'">'+json.state+'</option>')
+					    .val(json.stateid);
+					
+					$('#shpping_country')
+				    .find('option')
+				    .remove()
+				    .end()
+				    .append('<option value="'+json.countryid+'">'+json.country+'</option>')
+				    .val(json.countryid);
 
 
 				}
 			});
 		});
+	 
+	 $(document).on("click",".address_form .save_customer_address",function() {
+			var address = $(".address_form #shipping_address").val();
+			var landmark = $(".address_form #shipping_landmark").val();
+			var street = $(".address_form #shipping_street").val();
+			var city = $(".address_form #shipping_city").val();
+			var state = $(".address_form #shipping_state").val();
+			var country = $(".address_form #shipping_country").val();
+			var pin = $(".address_form #shipping_pin").val();
+			var contact = $(".address_form #shipping_contact").val();
+			
+			alert(address);
+// 			$.ajax({
+// 				type : "GET",
+// 				url : "${pageContext.request.contextPath}/get/statecountry/"+cityid,
+// 				data : {},
+// 				success : function(response) {
+					
+// 					var json = JSON.parse(response);
+
+// 				}
+// 			});
+		});
+	 
+	 
+	 
 });
 </script>
 </body>
