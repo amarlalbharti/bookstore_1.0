@@ -7,6 +7,8 @@
     
     <session-factory>
      	<property name="hbm2ddl.auto">update</property>
+     	<property name="hibernate.search.default.directory_provider">filesystem</property>
+        <property name="hibernate.search.default.indexBase">E:\data\index</property>
  		<mapping class="com.bookstore.domain.LoginInfo"/>
 		<mapping class="com.bookstore.domain.Registration"/>
 		<mapping class="com.bookstore.domain.UserRole"/>
@@ -28,5 +30,4 @@
 		
 		
     </session-factory>
-    
 </hibernate-configuration>

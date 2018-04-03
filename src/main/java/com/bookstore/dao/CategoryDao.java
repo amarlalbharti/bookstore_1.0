@@ -32,4 +32,5 @@ public interface CategoryDao
 	
 	public long countCategoriesByParentid(int parentId);
 	
+	public List<Category> searchCategories(String text, int first, int max);
 }

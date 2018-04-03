@@ -18,8 +18,31 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.DateBridge;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.Resolution;
+import org.hibernate.search.annotations.Store;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+
 @Entity
 @Table(name="category")
+@Indexed
+@AnalyzerDef(name = "customanalyzer",tokenizer =@TokenizerDef(factory = StandardTokenizerFactory.class),
+filters = {
+@TokenFilterDef(factory = LowerCaseFilterFactory.class),
+@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+	@Parameter(name = "language", value = "English")
+  })
+})
 public class Category
 {
 	

@@ -100,4 +100,8 @@ public class CategoryServiceImpl implements CategoryService
         }
         return res; 
     }
+    
+    public List<Category> searchCategories(String text, int first, int max){
+    	return this.categoryDao.searchCategories(text, first, max);
+    }
 }

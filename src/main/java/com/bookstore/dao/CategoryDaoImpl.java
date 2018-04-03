@@ -2,12 +2,18 @@ package com.bookstore.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.search.FullTextSession;
+import org.hibernate.search.Search;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +22,7 @@ import com.bookstore.domain.Category;
 @Repository
 public class CategoryDaoImpl implements CategoryDao
 {
-
+	private final Logger logger = Logger.getLogger(CategoryDaoImpl.class);
 	@Autowired private SessionFactory sessionFactory;
 	
 	public int addCategory(Category category)
@@ -223,6 +229,29 @@ public class CategoryDaoImpl implements CategoryDao
 			System.out.println("Error in getAllRootCategories ");
 			e.printStackTrace();
 		}
+		
 		return 0;
 	}
+	
+	public List<Category> searchCategories(String text, int first, int max){
+		List result = null;
+		try {
+			FullTextSession fullTextSession = Search.getFullTextSession(this.sessionFactory.getCurrentSession());
+			QueryBuilder qb = fullTextSession.getSearchFactory().buildQueryBuilder().forEntity(Category.class ).get();
+			org.apache.lucene.search.Query query = qb.keyword()
+					.fuzzy()
+					.withPrefixLength(2)
+					.onFields("title", "subtitle")
+					.matching("jsp java book tech")
+					.createQuery();
+			Query hibQuery = fullTextSession.createFullTextQuery(query, Category.class);
+			result = hibQuery.list();
+			
+		}catch (Exception e) {
+			logger.error("Error in searchCategories for :"+text, e);
+		}
+		return result;
+		
+	}
+	
 }
