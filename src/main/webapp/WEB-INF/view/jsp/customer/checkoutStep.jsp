@@ -148,7 +148,7 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 								  </div>
 								  <div class="col-sm-6 col-md-6">
 									<label>Contact: <span class="required">*</span></label>
-									<input class="form-control number_only" id="shipping_contact" type="text">
+									<input class="form-control number_only" id="shipping_contact" type="text" maxlength="10">
 								  </div>
 								  
 								  <div class="clearfix"></div>
@@ -250,7 +250,6 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 
 </div><!-- .page-box-content -->
 </div><!-- .page-box -->
-<script src="${pageContext.request.contextPath}/js/common_js.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	 $('#shipping_city').select2({
@@ -258,7 +257,7 @@ $(document).ready(function(){
 				url : "${pageContext.request.contextPath}/search/ceties",
 				delay: 250,
 				dataType: 'json',
-				placeholder: 'Search for a repository',
+				placeholder: 'Search city',
 			    minimumInputLength: 1,
 				data: function (params) {
 			      var query = {
@@ -277,23 +276,25 @@ $(document).ready(function(){
 		});
 
 	 $(document).on("change","#shipping_city",function() {
+		 	$(this).parent().removeClass("has-error");
 			var cityid=$(this).val();
 			$.ajax({
 				type : "GET",
 				url : "${pageContext.request.contextPath}/get/statecountry/"+cityid,
 				data : {},
 				success : function(response) {
+					alert("Hello "+response);
 					
 					var json = JSON.parse(response);
 
-					$('#shpping_state')
+					$('#shipping_state')
 					    .find('option')
 					    .remove()
 					    .end()
 					    .append('<option value="'+json.stateid+'">'+json.state+'</option>')
 					    .val(json.stateid);
 					
-					$('#shpping_country')
+					$('#shipping_country')
 				    .find('option')
 				    .remove()
 				    .end()
@@ -315,17 +316,50 @@ $(document).ready(function(){
 			var pin = $(".address_form #shipping_pin").val();
 			var contact = $(".address_form #shipping_contact").val();
 			
-			alert(address);
-// 			$.ajax({
-// 				type : "GET",
-// 				url : "${pageContext.request.contextPath}/get/statecountry/"+cityid,
-// 				data : {},
-// 				success : function(response) {
-					
-// 					var json = JSON.parse(response);
+			var isValid = true;
+			$(".address_form .has-error").removeClass("has-error");
+			if($.trim(address) == ""){
+			 	$(".address_form #shipping_address").parent().addClass("has-error");
+				isValid = false;
+			}
+			if($.trim(landmark) == ""){
+				$(".address_form #shipping_landmark").parent().addClass("has-error");
+				isValid = false;
+			}
+			if($.trim(city) == ""){
+				$(".address_form #shipping_city").parent().addClass("has-error");
+				isValid = false;
+			}
+			if($.trim(pin) == ""){
+				$(".address_form #shipping_pin").parent().addClass("has-error");
+				isValid = false;
+			}
+			if($.trim(contact) == "" || !ContactNo(contact)){
+				$(".address_form #shipping_contact").parent().addClass("has-error");
+				isValid = false;
+			}
+			if(isValid){
+				$.ajax({
+					type : "GET",
+					url : "${pageContext.request.contextPath}secure/customeraddress/add",
+					data : {address: address, landmark: landmark, street: street, city: city, state: state, country: country, pin: pin, contact: contact},
+					success : function(response) {
+						alert(response);
+						var json = JSON.parse(response);
+						if(json.status == "loggedout"){
+							$.redirectToLoginPage();
+						}else if(json.status == "success"){
+			 				 alertify.success(json.msg);
+			 				 $.getCustomerCartHeader("PRODUCTREVIEW");
+			 			 }else{
+			 				alertify.error(json.msg);
+			 			 }
 
-// 				}
-// 			});
+					}
+				});
+			}
+			
+			
 		});
 	 
 	 

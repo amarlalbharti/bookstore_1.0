@@ -61,6 +61,7 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 
 </div><!-- .page-box-content -->
 </div><!-- .page-box -->
+<script src="${pageContext.request.contextPath}/js/common_js.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){
 	 $.getCustomerCheckoutSteps();
