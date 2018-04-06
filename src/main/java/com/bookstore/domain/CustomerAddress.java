@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,14 +22,18 @@ public class CustomerAddress
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int customerAddressId;
 	
+	@Column(name = "address")
+	private String address;
+	
 	@Column(name = "landmark")
 	private String landmark;
 	
 	@Column(name = "customer_street", nullable=false)
 	private String customerStreet;
 	
-	@Column(name = "customer_city", nullable=false)
-	private String customerCity;
+	@ManyToOne(cascade=CascadeType.ALL) 
+	@JoinColumn(name="city_id", referencedColumnName="city_id")
+	private City customerCity;
 	
 	@Column(name = "customer_pincode", nullable=false)
 	private String customerPinCode;
@@ -62,6 +67,16 @@ public class CustomerAddress
 		this.customerAddressId = customerAddressId;
 	}
 
+	public String getAddress()
+	{
+		return address;
+	}
+
+	public void setAddress(String address)
+	{
+		this.address = address;
+	}
+
 	public String getLandmark()
 	{
 		return landmark;
@@ -82,12 +97,12 @@ public class CustomerAddress
 		this.customerStreet = customerStreet;
 	}
 
-	public String getCustomerCity()
+	public City getCustomerCity()
 	{
 		return customerCity;
 	}
 
-	public void setCustomerCity(String customerCity)
+	public void setCustomerCity(City customerCity)
 	{
 		this.customerCity = customerCity;
 	}

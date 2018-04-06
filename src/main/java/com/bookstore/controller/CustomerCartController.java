@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Basket;
 import com.bookstore.domain.City;
+import com.bookstore.domain.CustomerAddress;
 import com.bookstore.domain.Product;
 import com.bookstore.domain.Registration;
 import com.bookstore.service.BasketService;
 import com.bookstore.service.CityService;
+import com.bookstore.service.CustomerAddressService;
 import com.bookstore.service.ProductService;
 import com.bookstore.service.RegistrationService;
 import com.bookstore.util.Util;
@@ -38,6 +40,9 @@ public class CustomerCartController
 	private RegistrationService registrationService;
 	@Autowired
 	private CityService cityService; 
+	@Autowired
+	private CustomerAddressService customerAddressService; 
+	
 	
 	static final Logger logger = Logger.getLogger(CustomerCartController.class);
 	
@@ -199,58 +204,5 @@ public class CustomerCartController
 		return response.toJSONString();
 	}
 	
-	
-	@RequestMapping(value = "secure/customeraddress/add", method = RequestMethod.GET)
-	public @ResponseBody String addCustomerAddress(ModelMap map, HttpServletRequest request, Principal principal)
-	{
-		JSONObject response = new JSONObject();
-		try {
-			if(principal != null){
-				String address = request.getParameter("address");
-				String landmark = request.getParameter("landmark");
-				String street = request.getParameter("street");
-				String city = request.getParameter("city");
-				String state = request.getParameter("state");
-				String country = request.getParameter("country");
-				String pin = request.getParameter("pin");
-				String contact = request.getParameter("contact");
-				boolean isValid = true;
-				if(!Validation.isNotNullNotEmpty(address)) {
-					isValid = false;
-				} else if(!Validation.isNotNullNotEmpty(landmark)) {
-					isValid = false;
-				} else if(!Validation.isNumeric(city)) {
-					isValid = false;
-				} else if(!Validation.isNumeric(pin)) {
-					isValid = false;
-				} else if(!Validation.isNumeric(contact)) {
-					isValid = false;
-				}
-				
-				City cityObj = null;
-				if(isValid) {
-					cityObj = this.cityService.getCity(Util.getNumeric(city));
-					if(cityObj == null) {
-						isValid = false;
-					}
-				}
-				
-				
-				
-				
-				
-			}else{
-				response.put("status", "loggedout");
-				return response.toJSONString();
-			}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		response.put("status", "failed");
-		response.put("msg", "Oops something wrong !");
-		return response.toJSONString();
-	}
-
 	
 }

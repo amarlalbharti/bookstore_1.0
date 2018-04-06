@@ -131,7 +131,6 @@ $(document).ready(function(){
 	});
 	
 	$(document).on("click","#checkoutsteps .select_customer_address",function() {
-		alert("Hello : " +$('input[name=customer_address]:checked').val());
 		var addr_id = $('input[name=customer_address]:checked').val();
 		if(addr_id != undefined){
 			$.ajax({
@@ -155,6 +154,17 @@ $(document).ready(function(){
 	$(document).on("click","#checkoutsteps .continue_product_review",function() {
 		$.getCustomerCheckoutSteps("PAYMENTINFO");
 	});
+	$(document).on("click","#checkoutsteps .change_login_user",function() {
+		$.getCustomerCheckoutSteps("LOGIN");
+	});
+	$(document).on("click","#checkoutsteps .change_shipping_info",function() {
+		$.getCustomerCheckoutSteps("SHIPPINGINFO");
+	});
+	$(document).on("click","#checkoutsteps .check_product_view",function() {
+		$.getCustomerCheckoutSteps("PRODUCTREVIEW");
+	});
+	
+	
 	
 	
 }); 

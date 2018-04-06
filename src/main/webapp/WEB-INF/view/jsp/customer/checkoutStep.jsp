@@ -35,7 +35,16 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 		  <li class="panel">
 			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
 			  <div class="number">1</div>
-			  <h6 class="text-uppercase">LogIn <%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? "<i class=\"fa fa-check text-info \"></i>" : "" %></h6>
+			  <h6 class="text-uppercase">LogIn <%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? "<i class=\"fa fa-check text-info \"></i>" : "" %>
+			  	<small><%= passedSteps != null && passedSteps.contains(CheckoutSteps.LOGIN) ? registration.getFirstName() +" " + registration.getLastName() : "" %></small>
+			  	<%
+			  		if(!step.equalsIgnoreCase(CheckoutSteps.LOGIN.name()) && passedSteps.contains(CheckoutSteps.LOGIN)){
+			  			%>
+			  				<button class="btn btn-primary btn-sm pull-right change_login_user" style="margin-top: 10px">Change</button>
+			  			<%
+			  		}
+			  	%>
+			  </h6>
 			</a>
 			<div id="step-1" class="collapse <%= step.equalsIgnoreCase(CheckoutSteps.LOGIN.name()) ? "in" : "" %> ">
 			  <div class="step-content">
@@ -74,7 +83,15 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 		  <li class="panel">
 			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
 			  <div class="number">2</div>
-			  <h6 class="text-uppercase">Shipping Information <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "<i class=\"fa fa-check text-info\"></i>" : "" %></h6>
+			  <h6 class="text-uppercase">Shipping Information <%= passedSteps != null && passedSteps.contains(CheckoutSteps.SHIPPINGINFO) ? "<i class=\"fa fa-check text-info\"></i>" : "" %>
+			  	<%
+			  		if(!step.equalsIgnoreCase(CheckoutSteps.SHIPPINGINFO.name())  && passedSteps.contains(CheckoutSteps.SHIPPINGINFO)){
+			  			%>
+			  				<button class="btn btn-primary btn-sm pull-right change_shipping_info" style="margin-top: 10px">Change</button>
+			  			<%
+			  		}
+			  	%>
+			  </h6>
 			</a>
 			
 			<div id="step-2" class="collapse <%= step.equalsIgnoreCase(CheckoutSteps.SHIPPINGINFO.name()) ? "in" : "" %>">
@@ -169,7 +186,15 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 		  <li class="panel">
 			<a href="#step" class="step-title <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PRODUCTREVIEW) ? "collapsed" : "" %>" data-parent="#checkoutsteps" >
 			  <div class="number">3</div>
-			  <h6 class="text-uppercase">Order Review <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PRODUCTREVIEW) ? "<i class=\"fa fa-check text-info\"></i>" : "" %></h6>
+			  <h6 class="text-uppercase">Order Review <%= passedSteps != null && passedSteps.contains(CheckoutSteps.PRODUCTREVIEW) ? "<i class=\"fa fa-check text-info\"></i>" : "" %>
+			  <%
+			  		if(!step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name()) && passedSteps.contains(CheckoutSteps.PRODUCTREVIEW)){
+			  			%>
+			  				<button class="btn btn-primary btn-sm pull-right check_product_view" style="margin-top: 10px">Check</button>
+			  			<%
+			  		}
+			  	%>
+			  </h6>
 			</a>
 			
 			<div id="step-5" class="collapse <%= step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name()) ? "in" : "" %>">
@@ -341,7 +366,7 @@ $(document).ready(function(){
 			if(isValid){
 				$.ajax({
 					type : "GET",
-					url : "${pageContext.request.contextPath}secure/customeraddress/add",
+					url : "${pageContext.request.contextPath}/secure/customeraddress/add",
 					data : {address: address, landmark: landmark, street: street, city: city, state: state, country: country, pin: pin, contact: contact},
 					success : function(response) {
 						alert(response);
@@ -350,7 +375,7 @@ $(document).ready(function(){
 							$.redirectToLoginPage();
 						}else if(json.status == "success"){
 			 				 alertify.success(json.msg);
-			 				 $.getCustomerCartHeader("PRODUCTREVIEW");
+			 				 $.getCustomerCheckoutSteps("PRODUCTREVIEW");
 			 			 }else{
 			 				alertify.error(json.msg);
 			 			 }

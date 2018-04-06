@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,11 +21,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bookstore.config.Validation;
 import com.bookstore.domain.Basket;
+import com.bookstore.domain.City;
 import com.bookstore.domain.CustomerAddress;
 import com.bookstore.domain.OrderItem;
 import com.bookstore.domain.ProductOrder;
 import com.bookstore.domain.Registration;
 import com.bookstore.service.BasketService;
+import com.bookstore.service.CityService;
 import com.bookstore.service.CustomerAddressService;
 import com.bookstore.service.ProductOrderService;
 import com.bookstore.service.ProductService;
@@ -46,6 +49,10 @@ public class CustomerController
 	private CustomerAddressService customerAddressService;
 	@Autowired
 	private ProductOrderService productOrderService;
+	@Autowired
+	private CityService cityService; 
+	
+	static final Logger logger = Logger.getLogger(CustomerController.class);
 	
 	@RequestMapping(value = "customer/checkout", method = RequestMethod.GET)
 	public String getCustomerCheckout(ModelMap map, HttpServletRequest request, Principal principal)
@@ -130,31 +137,82 @@ public class CustomerController
 		return "redirect:/login";
 	}
 	
+
 	@RequestMapping(value = "secure/customeraddress/add", method = RequestMethod.GET)
-	public @ResponseBody String addCustomeraddress(ModelMap map, HttpServletRequest request, Principal principal)
+	public @ResponseBody String addCustomerAddress(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		JSONObject response = new JSONObject();
 		try {
 			if(principal != null){
-				Registration registration = this.registrationService.getRegistrationByUserid(principal.getName());
-				if(registration != null){
-					
-				}else{
-					response.put("status", "loggedout");
-					return response.toJSONString();
+				String address = request.getParameter("address");
+				String landmark = request.getParameter("landmark");
+				String street = request.getParameter("street");
+				String city = request.getParameter("city");
+				String state = request.getParameter("state");
+				String country = request.getParameter("country");
+				String pin = request.getParameter("pin");
+				String contact = request.getParameter("contact");
+				
+				String msg = "";
+				boolean isValid = true;
+				if(!Validation.isNotNullNotEmpty(address)) {
+					msg = "Address is required";
+					isValid = false;
+				} else if(!Validation.isNotNullNotEmpty(landmark)) {
+					msg = "Landmark is required";
+					isValid = false;
+				} else if(!Validation.isNumeric(city)) {
+					msg = "City is required";
+					isValid = false;
+				} else if(!Validation.isNumeric(pin)) {
+					msg = "Pin is required";
+					isValid = false;
+				} else if(!Validation.isNumeric(contact)) {
+					msg = "Contact number is required";
+					isValid = false;
 				}
-					
+				
+				City cityObj = null;
+				if(isValid) {
+					cityObj = this.cityService.getCity(Util.getNumeric(city));
+					if(cityObj == null) {
+						msg = "City not found !";
+						isValid = false;
+					}
+				}
+				if(isValid) {
+					CustomerAddress customerAddress = new CustomerAddress();
+					customerAddress.setAddress(address);
+					customerAddress.setLandmark(landmark);
+					customerAddress.setCustomerStreet(street);
+					customerAddress.setCustomerCity(cityObj);
+					customerAddress.setCustomerPinCode(pin);
+					customerAddress.setCustomerPhone(contact);
+					customerAddress.setCreateDate(new Date());
+					customerAddress.setActive(Boolean.TRUE);
+					customerAddress.setRegistration(registrationService.getRegistrationByUserid(principal.getName()));
+					this.customerAddressService.addCustomerAddress(customerAddress);
+					response.put("status", "success");
+					response.put("msg", msg);
+					return response.toJSONString();
+				}else {
+					response.put("status", "failed");
+					response.put("msg", msg);
+				}
+				
 			}else{
 				response.put("status", "loggedout");
 				return response.toJSONString();
 			}
+			
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error in add custoemr address", e);
+			response.put("status", "failed");
+			response.put("msg", "Oops something wrong !");
 		}
-		response.put("status", "failed");
-		response.put("msg", "Oops something wrong !");
 		return response.toJSONString();
 	}
+
 	
 	
 	@RequestMapping(value = "secure/customeraddress/update/{addressid}", method = RequestMethod.GET)

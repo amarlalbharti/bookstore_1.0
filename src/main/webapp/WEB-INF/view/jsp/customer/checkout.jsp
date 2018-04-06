@@ -28,33 +28,48 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
     <div class="row">
       <div id="checkout-steps">
       	<article class="content col-sm-9 col-md-9">
+      		<%
+      			if(baskets == null || baskets.isEmpty()){
+      				%>
+      					<p>No Items available in Cart. Please add in cart to continue.</p>
+      					<a href="${pageContext.request.contextPath}/index" class ="btn btn-info ">Continue Shopping</a>
+      				<%
+      			}
+      		%>
       	</article>
 	  </div>
-      <div id="sidebar" class="col-sm-3 col-md-3 sidebar checkout-progress">
-		<aside class="widget">
-		  <header>
-			<h3 class="title">Price Details</h3>
-		  </header>
-		  <%
-		  	if(baskets != null && !baskets.isEmpty()){
-		  		Double total = 0.0;
-		  		int itemCount = 0;
-		  		for(Basket basket : baskets){
-		  			itemCount++;
-		  			total += basket.getQuantity() * basket.getProduct().getProductPrice();
-		  		}
-		  		%>
-		  		  <ul class="progress-list">
-					<li>Price (<%=itemCount%> Items) <span class="pull-right"><i class="fa fa-inr" aria-hidden="true"></i> <%=total%></span></li>
-					<li>Shipping Charge <span class="pull-right"><i class="fa fa-inr" aria-hidden="true"></i> 0</span></li>
-					<li style="font-weight: bold;">Amount Payable<span class="pull-right"><i class="fa fa-inr" aria-hidden="true"></i> <%=total%></span></li>
-				  </ul>
-		  		<%
-		  	}
-		  %>
-		  
-		</aside>
-      </div><!-- .sidebar -->
+	  <%
+		if(baskets != null && !baskets.isEmpty()){
+			%>
+			
+		      <div id="sidebar" class="col-sm-3 col-md-3 sidebar checkout-progress">
+				<aside class="widget">
+				  <header>
+					<h3 class="title">Price Details</h3>
+				  </header>
+				  <%
+				  	if(baskets != null && !baskets.isEmpty()){
+				  		Double total = 0.0;
+				  		int itemCount = 0;
+				  		for(Basket basket : baskets){
+				  			itemCount++;
+				  			total += basket.getQuantity() * basket.getProduct().getProductPrice();
+				  		}
+				  		%>
+				  		  <ul class="progress-list">
+							<li>Price (<%=itemCount%> Items) <span class="pull-right"><i class="fa fa-inr" aria-hidden="true"></i> <%=total%></span></li>
+							<li>Shipping Charge <span class="pull-right"><i class="fa fa-inr" aria-hidden="true"></i> 0</span></li>
+							<li style="font-weight: bold;">Amount Payable<span class="pull-right"><i class="fa fa-inr" aria-hidden="true"></i> <%=total%></span></li>
+						  </ul>
+				  		<%
+				  	}
+				  %>
+				  
+				</aside>
+		      </div><!-- .sidebar -->
+      		<%
+		}
+	%>
     </div>
   </div>
 </div><!-- #main -->
@@ -64,7 +79,13 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 <script src="${pageContext.request.contextPath}/js/common_js.js"></script>
 <script type="text/javascript">
  $(document).ready(function(){
-	 $.getCustomerCheckoutSteps();
+	 <%
+		if(baskets != null && !baskets.isEmpty()){
+			%>
+			$.getCustomerCheckoutSteps();
+			<%
+		}
+	%>
 	 
 });
 </script>

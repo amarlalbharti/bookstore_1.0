@@ -73,7 +73,13 @@ public class CustomerUtils
 				sb.append(address.getLandmark()  +", ");
 			}
 			if(address.getCustomerCity() != null){
-				sb.append(address.getCustomerCity() +", ");
+				sb.append(address.getCustomerCity().getCityName() +", ");
+				if(address.getCustomerCity().getState() != null) {
+					sb.append(address.getCustomerCity().getState().getStateName() +", ");
+					if(address.getCustomerCity().getState().getCountry() != null) {
+						sb.append(address.getCustomerCity().getState().getCountry().getCountryName() +", ");
+					}
+				}
 			}
 			if(address.getCustomerPinCode() != null){
 				sb.append(address.getCustomerPinCode());
