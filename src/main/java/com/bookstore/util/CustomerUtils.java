@@ -48,7 +48,7 @@ public class CustomerUtils
 				sb.append(address.getLandmark()  +", ");
 			}
 			if(address.getCustomerCity() != null){
-				sb.append(address.getCustomerCity() +", ");
+				sb.append(address.getCustomerCity().getCityName() +", ");
 			}
 			if(address.getCustomerPinCode() != null){
 				sb.append(address.getCustomerPinCode() +", ");

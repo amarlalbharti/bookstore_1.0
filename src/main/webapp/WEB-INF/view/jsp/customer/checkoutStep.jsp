@@ -100,19 +100,28 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 					if(step.equalsIgnoreCase(CheckoutSteps.SHIPPINGINFO.name())){
 						if(customerAddresses != null && !customerAddresses.isEmpty()){
 							%>
-								<form class="row no-margin form-horizontal">
-							<%
-							for(CustomerAddress address : customerAddresses){
-								%>
-									<div class="radio">
-									  <label>
-										<input type="radio" name="customer_address" value="<%= address.getCustomerAddressId()%>"  <%= address.isActive() ? "checked" : ""%>>
-										<%= CustomerUtils.getCustomerAddressValue(address)%>
-									  </label>
-									</div>
-								<%
-							}
-							%>
+							<form class="row no-margin form-horizontal">
+								<table class="table">
+									<%
+									for(CustomerAddress address : customerAddresses){
+										%>
+											<tr>
+												<td>
+													<div class="radio">
+													  <label>
+														<input type="radio" name="customer_address" value="<%= address.getCustomerAddressId()%>"  <%= address.isActive() ? "checked" : ""%>>
+														<%= CustomerUtils.getShippingAddressValue(address)%>
+													  </label>
+													</div>
+												</td>
+												<td>
+												
+												</td>
+											</tr>
+										<%
+									}
+									%>
+								</table>
 							  <div class="clearfix"></div>
 							  <div class="col-sm-12 buttons-box text-right" style="margin-top: 30px;">
 								<button class="btn btn-primary text-uppercase select_customer_address" type="button">Continue Checkout</button>
