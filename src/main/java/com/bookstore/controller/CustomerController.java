@@ -1,5 +1,6 @@
 package com.bookstore.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,10 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +29,7 @@ import com.bookstore.domain.CustomerAddress;
 import com.bookstore.domain.OrderItem;
 import com.bookstore.domain.ProductOrder;
 import com.bookstore.domain.Registration;
+import com.bookstore.exceptions.SessionTimeoutException;
 import com.bookstore.service.BasketService;
 import com.bookstore.service.CityService;
 import com.bookstore.service.CustomerAddressService;
@@ -193,7 +197,7 @@ public class CustomerController
 					customerAddress.setRegistration(registrationService.getRegistrationByUserid(principal.getName()));
 					this.customerAddressService.addCustomerAddress(customerAddress);
 					response.put("status", "success");
-					response.put("msg", msg);
+					response.put("msg", "Your address saved successfully !");
 					return response.toJSONString();
 				}else {
 					response.put("status", "failed");
@@ -259,6 +263,40 @@ public class CustomerController
 		response.put("msg", "Oops something wrong !");
 		return response.toJSONString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "secure/customeraddress/addnew", method = RequestMethod.GET)
+	public String addMoreCustomeraddress(ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
+	{
+		try {
+			if(principal != null){
+					
+					
+			}else{
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "addUpdateAddress";
+	}
+	
+	@RequestMapping(value = "testexception", method = RequestMethod.GET)
+	public @ResponseBody String testException(ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
+	{
+		response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//		try
+//		{
+//			response.sendError(HttpStatus.UNAUTHORIZED.value(), "Custom Session Timeout ");
+//		} catch (IOException e)
+//		{
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return "ërror";
+	}
+	
+	
 	
 	@RequestMapping(value = "customer/placeorder", method = RequestMethod.GET)
 	public String placeOrder(ModelMap map, HttpServletRequest request, Principal principal)

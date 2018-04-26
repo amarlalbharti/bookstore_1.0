@@ -115,7 +115,7 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 													</div>
 												</td>
 												<td>
-												
+													<a class="" href="javascript:void(0);">Edit</a>
 												</td>
 											</tr>
 										<%
@@ -125,6 +125,11 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 							  <div class="clearfix"></div>
 							  <div class="col-sm-12 buttons-box text-right" style="margin-top: 30px;">
 								<button class="btn btn-primary text-uppercase select_customer_address" type="button">Continue Checkout</button>
+								<button class="btn btn-info text-uppercase addnew_customer_address" type="button">Add New </button>
+								
+								<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">
+  Click to open Modal
+</a>
 							  </div>
 							</form>
 						<%
@@ -281,7 +286,25 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 		  
 		</ul><!-- #checkoutsteps -->
       </article><!-- .content -->
-
+<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Basic Modal </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3>Modal Body</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div><!-- .page-box-content -->
 </div><!-- .page-box -->
 <script type="text/javascript">
@@ -317,10 +340,7 @@ $(document).ready(function(){
 				url : "${pageContext.request.contextPath}/get/statecountry/"+cityid,
 				data : {},
 				success : function(response) {
-					alert("Hello "+response);
-					
 					var json = JSON.parse(response);
-
 					$('#shipping_state')
 					    .find('option')
 					    .remove()
@@ -339,6 +359,26 @@ $(document).ready(function(){
 				}
 			});
 		});
+	 
+	 $(document).on("click",".shippinginfo .addnew_customer_address",function() {
+		 	$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/secure/customeraddress/addnew",
+				data : {},
+				statusCode: {
+			        401: function(request, status, error) {
+			        	alert("Your session has been expired !");
+			        	$.redirectToLoginPage();
+			        },
+			    },
+				success : function(response) {
+					alert(response);
+					$("#checkoutsteps .shippinginfo").html(response);
+				}
+			});
+		});
+	 
+	 
 	 
 	 $(document).on("click",".address_form .save_customer_address",function() {
 			var address = $(".address_form #shipping_address").val();

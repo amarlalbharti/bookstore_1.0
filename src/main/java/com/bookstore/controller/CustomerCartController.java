@@ -1,14 +1,17 @@
 package com.bookstore.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,12 +58,13 @@ public class CustomerCartController
 	}
 	
 	@RequestMapping(value = "secure/cart/header", method = RequestMethod.GET)
-	public String getCustomerCartHeader(ModelMap map, HttpServletRequest request, Principal principal)
+	public String getCustomerCartHeader(ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
 	{
 		if(principal != null){
 			map.addAttribute("basketList", this.basketService.getBasketByCustomer(principal.getName()));
 			return "cartHeader";
 		}else{
+			response.setStatus(HttpStatus.UNAUTHORIZED.value());
 			return "sessionExpired";
 		}
 	}

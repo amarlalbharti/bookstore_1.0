@@ -6,8 +6,13 @@ $(document).ready(function(){
 			type : "GET",
 			url : path+"/secure/cart/header",
 			data : {},
+			statusCode: {
+		        401: function(request, status, error) {
+		        	alertify.alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		    },
 			success : function(response, textStatus, xhr) {
-				//alert(xhr.status);
 				$("#customer_cart_header").html(response);
 				$(".top-header .count").text($("#basket_size").val());
 			}

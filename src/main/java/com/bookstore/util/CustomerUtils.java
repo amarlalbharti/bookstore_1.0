@@ -66,6 +66,9 @@ public class CustomerUtils
 	public static String getShippingAddressValue(CustomerAddress address){
 		StringBuilder sb = new StringBuilder(); 
 		if(address != null){
+			if(address.getAddress() != null){
+				sb.append(address.getAddress() +", ");
+			}
 			if(address.getCustomerStreet() != null){
 				sb.append(address.getCustomerStreet() +", ");
 			}
