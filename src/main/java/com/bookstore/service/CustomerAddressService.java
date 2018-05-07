@@ -12,7 +12,13 @@ public interface CustomerAddressService
 	
 	public CustomerAddress getCustomerAddressById(int addressId);
 	
-	public CustomerAddress getActiveCustomerAddressById(int rid);
+	public CustomerAddress getCustomerAddress(int rid, int addressId);
+	
+	public CustomerAddress getCustomerAddress(String userid, int addressId);
+	
+	public CustomerAddress getActiveCustomerAddressByRid(int rid);
 	
 	public List<CustomerAddress> getCustomerAddressByCustomer(int rid);
+	
+	public boolean deactivateCustomerAddresses(Integer rid , Integer addressId);
 }

@@ -101,12 +101,19 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 						if(customerAddresses != null && !customerAddresses.isEmpty()){
 							%>
 							<form class="row no-margin form-horizontal">
-								<table class="table">
+								<table class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Customer Address</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
 									<%
-									for(CustomerAddress address : customerAddresses){
+									for(CustomerAddress address : customerAddresses) {
 										%>
 											<tr>
-												<td>
+												<td class="text-left">
 													<div class="radio">
 													  <label>
 														<input type="radio" name="customer_address" value="<%= address.getCustomerAddressId()%>"  <%= address.isActive() ? "checked" : ""%>>
@@ -115,80 +122,25 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 													</div>
 												</td>
 												<td>
-													<a class="" href="javascript:void(0);">Edit</a>
+													<button class="btn btn-sm btn-default" type="button" id="edit_addrress_popup" data-caid="<%= address.getCustomerAddressId()%>">Edit</button>
 												</td>
 											</tr>
 										<%
 									}
 									%>
+									</tbody>
 								</table>
 							  <div class="clearfix"></div>
 							  <div class="col-sm-12 buttons-box text-right" style="margin-top: 30px;">
 								<button class="btn btn-primary text-uppercase select_customer_address" type="button">Continue Checkout</button>
-								<button class="btn btn-info text-uppercase addnew_customer_address" type="button">Add New </button>
-								
-								<a href="#" class="btn btn-lg btn-success" data-toggle="modal" data-target="#basicModal">
-  Click to open Modal
-</a>
+								<button class="btn btn-info" type="button"  id="add_addrress_popup">Add New</button>
 							  </div>
 							</form>
 						<%
 							
 						}else{
 							%>
-								<form class="row no-margin address_form">
-								  <div class="col-sm-6 col-md-6">
-									<label>Address: <span class="required">*</span></label>
-									<input class="form-control" id="shipping_address" type="text">
-								  </div>
-								  <div class="col-sm-6 col-md-6">
-									<label>Landmark: <span class="required">*</span></label>
-									<input class="form-control" id="shipping_landmark" type="text">
-								  </div>
-								  
-								  <div class="clearfix"></div>
-								  
-								  <div class="col-sm-6 col-md-6">
-									<label>Street:</label>
-									<input class="form-control" id="shipping_street" type="text">
-								  </div>
-								  <div class="col-sm-6 col-md-6">
-									<label>City: <span class="required">*</span></label>
-									<select class="form-control "  id="shipping_city">
-									</select>
-								  </div>
-								  
-								  <div class="clearfix"></div>
-								  
-								  <div class="col-sm-6 col-md-6">
-									<label>State: <span class="required">*</span></label>
-									<select class="form-control" id="shipping_state">
-									  <option value="0">Select State</option>
-									</select>
-								  </div>
-								  <div class="col-sm-6 col-md-6">
-									<label>Country: <span class="required">*</span></label>
-									<select class="form-control" id="shipping_country">
-									  <option value="0" >Select Country</option>
-									</select>
-								  </div>
-								  <div class="clearfix"></div>
-								  <div class="col-sm-6 col-md-6">
-									<label>Zip/Postal Code: <span class="required">*</span></label>
-									<input class="form-control number_only" id="shipping_pin" type="text">
-								  </div>
-								  <div class="col-sm-6 col-md-6">
-									<label>Contact: <span class="required">*</span></label>
-									<input class="form-control number_only" id="shipping_contact" type="text" maxlength="10">
-								  </div>
-								  
-								  <div class="clearfix"></div>
-								  
-								  <div class="col-sm-12 buttons-box text-right">
-									<button class="btn btn-primary text-uppercase save_customer_address" type="button">Save & Continue Checkout</button>
-									<span class="required"><b>*</b> Required Field</span>
-								  </div>
-								</form>
+								<button class="btn btn-sm btn-info" type="button" id="add_addrress_popup">Add New</button>
 							<%
 						}
 					}
@@ -286,21 +238,21 @@ List<CheckoutSteps> passedSteps = (List)request.getAttribute("passedSteps");
 		  
 		</ul><!-- #checkoutsteps -->
       </article><!-- .content -->
-<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade" id="addrressModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Basic Modal </h4>
+        <h4 class="modal-title" id="popup_header_label">Add Customer Address</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div>
       <div class="modal-body">
-        <h3>Modal Body</h3>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary" id="popup_button">Save changes</button>
       </div>
     </div>
   </div>
@@ -372,69 +324,59 @@ $(document).ready(function(){
 			        },
 			    },
 				success : function(response) {
-					alert(response);
 					$("#checkoutsteps .shippinginfo").html(response);
+					
+				}
+			});
+		});
+	 
+	 $(document).on("click","#add_addrress_popup",function() {
+		 	$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/secure/customeraddress/addnew",
+				data : {action:"add"},
+				statusCode: {
+			        401: function(request, status, error) {
+			        	alert("Your session has been expired !");
+			        	$.redirectToLoginPage();
+			        },
+			    },
+				success : function(response) {
+					$("#addrressModal .modal-body").html(response);
+					$("#addrressModal #popup_header_label").html("Add Customer Address");
+					$('#addrressModal .select2-container ').css('width', '100%');
+					$("#addrressModal .modal-footer #popup_button").addClass("save_customer_address");
+					$('#addrressModal').modal('show');
+					
+				}
+			});
+		});
+	 
+	 $(document).on("click","#edit_addrress_popup",function() {
+		 	var addressid = $(this).attr("data-caid"); 
+		 	$.ajax({
+				type : "GET",
+				url : "${pageContext.request.contextPath}/secure/customeraddress/addnew",
+				data : {action:"edit",addressId:addressid},
+				statusCode: {
+			        401: function(request, status, error) {
+			        	alert("Your session has been expired !");
+			        	$.redirectToLoginPage();
+			        },
+			    },
+				success : function(response) {
+					$("#addrressModal .modal-body").html(response);
+					$("#addrressModal #popup_header_label").html("Update  Customer Address");
+					$('#addrressModal .select2-container ').css('width', '100%');
+					$("#addrressModal .modal-footer #popup_button").addClass("save_customer_address");
+					$('#addrressModal').modal('show');
+					
 				}
 			});
 		});
 	 
 	 
 	 
-	 $(document).on("click",".address_form .save_customer_address",function() {
-			var address = $(".address_form #shipping_address").val();
-			var landmark = $(".address_form #shipping_landmark").val();
-			var street = $(".address_form #shipping_street").val();
-			var city = $(".address_form #shipping_city").val();
-			var state = $(".address_form #shipping_state").val();
-			var country = $(".address_form #shipping_country").val();
-			var pin = $(".address_form #shipping_pin").val();
-			var contact = $(".address_form #shipping_contact").val();
-			
-			var isValid = true;
-			$(".address_form .has-error").removeClass("has-error");
-			if($.trim(address) == ""){
-			 	$(".address_form #shipping_address").parent().addClass("has-error");
-				isValid = false;
-			}
-			if($.trim(landmark) == ""){
-				$(".address_form #shipping_landmark").parent().addClass("has-error");
-				isValid = false;
-			}
-			if($.trim(city) == ""){
-				$(".address_form #shipping_city").parent().addClass("has-error");
-				isValid = false;
-			}
-			if($.trim(pin) == ""){
-				$(".address_form #shipping_pin").parent().addClass("has-error");
-				isValid = false;
-			}
-			if($.trim(contact) == "" || !ContactNo(contact)){
-				$(".address_form #shipping_contact").parent().addClass("has-error");
-				isValid = false;
-			}
-			if(isValid){
-				$.ajax({
-					type : "GET",
-					url : "${pageContext.request.contextPath}/secure/customeraddress/add",
-					data : {address: address, landmark: landmark, street: street, city: city, state: state, country: country, pin: pin, contact: contact},
-					success : function(response) {
-						alert(response);
-						var json = JSON.parse(response);
-						if(json.status == "loggedout"){
-							$.redirectToLoginPage();
-						}else if(json.status == "success"){
-			 				 alertify.success(json.msg);
-			 				 $.getCustomerCheckoutSteps("PRODUCTREVIEW");
-			 			 }else{
-			 				alertify.error(json.msg);
-			 			 }
-
-					}
-				});
-			}
-			
-			
-		});
 	 
 	 
 	 

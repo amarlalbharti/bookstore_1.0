@@ -87,6 +87,67 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 		}
 	%>
 	 
+	
+	$(document).on("click","#addrressModal .save_customer_address",function() {
+		var submitButton = $(this);
+		submitButton.addClass("disabled");
+		console.log("save_customer_address clicked !!");
+		var address = $(".address_form #shipping_address").val();
+		var landmark = $(".address_form #shipping_landmark").val();
+		var street = $(".address_form #shipping_street").val();
+		var city = $(".address_form #shipping_city").val();
+		var state = $(".address_form #shipping_state").val();
+		var country = $(".address_form #shipping_country").val();
+		var pin = $(".address_form #shipping_pin").val();
+		var contact = $(".address_form #shipping_contact").val();
+		var isValid = true;
+		$(".address_form .has-error").removeClass("has-error");
+		if($.trim(address) == ""){
+		 	$(".address_form #shipping_address").parent().addClass("has-error");
+			isValid = false;
+		}
+		if($.trim(landmark) == ""){
+			$(".address_form #shipping_landmark").parent().addClass("has-error");
+			isValid = false;
+		}
+		if($.trim(city) == ""){
+			$(".address_form #shipping_city").parent().addClass("has-error");
+			isValid = false;
+		}
+		if($.trim(pin) == ""){
+			$(".address_form #shipping_pin").parent().addClass("has-error");
+			isValid = false;
+		}
+		if($.trim(contact) == "" || !ContactNo(contact)){
+			$(".address_form #shipping_contact").parent().addClass("has-error");
+			isValid = false;
+		}
+		if(isValid){
+			$.ajax({
+				type : "POST",
+				url : "${pageContext.request.contextPath}/secure/customeraddress/add",
+				data : {address: address, landmark: landmark, street: street, city: city, state: state, country: country, pin: pin, contact: contact},
+				success : function(response) {
+					console.log("save_customer_address submitted !! : " + response);
+					var json = JSON.parse(response);
+					if(json.status == "loggedout"){
+						$.redirectToLoginPage();
+					}else if(json.status == "success"){
+		 				 alertify.success(json.msg);
+		 				 $.getCustomerCheckoutSteps("PRODUCTREVIEW");
+		 			 }else{
+		 				alertify.error(json.msg);
+		 				submitButton.addClass("disabled");
+		 			 }
+
+				}
+			});
+		}else{
+			submitButton.removeClass("disabled");
+		}
+	});
+	 
+	
 });
 </script>
 </body>

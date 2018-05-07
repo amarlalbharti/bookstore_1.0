@@ -31,7 +31,7 @@ public class CustomerAddress
 	@Column(name = "customer_street", nullable=false)
 	private String customerStreet;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne
 	@JoinColumn(name="city_id", referencedColumnName="city_id")
 	private City customerCity;
 	
@@ -53,7 +53,7 @@ public class CustomerAddress
 	@Column(name = "deleted_date")
 	private Date deletedDate;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
 

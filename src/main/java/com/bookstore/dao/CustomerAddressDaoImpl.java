@@ -2,18 +2,22 @@ package com.bookstore.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bookstore.domain.CustomerAddress;
 
-import scala.collection.generic.GenTraversableFactory.ReusableCBF;
 
 @Repository
 public class CustomerAddressDaoImpl implements CustomerAddressDao
 {
+	private static final Logger LOGGER = Logger.getLogger(CustomerAddressDaoImpl.class);
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -24,7 +28,7 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 			this.sessionFactory.getCurrentSession().clear();
 			return customerAddress.getCustomerAddressId();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in addCustomerAddress(CustomerAddress customerAddress) >> customerAddress: "+customerAddress.getAddress(), e);
 		}
 		return 0;
 	}
@@ -36,7 +40,7 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 			this.sessionFactory.getCurrentSession().clear();
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in updateCustomerAddress(CustomerAddress customerAddress) >> customerAddress: "+customerAddress.getAddress(), e);
 		}
 		return false;
 	}
@@ -45,13 +49,31 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 		try {
 			return (CustomerAddress)this.sessionFactory.getCurrentSession().get(CustomerAddress.class, addressId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in getCustomerAddressById(int addressId) >> addressId: "+addressId, e);
 		}
 		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public CustomerAddress getActiveCustomerAddressById(int rid){
+	public CustomerAddress getCustomerAddress(int rid, int addressId){
+		try {
+			List<CustomerAddress> list = this.sessionFactory.getCurrentSession().createCriteria(CustomerAddress.class)
+					.createAlias("registration", "regAlias")
+					.add(Restrictions.eq("regAlias.rid", rid))
+					.add(Restrictions.eq("customerAddressId", addressId))
+					.add(Restrictions.isNull("deletedDate"))
+					.list();
+			if(!list.isEmpty()){
+				return list.get(0);
+			}
+		} catch (Exception e){
+			LOGGER.error("Error in getActiveCustomerAddressById(int rid) >> rid: "+rid, e);
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public CustomerAddress getActiveCustomerAddressByRid(int rid){
 		try {
 			List<CustomerAddress> list = this.sessionFactory.getCurrentSession().createCriteria(CustomerAddress.class)
 					.createAlias("registration", "regAlias")
@@ -63,7 +85,7 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 				return list.get(0);
 			}
 		} catch (Exception e){
-			e.printStackTrace();
+			LOGGER.error("Error in getActiveCustomerAddressById(int rid) >> rid: "+rid, e);
 		}
 		return null;
 	}
@@ -77,8 +99,33 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 					.add(Restrictions.isNull("deletedDate"))
 					.list();
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in getCustomerAddressByCustomer(int rid) >> rid: "+rid, e);
 		}
 		return null;
 	}
+	
+	public boolean deactivateCustomerAddresses(Integer rid , Integer addressId) {
+		Transaction tx = null;
+		try{
+			Session session = this.sessionFactory.getCurrentSession();
+			tx = session.beginTransaction();
+			Query query = session.createSQLQuery("UPDATE customer_address SET active = 0 WHERE user_id = :userid");
+			query.setParameter("userid", rid);
+			query.executeUpdate();
+			if(addressId != null && addressId > 0) {
+				query = session.createSQLQuery("UPDATE customer_address SET active = 1 WHERE customer_address_id = :address_id");
+				query.setParameter("address_id", addressId);
+				query.executeUpdate();
+			}
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			if(tx != null) {
+				tx.rollback();
+			}
+			LOGGER.error("Error in deactivateCustomerAddresses(Integer rid , Integer addressId) >> rid: "+rid, e);
+		}
+		return false;
+	}
+	
 }

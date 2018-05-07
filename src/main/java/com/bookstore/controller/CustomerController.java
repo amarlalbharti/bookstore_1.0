@@ -113,7 +113,7 @@ public class CustomerController
 								map.addAttribute("customerAddresses", this.customerAddressService.getCustomerAddressByCustomer(registration.getRid()));
 							}else {
 								passedSteps.add(CheckoutSteps.SHIPPINGINFO);
-								map.addAttribute("activeAddresses", this.customerAddressService.getActiveCustomerAddressById(registration.getRid()));
+								map.addAttribute("activeAddresses", this.customerAddressService.getActiveCustomerAddressByRid(registration.getRid()));
 								if(step.equalsIgnoreCase(CheckoutSteps.PRODUCTREVIEW.name())){
 									step = CheckoutSteps.PRODUCTREVIEW.name();
 									map.addAttribute("baskets", this.basketService.getBasketByCustomer(registration.getRid()));
@@ -142,7 +142,7 @@ public class CustomerController
 	}
 	
 
-	@RequestMapping(value = "secure/customeraddress/add", method = RequestMethod.GET)
+	@RequestMapping(value = "secure/customeraddress/add", method = RequestMethod.POST)
 	public @ResponseBody String addCustomerAddress(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		JSONObject response = new JSONObject();
@@ -185,6 +185,7 @@ public class CustomerController
 					}
 				}
 				if(isValid) {
+					Registration reg = registrationService.getRegistrationByUserid(principal.getName());
 					CustomerAddress customerAddress = new CustomerAddress();
 					customerAddress.setAddress(address);
 					customerAddress.setLandmark(landmark);
@@ -194,8 +195,9 @@ public class CustomerController
 					customerAddress.setCustomerPhone(contact);
 					customerAddress.setCreateDate(new Date());
 					customerAddress.setActive(Boolean.TRUE);
-					customerAddress.setRegistration(registrationService.getRegistrationByUserid(principal.getName()));
+					customerAddress.setRegistration(reg);
 					this.customerAddressService.addCustomerAddress(customerAddress);
+					customerAddressService.deactivateCustomerAddresses(reg.getRid(), null);
 					response.put("status", "success");
 					response.put("msg", "Your address saved successfully !");
 					return response.toJSONString();
@@ -269,15 +271,29 @@ public class CustomerController
 	public String addMoreCustomeraddress(ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
 	{
 		try {
-			if(principal != null){
+			if(principal == null){
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());	
+			}else {
+				String action = request.getParameter("action");
+				if(action != null && action.equalsIgnoreCase("edit")) {
+					String addressId = request.getParameter("addressId");
+					if(Validation.isNumeric(addressId)) {
+						CustomerAddress address = this.customerAddressService.getCustomerAddress(principal.getName(), Util.getNumeric(addressId));
+						if(address != null) {
+							map.addAttribute("editAddress", address);
+							return "addUpdateAddress";
+						}
+					}
+				}else {
 					
-					
-			}else{
-				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+					return "addUpdateAddress";
+				}
 			}
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		response.setStatus(HttpStatus.BAD_REQUEST.value());	
 		return "addUpdateAddress";
 	}
 	
@@ -322,7 +338,7 @@ public class CustomerController
 						basket.setDeletedDate(new Date());
 						this.basketService.updateBasket(basket);
 					}
-					CustomerAddress address = this.customerAddressService.getActiveCustomerAddressById(registration.getRid());
+					CustomerAddress address = this.customerAddressService.getActiveCustomerAddressByRid(registration.getRid());
 					order.setRegistration(registration);
 					order.setTotalItems(baskets.size());
 					order.setShippingAddress(CustomerUtils.getShippingAddressValue(address));
