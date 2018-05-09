@@ -1,4 +1,4 @@
-<%@page import="com.bookstore.constraints.AttributeType"%>
+<%@page import="com.bookstore.enums.AttributeType"%>
 <%@page import="com.bookstore.domain.Attribute"%>
 <%@page import="com.bookstore.domain.ProductAttribute"%>
 <%@page import="com.bookstore.config.ProjectConfig"%>

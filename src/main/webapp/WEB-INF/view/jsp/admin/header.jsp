@@ -27,6 +27,10 @@
  <!-- jQuery 2.2.0 -->
 <script src="${pageContext.request.contextPath}/js/jQuery-2.2.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/alertify.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/admin_bookstore.js"></script>
+
+
  <style type="text/css">
 input[type="file"] {
     display: none !important;
@@ -75,7 +79,7 @@ input[type="file"] {
 <div class="bodyCoverWait" style="text-align: center; ">
 	<img style="position: relative;top: 250px;" alt="Please wait..." src="${pageContext.request.contextPath}/images/loading_spinner.gif">
 </div>
-
+<input type="hidden" id="root_path" value="${pageContext.request.contextPath}">
 <div class="wrapper">
 
   <header class="main-header">
@@ -91,6 +95,7 @@ input[type="file"] {
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
+        
       </a>
 
       <div class="navbar-custom-menu">

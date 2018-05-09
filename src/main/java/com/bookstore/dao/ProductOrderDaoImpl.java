@@ -2,14 +2,17 @@ package com.bookstore.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bookstore.domain.ProductOrder;
+import com.bookstore.enums.OrderStatus;
 
 @Repository
 public class ProductOrderDaoImpl implements ProductOrderDao
@@ -90,5 +93,19 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 		}
 		return null;
 	}
-
+	
+	public Long countProductOrdersByStatus(OrderStatus status){
+		Long count = 0L;
+		try {
+			return  (Long)this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.add(Restrictions.eq("orderStatus", status.ordinal()))
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+					.setProjection(Projections.rowCount())
+					.uniqueResult();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

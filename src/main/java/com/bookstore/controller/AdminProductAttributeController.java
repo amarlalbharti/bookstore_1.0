@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bookstore.config.Validation;
-import com.bookstore.constraints.AttributeType;
 import com.bookstore.domain.Attribute;
 import com.bookstore.domain.AttributeValue;
 import com.bookstore.domain.Product;
 import com.bookstore.domain.ProductAttribute;
+import com.bookstore.enums.AttributeType;
 import com.bookstore.service.AttributeService;
 import com.bookstore.service.AttributeValueService;
 import com.bookstore.service.ProductAttributeService;

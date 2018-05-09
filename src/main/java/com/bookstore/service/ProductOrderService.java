@@ -3,6 +3,7 @@ package com.bookstore.service;
 import java.util.List;
 
 import com.bookstore.domain.ProductOrder;
+import com.bookstore.enums.OrderStatus;
 
 public interface ProductOrderService
 {
@@ -16,4 +17,5 @@ public interface ProductOrderService
 	
 	public List<ProductOrder> getProductOrderByCustomer(int rid);
 	
+	public Long countProductOrdersByStatus(OrderStatus status);
 }

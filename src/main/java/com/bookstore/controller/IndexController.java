@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bookstore.config.ProjectConfig;
-import com.bookstore.config.Roles;
 import com.bookstore.config.Validation;
+import com.bookstore.constraints.Roles;
 import com.bookstore.domain.LoginInfo;
 import com.bookstore.domain.Product;
 import com.bookstore.domain.Registration;

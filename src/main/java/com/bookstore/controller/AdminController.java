@@ -16,9 +16,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.bookstore.config.Roles;
-import com.bookstore.constraints.AttributeType;
+import com.bookstore.constraints.Roles;
 import com.bookstore.domain.LoginInfo;
+import com.bookstore.enums.AttributeType;
 import com.bookstore.service.LoginInfoService;
 
 /**
@@ -28,20 +28,21 @@ import com.bookstore.service.LoginInfoService;
 @Controller
 public class AdminController
 {
-	@Autowired private LoginInfoService loginInfoService;
-	/**
-	 * @param map
-	 * @param request 
-	 * @param principal is the object for detail of loged in user
-	 * @return   name of view mapped in tiles for index page
-	 */
-	@RequestMapping(value = "admin/dashboard", method = RequestMethod.GET)
-	public String dashboard(ModelMap map, HttpServletRequest request, Principal principal)
-	{
-		System.out.println("from admin dashboard : " + principal);
-		
-		return "dashboard";
-	}
+	
+//	@Autowired private LoginInfoService loginInfoService;
+//	/**
+//	 * @param map
+//	 * @param request 
+//	 * @param principal is the object for detail of loged in user
+//	 * @return   name of view mapped in tiles for index page
+//	 */
+//	@RequestMapping(value = "admin/dashboard", method = RequestMethod.GET)
+//	public String dashboard(ModelMap map, HttpServletRequest request, Principal principal)
+//	{
+//		System.out.println("from admin dashboard : " + principal);
+//		
+//		return "dashboard";
+//	}
 	
 	
 /*	private boolean changePassword() {

@@ -1,4 +1,4 @@
-package com.bookstore.constraints;
+package com.bookstore.enums;
 
 public enum AttributeType
 {

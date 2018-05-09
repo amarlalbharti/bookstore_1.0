@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bookstore.comparator.SessionInfoComparator;
-import com.bookstore.config.Roles;
 import com.bookstore.config.Validation;
+import com.bookstore.constraints.Roles;
 import com.bookstore.domain.Basket;
 import com.bookstore.domain.Category;
 import com.bookstore.domain.CustomerAddress;

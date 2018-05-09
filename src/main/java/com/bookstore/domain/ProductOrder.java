@@ -46,6 +46,9 @@ public class ProductOrder
 	@Column(name = "customer_phone", nullable=false)
 	private String customerPhone;
 	
+	@Column(name = "order_status", length=4, nullable=false)
+	private int orderStatus;
+	
 	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
@@ -151,6 +154,16 @@ public class ProductOrder
 	public void setOrderItems(Set<OrderItem> orderItems)
 	{
 		this.orderItems = orderItems;
+	}
+
+	public int getOrderStatus()
+	{
+		return orderStatus;
+	}
+
+	public void setOrderStatus(int orderStatus)
+	{
+		this.orderStatus = orderStatus;
 	}
 	
 	

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookstore.dao.ProductOrderDao;
 import com.bookstore.domain.ProductOrder;
+import com.bookstore.enums.OrderStatus;
 
 @Service
 @Transactional
@@ -37,4 +38,7 @@ public class ProductOrderServiceImpl implements ProductOrderService
 		return this.productOrderDao.getProductOrderByCustomer(rid);
 	}
 	
+	public Long countProductOrdersByStatus(OrderStatus status) {
+		return this.productOrderDao.countProductOrdersByStatus(status);
+	}
 }

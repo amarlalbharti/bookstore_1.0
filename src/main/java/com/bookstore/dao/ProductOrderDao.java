@@ -3,6 +3,7 @@ package com.bookstore.dao;
 import java.util.List;
 
 import com.bookstore.domain.ProductOrder;
+import com.bookstore.enums.OrderStatus;
 
 public interface ProductOrderDao
 {
@@ -15,5 +16,7 @@ public interface ProductOrderDao
 	public ProductOrder getProductOrder(int productOrderId, int rid);
 	
 	public List<ProductOrder> getProductOrderByCustomer(int rid);
+	
+	public Long countProductOrdersByStatus(OrderStatus status);
 	
 }
