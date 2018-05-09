@@ -179,7 +179,7 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 						$.redirectToLoginPage();
 					}else if(json.status == "success"){
 		 				alertify.success(json.msg);
-		 				location.reload();
+		 				setTimeout(function(){ location.reload(); }, 3000);
 		 			 }else{
 		 				alertify.error(json.msg);
 		 				submitButton.addClass("disabled");
@@ -199,7 +199,7 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 			data : {action:"add"},
 			statusCode: {
 		        401: function(request, status, error) {
-		        	alert("Your session has been expired !");
+		        	alertify.error("Your session has been expired !");
 		        	$.redirectToLoginPage();
 		        },
 		    },
@@ -222,8 +222,12 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 			data : {action:"edit",addressId:addressid},
 			statusCode: {
 		        401: function(request, status, error) {
-		        	alert("Your session has been expired !");
+		        	alertify.error("Your session has been expired !");
 		        	$.redirectToLoginPage();
+		        },
+		        400: function(request, status, error) {
+		        	alertify.error("Request with bad data!");
+		        	setTimeout(function(){ location.reload(); }, 3000);
 		        },
 		    },
 			success : function(response) {
