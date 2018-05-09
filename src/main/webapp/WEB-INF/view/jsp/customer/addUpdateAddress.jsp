@@ -43,6 +43,7 @@
 			  <div class="col-sm-6 col-md-6 form-group">
 				<label>City: <span class="required">*</span>
 					<input type="hidden" id="customer_address_id" value="<%= editAddress.getCustomerAddressId()%>">
+					<input type="hidden" id="customer_action" value="update">
 				</label>
 				<select class="form-control "  id="shipping_city">
 					<option value="<%= editAddress.getCustomerCity().getCityId() %>" selected="selected"><%= editAddress.getCustomerCity().getCityName() %></option>
@@ -81,6 +82,7 @@
 			<form class="row no-margin address_form">
 			  <div class="col-sm-6 col-md-6 form-group">
 				<label>Address: <span class="required">*</span></label>
+				<input type="hidden" id="customer_action" value="add">
 				<input class="form-control" id="shipping_address" type="text">
 			  </div>
 			  <div class="col-sm-6 col-md-6 form-group">

@@ -105,24 +105,18 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 	}
 	
 	public boolean deactivateCustomerAddresses(Integer rid , Integer addressId) {
-		Transaction tx = null;
 		try{
-			Session session = this.sessionFactory.getCurrentSession();
-			tx = session.beginTransaction();
-			Query query = session.createSQLQuery("UPDATE customer_address SET active = 0 WHERE user_id = :userid");
+			Query query = this.sessionFactory.getCurrentSession().createSQLQuery("UPDATE customer_address SET active = 0 WHERE user_id = :userid");
 			query.setParameter("userid", rid);
 			query.executeUpdate();
 			if(addressId != null && addressId > 0) {
-				query = session.createSQLQuery("UPDATE customer_address SET active = 1 WHERE customer_address_id = :address_id");
+				query = this.sessionFactory.getCurrentSession().createSQLQuery("UPDATE customer_address SET active = 1 WHERE customer_address_id = :address_id");
 				query.setParameter("address_id", addressId);
 				query.executeUpdate();
 			}
-			tx.commit();
 			return true;
 		} catch (Exception e) {
-			if(tx != null) {
-				tx.rollback();
-			}
+			
 			LOGGER.error("Error in deactivateCustomerAddresses(Integer rid , Integer addressId) >> rid: "+rid, e);
 		}
 		return false;

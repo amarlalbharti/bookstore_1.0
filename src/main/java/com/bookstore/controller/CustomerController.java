@@ -142,6 +142,7 @@ public class CustomerController
 	}
 	
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "secure/customeraddress/add", method = RequestMethod.POST)
 	public @ResponseBody String addCustomerAddress(ModelMap map, HttpServletRequest request, Principal principal)
 	{
@@ -156,6 +157,8 @@ public class CustomerController
 				String country = request.getParameter("country");
 				String pin = request.getParameter("pin");
 				String contact = request.getParameter("contact");
+				String action = request.getParameter("action");
+				String caid = request.getParameter("caid");
 				
 				String msg = "";
 				boolean isValid = true;
@@ -184,9 +187,25 @@ public class CustomerController
 						isValid = false;
 					}
 				}
+				
+				CustomerAddress customerAddress = null;
+				boolean isUpdate = false;
+				if(action != null && action.equals("update")) {
+					isUpdate = true;
+					if(Validation.isNumeric(caid)) {
+						customerAddress = this.customerAddressService.getCustomerAddress(principal.getName(), Util.getNumeric(caid));
+						if(customerAddress == null) {
+							isValid = false;
+							msg = "Address not found !";
+						}
+					}
+				}
+				
 				if(isValid) {
 					Registration reg = registrationService.getRegistrationByUserid(principal.getName());
-					CustomerAddress customerAddress = new CustomerAddress();
+					if(customerAddress == null){
+						customerAddress = new CustomerAddress();
+					}
 					customerAddress.setAddress(address);
 					customerAddress.setLandmark(landmark);
 					customerAddress.setCustomerStreet(street);
@@ -196,10 +215,17 @@ public class CustomerController
 					customerAddress.setCreateDate(new Date());
 					customerAddress.setActive(Boolean.TRUE);
 					customerAddress.setRegistration(reg);
-					this.customerAddressService.addCustomerAddress(customerAddress);
-					customerAddressService.deactivateCustomerAddresses(reg.getRid(), null);
+					this.customerAddressService.deactivateCustomerAddresses(reg.getRid(), null);
+					if(isUpdate) {
+						customerAddress.setActive(Boolean.TRUE);
+						this.customerAddressService.updateCustomerAddress(customerAddress);
+						response.put("msg", "Your address updated successfully !");
+					}else {
+						this.customerAddressService.addCustomerAddress(customerAddress);
+						response.put("msg", "Your address saved successfully !");
+					}
 					response.put("status", "success");
-					response.put("msg", "Your address saved successfully !");
+					
 					return response.toJSONString();
 				}else {
 					response.put("status", "failed");

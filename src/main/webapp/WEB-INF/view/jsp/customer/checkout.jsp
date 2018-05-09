@@ -87,11 +87,55 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 		}
 	%>
 	 
-	
+	$(document).on("change","#shipping_city",function() {
+	 	$(this).parent().removeClass("has-error");
+		var cityid=$(this).val();
+		$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/get/statecountry/"+cityid,
+			data : {},
+			success : function(response) {
+				var json = JSON.parse(response);
+				$('#shipping_state')
+				    .find('option')
+				    .remove()
+				    .end()
+				    .append('<option value="'+json.stateid+'">'+json.state+'</option>')
+				    .val(json.stateid);
+				
+				$('#shipping_country')
+			    .find('option')
+			    .remove()
+			    .end()
+			    .append('<option value="'+json.countryid+'">'+json.country+'</option>')
+			    .val(json.countryid);
+
+
+			}
+		});
+	});
+ 
+ 	$(document).on("click",".shippinginfo .addnew_customer_address",function() {
+	 	$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/secure/customeraddress/addnew",
+			data : {},
+			statusCode: {
+		        401: function(request, status, error) {
+		        	alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		    },
+			success : function(response) {
+				$("#checkoutsteps .shippinginfo").html(response);
+				
+			}
+		});
+	});
+ 
 	$(document).on("click","#addrressModal .save_customer_address",function() {
 		var submitButton = $(this);
 		submitButton.addClass("disabled");
-		console.log("save_customer_address clicked !!");
 		var address = $(".address_form #shipping_address").val();
 		var landmark = $(".address_form #shipping_landmark").val();
 		var street = $(".address_form #shipping_street").val();
@@ -100,6 +144,8 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 		var country = $(".address_form #shipping_country").val();
 		var pin = $(".address_form #shipping_pin").val();
 		var contact = $(".address_form #shipping_contact").val();
+		var action = $(".address_form #customer_action").val();
+		var caid = $(".address_form #customer_address_id").val();
 		var isValid = true;
 		$(".address_form .has-error").removeClass("has-error");
 		if($.trim(address) == ""){
@@ -126,15 +172,14 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 			$.ajax({
 				type : "POST",
 				url : "${pageContext.request.contextPath}/secure/customeraddress/add",
-				data : {address: address, landmark: landmark, street: street, city: city, state: state, country: country, pin: pin, contact: contact},
+				data : {address: address, landmark: landmark, street: street, city: city, state: state, country: country, pin: pin, contact: contact,action:action, caid:caid},
 				success : function(response) {
-					console.log("save_customer_address submitted !! : " + response);
 					var json = JSON.parse(response);
 					if(json.status == "loggedout"){
 						$.redirectToLoginPage();
 					}else if(json.status == "success"){
-		 				 alertify.success(json.msg);
-		 				 $.getCustomerCheckoutSteps("PRODUCTREVIEW");
+		 				alertify.success(json.msg);
+		 				location.reload();
 		 			 }else{
 		 				alertify.error(json.msg);
 		 				submitButton.addClass("disabled");
@@ -146,7 +191,51 @@ List<Basket> baskets = (List)request.getAttribute("baskets");
 			submitButton.removeClass("disabled");
 		}
 	});
-	 
+	
+	$(document).on("click","#add_addrress_popup",function() {
+	 	$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/secure/customeraddress/addnew",
+			data : {action:"add"},
+			statusCode: {
+		        401: function(request, status, error) {
+		        	alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		    },
+			success : function(response) {
+				$("#addrressModal .modal-body").html(response);
+				$("#addrressModal #popup_header_label").html("Add Customer Address");
+				$('#addrressModal .select2-container ').css('width', '100%');
+				$("#addrressModal .modal-footer #popup_button").addClass("save_customer_address");
+				$('#addrressModal').modal('show');
+				
+			}
+		});
+	});
+ 
+ 	$(document).on("click","#edit_addrress_popup",function() {
+	 	var addressid = $(this).attr("data-caid"); 
+	 	$.ajax({
+			type : "GET",
+			url : "${pageContext.request.contextPath}/secure/customeraddress/addnew",
+			data : {action:"edit",addressId:addressid},
+			statusCode: {
+		        401: function(request, status, error) {
+		        	alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		    },
+			success : function(response) {
+				$("#addrressModal .modal-body").html(response);
+				$("#addrressModal #popup_header_label").html("Update  Customer Address");
+				$('#addrressModal .select2-container ').css('width', '100%');
+				$("#addrressModal .modal-footer #popup_button").addClass("save_customer_address");
+				$('#addrressModal').modal('show');
+				
+			}
+		});
+	});
 	
 });
 </script>
