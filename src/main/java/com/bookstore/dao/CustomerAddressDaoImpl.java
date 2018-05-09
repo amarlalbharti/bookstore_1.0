@@ -116,7 +116,6 @@ public class CustomerAddressDaoImpl implements CustomerAddressDao
 			}
 			return true;
 		} catch (Exception e) {
-			
 			LOGGER.error("Error in deactivateCustomerAddresses(Integer rid , Integer addressId) >> rid: "+rid, e);
 		}
 		return false;
