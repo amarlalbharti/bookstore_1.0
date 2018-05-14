@@ -39,6 +39,7 @@ $(document).ready(function(){
 <script src="${pageContext.request.contextPath}/js/app.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="${pageContext.request.contextPath}/js/demo.js"></script>
+
 <script>
   $(function () {
     //Initialize Select2 Elements

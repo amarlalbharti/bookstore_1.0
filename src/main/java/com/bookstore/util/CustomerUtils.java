@@ -6,6 +6,7 @@ import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.bookstore.domain.CustomerAddress;
+import com.bookstore.domain.Registration;
 
 public class CustomerUtils
 {
@@ -91,5 +92,19 @@ public class CustomerUtils
 		
 		return sb.toString();
 		
+	}
+	
+	public static String getCustomerName(Registration reg) {
+		String cname = "";
+		if(reg != null && reg.getFirstName() != null) {
+			cname = reg.getFirstName() ;
+			if(reg.getLastName() != null) {
+				cname += " "+reg.getLastName() ;
+			}
+		} else if(reg.getLastName() != null) {
+			cname += reg.getLastName() ;
+		}
+		
+		return cname;
 	}
 }

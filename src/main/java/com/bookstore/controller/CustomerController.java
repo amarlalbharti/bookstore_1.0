@@ -29,7 +29,6 @@ import com.bookstore.domain.CustomerAddress;
 import com.bookstore.domain.OrderItem;
 import com.bookstore.domain.ProductOrder;
 import com.bookstore.domain.Registration;
-import com.bookstore.exceptions.SessionTimeoutException;
 import com.bookstore.service.BasketService;
 import com.bookstore.service.CityService;
 import com.bookstore.service.CustomerAddressService;
@@ -394,7 +393,6 @@ public class CustomerController
 					}
 					return "orderConfirmation";
 				}
-				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();

@@ -17,6 +17,8 @@ public interface ProductOrderDao
 	
 	public List<ProductOrder> getProductOrderByCustomer(int rid);
 	
+	public List<ProductOrder> getLatestProductOrders(int first, int max);
+	
 	public Long countProductOrdersByStatus(OrderStatus status);
 	
 }

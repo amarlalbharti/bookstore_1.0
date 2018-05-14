@@ -1,5 +1,6 @@
 package com.bookstore.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="product_order")
-public class ProductOrder
+public class ProductOrder implements Serializable
 {
 	@Id
 	@Column(name = "product_order_id", nullable=false)

@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.LockMode;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,19 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 			return  this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
 					.createAlias("registration", "regAlias")
 					.add(Restrictions.eq("regAlias.rid", rid))
+					.list();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<ProductOrder> getLatestProductOrders(int first, int max){
+		try {
+			return  this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.addOrder(Order.desc("createDate"))
 					.list();
 			
 		}catch (Exception e) {

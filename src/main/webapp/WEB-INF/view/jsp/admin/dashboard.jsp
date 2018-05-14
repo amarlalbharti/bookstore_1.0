@@ -92,69 +92,72 @@
       <div class="row">
         <!-- Left col -->
         <section class="col-lg-7 connectedSortable">
-          <!-- Custom tabs (Charts with tabs)-->
-          <div class="nav-tabs-custom">
-            <!-- Tabs within a box -->
-            <ul class="nav nav-tabs pull-right">
-              <li class="active"><a href="#revenue-chart" data-toggle="tab">Area</a></li>
-              <li><a href="#sales-chart" data-toggle="tab">Donut</a></li>
-              <li class="pull-left header"><i class="fa fa-inbox"></i> Sales</li>
-            </ul>
-            <div class="tab-content no-padding">
-              <!-- Morris chart - Sales -->
-              <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
-              <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+          <div class="box box-info latest_orders_box">
+            <div class="box-header with-border">
+              <h3 class="box-title">Latest Orders</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div class="table-responsive">
+                <table class="table no-margin" id="latest_orders_table">
+                  <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer Name</th>
+                    <th>Items</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Order Time</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.table-responsive -->
+            </div>
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <button id="refresh_latest_orders_table" class="btn btn-sm  pull-right"><i class="fa fa-refresh"></i> Reload</button>
+              <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-flat pull-left">View All Orders</a>
             </div>
           </div>
-          <!-- /.nav-tabs-custom -->
-
-
         </section>
         <!-- /.Left col -->
         <!-- right col (We are only adding the ID to make the widgets sortable)-->
         <section class="col-lg-5 connectedSortable">
 
           <!-- Map box -->
-          <div class="box box-solid bg-light-blue-gradient">
-            <div class="box-header">
-              <!-- tools box -->
-              <div class="pull-right box-tools">
-                <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Date range">
-                  <i class="fa fa-calendar"></i></button>
-                <button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="Collapse" style="margin-right: 5px;">
-                  <i class="fa fa-minus"></i></button>
+          <div class="box box-primary sales_chart_box">
+            <div class="box-header with-border">
+              <i class="fa fa-bar-chart-o"></i>
+
+              <h3 class="box-title">Line Chart</h3>
+
+              <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
               </div>
-              <!-- /. tools -->
-
-              <i class="fa fa-map-marker"></i>
-
-              <h3 class="box-title">
-                Visitors
-              </h3>
             </div>
             <div class="box-body">
-              <div id="world-map" style="height: 250px; width: 100%;"></div>
+              <div id="line-chart" style="height: 300px;"></div>
+            </div>
+            <div class="box-footer clearfix">
+              <button id="refresh_sales_charts" class="btn btn-sm  pull-right"><i class="fa fa-refresh"></i> Reload</button>
+              <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-flat pull-left">View All Orders</a>
             </div>
             <!-- /.box-body-->
-            <div class="box-footer no-border">
-              <div class="row">
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <div id="sparkline-1"></div>
-                  <div class="knob-label">Visitors</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
-                  <div id="sparkline-2"></div>
-                  <div class="knob-label">Online</div>
-                </div>
-                <!-- ./col -->
-                <div class="col-xs-4 text-center">
-                  <div id="sparkline-3"></div>
-                  <div class="knob-label">Exists</div>
-                </div>
-                <!-- ./col -->
-              </div>
-              <!-- /.row -->
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
             </div>
           </div>
           <!-- /.box -->
@@ -170,9 +173,15 @@
     <!-- /.content -->
   </div>
 </body>
+<!-- FLOT CHARTS -->
+<script src="${pageContext.request.contextPath}/js/flot/jquery.flot.min.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="${pageContext.request.contextPath}/js/flot/jquery.flot.resize.min.js"></script>
 <script language=javascript type='text/javascript'>
 	$(document).ready(function(){
 		$.getAdminDashboardWidgets();
+		$.getAdminDashboardLatestOrders();
+		$.getAdminDashboardSales();
     });
 	
 </script>

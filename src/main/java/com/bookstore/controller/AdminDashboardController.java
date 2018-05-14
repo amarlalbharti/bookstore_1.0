@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bookstore.constraints.Roles;
+import com.bookstore.domain.ProductOrder;
 import com.bookstore.enums.OrderStatus;
+import com.bookstore.parser.ProductOrderParser;
 import com.bookstore.service.LoginInfoService;
 import com.bookstore.service.ProductOrderService;
 import com.bookstore.service.ProductService;
@@ -61,5 +63,33 @@ public class AdminDashboardController
 		}
 		return Json.toJSONString();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "admin/dashboard/latest/order", method = RequestMethod.GET)
+	public @ResponseBody String getDashboardLatestOrders(ModelMap map, HttpServletRequest request, Principal principal) {
+		JSONObject Json = new JSONObject();
+		try {
+			List<ProductOrder> orders = productOrderService.getLatestProductOrders(0, 10);
+			Json.put("ordersList", ProductOrderParser.parseProductOrderList(orders));
+			
+		} catch (Exception e) {
+			LOGGER.error("Error in getDashboardWidgetsData() >> ", e);
+		}
+		return Json.toJSONString();
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "admin/dashboard/sales", method = RequestMethod.GET)
+	public @ResponseBody String getDashboardSales(ModelMap map, HttpServletRequest request, Principal principal) {
+		JSONObject Json = new JSONObject();
+		try {
+			
+		} catch (Exception e) {
+			LOGGER.error("Error in getDashboardWidgetsData() >> ", e);
+		}
+		return Json.toJSONString();
+	}
+	
 	
 }

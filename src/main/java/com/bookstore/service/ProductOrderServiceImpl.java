@@ -38,6 +38,10 @@ public class ProductOrderServiceImpl implements ProductOrderService
 		return this.productOrderDao.getProductOrderByCustomer(rid);
 	}
 	
+	public List<ProductOrder> getLatestProductOrders(int first, int max){
+		return this.productOrderDao.getLatestProductOrders(first, max);
+	}
+	
 	public Long countProductOrdersByStatus(OrderStatus status) {
 		return this.productOrderDao.countProductOrdersByStatus(status);
 	}
