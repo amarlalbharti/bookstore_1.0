@@ -106,47 +106,43 @@ $(document).ready(function(){
 		    },
 			success : function(response, textStatus, xhr) {
 				var json = JSON.parse(response);
-				var sin = [];
-			    for (var i = 0; i < 12; i += 0.5) {
-			      sin.push([i, Math.sin(i)]);
-			    }
-			    var line_data1 = {
-			      data : sin,
+				/*
+			     * BAR CHART
+			     * ---------
+			     */
+
+			    var bar_data = {
+			      data : [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
 			      color: '#3c8dbc'
 			    }
+			    $.plot('#bar-chart', [bar_data], {
+			      grid  : {
+			        borderWidth: 1,
+			        borderColor: '#f3f3f3',
+			        tickColor  : '#f3f3f3'
+			      },
+			      series: {
+			        bars: {
+			          show    : true,
+			          barWidth: 0.5,
+			          align   : 'center'
+			        }
+			      },
+			      xaxis : {
+			        mode      : 'categories',
+			        tickLength: 0
+			      }
+			    })
+			    /* END BAR CHART */
 			    
-				$.plot('.sales_chart_box #line-chart', [line_data1], {
-				      grid  : {
-				        hoverable  : true,
-				        borderColor: '#f3f3f3',
-				        borderWidth: 1,
-				        tickColor  : '#f3f3f3'
-				      },
-				      series: {
-				        shadowSize: 0,
-				        lines     : {
-				          show: true
-				        },
-				        points    : {
-				          show: true
-				        }
-				      },
-				      lines : {
-				        fill : false,
-				        color: ['#3c8dbc', '#f56954']
-				      },
-				      yaxis : {
-				        show: true
-				      },
-				      xaxis : {
-				        show: true
-				      }
-				    });
-				
 				$(".sales_chart_box .overlay").hide();
 			}
 		});
 	};
 	
+	
+	$(document).on("click","#refresh_sales_charts",function() {
+		$.getAdminDashboardSales();
+	});
 	
 }); 

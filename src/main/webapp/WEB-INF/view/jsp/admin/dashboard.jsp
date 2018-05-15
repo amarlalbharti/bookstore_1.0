@@ -140,7 +140,7 @@
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
 
-              <h3 class="box-title">Line Chart</h3>
+              <h3 class="box-title">Bar Chart</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -149,21 +149,17 @@
               </div>
             </div>
             <div class="box-body">
-              <div id="line-chart" style="height: 300px;"></div>
+              <div id="bar-chart" style="height: 300px;"></div>
+            </div>
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
             </div>
             <div class="box-footer clearfix">
               <button id="refresh_sales_charts" class="btn btn-sm  pull-right"><i class="fa fa-refresh"></i> Reload</button>
               <a href="javascript:void(0)" class="btn btn-sm btn-primary btn-flat pull-left">View All Orders</a>
             </div>
             <!-- /.box-body-->
-            <div class="overlay">
-              <i class="fa fa-refresh fa-spin"></i>
-            </div>
           </div>
-          <!-- /.box -->
-
-
-
         </section>
         <!-- right col -->
       </div>
@@ -177,6 +173,8 @@
 <script src="${pageContext.request.contextPath}/js/flot/jquery.flot.min.js"></script>
 <!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
 <script src="${pageContext.request.contextPath}/js/flot/jquery.flot.resize.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/flot/jquery.flot.pie.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/flot/jquery.flot.categories.min.js"></script>
 <script language=javascript type='text/javascript'>
 	$(document).ready(function(){
 		$.getAdminDashboardWidgets();
