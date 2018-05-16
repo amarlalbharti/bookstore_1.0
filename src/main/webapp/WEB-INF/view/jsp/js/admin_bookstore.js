@@ -106,15 +106,12 @@ $(document).ready(function(){
 		    },
 			success : function(response, textStatus, xhr) {
 				var json = JSON.parse(response);
-				/*
-			     * BAR CHART
-			     * ---------
-			     */
 
-			    var bar_data = {
+				var bar_data = {
 			      data : [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
 			      color: '#3c8dbc'
 			    }
+				
 			    $.plot('#bar-chart', [bar_data], {
 			      grid  : {
 			        borderWidth: 1,
@@ -133,16 +130,25 @@ $(document).ready(function(){
 			        tickLength: 0
 			      }
 			    })
-			    /* END BAR CHART */
 			    
 				$(".sales_chart_box .overlay").hide();
 			}
 		});
 	};
 	
-	
 	$(document).on("click","#refresh_sales_charts",function() {
-		$.getAdminDashboardSales();
+		var active_sales_chart = $(".sales_chart_box #active_sales_chart").val();
+		$.getAdminDashboardSales(active_sales_chart);
+	});
+	
+	
+	$(document).on("click",".sales_chart_box .sales_btns .btn",function() {
+		$(".sales_chart_box .sales_btns .btn").removeClass("btn-info");
+		$(this).addClass("btn-info");
+		
+		var sel_btn = $(this).attr("data-sales");
+		$(".sales_chart_box #active_sales_chart").val(sel_btn);
+		$.getAdminDashboardSales(sel_btn);
 	});
 	
 }); 

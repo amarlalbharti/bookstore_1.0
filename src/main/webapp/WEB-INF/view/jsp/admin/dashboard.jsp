@@ -136,16 +136,19 @@
         <section class="col-lg-5 connectedSortable">
 
           <!-- Map box -->
-          <div class="box box-primary sales_chart_box">
+          <div class="box box-info sales_chart_box">
             <div class="box-header with-border">
               <i class="fa fa-bar-chart-o"></i>
 
-              <h3 class="box-title">Bar Chart</h3>
+              <h3 class="box-title">Sales</h3>
 
               <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+              	<div class="btn-group sales_btns">
+              		<input type="hidden" id="active_sales_chart" value="WEEK">
+	              	<button class="btn btn-xs btn-info" data-sales="WEEK">Week</button>
+	              	<button class="btn btn-xs" data-sales="MONTH">Month</button>
+	              	<button class="btn btn-xs" data-sales="YEAR">Year</button>
+              	</div>
               </div>
             </div>
             <div class="box-body">
