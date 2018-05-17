@@ -88,12 +88,12 @@ $(document).ready(function(){
 	});
 	
 	
-	jQuery.getAdminDashboardSales = function(){
+	jQuery.getAdminDashboardSales = function(active_tab){
 		$(".sales_chart_box .overlay").show();
 	    $.ajax({
 			type : "GET",
 			url : path+"/admin/dashboard/sales",
-			data : {},
+			data : {tab : active_tab},
 			statusCode: {
 		        401: function(request, status, error) {
 		        	alertify.alert("Your session has been expired !");
@@ -106,13 +106,8 @@ $(document).ready(function(){
 		    },
 			success : function(response, textStatus, xhr) {
 				var json = JSON.parse(response);
-
-				var bar_data = {
-			      data : [['January', 10], ['February', 8], ['March', 4], ['April', 13], ['May', 17], ['June', 9]],
-			      color: '#3c8dbc'
-			    }
 				
-			    $.plot('#bar-chart', [bar_data], {
+			    $.plot('#bar-chart', [json.data_array], {
 			      grid  : {
 			        borderWidth: 1,
 			        borderColor: '#f3f3f3',

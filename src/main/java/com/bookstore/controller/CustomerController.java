@@ -401,4 +401,21 @@ public class CustomerController
 		return "redirect:/login";
 	}
 
+	@RequestMapping(value = "customer/user/profile", method = RequestMethod.GET)
+	public String customerProfile(ModelMap map, HttpServletRequest request, Principal principal)
+	{
+		try {
+			Registration reg = registrationService.getRegistrationByUserid(principal.getName());
+			if(reg != null) {
+				map.put("userProfile", reg);
+				return "customerProfile";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/index";
+	}
+	
+	
 }

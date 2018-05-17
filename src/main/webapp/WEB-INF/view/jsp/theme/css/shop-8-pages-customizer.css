@@ -64,7 +64,7 @@
 }
 .product .limit-offer,
 .product .actions.not-rotation-actions {
-  background-color: rgba(76,107,153,.9);
+  background-color: rgba(248,148,6,.9);
 }
 .btn.btn-default:hover,
 .btn.btn-default:focus,
@@ -148,7 +148,7 @@
 .btn.btn-border .caret,
 .product-remove:hover,
 .one-page .header .header-wrapper .primary .navbar .navbar-collapse .nav .active {
-  color: #4c6b99;
+  color: #f89406;
 }
 .pricing .bottom-box .more {
   color: rgba(76,107,153,.7);
@@ -167,7 +167,7 @@
 .jslider .jslider-pointer svg path,
 .rating-box .rating svg polygon,
 .search-result .search-form .search-submit svg path {
-  fill: #4c6b99;
+  fill: #f89406;
 }
 .carousel-box .pagination a.selected,
 .banner-set .pagination a.selected {

@@ -47,5 +47,12 @@
         <put-attribute name="title" value="Customer-Order Condirmation" />
         <put-attribute name="body" value="/WEB-INF/view/jsp/customer/orderConfirmation.jsp" />
     </definition>
+    <definition name="customerProfile" extends="customerTemplate">
+        <put-attribute name="title" value="Customer - Profile detail" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/profile.jsp" />
+    </definition>
+    
+    
+    
     
 </tiles-definitions>

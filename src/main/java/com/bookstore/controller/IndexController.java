@@ -214,7 +214,7 @@ public class IndexController
 		}
 		else
 		{
-			return "redirect:test";
+			return "redirect:/index";
 		}
 	}
 	@RequestMapping(value = "/error", method = RequestMethod.GET)
