@@ -1,3 +1,7 @@
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!doctype html>
 <html>
   <head>
@@ -100,19 +104,19 @@
 				<%
 					if(request.getUserPrincipal() != null){
 						%>
-							<li><a href="${pageContext.request.contextPath}/user/profile">My Account</a></li>
-							<li><a href="${pageContext.request.contextPath}/user/wishlist"><i class="fa fa-heart"></i> My Wishlist</a></li>
-							<li><a href="${pageContext.request.contextPath}/customer/cart">My Cart <span class="count">0</span></a></li>
-							<li><a href="${pageContext.request.contextPath}/customer/checkout">Checkout</a></li>
-							<li ><a href="javascript:void(0);" onclick="getLogOut();"><i class="fa fa-sign-out"></i> Log Out</a></li>
+							<li><a href="${pageContext.request.contextPath}/customer/profile"> <spring:message code="label.page.header.myaccount" /></a></li>
+							<li><a href="${pageContext.request.contextPath}/user/wishlist"><i class="fa fa-heart"></i> <spring:message code="label.page.header.mywishlist" /></a></li>
+							<li><a href="${pageContext.request.contextPath}/customer/cart"><spring:message code="label.page.header.mycart" /> <span class="count">0</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/customer/checkout"><spring:message code="label.page.header.checkout" /></a></li>
+							<li ><a href="javascript:void(0);" onclick="getLogOut();"><i class="fa fa-sign-out"></i> <spring:message code="label.page.header.logout" /></a></li>
 						<%
 					}else{
 						%>
-							<li><a href="${pageContext.request.contextPath}/login">My Account</a></li>
-							<li><a href="${pageContext.request.contextPath}/login"><i class="fa fa-heart"></i> My Wishlist</a></li>
-							<li><a href="${pageContext.request.contextPath}/login">My Cart <span class="count">0</span></a></li>
-							<li><a href="${pageContext.request.contextPath}/login">Checkout</a></li>
-							<li><a href="${pageContext.request.contextPath}/login">Log in <i class="fa fa-lock after"></i></a></li>
+							<li><a href="${pageContext.request.contextPath}/login"><spring:message code="label.page.header.myaccount" /></a></li>
+							<li><a href="${pageContext.request.contextPath}/login"><i class="fa fa-heart"></i> <spring:message code="label.page.header.mywishlist" /></a></li>
+							<li><a href="${pageContext.request.contextPath}/login"><spring:message code="label.page.header.mycart" /> <span class="count">0</span></a></li>
+							<li><a href="${pageContext.request.contextPath}/login"><spring:message code="label.page.header.checkout" /></a></li>
+							<li><a href="${pageContext.request.contextPath}/login"><spring:message code="label.page.header.login" /> <i class="fa fa-lock after"></i></a></li>
 						<%
 					}
 				%>
@@ -227,11 +231,11 @@
 		</div>
 		
 		<div class="phone-active col-sm-9 col-md-9">
-		  <a href="#" class="close"><span>close</span>×</a>
+		  <a href="#" class="close"><span>close</span>Ã—</a>
 		  <span class="title">Call Us</span> <strong>+1 (777) 123 45 67</strong>
 		</div>
 		<div class="search-active col-sm-9 col-md-9">
-		  <a href="#" class="close"><span>close</span>×</a>
+		  <a href="#" class="close"><span>close</span>Ã—</a>
 		  <form name="search-form" class="search-form">
 			<input class="search-string form-control" type="search" placeholder="Search here" name="search-string">
 			<button class="search-submit">

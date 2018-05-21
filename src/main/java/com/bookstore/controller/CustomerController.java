@@ -401,7 +401,7 @@ public class CustomerController
 		return "redirect:/login";
 	}
 
-	@RequestMapping(value = "customer/user/profile", method = RequestMethod.GET)
+	@RequestMapping(value = "customer/profile", method = RequestMethod.GET)
 	public String customerProfile(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		try {
