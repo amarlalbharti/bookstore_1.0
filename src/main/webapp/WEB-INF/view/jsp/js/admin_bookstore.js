@@ -146,4 +146,32 @@ $(document).ready(function(){
 		$.getAdminDashboardSales(sel_btn);
 	});
 	
+	
+	
+	
+	jQuery.getProductOrdersList = function(){
+		$.ajax({
+			type : "GET",
+			url : path+"/admin/sales/orders/list",
+			data : {},
+			statusCode: {
+		        401: function(request, status, error) {
+		        	alertify.alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		        403: function(request, status, error) {
+		        	alertify.alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		    },
+			success : function(response, textStatus, xhr) {
+				var json = JSON.parse(response);
+				
+			    
+			}
+		});
+	};
+	
+	
+	
 }); 

@@ -55,7 +55,7 @@ public class CustomerController
 	@Autowired
 	private CityService cityService; 
 	
-	static final Logger logger = Logger.getLogger(CustomerController.class);
+	private static final Logger logger = Logger.getLogger(CustomerController.class);
 	
 	@RequestMapping(value = "customer/checkout", method = RequestMethod.GET)
 	public String getCustomerCheckout(ModelMap map, HttpServletRequest request, Principal principal)

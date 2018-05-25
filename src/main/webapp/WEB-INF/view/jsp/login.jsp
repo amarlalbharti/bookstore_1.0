@@ -1,6 +1,5 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -104,7 +103,7 @@ html
       </div>
     </form>
 
-    <a href="forgotPassword">I forgot my password</a><br>
+    <a href="forgotPassword"><spring:message code="label.login.forgotpassword" /></a><br>
   </div>
   <!-- /.login-box-body -->
 </div>

@@ -108,4 +108,11 @@
     </definition>
     
     
+    <definition name="productOrders" extends="adminTemplate">
+        <put-attribute name="title" value="Sales- Orders" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/admin/productOrders.jsp" />
+        <put-attribute name="currentpage" value="sales" cascade="true"/>
+    </definition>
+    
+    
 </tiles-definitions>

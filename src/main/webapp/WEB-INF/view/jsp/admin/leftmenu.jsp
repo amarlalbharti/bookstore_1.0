@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles-extras" prefix="tilesx"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -47,16 +48,28 @@
             <li class="${currentpage == 'attribute' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/attributes"><i class="fa fa-circle-o"></i> Attributes</a></li>
           </ul>
         </li>
-        
+        <li class="${currentpage == 'sales' ? 'active' : ''} treeview">
+          <a href="#">
+            <i class="fa fa-book"></i>
+            <span><spring:message code="label.admin.leftmenu.sales" /></span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="${currentpage == 'sales' ? 'active' : ''}">
+            	<a href="${pageContext.request.contextPath}/admin/sales/orders">
+            		<i class="fa fa-circle-o"></i> <spring:message code="label.admin.leftmenu.orders" />
+            	</a>
+           	</li>
+          </ul>
+        </li>
         
         <li class="${currentpage == 'customer' ? 'active' : ''} treeview">
           <a href="#">
             <i class="fa fa-user"></i>
-            <span>Customers</span>
+            <span><spring:message code="label.admin.leftmenu.customers" /></span>
           </a>
           <ul class="treeview-menu">
-            <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-circle-o"></i> Customers</a></li>
-            <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/customers/online"><i class="fa fa-circle-o"></i> Online Customers</a></li>
+            <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/customers"><i class="fa fa-circle-o"></i> <spring:message code="label.admin.leftmenu.customers" /></a></li>
+            <li class="${currentpage == 'customer' ? 'active' : ''}"><a href="${pageContext.request.contextPath}/admin/customers/online"><i class="fa fa-circle-o"></i> <spring:message code="label.admin.leftmenu.online.customers" /></a></li>
           </ul>
         </li> 
         

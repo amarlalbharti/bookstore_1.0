@@ -4,12 +4,16 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bookstore.dao.ProductOrderDao;
 import com.bookstore.domain.ProductOrder;
 import com.bookstore.enums.OrderStatus;
+import com.bookstore.util.CustomerUtils;
+import com.bookstore.util.DateUtils;
 
 @Service
 @Transactional
@@ -45,4 +49,32 @@ public class ProductOrderServiceImpl implements ProductOrderService
 	public Long countProductOrdersByStatus(OrderStatus status) {
 		return this.productOrderDao.countProductOrdersByStatus(status);
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	public JSONArray getProductOrdersJsonArray(int first, int max) {
+		JSONArray jsonArray = new JSONArray();
+		try {
+			List<ProductOrder> orders = getLatestProductOrders(first, max);
+			if(orders != null && !orders.isEmpty()) {
+				
+				for(ProductOrder order : orders) {
+					JSONObject jsonOrder = new JSONObject();
+					jsonOrder.put("product_order_id", order.getProductOrderId());
+					jsonOrder.put("order_status", order.getOrderStatus());
+					jsonOrder.put("payment_status", "Pending");
+					jsonOrder.put("customer", CustomerUtils.getCustomerNameWithEmail(order.getRegistration()));
+					jsonOrder.put("store", "");
+					jsonOrder.put("create_date", DateUtils.fullFormat.format(order.getCreateDate()));
+					jsonOrder.put("total_order", order.getFinalPrice());
+					jsonArray.add(jsonOrder);
+				}
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jsonArray;
+		
+	}
+	
 }

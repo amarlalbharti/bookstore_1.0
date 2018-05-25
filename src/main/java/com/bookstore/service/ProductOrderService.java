@@ -2,6 +2,9 @@ package com.bookstore.service;
 
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.bookstore.domain.ProductOrder;
 import com.bookstore.enums.OrderStatus;
 
@@ -20,4 +23,6 @@ public interface ProductOrderService
 	public List<ProductOrder> getLatestProductOrders(int first, int max);
 	
 	public Long countProductOrdersByStatus(OrderStatus status);
+	
+	public JSONArray getProductOrdersJsonArray(int first, int max);
 }

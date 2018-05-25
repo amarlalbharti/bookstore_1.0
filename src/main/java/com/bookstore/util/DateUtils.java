@@ -13,7 +13,14 @@ public class DateUtils
 	 */
 	public static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	
+	/**
+	 * get date in ( MMM dd, yyyy) format
+	 */
 	public static SimpleDateFormat clientDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+	
+	/**
+	 * get date in (dd-MM-yyyy 'at' hh:mm a) format
+	 */
 	public static SimpleDateFormat fullFormat = new SimpleDateFormat("dd-MM-yyyy 'at' hh:mm a");
 	public static SimpleDateFormat clientFullformat = new SimpleDateFormat("MMM dd, yyyy 'at' hh:mm a");
 	

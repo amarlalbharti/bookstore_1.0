@@ -107,4 +107,22 @@ public class CustomerUtils
 		
 		return cname;
 	}
+	
+	public static String getCustomerNameWithEmail(Registration reg) {
+		String cname = "";
+		if(reg != null && reg.getFirstName() != null) {
+			cname = reg.getFirstName() ;
+			if(reg.getLastName() != null) {
+				cname += " "+reg.getLastName() ;
+			}
+		} else if(reg.getLastName() != null) {
+			cname += reg.getLastName() ;
+		}
+		
+		if(reg.getLoginInfo() != null && reg.getLoginInfo().getUserid() != null) {
+			cname += " ("+reg.getLoginInfo().getUserid()+")";
+		}
+		
+		return cname;
+	}
 }

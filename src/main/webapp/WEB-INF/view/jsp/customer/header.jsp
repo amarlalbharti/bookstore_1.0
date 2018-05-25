@@ -193,7 +193,7 @@
 			<div class="primary">
 			  <div class="navbar navbar-default" role="navigation">
 				<button type="button" class="navbar-toggle btn-navbar collapsed" data-toggle="collapse" data-target=".primary .navbar-collapse">
-				  <span class="text">Menu</span>
+				  <span class="text"><spring:message code="label.page.header.menu" /></span>
 				  <span class="icon-bar"></span>
 				  <span class="icon-bar"></span>
 				  <span class="icon-bar"></span>
@@ -202,7 +202,7 @@
 				<nav class="collapse collapsing navbar-collapse">
 				  <ul class="nav navbar-nav navbar-center">
 					<li class="parent">
-					  <a href="index.html">Home</a>
+					  <a href="index.html"><spring:message code="label.page.header.home" /></a>
 					  <ul class="sub">
 						<li><a href="index.html">Creative</a></li>
 						<li><a href="home-2.html">Paralax</a></li>
@@ -231,11 +231,11 @@
 		</div>
 		
 		<div class="phone-active col-sm-9 col-md-9">
-		  <a href="#" class="close"><span>close</span>×</a>
-		  <span class="title">Call Us</span> <strong>+1 (777) 123 45 67</strong>
+		  <a href="#" class="close"><span><spring:message code="label.page.header.close" /></span>×</a>
+		  <span class="title"><span><spring:message code="label.page.header.classus" /></span> <strong>+1 (777) 123 45 67</strong>
 		</div>
 		<div class="search-active col-sm-9 col-md-9">
-		  <a href="#" class="close"><span>close</span>×</a>
+		  <a href="#" class="close"><span><span><spring:message code="label.page.header.close" /></span>×</a>
 		  <form name="search-form" class="search-form">
 			<input class="search-string form-control" type="search" placeholder="Search here" name="search-string">
 			<button class="search-submit">
