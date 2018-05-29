@@ -100,12 +100,28 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 		try {
 			return  this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
 					.addOrder(Order.desc("createDate"))
+					.setFirstResult(first)
+					.setMaxResults(max)
 					.list();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public Long countProductOrdersByStatus(){
+		Long count = 0L;
+		try {
+			return  (Long)this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
+					.setProjection(Projections.rowCount())
+					.uniqueResult();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 	
 	public Long countProductOrdersByStatus(OrderStatus status){

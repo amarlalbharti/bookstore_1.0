@@ -64,7 +64,20 @@ public class AdminProductOrderController
 		JSONObject json = new JSONObject();
 		try {
 			if(principal != null){
-				json.put("product_orders", this.productOrderService.getProductOrdersJsonArray(0, 10));
+				int pn = request.getParameter("pn") != null && Validation.isNumeric(request.getParameter("pn")) ? Util.getNumericPositive(request.getParameter("pn")) : 1;
+				int rpp = request.getParameter("rpp") != null && Validation.isNumeric(request.getParameter("rpp")) ? Util.getNumericPositive(request.getParameter("rpp")) : 10;
+				json.put("product_orders", this.productOrderService.getProductOrdersJsonArray((pn-1)*rpp, rpp));
+				long totalOrders = this.productOrderService.countProductOrdersByStatus();
+				json.put("total_orders", totalOrders);
+				json.put("pn", pn);
+				json.put("rpp", rpp);
+				int pages = 1;
+				if(totalOrders % rpp > 0) {
+					pages = ((int)totalOrders / rpp) + 1;
+				} else {
+					pages = ((int)totalOrders / rpp);
+				}
+				json.put("total_pages", pages);
 			}else{
 				response.setStatus(HttpStatus.UNAUTHORIZED.value());
 				return json.toJSONString();

@@ -149,11 +149,11 @@ $(document).ready(function(){
 	
 	
 	
-	jQuery.getProductOrdersList = function(){
+	jQuery.getProductOrdersList = function(pn, rpp){
 		$.ajax({
 			type : "GET",
 			url : path+"/admin/sales/orders/list",
-			data : {},
+			data : {pn:pn, rpp:rpp},
 			statusCode: {
 		        401: function(request, status, error) {
 		        	alertify.alert("Your session has been expired !");
@@ -166,11 +166,83 @@ $(document).ready(function(){
 		    },
 			success : function(response, textStatus, xhr) {
 				var json = JSON.parse(response);
+				$(".orders .overlay").show();
+				$("#orders_list #orders_rpp").val(json.rpp);
+				$(".orders #order_paginate_label").html("Showing page "+ json.pn + " of "+ json.total_pages);
+				$(".orders .order_pagi .curr_page").html(json.pn);
+				if(json.pn > 1){
+					$(".orders .order_pagi .previous").attr("data-dt-idx", json.pn-1);
+					$(".orders .order_pagi .previous").removeClass("disabled");
+				}else{
+					$(".orders .order_pagi .previous").addClass("disabled");
+				}
+				if(json.pn < json.total_pages){
+					$(".orders .order_pagi .next").attr("data-dt-idx", json.pn+1);
+					$(".orders .order_pagi .next").removeClass("disabled");
+				}else{
+					$(".orders .order_pagi .next").addClass("disabled");
+				}
 				
-			    
+				
+				var table = $(".orders #orders_table");
+				table.find("tr:gt(0)").remove();
+				if(json.product_orders != undefined){
+					 var jsonArray = json.product_orders;
+					 
+					 
+					 $.each( json.product_orders, function(i, obj) {
+				          var row = $("<tr />");
+				          var checkbox = $("<td />").html("<input type='checkbox' >");
+				          row.append(checkbox);
+				          var productOrderId = $("<td />").html(obj.product_order_id);
+				          row.append(productOrderId);
+				          
+				          var statusclass= $("<span class='label'/>");
+				          statusclass.addClass(obj.order_status_label);
+				          statusclass.html(obj.order_status);
+				          
+				          var order_status = $("<td />").html(statusclass);
+				          row.append(order_status);
+				          var payment_status = $("<td />").html(obj.payment_status);
+				          row.append(payment_status);
+				          var customer = $("<td />").html(obj.customer);
+				          row.append(customer);
+				          
+				          
+				          var store = $("<td />").html(store);
+				          row.append(store);
+				          var create_date = $("<td />").html(obj.create_date);
+				          row.append(create_date);
+				          var total_order = $("<td />").html(obj.total_order);
+				          row.append(total_order);
+				          var actions = $("<td />").html("<button class='btn btn-xs btn-primary' >View </button>");
+				          row.append(actions);
+				          
+				          table.append(row);
+					 });
+				}
+				$(".orders .overlay").hide();
 			}
 		});
 	};
+	
+	$(document).on("click",".orders .order_pagi .next",function() {
+		var pn = $(this).attr("data-dt-idx");
+		var rpp = $("#orders_list #orders_rpp").val();
+		$.getProductOrdersList(pn, rpp);
+	});
+	
+	$(document).on("click",".orders .order_pagi .previous",function() {
+		var pn = $(this).attr("data-dt-idx");
+		var rpp = $("#orders_list #orders_rpp").val();
+		$.getProductOrdersList(pn, rpp);
+	});
+	
+	$(document).on("click",".orders #refresh_orders_table",function() {
+		var pn = $(".orders .order_pagi .curr_page").html();
+		var rpp = $("#orders_list #orders_rpp").val();
+		$.getProductOrdersList(pn, rpp);
+	});
 	
 	
 	

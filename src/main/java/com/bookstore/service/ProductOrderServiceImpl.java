@@ -14,6 +14,7 @@ import com.bookstore.domain.ProductOrder;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.util.CustomerUtils;
 import com.bookstore.util.DateUtils;
+import com.bookstore.util.ProductOrderUtils;
 
 @Service
 @Transactional
@@ -50,6 +51,9 @@ public class ProductOrderServiceImpl implements ProductOrderService
 		return this.productOrderDao.countProductOrdersByStatus(status);
 	}
 	
+	public Long countProductOrdersByStatus() {
+		return this.productOrderDao.countProductOrdersByStatus();
+	}
 
 	@SuppressWarnings("unchecked")
 	public JSONArray getProductOrdersJsonArray(int first, int max) {
@@ -61,7 +65,8 @@ public class ProductOrderServiceImpl implements ProductOrderService
 				for(ProductOrder order : orders) {
 					JSONObject jsonOrder = new JSONObject();
 					jsonOrder.put("product_order_id", order.getProductOrderId());
-					jsonOrder.put("order_status", order.getOrderStatus());
+					jsonOrder.put("order_status", ProductOrderUtils.getProductOrderStatus(order.getOrderStatus()));
+					jsonOrder.put("order_status_label", ProductOrderUtils.getProductOrderStatusClass(order.getOrderStatus()));
 					jsonOrder.put("payment_status", "Pending");
 					jsonOrder.put("customer", CustomerUtils.getCustomerNameWithEmail(order.getRegistration()));
 					jsonOrder.put("store", "");

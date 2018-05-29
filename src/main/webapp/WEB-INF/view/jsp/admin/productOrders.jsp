@@ -32,15 +32,14 @@
       <div class="row">
         <div class="col-md-12">
           <!-- Horizontal Form -->
-          <div class="box box-info">
+          <div class="box box-info orders">
             <div class="box-body" id="orders_list">
 				<div class="row">
 					<div class="col-sm-6">
 						<div class="dataTables_length" id="example1_length">
 							<label>Show 
-							<select name="products_rpp" id="products_rpp" aria-controls="example1" class="form-control input-sm">
-								<option value="5">5</option>
-								<option value="10" selected>10</option>
+							<select name="orders_rpp" id="orders_rpp" aria-controls="example1" class="form-control input-sm">
+								<option value="10">10</option>
 								<option value="25">25</option>
 								<option value="50">50</option>
 								<option value="100">100</option>
@@ -50,20 +49,16 @@
 						</div>
 					</div>
 					<div class="col-sm-6">
-						<div id="example1_filter" class="dataTables_filter">
-							<label>Search:<input class="form-control input-sm"
-								placeholder="" aria-controls="example1" type="search"></label>
-						</div>
+						<button id="refresh_orders_table" class="btn btn-sm  pull-right"><i class="fa fa-refresh"></i> Reload</button>
 					</div>
 				</div>
-				<table class="table table-bordered table-striped text-center">
+				<table class="table table-bordered table-striped text-center" id="orders_table">
 				   <thead>
 					   <tr class="bg-primary">
 					     <th><input type="checkbox" ></th>
 					     <th><spring:message code="label.product.order.header.order"/></th>
 					     <th><spring:message code="label.product.order.header.orderstatus"/></th>
 					     <th><spring:message code="label.product.order.header.paymentstatus"/></th>
-					     <th><spring:message code="label.product.order.header.shippingstatus"/></th>
 					     <th ><spring:message code="label.product.order.header.customer"/></th>
 					     <th><spring:message code="label.product.order.header.store"/></th>
 					     <th><spring:message code="label.product.order.header.created"/></th>
@@ -71,28 +66,33 @@
 					     <th><spring:message code="label.product.order.header.view"/></th>
 					   </tr>
 				   </thead>
+				   <tbody>
+                  
+                  </tbody>
 			   </table>
-			   <div class="row">
+			   <div class="row order_pagi">
 			   	<div class="col-sm-5">
-			   		<div class="dataTables_info" id="example2_info" role="status" aria-live="polite">1 - 5 of 5 items</div>
+			   		<div class="dataTables_info" id="order_paginate_label" role="status" aria-live="polite"></div>
 				</div>
 				<div class="col-sm-7">
-					<div class="dataTables_paginate paging_simple_numbers" id="order_paginate">
+					<div class="dataTables_paginate paging_simple_numbers">
 						<ul class="pagination">
-							
-			   				<li class="paginate_button previous disabled">
-								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="0" tabindex="0"><spring:message code="label.datatable.pagination.previous"/></a>
+							<li class="paginate_button previous disabled">
+	  							<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="1" tabindex="0"><spring:message code="label.datatable.pagination.previous"/></a>
 							</li>
-							<li class="paginate_button active">
-								<a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0">1</a>
+							<li class="paginate_button active ">
+								<a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="curr_page">1</a>
 							</li>
-							<li class="paginate_button next disabled" >
-								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="7" tabindex="0"><spring:message code="label.datatable.pagination.next"/></a>
+ 							<li class="paginate_button next disabled" >
+								<a href="javascript:void(0);" aria-controls="example2" data-dt-idx="1" tabindex="0"><spring:message code="label.datatable.pagination.next"/></a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
+            </div>
+            <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
             </div>
           </div>
         </div>

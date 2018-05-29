@@ -19,4 +19,13 @@ public class Util
 		}
 		return 0;
 	}
+	
+	public static Integer getNumericPositive(String value){
+		if(Validation.isNumeric(value)){
+			if(Integer.parseInt(value) > 0) {
+				return Integer.parseInt(value);
+			}
+		}
+		return 0;
+	}
 }

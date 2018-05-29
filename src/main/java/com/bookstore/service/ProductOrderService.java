@@ -22,6 +22,8 @@ public interface ProductOrderService
 	
 	public List<ProductOrder> getLatestProductOrders(int first, int max);
 	
+	public Long countProductOrdersByStatus();
+	
 	public Long countProductOrdersByStatus(OrderStatus status);
 	
 	public JSONArray getProductOrdersJsonArray(int first, int max);
