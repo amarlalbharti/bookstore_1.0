@@ -1,5 +1,7 @@
 package com.bookstore.util;
 
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 
 import com.bookstore.enums.OrderStatus;
@@ -76,5 +78,17 @@ public class ProductOrderUtils
 			LOGGER.error("Error in getProductOrderStatusClass(int status) >> for status :"+status, e);
 		}
 		return ps;
+	}
+	
+	public static synchronized Long getTransactionId() {
+		Long transactionId = 0L;
+		try
+		{
+			Date date = new Date();
+			transactionId = date.getTime();
+		} catch (Exception e) {
+			LOGGER.error("Exception while generating transaction id ", e);
+		}
+		return transactionId;
 	}
 }

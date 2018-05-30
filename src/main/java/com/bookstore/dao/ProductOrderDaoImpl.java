@@ -62,6 +62,22 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	public ProductOrder getProductOrderByTransationId(long transactionId) {
+		try {
+			List<ProductOrder> list = this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
+					.add(Restrictions.eq("transactionId", transactionId))
+					.setFetchMode("orderItems", FetchMode.JOIN)
+					.list();
+			if(list != null && !list.isEmpty()) {
+				return list.get(0);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	
 	@SuppressWarnings("unchecked")
 	public ProductOrder getProductOrder(int productOrderId, int rid) {

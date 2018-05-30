@@ -39,6 +39,10 @@ public class ProductOrderServiceImpl implements ProductOrderService
 		return this.productOrderDao.getProductOrder(productOrderId, rid);
 	}
 	
+	public ProductOrder getProductOrderByTransationId(long transactionId) {
+		return this.productOrderDao.getProductOrderByTransationId(transactionId);
+	}
+	
 	public List<ProductOrder> getProductOrderByCustomer(int rid){
 		return this.productOrderDao.getProductOrderByCustomer(rid);
 	}
@@ -65,6 +69,7 @@ public class ProductOrderServiceImpl implements ProductOrderService
 				for(ProductOrder order : orders) {
 					JSONObject jsonOrder = new JSONObject();
 					jsonOrder.put("product_order_id", order.getProductOrderId());
+					jsonOrder.put("transaction_id", order.getTransactionId());
 					jsonOrder.put("order_status", ProductOrderUtils.getProductOrderStatus(order.getOrderStatus()));
 					jsonOrder.put("order_status_label", ProductOrderUtils.getProductOrderStatusClass(order.getOrderStatus()));
 					jsonOrder.put("payment_status", "Pending");

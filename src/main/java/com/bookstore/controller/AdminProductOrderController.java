@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +51,7 @@ public class AdminProductOrderController
 	private static final Logger LOGGER = Logger.getLogger(AdminProductOrderController.class);
 	
 	@RequestMapping(value = "admin/sales/orders", method = RequestMethod.GET)
-	public String getCustomerCheckout(ModelMap map, HttpServletRequest request, Principal principal)
+	public String getCustomerOrders(ModelMap map, HttpServletRequest request, Principal principal)
 	{
 		
 		return "productOrders";
@@ -89,6 +90,25 @@ public class AdminProductOrderController
 			json.put("msg", "Oops something wrong !");
 		}
 		return json.toJSONString();
+	}
+	
+	
+	@RequestMapping(value = "admin/order/{transaction_id}", method = RequestMethod.GET)
+	public String viewCustomerOrder(@PathVariable(value="transaction_id" ) String transaction_id, ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
+	{
+		try {
+			if(Validation.isNumeric(transaction_id)) {
+				Long transactionId  = Util.getLong(transaction_id);
+				if(transactionId > 0) {
+					ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
+					map.addAttribute("productOrder", order);
+				}
+			}
+			
+		}catch (Exception e) {
+			LOGGER.error("Error in add custoemr address", e);
+		}
+		return "viewProductOrder";
 	}
 	
 }

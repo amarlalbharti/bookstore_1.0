@@ -20,6 +20,13 @@ public class Util
 		return 0;
 	}
 	
+	public static Long getLong(String value){
+		if(Validation.isNumeric(value)){
+			return Long.parseLong(value);
+		}
+		return 0L;
+	}
+	
 	public static Integer getNumericPositive(String value){
 		if(Validation.isNumeric(value)){
 			if(Integer.parseInt(value) > 0) {

@@ -194,7 +194,7 @@ $(document).ready(function(){
 				          var row = $("<tr />");
 				          var checkbox = $("<td />").html("<input type='checkbox' >");
 				          row.append(checkbox);
-				          var productOrderId = $("<td />").html(obj.product_order_id);
+				          var productOrderId = $("<td />").html(obj.transaction_id);
 				          row.append(productOrderId);
 				          
 				          var statusclass= $("<span class='label'/>");
@@ -215,7 +215,7 @@ $(document).ready(function(){
 				          row.append(create_date);
 				          var total_order = $("<td />").html(obj.total_order);
 				          row.append(total_order);
-				          var actions = $("<td />").html("<button class='btn btn-xs btn-primary' >View </button>");
+				          var actions = $("<td />").html("<a class='btn btn-xs btn-primary' href='"+path+"/admin/order/"+obj.transaction_id+"'>View </a>");
 				          row.append(actions);
 				          
 				          table.append(row);

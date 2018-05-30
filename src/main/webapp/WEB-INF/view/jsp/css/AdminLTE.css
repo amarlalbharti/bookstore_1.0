@@ -1277,6 +1277,14 @@ a:focus {
   -moz-appearance: none;
   appearance: none;
 }
+.form-horizontal .label-wrapper {
+    display: table;
+    float: right;
+    min-height: 28px;
+}
+.form-text-row {
+    padding-top: 6px;
+}
 .form-group.has-success label {
   color: #00a65a;
 }

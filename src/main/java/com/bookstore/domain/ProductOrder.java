@@ -50,6 +50,9 @@ public class ProductOrder implements Serializable
 	@Column(name = "order_status", length=4, nullable=false)
 	private int orderStatus;
 	
+	@Column(name = "transaction_id", nullable=false)
+	private long transactionId;
+	
 	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
@@ -166,7 +169,14 @@ public class ProductOrder implements Serializable
 	{
 		this.orderStatus = orderStatus;
 	}
-	
-	
-	
+
+	public long getTransactionId()
+	{
+		return transactionId;
+	}
+
+	public void setTransactionId(long transactionId)
+	{
+		this.transactionId = transactionId;
+	}
 }

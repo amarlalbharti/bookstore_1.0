@@ -18,6 +18,9 @@ public interface ProductOrderService
 	
 	public ProductOrder getProductOrder(int productOrderId, int rid);
 	
+	public ProductOrder getProductOrderByTransationId(long transactionId);
+	
+	
 	public List<ProductOrder> getProductOrderByCustomer(int rid);
 	
 	public List<ProductOrder> getLatestProductOrders(int first, int max);

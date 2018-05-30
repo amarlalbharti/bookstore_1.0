@@ -13,6 +13,8 @@ public interface ProductOrderDao
 	
 	public ProductOrder getProductOrder(int productOrderId);
 	
+	public ProductOrder getProductOrderByTransationId(long transactionId);
+	
 	public ProductOrder getProductOrder(int productOrderId, int rid);
 	
 	public List<ProductOrder> getProductOrderByCustomer(int rid);

@@ -37,6 +37,7 @@ import com.bookstore.service.ProductService;
 import com.bookstore.service.RegistrationService;
 import com.bookstore.util.CheckoutSteps;
 import com.bookstore.util.CustomerUtils;
+import com.bookstore.util.ProductOrderUtils;
 import com.bookstore.util.Util;
 
 @Controller
@@ -371,6 +372,7 @@ public class CustomerController
 					order.setCustomerPhone(address.getCustomerPhone());
 					order.setOrderItems(orderedItems);
 					order.setCreateDate(new Date());
+					order.setTransactionId(ProductOrderUtils.getTransactionId());
 					int orderid = this.productOrderService.addProductOrder(order);
 					return "redirect:/customer/order/confirmation/"+orderid;
 				}else {
