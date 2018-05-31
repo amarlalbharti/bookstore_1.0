@@ -37,80 +37,59 @@
      		
       <!-- Main row -->
       <div class="row">
-        <div class="col-md-12">
-          <!-- Horizontal Form -->
-          <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab-info" data-toggle="tab">Order Info</a></li>
-              <li><a href="#tab-shipping" data-toggle="tab">Shipping Info</a></li>
-              <li><a href="#tab-products" data-toggle="tab">Product Info</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab-info">
-               	<div class="panel-group form-horizontal">
-               		<div class="panel panel-default">
-               			<div class="panel-body">
-               				<div class="form-group">
-								<div class="col-md-3">
-									<div class="label-wrapper">
-										<label class="control-label" for="CustomOrderNumber">
-											<spring:message code="label.product.order.header.orderstatus"/>
-										</label>
-									</div>
-								</div>
-								<div class="col-md-9">
-									<div class="form-text-row"><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %></div>
-								</div>
-							</div>
-               				<div class="form-group">
-								<div class="col-md-3">
-									<div class="label-wrapper">
-										<label class="control-label" for="CustomOrderNumber">
-											<spring:message code="label.product.order.header.order"/>
-										</label>
-									</div>
-								</div>
-								<div class="col-md-9">
-									<div class="form-text-row"><%= productOrder.getTransactionId() %></div>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-md-3">
-									<div class="label-wrapper">
-										<label class="control-label" for="CustomOrderNumber">
-											<spring:message code="label.product.order.header.created"/>
-										</label>
-									</div>
-								</div>
-								<div class="col-md-9">
-									<div class="form-text-row"><%= DateUtils.clientFullformat.format(productOrder.getCreateDate()) %></div>
-								</div>
-							</div>
-               			</div>
-               		</div>
-               	</div>
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab-shipping">
-                
-              </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab-products">
-                
-              </div>
-              <!-- /.tab-pane -->
+      <div class="col-md-7">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title"><spring:message code="label.product.order.tab.order"/></h3>
             </div>
-            <!-- /.tab-content -->
+            <div class="box-body">
+              <dl class="dl-horizontal">
+                <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
+                <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %></dd>
+                <dt><spring:message code="label.product.order.header.order"/></dt>
+                <dd><%= productOrder.getTransactionId() %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title"><spring:message code="label.product.order.tab.payment"/></h3>
+            </div>
+            <div class="box-body">
+              <dl class="dl-horizontal">
+                <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
+                <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %></dd>
+                <dt><spring:message code="label.product.order.header.order"/></dt>
+                <dd><%= productOrder.getTransactionId() %></dd>
+              </dl>
+            </div>
           </div>
         </div>
         
+        <div class="col-md-7">
+          <div class="box box-solid">
+            <div class="box-header with-border">
+              <h3 class="box-title"><spring:message code="label.product.order.tab.product"/></h3>
+            </div>
+            <div class="box-body">
+              <dl class="dl-horizontal">
+                <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
+                <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %></dd>
+                <dt><spring:message code="label.product.order.header.order"/></dt>
+                <dd><%= productOrder.getTransactionId() %></dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        
+        
       </div>
-      <!-- /.row (main row) -->
 			<%
      	}
      %>
     </section>
-    <!-- /.content -->
   </div>
 	
 </body>
