@@ -53,6 +53,13 @@ public class ProductOrder implements Serializable
 	@Column(name = "transaction_id", nullable=false)
 	private long transactionId;
 	
+	@Column(name = "payment_status", length=4, nullable=false)
+	private int paymentStatus;
+	
+	@Column(name = "payment_mode", length=4, nullable=false)
+	private int paymentMode;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
@@ -179,4 +186,27 @@ public class ProductOrder implements Serializable
 	{
 		this.transactionId = transactionId;
 	}
+
+	public int getPaymentStatus()
+	{
+		return paymentStatus;
+	}
+
+	public void setPaymentStatus(int paymentStatus)
+	{
+		this.paymentStatus = paymentStatus;
+	}
+
+	public int getPaymentMode()
+	{
+		return paymentMode;
+	}
+
+	public void setPaymentMode(int paymentMode)
+	{
+		this.paymentMode = paymentMode;
+	}
+	
+	
+	
 }

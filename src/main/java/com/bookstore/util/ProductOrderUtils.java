@@ -1,14 +1,34 @@
 package com.bookstore.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import com.bookstore.comparator.OrderItemComparator;
+import com.bookstore.domain.OrderItem;
+import com.bookstore.domain.ProductOrder;
 import com.bookstore.enums.OrderStatus;
+import com.bookstore.enums.PaymentMode;
+import com.bookstore.enums.PaymentStatus;
 
 public class ProductOrderUtils
 {
 	private static final Logger LOGGER = Logger.getLogger(ProductOrderUtils.class);
+	
+	
+	public static List<OrderItem> getSortedOrderItems(Set<OrderItem> itemSet){
+		List<OrderItem> itemList = null;
+		if(itemSet != null && !itemSet.isEmpty()) {
+			itemList = new ArrayList<OrderItem>();
+			itemList.addAll(itemSet);
+			Collections.sort(itemList, new OrderItemComparator());
+		}
+		return itemList;
+	}
 	
 	public static String getProductOrderStatus(int status) {
 		String ps = null;
@@ -41,6 +61,56 @@ public class ProductOrderUtils
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error in getProductOrderStatus(int status) >> for status :"+status, e);
+		}
+		return ps;
+	}
+	
+	public static String getPaymentStatus(int paymentStatus) {
+		String ps = null;
+		try
+		{
+			switch (PaymentStatus.values()[paymentStatus])
+			{
+				case UNPAID:
+					ps = "Unpaid";
+					break;
+				case PARTIALLY_PAID:
+					ps = "Partially Paid";
+					break;
+				case PAID:
+					ps = "Paid";
+					break;
+				case REFUNDED:
+					ps = "Refunded";
+					break;
+				case PARTIALLY_REFUNDED:
+					ps = "Partially Refunded";
+					break;
+				default:
+					ps = "Unpaid";
+					break;
+			}
+		} catch (Exception e) {
+			LOGGER.error("Exception while retriving payment status for "+paymentStatus, e);
+		}
+		return ps;
+	}
+	
+	public static String getPaymentMode(int paymentMode) {
+		String ps = null;
+		try
+		{
+			switch (PaymentMode.values()[paymentMode])
+			{
+				case COD:
+					ps = "COD";
+					break;
+				default:
+					ps = "COD";
+					break;
+			}
+		} catch (Exception e) {
+			LOGGER.error("Exception while retriving payment mode for "+paymentMode, e);
 		}
 		return ps;
 	}
