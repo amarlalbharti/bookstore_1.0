@@ -67,6 +67,9 @@ public class ProductOrder implements Serializable
 	@OneToMany(mappedBy="productOrder", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
 	private Set<OrderItem> orderItems = new HashSet();
 
+	@OneToMany(mappedBy="productOrder", cascade=CascadeType.ALL, fetch=FetchType.LAZY) 
+	private Set<OrderNote> orderNotes = new HashSet();
+
 	public int getProductOrderId()
 	{
 		return productOrderId;
@@ -205,6 +208,16 @@ public class ProductOrder implements Serializable
 	public void setPaymentMode(int paymentMode)
 	{
 		this.paymentMode = paymentMode;
+	}
+
+	public Set<OrderNote> getOrderNotes()
+	{
+		return orderNotes;
+	}
+
+	public void setOrderNotes(Set<OrderNote> orderNotes)
+	{
+		this.orderNotes = orderNotes;
 	}
 	
 	

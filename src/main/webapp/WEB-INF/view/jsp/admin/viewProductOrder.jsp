@@ -1,3 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.bookstore.comparator.OrderNoteComparator"%>
+<%@page import="java.util.Collections"%>
+<%@page import="com.bookstore.domain.OrderNote"%>
 <%@page import="com.bookstore.util.CustomerUtils"%>
 <%@page import="com.bookstore.domain.OrderItem"%>
 <%@page import="com.bookstore.util.ProductOrderUtils"%>
@@ -51,7 +55,11 @@
             <div class="box-body">
               <dl class="dl-horizontal">
                 <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
-                <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %></dd>
+                <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %>
+                	<button type="button" class="btn btn-danger" >Cancel Order</button>
+                	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Change Status</button>
+                
+                </dd>
                 
                 <dt><spring:message code="label.product.order.header.order"/></dt>
                 <dd><%= productOrder.getTransactionId() %></dd>
@@ -72,7 +80,7 @@
                 %>
                 
                 <dt><spring:message code="label.product.order.header.created"/></dt>
-                <dd><%= DateUtils.clientFullformat.format(productOrder.getCreateDate()) %></dd>
+                <dd><%= DateUtils.clientFullformat.format(productOrder.getCreateDate()) %> <%= productOrder.getModifyDate() %>>  </dd>
                 
               </dl>
             </div>
@@ -102,7 +110,7 @@
           </div>
         </div>
         
-        <div class="col-md-7">
+        <div class="col-md-12">
           <div class="box box-solid">
             <div class="box-header with-border">
               <h3 class="box-title"><spring:message code="label.product.order.tab.product"/></h3>
@@ -151,6 +159,51 @@
             </div>
           </div>
         </div>
+        <div class="col-md-12">
+          <div class="box box-solid order_notes">
+            <div class="box-header with-border">
+              <h3 class="box-title"><spring:message code="label.product.order.tab.payment"/></h3>
+            </div>
+            <div class="box-body">
+              <table class="table table-bordered table-striped text-center" id="tbl_order_note">
+				   <thead>
+				   <tr class="bg-primary">
+				     <th><spring:message code="label.product.order.note.note"/></th>
+				     <th><spring:message code="label.product.order.note.displaytocustomer"/></th>
+				     <th><spring:message code="label.product.order.header.created"/></th>
+				     <th><spring:message code="label.product.header.action"/></th>
+				   </tr>
+				   </thead>
+				   <tbody>
+				   <%
+				    List<OrderNote> noteList = new ArrayList<OrderNote>(productOrder.getOrderNotes());
+				    Collections.sort(noteList, new OrderNoteComparator());
+				   	if(noteList != null && !noteList.isEmpty()){
+				   		for(OrderNote note : noteList){
+				   			%>
+				   				<tr>
+				   				 <td style="text-align: left;"><%= note.getNote()%></td>
+						         <td><%= note.getShowToCustomer()%></td>
+						         <td><%= DateUtils.clientFullformat.format(note.getCreateDate()) %></td>
+						         <td>
+						         	<a href="${pageContext.request.contextPath}/admin/product/ordernote/delete/<%= note.getOrderNoteId()%>"class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-close"></i> Delete</a>
+						         </td>
+						       </tr>
+				   			<%
+				   		}
+				   	}else{
+				   		%>
+							<tr>
+					  			<td colspan="4">No record founds !</td>
+					     	</tr>
+						<%
+				   	}
+				   %>
+				   </tbody>
+				 </table>
+            </div>
+          </div>
+        </div>
         
         
       </div>
@@ -159,6 +212,25 @@
      %>
     </section>
   </div>
-	
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Default Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body&hellip;</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 </body>
 </html>

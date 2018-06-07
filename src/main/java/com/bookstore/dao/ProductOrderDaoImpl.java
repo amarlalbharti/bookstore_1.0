@@ -52,6 +52,7 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 			List<ProductOrder> list = this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
 					.add(Restrictions.eq("productOrderId", productOrderId))
 					.setFetchMode("orderItems", FetchMode.JOIN)
+					.setFetchMode("orderNotes", FetchMode.JOIN)
 					.list();
 			if(list != null && !list.isEmpty()) {
 				return list.get(0);
@@ -68,6 +69,7 @@ public class ProductOrderDaoImpl implements ProductOrderDao
 			List<ProductOrder> list = this.sessionFactory.getCurrentSession().createCriteria(ProductOrder.class)
 					.add(Restrictions.eq("transactionId", transactionId))
 					.setFetchMode("orderItems", FetchMode.JOIN)
+					.setFetchMode("orderNotes", FetchMode.JOIN)
 					.list();
 			if(list != null && !list.isEmpty()) {
 				return list.get(0);
