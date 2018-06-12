@@ -1,3 +1,4 @@
+<%@page import="com.bookstore.enums.OrderStatus"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.bookstore.comparator.OrderNoteComparator"%>
 <%@page import="java.util.Collections"%>
@@ -56,8 +57,12 @@
               <dl class="dl-horizontal">
                 <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
                 <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %>
-                	<button type="button" class="btn btn-danger" >Cancel Order</button>
-                	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Change Status</button>
+                	<button type="button" class="btn btn-danger" >
+                		<spring:message code="label.product.order.status.cancel"/>
+                	</button>
+                	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-shipping-status">
+                		<spring:message code="label.product.order.status.change"/>
+                	</button>
                 
                 </dd>
                 
@@ -204,7 +209,41 @@
             </div>
           </div>
         </div>
-        
+        <div class="modal fade" id="modal-shipping-status">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">&times;</span></button>
+		          <h4 class="modal-title"><spring:message code="label.product.order.status.change"/></h4>
+		        </div>
+		        <div class="modal-body">
+		        	<div class="form-horizontal" role="form" >
+		        		<div class="form-group">
+		                  <label for="categoryName" class="col-sm-3 control-label">Category Name</label>
+		                  <div class="col-sm-9">
+		                      <select name="shipping_status" id = "shipping_status" class="form-control">
+		                      	<%
+		                      		for(OrderStatus status : OrderStatus.values() ){
+		                      			String selected = (status.ordinal() == productOrder.getOrderStatus()) ? "selected":"";
+		                      			%>
+		                      				<option value="<%=status.ordinal()%>" <%=selected %>><%=ProductOrderUtils.getProductOrderStatus(status.ordinal())%></option>
+		                      			<%
+		                      		}
+		                      	%>
+		                      	
+		                      </select>
+		                  </div>
+		                </div>
+		        	</div>
+		        </div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
+		          <button type="button" class="btn btn-primary"><spring:message code="label.btn.submit"/></button>
+		        </div>
+		      </div>
+		    </div>
+		</div>
         
       </div>
 			<%
@@ -212,25 +251,6 @@
      %>
     </section>
   </div>
-<div class="modal fade" id="modal-default">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Default Modal</h4>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
+	
 </body>
 </html>
