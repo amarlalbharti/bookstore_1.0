@@ -65,6 +65,19 @@ public class ProductOrderUtils
 		return ps;
 	}
 	
+	public static int getValidShippingStatus(String shippingStatus) {
+		int status = -1;
+		try {
+			status = Util.getNumeric(shippingStatus);
+			if(status >= 0 && status < OrderStatus.values().length) {
+				return status;
+			}
+			
+		} catch (Exception e) {
+			LOGGER.error("Error in getValidShippingStatus(String shippingStatus) >> for status :"+shippingStatus, e);
+		}
+		return -1;
+	}
 	public static String getPaymentStatus(int paymentStatus) {
 		String ps = null;
 		try

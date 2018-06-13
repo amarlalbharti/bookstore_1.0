@@ -57,16 +57,19 @@
               <dl class="dl-horizontal">
                 <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
                 <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %>
-                	<button type="button" class="btn btn-danger" >
-                		<spring:message code="label.product.order.status.cancel"/>
-                	</button>
-                	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-shipping-status">
+                	<button type="button" class="btn btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
                 		<spring:message code="label.product.order.status.change"/>
                 	</button>
-                
+                	<button type="button" class="btn btn-danger btn-xm pull-right" style="margin-right: 10px">
+                		<spring:message code="label.product.order.status.cancel"/>
+                	</button>
+                	
                 </dd>
                 
-                <dt><spring:message code="label.product.order.header.order"/></dt>
+                <dt>
+                	<spring:message code="label.product.order.header.order"/>
+                	<input type="hidden" id="transaction_id" value="<%= productOrder.getTransactionId() %>">s
+                </dt>
                 <dd><%= productOrder.getTransactionId() %></dd>
                 
                 <dt><spring:message code="label.product.order.header.customer"/></dt>
@@ -220,9 +223,9 @@
 		        <div class="modal-body">
 		        	<div class="form-horizontal" role="form" >
 		        		<div class="form-group">
-		                  <label for="categoryName" class="col-sm-3 control-label">Category Name</label>
+		                  <label for="categoryName" class="col-sm-3 control-label"><spring:message code="label.product.order.header.orderstatus"/></label>
 		                  <div class="col-sm-9">
-		                      <select name="shipping_status" id = "shipping_status" class="form-control">
+		                      <select name="shipping_status" id="shipping_status" class="form-control">
 		                      	<%
 		                      		for(OrderStatus status : OrderStatus.values() ){
 		                      			String selected = (status.ordinal() == productOrder.getOrderStatus()) ? "selected":"";
@@ -231,7 +234,6 @@
 		                      			<%
 		                      		}
 		                      	%>
-		                      	
 		                      </select>
 		                  </div>
 		                </div>
@@ -239,7 +241,7 @@
 		        </div>
 		        <div class="modal-footer">
 		          <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
-		          <button type="button" class="btn btn-primary"><spring:message code="label.btn.submit"/></button>
+		          <button type="button" class="btn btn-primary update_shipping_status_btn"><spring:message code="label.btn.submit"/></button>
 		        </div>
 		      </div>
 		    </div>

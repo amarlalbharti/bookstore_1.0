@@ -29,6 +29,7 @@ import com.bookstore.service.CustomerAddressService;
 import com.bookstore.service.ProductOrderService;
 import com.bookstore.service.ProductService;
 import com.bookstore.service.RegistrationService;
+import com.bookstore.util.ProductOrderUtils;
 import com.bookstore.util.Util;
 
 @Controller
@@ -109,6 +110,43 @@ public class AdminProductOrderController
 			LOGGER.error("Error in add custoemr address", e);
 		}
 		return "viewProductOrder";
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "admin/order/update/status/{transaction_id}", method = RequestMethod.POST)
+	public @ResponseBody String changeShippingStatus(@PathVariable(value="transaction_id" ) String transaction_id, ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
+	{
+		JSONObject json = new JSONObject();
+		try {
+			if(principal != null){
+				String shippingStatus = request.getParameter("shipping_status");
+				if(Validation.isNumeric(transaction_id) && ProductOrderUtils.getValidShippingStatus(shippingStatus) >= 0) {
+					Long transactionId  = Util.getLong(transaction_id);
+					if(transactionId > 0) {
+						ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
+						order.setOrderStatus(ProductOrderUtils.getValidShippingStatus(shippingStatus));
+						boolean flag = this.productOrderService.updateProductOrder(order);
+						if(flag) {
+							json.put("status", "success");
+							json.put("msg", "Order Status has been changed successfully !");
+						}
+					}
+				}else {
+					json.put("status", "failed");
+					json.put("msg", "Invalid order status !");
+				}
+			}else{
+				response.setStatus(HttpStatus.UNAUTHORIZED.value());
+				return json.toJSONString();
+			}
+			
+		}catch (Exception e) {
+			LOGGER.error("Error in add custoemr address", e);
+			json.put("status", "failed");
+			json.put("msg", "Oops something wrong !");
+		}
+		return json.toJSONString();
 	}
 	
 }

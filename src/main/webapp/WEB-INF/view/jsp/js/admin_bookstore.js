@@ -245,5 +245,37 @@ $(document).ready(function(){
 	});
 	
 	
+	jQuery.adminChangeShippingStatus = function(transaction_id, shipping_status){
+	    $.ajax({
+			type : "POST",
+			url : path+"/admin/order/update/status/"+transaction_id,
+			data : {shipping_status:shipping_status},
+			statusCode: {
+		        401: function(request, status, error) {
+		        	alertify.alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		        403: function(request, status, error) {
+		        	alertify.alert("Your session has been expired !");
+		        	$.redirectToLoginPage();
+		        },
+		    },
+			success : function(response, textStatus, xhr) {
+				var json = JSON.parse(response);
+				if(json.hasOwnProperty('status') && json.status == "success"){
+					alertify.success(json.msg);
+				}else{
+					alertify.error(json.msg);
+				}
+			}
+		});
+	};
+	
+	
+	$(document).on("click","#modal-shipping-status .update_shipping_status_btn",function() {
+		var shipping_status = $("#modal-shipping-status #shipping_status").val();
+		var transaction_id = $("#transaction_id").val();
+		$.adminChangeShippingStatus(transaction_id,shipping_status);
+	});
 	
 }); 
