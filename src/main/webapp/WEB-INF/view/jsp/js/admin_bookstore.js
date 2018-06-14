@@ -267,6 +267,7 @@ $(document).ready(function(){
 				}else{
 					alertify.error(json.msg);
 				}
+				location.reload();
 			}
 		});
 	};
@@ -274,6 +275,13 @@ $(document).ready(function(){
 	
 	$(document).on("click","#modal-shipping-status .update_shipping_status_btn",function() {
 		var shipping_status = $("#modal-shipping-status #shipping_status").val();
+		var transaction_id = $("#transaction_id").val();
+		$.adminChangeShippingStatus(transaction_id,shipping_status);
+	});
+	
+	
+	$(document).on("click","#modal-shipping-status-cancel .cancel_shipping_status_btn",function() {
+		var shipping_status = $("#modal-shipping-status-cancel #shipping_status_cancel").val();
 		var transaction_id = $("#transaction_id").val();
 		$.adminChangeShippingStatus(transaction_id,shipping_status);
 	});

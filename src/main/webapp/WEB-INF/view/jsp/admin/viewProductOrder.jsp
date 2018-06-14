@@ -60,7 +60,7 @@
                 	<button type="button" class="btn btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
                 		<spring:message code="label.product.order.status.change"/>
                 	</button>
-                	<button type="button" class="btn btn-danger btn-xm pull-right" style="margin-right: 10px">
+                	<button type="button" class="btn btn-danger btn-xm pull-right" style="margin-right: 10px" data-toggle="modal" data-target="#modal-shipping-status-cancel">
                 		<spring:message code="label.product.order.status.cancel"/>
                 	</button>
                 	
@@ -246,7 +246,25 @@
 		      </div>
 		    </div>
 		</div>
-        
+        <div class="modal fade" id="modal-shipping-status-cancel">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">&times;</span></button>
+		          <h4 class="modal-title"><spring:message code="label.product.order.status.change"/></h4>
+		        </div>
+		        <div class="modal-body">
+		        	<p>Are you sure to cancel order ?</p>
+		        </div>
+		        <div class="modal-footer">
+	        	  <input type="hidden" id="shipping_status_cancel" value="<%=OrderStatus.CANCELLED.ordinal()%>">
+		          <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
+		          <button type="button" class="btn btn-primary cancel_shipping_status_btn"><spring:message code="label.btn.submit"/></button>
+		        </div>
+		      </div>
+		    </div>
+		</div>
       </div>
 			<%
      	}
