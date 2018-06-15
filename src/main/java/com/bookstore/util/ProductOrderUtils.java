@@ -154,6 +154,40 @@ public class ProductOrderUtils
 					break;
 					
 				default:
+					ps = "label-default";
+					break;
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error in getProductOrderStatusClass(int status) >> for status :"+status, e);
+		}
+		return ps;
+	}
+	public static String getProductOrderStatusTextClass(int status) {
+		String ps = null;
+		try
+		{
+			switch (OrderStatus.values()[status])
+			{
+				case AWAITING_EXCHANGE:
+					ps = "text-warning";
+					break;
+				case COMPLETED:
+					ps = "text-success";
+					break;
+				case CANCELLED:
+					ps = "text-danger";
+					break;
+				case IN_PROGRESS:
+					ps = "text-info";
+					break;
+				case ONHOLD:
+					ps = "text-primary";
+					break;
+				case PARTIALLY_SHIPPED:
+					ps = "text-default";
+					break;
+					
+				default:
 					ps = "Pending";
 					break;
 			}
@@ -162,7 +196,6 @@ public class ProductOrderUtils
 		}
 		return ps;
 	}
-	
 	public static synchronized Long getTransactionId() {
 		Long transactionId = 0L;
 		try

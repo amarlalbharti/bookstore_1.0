@@ -1,3 +1,4 @@
+<%@page import="com.bookstore.enums.PaymentStatus"%>
 <%@page import="com.bookstore.enums.OrderStatus"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.bookstore.comparator.OrderNoteComparator"%>
@@ -34,9 +35,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
       <h1 class="pull-left">Product Order Detail</h1>
-      <div class="pull-right">
-      	<a href="${pageContext.request.contextPath}/admin/products/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a>
-      </div>
+<!--       <div class="pull-right"> -->
+<%--       	<a href="${pageContext.request.contextPath}/admin/products/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a> --%>
+<!--       </div> -->
     </section>
 
     <!-- Main content -->
@@ -57,13 +58,18 @@
               <dl class="dl-horizontal">
                 <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
                 <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %>
-                	<button type="button" class="btn btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
+                	<button type="button" class="btn btn-flat btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
                 		<spring:message code="label.product.order.status.change"/>
                 	</button>
-                	<button type="button" class="btn btn-danger btn-xm pull-right" style="margin-right: 10px" data-toggle="modal" data-target="#modal-shipping-status-cancel">
-                		<spring:message code="label.product.order.status.cancel"/>
-                	</button>
-                	
+                	<%
+                		if(productOrder.getOrderStatus() != OrderStatus.CANCELLED.ordinal()){
+                			%>
+			                	<button type="button" class="btn btn-flat btn-danger btn-xm pull-right" style="margin-right: 10px" data-toggle="modal" data-target="#modal-shipping-status-cancel">
+			                		<spring:message code="label.product.order.status.cancel"/>
+			                	</button>
+                			<%
+                		}
+                	%>
                 </dd>
                 
                 <dt>
@@ -102,7 +108,18 @@
             <div class="box-body">
               <dl class="dl-horizontal">
                 <dt><spring:message code="label.product.order.payment.status"/></dt>
-                <dd><%= ProductOrderUtils.getPaymentStatus(productOrder.getPaymentStatus())%></dd>
+                <dd>
+                	<%= ProductOrderUtils.getPaymentStatus(productOrder.getPaymentStatus())%>
+                	<%
+                		if(productOrder.getPaymentStatus() == PaymentStatus.UNPAID.ordinal()){
+                			%>
+			                	<button type="button" class="btn btn-flat btn-info btn-xm pull-right" style="margin-right: 10px" data-toggle="modal" data-target="#modal-payment-status-paid">
+			                		<spring:message code="label.product.order.payment.status.markpaid"/>
+			                	</button>
+                			<%
+                		}
+                	%>
+                </dd>
                 
                 
                 <dt><spring:message code="label.product.order.item.totalprice"/></dt>
@@ -194,7 +211,7 @@
 						         <td><%= note.getShowToCustomer()%></td>
 						         <td><%= DateUtils.clientFullformat.format(note.getCreateDate()) %></td>
 						         <td>
-						         	<a href="${pageContext.request.contextPath}/admin/product/ordernote/delete/<%= note.getOrderNoteId()%>"class="btn btn-flat btn-sm btn-primary"><i class="fa fa-fw fa-close"></i> Delete</a>
+						         	<a href="${pageContext.request.contextPath}/admin/product/ordernote/delete/<%= note.getOrderNoteId()%>"class="btn btn-flat btn-sm btn-danger"><i class="fa fa-fw fa-close"></i> Delete</a>
 						         </td>
 						       </tr>
 				   			<%
@@ -240,8 +257,8 @@
 		        	</div>
 		        </div>
 		        <div class="modal-footer">
-		          <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
-		          <button type="button" class="btn btn-primary update_shipping_status_btn"><spring:message code="label.btn.submit"/></button>
+		          <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
+		          <button type="button" class="btn btn-flat btn-primary update_shipping_status_btn"><spring:message code="label.btn.submit"/></button>
 		        </div>
 		      </div>
 		    </div>
@@ -259,8 +276,26 @@
 		        </div>
 		        <div class="modal-footer">
 	        	  <input type="hidden" id="shipping_status_cancel" value="<%=OrderStatus.CANCELLED.ordinal()%>">
-		          <button type="button" class="btn btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
-		          <button type="button" class="btn btn-primary cancel_shipping_status_btn"><spring:message code="label.btn.submit"/></button>
+		          <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
+		          <button type="button" class="btn btn-flat btn-primary cancel_shipping_status_btn"><spring:message code="label.btn.submit"/></button>
+		        </div>
+		      </div>
+		    </div>
+		</div>
+		<div class="modal fade" id="modal-payment-status-paid">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">&times;</span></button>
+		          <h4 class="modal-title"><spring:message code="label.product.order.payment.status"/></h4>
+		        </div>
+		        <div class="modal-body">
+		        	<p>Are you sure to mark payment paid ?</p>
+		        </div>
+		        <div class="modal-footer">
+	        	  <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
+		          <a href="${pageContext.request.contextPath}/admin/order/markpaid/<%= productOrder.getTransactionId() %>" class="btn btn-flat btn-primary"><spring:message code="label.btn.submit"/></a>
 		        </div>
 		      </div>
 		    </div>

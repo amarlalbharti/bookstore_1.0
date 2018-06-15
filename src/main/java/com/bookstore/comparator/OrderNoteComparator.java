@@ -11,7 +11,7 @@ public class OrderNoteComparator   implements Comparator<OrderNote>
 		if(note1 ==null || note2 == null) {
 			return 0;
 		}else {
-			return note1.getCreateDate().compareTo(note2.getCreateDate());
+			return note2.getCreateDate().compareTo(note1.getCreateDate());
 		}
 		
 	}

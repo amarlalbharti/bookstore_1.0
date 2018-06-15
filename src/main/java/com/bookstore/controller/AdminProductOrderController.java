@@ -21,11 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bookstore.config.Validation;
 import com.bookstore.domain.City;
 import com.bookstore.domain.CustomerAddress;
+import com.bookstore.domain.OrderNote;
 import com.bookstore.domain.ProductOrder;
 import com.bookstore.domain.Registration;
+import com.bookstore.enums.PaymentStatus;
 import com.bookstore.service.BasketService;
 import com.bookstore.service.CityService;
 import com.bookstore.service.CustomerAddressService;
+import com.bookstore.service.OrderNoteService;
 import com.bookstore.service.ProductOrderService;
 import com.bookstore.service.ProductService;
 import com.bookstore.service.RegistrationService;
@@ -47,6 +50,8 @@ public class AdminProductOrderController
 	private ProductOrderService productOrderService;
 	@Autowired
 	private CityService cityService; 
+	@Autowired
+	private OrderNoteService orderNoteService; 
 	
 	
 	private static final Logger LOGGER = Logger.getLogger(AdminProductOrderController.class);
@@ -125,9 +130,11 @@ public class AdminProductOrderController
 					Long transactionId  = Util.getLong(transaction_id);
 					if(transactionId > 0) {
 						ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
+						int oldStatus = order.getOrderStatus();
 						order.setOrderStatus(ProductOrderUtils.getValidShippingStatus(shippingStatus));
 						boolean flag = this.productOrderService.updateProductOrder(order);
 						if(flag) {
+							this.orderNoteService.addNoteOnChangeActivity(order, oldStatus, null);
 							json.put("status", "success");
 							json.put("msg", "Order Status has been changed successfully !");
 						}
@@ -148,5 +155,33 @@ public class AdminProductOrderController
 		}
 		return json.toJSONString();
 	}
+	
+	@RequestMapping(value = "admin/order/markpaid/{transaction_id}", method = RequestMethod.GET)
+	public String orderMarkPaid(@PathVariable(value="transaction_id" ) String transaction_id, ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
+	{
+		try {
+			if(Validation.isNumeric(transaction_id)) {
+				Long transactionId  = Util.getLong(transaction_id);
+				if(transactionId > 0) {
+					ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
+					order.setPaymentStatus(PaymentStatus.PAID.ordinal());
+					boolean flag = this.productOrderService.updateProductOrder(order);
+					if(flag) {
+						OrderNote note = new OrderNote();
+						note.setCreateDate(new Date());
+						note.setProductOrder(order);
+						note.setShowToCustomer(Boolean.FALSE);
+						note.setNote("Payment is marked as PAID.");
+						this.orderNoteService.addOrderNode(note);
+					}
+				}
+			}
+			
+		}catch (Exception e) {
+			LOGGER.error("Error in add custoemr address", e);
+		}
+		return "viewProductOrder";
+	}
+	
 	
 }

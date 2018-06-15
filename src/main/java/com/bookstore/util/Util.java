@@ -35,4 +35,6 @@ public class Util
 		}
 		return 0;
 	}
+	
+	public static String projectURL = "http://localhost:7070/bookstore/";
 }
