@@ -34,7 +34,9 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header clearfix" >
-      <h1 class="pull-left">Product Order Detail</h1>
+      <h1 class="pull-left">Product Order Detail
+      	<a href="${pageContext.request.contextPath}/admin/sales/orders"><small class="text-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to orders</small></a>
+      </h1>
 <!--       <div class="pull-right"> -->
 <%--       	<a href="${pageContext.request.contextPath}/admin/products/add" class="btn btn-flat btn-primary pull-right"><i class="fa fa-fw fa-plus-square"></i> Add New</a> --%>
 <!--       </div> -->
@@ -94,7 +96,7 @@
                 %>
                 
                 <dt><spring:message code="label.product.order.header.created"/></dt>
-                <dd><%= DateUtils.clientFullformat.format(productOrder.getCreateDate()) %> <%= productOrder.getModifyDate() %>>  </dd>
+                <dd><%= DateUtils.clientFullformat.format(productOrder.getCreateDate()) %></dd>
                 
               </dl>
             </div>
@@ -118,6 +120,13 @@
 			                	</button>
                 			<%
                 		}
+                		if(productOrder.getPaymentStatus() == PaymentStatus.PAID.ordinal()){
+	            			%>
+			                	<button type="button" class="btn btn-flat btn-info btn-xm pull-right" style="margin-right: 10px" data-toggle="modal" data-target="#modal-payment-status-refund">
+			                		<spring:message code="label.product.order.payment.status.refund"/>
+			                	</button>
+	            			<%
+	            		}
                 	%>
                 </dd>
                 
@@ -296,6 +305,24 @@
 		        <div class="modal-footer">
 	        	  <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
 		          <a href="${pageContext.request.contextPath}/admin/order/markpaid/<%= productOrder.getTransactionId() %>" class="btn btn-flat btn-primary"><spring:message code="label.btn.submit"/></a>
+		        </div>
+		      </div>
+		    </div>
+		</div>
+		<div class="modal fade" id="modal-payment-status-refund">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		            <span aria-hidden="true">&times;</span></button>
+		          <h4 class="modal-title"><spring:message code="label.product.order.payment.status"/></h4>
+		        </div>
+		        <div class="modal-body">
+		        	<p>Are you sure to mark payment refund ?</p>
+		        </div>
+		        <div class="modal-footer">
+	        	  <button type="button" class="btn btn-flat btn-default pull-left" data-dismiss="modal"><spring:message code="label.page.header.close"/></button>
+		          <a href="${pageContext.request.contextPath}/admin/order/payment/refund/<%= productOrder.getTransactionId() %>" class="btn btn-flat btn-primary"><spring:message code="label.btn.submit"/></a>
 		        </div>
 		      </div>
 		    </div>

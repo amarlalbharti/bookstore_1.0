@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.bookstore.dao.OrderNoteDao;
 import com.bookstore.domain.OrderNote;
 import com.bookstore.domain.ProductOrder;
+import com.bookstore.domain.Registration;
 import com.bookstore.enums.OrderStatus;
 import com.bookstore.util.ProductOrderUtils;
 
@@ -33,10 +34,11 @@ public class OrderNoteServiceImpl implements OrderNoteService
 		return this.orderNoteDao.updateOrderNode(orderNote);
 	}
 	
-	public Boolean addNoteOnChangeActivity(ProductOrder order, int oldStatus, String comment) {
+	public Boolean addNoteOnChangeActivity(ProductOrder order, int oldStatus, String comment, Registration reg) {
 		Boolean status = Boolean.FALSE;
 		try {
 			OrderNote orderNote = new OrderNote();
+			orderNote.setRegistration(reg);
 			orderNote.setProductOrder(order);
 			orderNote.setShowToCustomer(Boolean.FALSE);
 			orderNote.setCreateDate(new Date());

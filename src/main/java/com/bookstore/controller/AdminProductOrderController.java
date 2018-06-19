@@ -125,6 +125,7 @@ public class AdminProductOrderController
 		JSONObject json = new JSONObject();
 		try {
 			if(principal != null){
+				Registration reg = this.registrationService.getRegistrationByUserid(principal.getName());
 				String shippingStatus = request.getParameter("shipping_status");
 				if(Validation.isNumeric(transaction_id) && ProductOrderUtils.getValidShippingStatus(shippingStatus) >= 0) {
 					Long transactionId  = Util.getLong(transaction_id);
@@ -132,9 +133,10 @@ public class AdminProductOrderController
 						ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
 						int oldStatus = order.getOrderStatus();
 						order.setOrderStatus(ProductOrderUtils.getValidShippingStatus(shippingStatus));
+						order.setModifyDate(new Date());
 						boolean flag = this.productOrderService.updateProductOrder(order);
 						if(flag) {
-							this.orderNoteService.addNoteOnChangeActivity(order, oldStatus, null);
+							this.orderNoteService.addNoteOnChangeActivity(order, oldStatus, null, reg);
 							json.put("status", "success");
 							json.put("msg", "Order Status has been changed successfully !");
 						}
@@ -160,14 +162,17 @@ public class AdminProductOrderController
 	public String orderMarkPaid(@PathVariable(value="transaction_id" ) String transaction_id, ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
 	{
 		try {
-			if(Validation.isNumeric(transaction_id)) {
+			Registration reg = this.registrationService.getRegistrationByUserid(principal.getName());
+			if(Validation.isNumeric(transaction_id) && reg != null) {
 				Long transactionId  = Util.getLong(transaction_id);
 				if(transactionId > 0) {
 					ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
+					order.setModifyDate(new Date());
 					order.setPaymentStatus(PaymentStatus.PAID.ordinal());
 					boolean flag = this.productOrderService.updateProductOrder(order);
 					if(flag) {
 						OrderNote note = new OrderNote();
+						note.setRegistration(reg);
 						note.setCreateDate(new Date());
 						note.setProductOrder(order);
 						note.setShowToCustomer(Boolean.FALSE);
@@ -180,8 +185,36 @@ public class AdminProductOrderController
 		}catch (Exception e) {
 			LOGGER.error("Error in add custoemr address", e);
 		}
-		return "viewProductOrder";
+		return "redirect:/admin/order/"+transaction_id;
 	}
 	
-	
+	@RequestMapping(value = "admin/order/payment/refund/{transaction_id}", method = RequestMethod.GET)
+	public String orderMarkAsRefund(@PathVariable(value="transaction_id" ) String transaction_id, ModelMap map, HttpServletRequest request, HttpServletResponse response, Principal principal)
+	{
+		try {
+			Registration reg = this.registrationService.getRegistrationByUserid(principal.getName());
+			if(Validation.isNumeric(transaction_id) && reg != null) {
+				Long transactionId  = Util.getLong(transaction_id);
+				if(transactionId > 0) {
+					ProductOrder order = this.productOrderService.getProductOrderByTransationId(transactionId);
+					order.setModifyDate(new Date());
+					order.setPaymentStatus(PaymentStatus.REFUNDED.ordinal());
+					boolean flag = this.productOrderService.updateProductOrder(order);
+					if(flag) {
+						OrderNote note = new OrderNote();
+						note.setRegistration(reg);
+						note.setCreateDate(new Date());
+						note.setProductOrder(order);
+						note.setShowToCustomer(Boolean.FALSE);
+						note.setNote("Payment is marked as REFUNDED.");
+						this.orderNoteService.addOrderNode(note);
+					}
+				}
+			}
+			
+		}catch (Exception e) {
+			LOGGER.error("Error in add custoemr address", e);
+		}
+		return "redirect:/admin/order/"+transaction_id;
+	}
 }

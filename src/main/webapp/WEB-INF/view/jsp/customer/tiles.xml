@@ -53,6 +53,15 @@
     </definition>
     
     
+    <definition name="paymentForm" extends="indexTemplate">
+        <put-attribute name="title" value="Shopping - Payment" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/paymentForm.jsp" />
+    </definition>
+    <definition name="blank" extends="indexTemplate">
+        <put-attribute name="title" value="Shopping - Blank Page" />
+        <put-attribute name="body" value="/WEB-INF/view/jsp/customer/blank.jsp" />
+    </definition>
+    
     
     
 </tiles-definitions>

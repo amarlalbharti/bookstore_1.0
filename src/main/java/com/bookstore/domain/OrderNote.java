@@ -38,6 +38,10 @@ public class OrderNote implements Serializable
 	@JoinColumn(name="product_order_id", referencedColumnName="product_order_id")
 	private ProductOrder productOrder;
 
+	@ManyToOne
+	@JoinColumn(name="user_id", referencedColumnName="rid")
+	private Registration registration;
+	
 	public int getOrderNoteId()
 	{
 		return orderNoteId;
@@ -96,6 +100,16 @@ public class OrderNote implements Serializable
 	public void setProductOrder(ProductOrder productOrder)
 	{
 		this.productOrder = productOrder;
+	}
+
+	public Registration getRegistration()
+	{
+		return registration;
+	}
+
+	public void setRegistration(Registration registration)
+	{
+		this.registration = registration;
 	}
 	
 	
