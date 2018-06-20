@@ -28,6 +28,11 @@
 .dl-horizontal dt, .dl-horizontal dd{
 	padding: 5px;
 }
+
+.dl-horizontal dt, .dl-horizontal dt::after {
+	font-weight:bold;
+  	content: " :";
+}
 </style>
 </head>
 <body>
@@ -58,7 +63,11 @@
             </div>
             <div class="box-body">
               <dl class="dl-horizontal">
-                <dt><spring:message code="label.product.order.header.orderstatus"/></dt>
+                <dt>
+                	<span data-toggle="tooltip" data-placement="top" title="Order Status is the current status of product order.">
+                		<spring:message code="label.product.order.header.orderstatus"/>
+               		</span>
+          		</dt>
                 <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %>
                 	<button type="button" class="btn btn-flat btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
                 		<spring:message code="label.product.order.status.change"/>
@@ -204,6 +213,7 @@
 				   <tr class="bg-primary">
 				     <th><spring:message code="label.product.order.note.note"/></th>
 				     <th><spring:message code="label.product.order.note.displaytocustomer"/></th>
+				     <th><spring:message code="label.product.order.note.activityby"/></th>
 				     <th><spring:message code="label.product.order.header.created"/></th>
 				     <th><spring:message code="label.product.header.action"/></th>
 				   </tr>
@@ -218,6 +228,7 @@
 				   				<tr>
 				   				 <td style="text-align: left;"><%= note.getNote()%></td>
 						         <td><%= note.getShowToCustomer()%></td>
+						         <td><%= CustomerUtils.getCustomerName(note.getRegistration())%></td>
 						         <td><%= DateUtils.clientFullformat.format(note.getCreateDate()) %></td>
 						         <td>
 						         	<a href="${pageContext.request.contextPath}/admin/product/ordernote/delete/<%= note.getOrderNoteId()%>"class="btn btn-flat btn-sm btn-danger"><i class="fa fa-fw fa-close"></i> Delete</a>
