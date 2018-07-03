@@ -85,7 +85,7 @@ public class ProductOrderUtils
 			switch (PaymentStatus.values()[paymentStatus])
 			{
 				case UNPAID:
-					ps = "Unpaid";
+					ps = "Pending";
 					break;
 				case PARTIALLY_PAID:
 					ps = "Partially Paid";

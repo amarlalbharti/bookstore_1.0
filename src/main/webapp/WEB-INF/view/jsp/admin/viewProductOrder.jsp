@@ -69,12 +69,13 @@
                		</span>
           		</dt>
                 <dd><%= ProductOrderUtils.getProductOrderStatus(productOrder.getOrderStatus()) %>
-                	<button type="button" class="btn btn-flat btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
-                		<spring:message code="label.product.order.status.change"/>
-                	</button>
+                	
                 	<%
                 		if(productOrder.getOrderStatus() != OrderStatus.CANCELLED.ordinal()){
-                			%>
+                			%>	
+                				<button type="button" class="btn btn-flat btn-xm btn-primary pull-right" data-toggle="modal" data-target="#modal-shipping-status">
+			                		<spring:message code="label.product.order.status.change"/>
+			                	</button>
 			                	<button type="button" class="btn btn-flat btn-danger btn-xm pull-right" style="margin-right: 10px" data-toggle="modal" data-target="#modal-shipping-status-cancel">
 			                		<spring:message code="label.product.order.status.cancel"/>
 			                	</button>
@@ -85,7 +86,7 @@
                 
                 <dt>
                 	<spring:message code="label.product.order.header.order"/>
-                	<input type="hidden" id="transaction_id" value="<%= productOrder.getTransactionId() %>">s
+                	<input type="hidden" id="transaction_id" value="<%= productOrder.getTransactionId() %>">
                 </dt>
                 <dd><%= productOrder.getTransactionId() %></dd>
                 

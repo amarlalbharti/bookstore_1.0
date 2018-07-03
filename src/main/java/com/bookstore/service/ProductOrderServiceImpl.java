@@ -72,7 +72,7 @@ public class ProductOrderServiceImpl implements ProductOrderService
 					jsonOrder.put("transaction_id", order.getTransactionId());
 					jsonOrder.put("order_status", ProductOrderUtils.getProductOrderStatus(order.getOrderStatus()));
 					jsonOrder.put("order_status_label", ProductOrderUtils.getProductOrderStatusClass(order.getOrderStatus()));
-					jsonOrder.put("payment_status", "Pending");
+					jsonOrder.put("payment_status", ProductOrderUtils.getPaymentStatus(order.getPaymentStatus()));
 					jsonOrder.put("customer", CustomerUtils.getCustomerNameWithEmail(order.getRegistration()));
 					jsonOrder.put("store", "");
 					jsonOrder.put("create_date", DateUtils.fullFormat.format(order.getCreateDate()));

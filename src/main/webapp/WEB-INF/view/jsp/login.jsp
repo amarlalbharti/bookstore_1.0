@@ -114,13 +114,11 @@ html
 <!-- Bootstrap 3.3.6 -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script>
-$(document).ready(function(){
- 
-});
 
 $(document).ready(function(){
 	$('.bodyCoverWait').hide();
 });
+
 </script>
 </body>
 </html>
