@@ -1,3 +1,6 @@
+<%@page import="com.bookstore.enums.PaymentStatus"%>
+<%@page import="com.bookstore.util.ProductOrderUtils"%>
+<%@page import="com.bookstore.enums.OrderStatus"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -26,13 +29,101 @@
     </section>
 
     <!-- Main content -->
-    <section class="content" style="min-height: 530px;">
-      
+    <section class="content order_search" style="min-height: 530px;">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-info">
+            <!-- form start -->
+            <form class="form-horizontal search_form">
+              <div class="box-body">
+              	 <div class="col-md-6">
+              	 	<div class="form-group">
+	                  <label for="startdate" class="col-sm-3 control-label"><spring:message code="label.search.startdate"/></label>
+	                  <div class="col-sm-9">
+	                    <div class="input-group date">
+		                  <input type="text" class="form-control pull-right datepicker" id="search_start_date">
+		                  <div class="input-group-addon">
+		                    <i class="fa fa-calendar"></i>
+		                  </div>
+		                </div>
+	                  </div>
+	                </div>
+	                <div class="form-group">
+	                  <label for="enddate" class="col-sm-3 control-label"><spring:message code="label.search.enddate"/></label>
+	                  <div class="col-sm-9">
+	                    <div class="input-group date">
+		                  <input type="text" class="form-control pull-right datepicker" id="search_end_date">
+		                  <div class="input-group-addon">
+		                    <i class="fa fa-calendar"></i>
+		                  </div>
+		                </div>
+	                  </div>
+	                </div>
+              	 </div>
+              	 <div class="col-md-6">
+              	 	<div class="form-group">
+	                  <label for="orderstatus" class="col-sm-3 control-label">
+	                  	<spring:message code="label.product.order.header.orderstatus"/>
+	               	  </label>
+	                  <div class="col-sm-9">
+	                    <select class="form-control select2" multiple="multiple" id="search_order_status">
+		                    <option value="-1" selected="selected"><spring:message code="label.all"/></option>
+		                    <%
+		                    	for(OrderStatus orderStatus : OrderStatus.values()){
+		                    		%>
+		                    			<option value="<%= orderStatus.ordinal()%>"><%= ProductOrderUtils.getProductOrderStatus(orderStatus.ordinal())%></option>
+		                    		<%
+		                    	}
+		                    %>
+	                    </select>
+	                  </div>
+	                </div>
+	                <div class="form-group">
+	                  <label for="paymentstatus" class="col-sm-3 control-label">
+	                  	<spring:message code="label.product.order.header.paymentstatus"/>
+	               	  </label>
+	                  <div class="col-sm-9">
+	                    <select class="form-control select2" multiple="multiple" id="search_payment_status">
+		                    <option value="-1" selected="selected"><spring:message code="label.all"/></option>
+		                    <%
+		                    	for(PaymentStatus paymentStatus : PaymentStatus.values()){
+		                    		%>
+		                    			<option value="<%= paymentStatus.ordinal()%>"><%= ProductOrderUtils.getPaymentStatus(paymentStatus.ordinal())%></option>
+		                    		<%
+		                    	}
+		                    %>
+	                    </select>
+	                  </div>
+	                </div>
+	                <div class="form-group">
+	                  <label for="enddate" class="col-sm-3 control-label"><spring:message code="label.search.goto"/> #</label>
+	                  <div class="col-sm-9">
+	                    <div class="input-group input-group-sm">
+			            <input class="form-control" type="text">
+		                    <span class="input-group-btn">
+		                      <button type="button" class="btn btn-info btn-flat"><spring:message code="label.go"/>!</button>
+		                    </span>
+			            </div>
+	                  </div>
+	                </div>
+              	 </div>
+                
+              </div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="button" class="btn btn-default"><spring:message code="label.reset"/></button>
+                <button type="button" id="btn_search_order" class="btn btn-primary pull-right"><i class="fa fa-search"></i>  <spring:message code="label.datatable.search"/></button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+          </div>
+        </div>
+      </div>
       <!-- Main row -->
       <div class="row">
         <div class="col-md-12">
           <!-- Horizontal Form -->
-          <div class="box box-info orders">
+          <div class="box box-primary orders">
             <div class="box-body" id="orders_list">
 				<div class="row">
 					<div class="col-sm-6">
@@ -106,28 +197,33 @@
 
 <script type="text/javascript">
  $(document).ready(function(){
-	 
-	 $.getProductOrdersList();
-	 
 	
-	$(document).on("change","#products_rpp",function() {
-		var rpp = $("#products_rpp").val();
-// 		getproductslist(1, rpp);
+	 $.getProductOrdersList();
+    
+	
+	$('.datepicker').datepicker({
+      autoclose: true
+    })
+	 $('.select2').select2();
+	
+	$(document).on("change","#search_order_status",function() {
+		var status = $(this).val();
+		if (status == null ) {
+			$('#search_order_status').val("-1").trigger('change');
+		}else {
+			if(status.length > 1 && status.indexOf("-1") > -1){
+				console.log("all & others ");
+				$('#search_order_status').val(status.slice(1)).trigger('change');
+			}
+		}
 	});
 	
+
+	$(document).on("change","#orders_rpp",function() {
+		var rpp = $("#orders_list #orders_rpp").val();
+		$.getProductOrdersList(1, rpp);
+	});
 	
-	
-	
-	function getproductslist(pn, rpp){
-		$.ajax({
-			type : "GET",
-			url : "${pageContext.request.contextPath}/admin/products/list/"+pn,
-			data : {"rpp":rpp},
-			success : function(response) {
-				 $("#products_list").html(response);
-			}
-		});
-	}
 });
 </script>
   

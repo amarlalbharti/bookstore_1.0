@@ -149,11 +149,11 @@ $(document).ready(function(){
 	
 	
 	
-	jQuery.getProductOrdersList = function(pn, rpp){
+	jQuery.getProductOrdersList = function(pn, rpp, filter_data){
 		$.ajax({
 			type : "GET",
 			url : path+"/admin/sales/orders/list",
-			data : {pn:pn, rpp:rpp},
+			data : {pn:pn, rpp:rpp, filter_data:filter_data},
 			statusCode: {
 		        401: function(request, status, error) {
 		        	alertify.alert("Your session has been expired !");
@@ -215,7 +215,7 @@ $(document).ready(function(){
 				          row.append(create_date);
 				          var total_order = $("<td />").html(obj.total_order);
 				          row.append(total_order);
-				          var actions = $("<td />").html("<a class='btn btn-xs btn-primary' href='"+path+"/admin/order/"+obj.transaction_id+"'>View </a>");
+				          var actions = $("<td />").html("<a class='btn btn-xs btn-flat btn-primary' href='"+path+"/admin/order/"+obj.transaction_id+"'>View </a>");
 				          row.append(actions);
 				          
 				          table.append(row);
@@ -243,6 +243,21 @@ $(document).ready(function(){
 		var rpp = $("#orders_list #orders_rpp").val();
 		$.getProductOrdersList(pn, rpp);
 	});
+	$(document).on("change",".orders #orders_rpp",function() {
+		var rpp = $("#orders_list #orders_rpp").val();
+		$.getProductOrdersList(1, rpp);
+	});
+	
+	
+	$(document).on("click", ".order_search #btn_search_order", function() {
+		var start_date= $(".order_search .search_form #search_start_date").val();
+		var end_date= $(".order_search .search_form #search_end_date").val();
+		var order_status= $(".order_search .search_form #search_order_status").val();
+		var payment_status= $(".order_search .search_form #search_payment_status").val();
+		alert(payment_status);
+	});
+	
+	
 	
 	
 	jQuery.adminChangeShippingStatus = function(transaction_id, shipping_status){
