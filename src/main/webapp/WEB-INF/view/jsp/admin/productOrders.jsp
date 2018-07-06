@@ -198,24 +198,52 @@
 <script type="text/javascript">
  $(document).ready(function(){
 	
-	 $.getProductOrdersList();
+	$.getProductOrdersList();
     
 	
 	$('.datepicker').datepicker({
       autoclose: true
     })
-	 $('.select2').select2();
+    
+	$('.select2').select2();
 	
-	$(document).on("change","#search_order_status",function() {
+	var last_order_status = $('.order_search #search_order_status').val();
+	
+	$(document).on("change",".order_search #search_order_status",function() {
 		var status = $(this).val();
+		if(last_order_status == null){
+			last_order_status = [];
+		}
 		if (status == null ) {
-			$('#search_order_status').val("-1").trigger('change');
+			$('.order_search #search_order_status').val("-1").trigger('change');
 		}else {
-			if(status.length > 1 && status.indexOf("-1") > -1){
-				console.log("all & others ");
-				$('#search_order_status').val(status.slice(1)).trigger('change');
+			if(status.length > 0 && last_order_status.indexOf("-1") == -1 && status.indexOf("-1") > -1){
+				last_order_status = ["-1"];
+				$('.order_search #search_order_status').val("-1").trigger('change');
+			}else if(status.length > 1 && status.indexOf("-1") > -1){
+				$('.order_search #search_order_status').val(status.slice(1)).trigger('change');
 			}
 		}
+		last_order_status = status;
+	});
+	
+	var last_payment_status = $('.order_search #search_payment_status').val();
+	$(document).on("change",".order_search #search_payment_status",function() {
+		var status = $(this).val();
+		if(last_payment_status == null){
+			last_payment_status = [];
+		}
+		if (status == null ) {
+			$('.order_search #search_payment_status').val("-1").trigger('change');
+		}else {
+			if(status.length > 0 && last_payment_status.indexOf("-1") == -1 && status.indexOf("-1") > -1){
+				last_payment_status = ["-1"];
+				$('.order_search #search_payment_status').val("-1").trigger('change');
+			}else if(status.length > 1 && status.indexOf("-1") > -1){
+				$('.order_search #search_payment_status').val(status.slice(1)).trigger('change');
+			}
+		}
+		last_payment_status = status;
 	});
 	
 
