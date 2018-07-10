@@ -37,7 +37,7 @@ public class OrderItem
 	@JoinColumn(name="product_id", referencedColumnName="pid")
 	private Product product;
 	
-	@ManyToOne(cascade=CascadeType.ALL) 
+	@ManyToOne() 
 	@JoinColumn(name="product_order_id", referencedColumnName="product_order_id")
 	private ProductOrder productOrder;
 

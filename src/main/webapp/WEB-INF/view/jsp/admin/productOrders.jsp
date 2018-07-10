@@ -41,7 +41,7 @@
 	                  <label for="startdate" class="col-sm-3 control-label"><spring:message code="label.search.startdate"/></label>
 	                  <div class="col-sm-9">
 	                    <div class="input-group date">
-		                  <input type="text" class="form-control pull-right datepicker" id="search_start_date">
+		                  <input type="text" class="form-control pull-right" id="search_start_date">
 		                  <div class="input-group-addon">
 		                    <i class="fa fa-calendar"></i>
 		                  </div>
@@ -52,7 +52,7 @@
 	                  <label for="enddate" class="col-sm-3 control-label"><spring:message code="label.search.enddate"/></label>
 	                  <div class="col-sm-9">
 	                    <div class="input-group date">
-		                  <input type="text" class="form-control pull-right datepicker" id="search_end_date">
+		                  <input type="text" class="form-control pull-right" id="search_end_date">
 		                  <div class="input-group-addon">
 		                    <i class="fa fa-calendar"></i>
 		                  </div>
@@ -201,8 +201,9 @@
 	$.getProductOrdersList();
     
 	
-	$('.datepicker').datepicker({
-      autoclose: true
+	$('#search_start_date, #search_end_date').datepicker({
+      autoclose: true,
+      format: 'dd-mm-yyyy'
     })
     
 	$('.select2').select2();

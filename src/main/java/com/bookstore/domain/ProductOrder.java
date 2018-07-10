@@ -64,7 +64,7 @@ public class ProductOrder implements Serializable
 	@JoinColumn(name="user_id", referencedColumnName="rid")
 	private Registration registration;
 	
-	@OneToMany(mappedBy="productOrder", fetch=FetchType.LAZY) 
+	@OneToMany(mappedBy="productOrder", fetch=FetchType.LAZY, cascade = CascadeType.ALL) 
 	private Set<OrderItem> orderItems = new HashSet();
 
 	@OneToMany(mappedBy="productOrder", fetch=FetchType.LAZY) 
