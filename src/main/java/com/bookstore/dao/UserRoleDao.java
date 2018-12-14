@@ -8,4 +8,7 @@ public interface UserRoleDao {
 	
 	public List<UserRole> getUserRolesByUserid(String userid);
 	
+	
+	public boolean deleteUserRoles(UserRole role);
+	
 }

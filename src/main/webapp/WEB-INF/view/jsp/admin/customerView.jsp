@@ -200,12 +200,12 @@
 				                  <label for="roles" class="col-sm-3 control-label"><spring:message code="label.customers.roles"/></label>
 				                  <div class="col-sm-9">
 				                      <form:select path="roles" class="form-control select2" multiple="multiple"  tabindex="15" >
-				                      	<form:option value="ROLE_USER"><spring:message code="label.customers.role.user"/></form:option>
+				                      	<form:option value="ROLE_REGISTERED"><spring:message code="label.customers.role.registered"/></form:option>
 				                      	<form:option value="ROLE_MANAGER"><spring:message code="label.customers.role.manager"/></form:option>
 				                      	<form:option value="ROLE_ADMIN"><spring:message code="label.customers.role.admin"/></form:option>
 				                      	
 				                      </form:select>
-					                  <span class="text-danger"><form:errors path="dob" /></span>
+					                  <span class="text-danger"><form:errors path="roles" /></span>
 				                  </div>
 				                </div>
 				            </div>

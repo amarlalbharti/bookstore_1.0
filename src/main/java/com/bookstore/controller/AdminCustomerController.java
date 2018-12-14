@@ -41,6 +41,7 @@ import com.bookstore.model.CustomerModel;
 import com.bookstore.model.ProductModel;
 import com.bookstore.service.LoginInfoService;
 import com.bookstore.service.RegistrationService;
+import com.bookstore.service.UserRoleService;
 import com.bookstore.util.DateUtils;
 import com.bookstore.util.Util;
 
@@ -56,6 +57,8 @@ public class AdminCustomerController
 	private RegistrationService registrationService; 
 	@Autowired 
 	private LoginInfoService loginInfoService; 
+	@Autowired 
+	private UserRoleService userRoleService; 
 	
 	@Autowired
 	private SessionRegistry sessionRegistry;
@@ -141,9 +144,10 @@ public class AdminCustomerController
 						reg.setGender(model.getGender());
 						reg.setDob(DateUtils.df.parse(model.getDob()));
 						reg.setModifyDate(new Date());
-						
+						List<UserRole> roleList = new ArrayList<UserRole>(reg.getLoginInfo().getRoles());
 						if(model.getRoles() != null){
 							UserRole ur = null;
+							reg.getLoginInfo().getRoles().clear();
 							for(String role : model.getRoles()){
 								ur = new UserRole();
 								ur.setLoginInfo(reg.getLoginInfo());
@@ -159,8 +163,9 @@ public class AdminCustomerController
 							}
 						}
 						reg.getLoginInfo().setRegistration(reg);
+						this.registrationService.updateRegistration(reg);
 						loginInfoService.updateLoginInfo(reg.getLoginInfo());
-						
+						userRoleService.deleteUserRole(roleList);
 						if(submit != null && submit.equals("continue")) {
 							return "redirect:/admin/customers/edit/" + reg.getRid();
 						}
@@ -208,7 +213,6 @@ public class AdminCustomerController
 					
 					reg.setCreateDate(new Date());
 					reg.setModifyDate(new Date());
-//					int rid = registrationService.addRegistration(reg);
 					info.setRegistration(reg);
 					loginInfoService.addLoginInfo(info);
 					

@@ -20,5 +20,10 @@ public class UserRoleDaoImpl implements UserRoleDao {
 		return this.sessionFactory.getCurrentSession().createCriteria(UserRole.class)
 				.add(Restrictions.eq("log.userid", userid)).list();
 	}
+	
+	public boolean deleteUserRoles(UserRole role) {
+		this.sessionFactory.getCurrentSession().delete(role);
+		return true;
+	}
 
 }

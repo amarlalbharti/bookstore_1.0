@@ -73,7 +73,10 @@ public class AdminAttributeController
 				attribute.setActive(model.isActive());
 				attribute.setCreateDate(new Date());
 				attribute.setModifyDate(new Date());
-				attributeService.addAttribute(attribute);
+				int aid = attributeService.addAttribute(attribute);
+				if(request.getParameter("submit") != null && request.getParameter("submit").equals("continue")) {
+					return "redirect:/admin/attributes/edit/"+aid;
+				}
 			}else {
 				Attribute attribute = attributeService.getAttributeByAttributeId(model.getAttributeId());
 				attribute.setAttributeName(model.getAttributeName());
@@ -81,7 +84,11 @@ public class AdminAttributeController
 				attribute.setCreateDate(new Date());
 				attribute.setModifyDate(new Date());
 				attributeService.updateAttribute(attribute);
+				if(request.getParameter("submit") != null && request.getParameter("submit").equals("continue")) {
+					return "redirect:/admin/attributes/edit/"+model.getAttributeId();
+				}
 			}
+			
 		}
 		return "redirect:/admin/attributes";
 	}

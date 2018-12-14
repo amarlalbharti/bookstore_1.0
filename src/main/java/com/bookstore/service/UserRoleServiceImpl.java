@@ -19,5 +19,19 @@ public class UserRoleServiceImpl implements UserRoleService {
 	public List<UserRole> getUserRolesByUserid(String userid) {
 		return userRoleDao.getUserRolesByUserid(userid);
 	}
+	
+	public boolean deleteUserRole(UserRole role) {
+		return this.userRoleDao.deleteUserRoles(role);
+	}
+	
+	public boolean deleteUserRole(List<UserRole> roles) {
+		if(roles != null && !roles.isEmpty()) {
+			for(UserRole role : roles) {
+				this.deleteUserRole(role);
+			}
+		}
+		return true;
+	}
+	
 
 }

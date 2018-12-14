@@ -91,7 +91,7 @@ public class AdminDashboardController
 			String sales = request.getParameter("tab");
 			
 			JSONArray finalArray = new JSONArray();
-			
+			Thread.sleep(10000);
 			if(sales != null && sales.equals("MONTH")) {
 				
 				Random r = new Random();

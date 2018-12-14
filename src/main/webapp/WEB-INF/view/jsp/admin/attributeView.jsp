@@ -1,8 +1,8 @@
 <%@page import="com.bookstore.model.AttributeModel"%>
 <%@page import="com.bookstore.domain.Category"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
     
@@ -69,7 +69,14 @@
 			              </div>
 			              <div class="box-footer">
 			                <a href="${pageContext.request.contextPath}/admin/attributes"><button type="button" class="btn btn-default">Cancel</button></a>
-			                <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-floppy-o"></i>&nbsp;&nbsp;Save</button>
+			                <div class="btn-group  pull-right" style="padding-left: 10px;">
+			                	<button type="submit" class="btn btn-primary" name="submit" value="continue"><i class="fa fa-floppy-o"></i>&nbsp;<spring:message code="label.continue"/></button>
+			                </div>
+			                <div class="btn-group  pull-right">
+			                	<button type="submit" class="btn btn-primary" name="submit" value="save"><i class="fa fa-floppy-o"></i>&nbsp;<spring:message code="label.save"/></button>
+			                </div>
+			                
+			                
 			              </div>
 			              </form:form>
 			          </div>
@@ -114,11 +121,9 @@ $(document).ready(function(){
 			url : "${pageContext.request.contextPath}/admin/getAttributeValues",
 			data : {"attributeId" : attributeId},
 			success : function(data) {
-					$("#attribute_values").html(data);        
+					$("#attribute_values").html(data);
 			}
-			
 		});
-		
 	}
 	// added by Amar, add or update attrbute value
 	$(document).on("click","#save_attribute_value",function() {
@@ -141,7 +146,7 @@ $(document).ready(function(){
 	 	senddata.append("displayOrder", display_order);
 	 	
 		$.ajax({
-	 		  url: "${pageContext.request.contextPath}/saveAttributeValue",
+	 		  url: "${pageContext.request.contextPath}/admin/saveAttributeValue",
 	 		  type: "POST",
 	 		  async: "false",
 	 		  data: senddata,
