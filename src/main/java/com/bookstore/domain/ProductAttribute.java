@@ -41,9 +41,11 @@ public class ProductAttribute
 	private Date createDate;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "attribute_value_id", referencedColumnName = "attribute_value_id")
 	private AttributeValue attributeValue;
 	
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "attribute_id", referencedColumnName = "attribute_id")
 	private Attribute attribute;
 	
 	@ManyToOne 

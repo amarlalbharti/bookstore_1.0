@@ -148,8 +148,8 @@ public class Registration implements Serializable
 		this.profileImage = profileImage;
 	}
 	
-	@OneToOne(fetch = FetchType.LAZY) 
-    @JoinColumn(name="userid" , referencedColumnName="userid") 
+	@OneToOne(fetch = FetchType.EAGER) 
+    @JoinColumn(name="lid" , referencedColumnName="lid") 
 	public LoginInfo getLoginInfo() {
 		return loginInfo;
 	}

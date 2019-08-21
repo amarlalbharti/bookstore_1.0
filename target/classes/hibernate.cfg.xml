@@ -25,8 +25,8 @@
 		<mapping class="com.bookstore.domain.Country"/>
 		<mapping class="com.bookstore.domain.State"/>
 		<mapping class="com.bookstore.domain.City"/>
+		<mapping class="com.bookstore.domain.OrderNote"/>
 		
 		
     </session-factory>
-    
 </hibernate-configuration>

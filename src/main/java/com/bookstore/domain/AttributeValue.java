@@ -41,8 +41,8 @@ public class AttributeValue
 	@JoinColumn(name="attribute_id")
 	private Attribute attribute;
 	
-	@ManyToMany(mappedBy="attributeValues", fetch = FetchType.LAZY)
-	private Set<Attribute> products = new HashSet();
+	@ManyToMany(mappedBy="attributeValue", fetch = FetchType.LAZY)
+	private Set<ProductAttribute> productAttributes = new HashSet();
 
 	public int getAttributeValueId()
 	{
@@ -104,15 +104,16 @@ public class AttributeValue
 		this.attribute = attribute;
 	}
 
-	public Set<Attribute> getProducts()
+	public Set<ProductAttribute> getProductAttributes()
 	{
-		return products;
+		return productAttributes;
 	}
 
-	public void setProducts(Set<Attribute> products)
+	public void setProductAttributes(Set<ProductAttribute> productAttributes)
 	{
-		this.products = products;
+		this.productAttributes = productAttributes;
 	}
+
 	
 	
 	
